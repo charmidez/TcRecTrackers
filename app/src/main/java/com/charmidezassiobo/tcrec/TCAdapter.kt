@@ -61,9 +61,12 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                 //Toast.makeText(itemView.getContext(), "Toast message $step", Toast.LENGTH_SHORT).show()
                 if (step<4){
                     step=step+1
-                    stepView.go(step, false);
+                    stepView.go(step,false)
+
+                } else if (step == 4){
                     stepView.done(true)
-                } else Toast.makeText(itemView.getContext(), "Voyage terminé", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.getContext(), "Voyage terminé", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
