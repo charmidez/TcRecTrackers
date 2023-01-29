@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_suivietc">
+
+    <fragment
+        android:id="@+id/navigation_suivietc"
+        android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcFragment"
+        android:label="@string/menu_list"
+        android:fontFamily="@font/source_sans_pro_bold"
+        tools:layout="@layout/fragment_suivietc" />
+
+    <fragment
+        android:id="@+id/navigation_ajoutertc"
+        android:name="com.charmidezassiobo.tcrec.ui.ajoutertc.AjoutertcFragment"
+        android:label="@string/menu_ajout"
+        android:fontFamily="@font/source_sans_pro_bold"
+        tools:layout="@layout/fragment_ajoutertc" />
+
+    <fragment
+        android:id="@+id/navigation_reglages"
+        android:name="com.charmidezassiobo.tcrec.ui.reglages.ReglagesFragment"
+        android:label="@string/menu_setting"
+        android:fontFamily="@font/source_sans_pro_bold"
+        tools:layout="@layout/fragment_reglages" />
+</navigation>
