@@ -32,12 +32,15 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
     class TCViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
          var  numtc : TextView
          var numcamion : TextView
+         var datetc : TextView
          var stepView : StepView
          var btnSuivant : Button
 
         init {
             numtc = itemView.findViewById(R.id.textViewTCNum_item)
             numcamion  = itemView.findViewById(R.id.textViewCamionNum_item)
+            datetc = itemView.findViewById(R.id.date_item)
+
             stepView = itemView.findViewById(R.id.step_view_item)
             btnSuivant = itemView.findViewById(R.id.button_suivant_item)
         }
@@ -45,6 +48,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
         fun bindTC(tc : Tc){
             numtc.text = tc.num_TC
             numcamion.text = tc.num_Camion
+            datetc.text = tc.date_tc
         }
 
         @SuppressLint("ResourceType")

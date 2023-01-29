@@ -12,6 +12,8 @@ import com.charmidezassiobo.tcrec.TCAdapter
 import com.charmidezassiobo.tcrec.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
 import com.shuhart.stepview.StepView
+import java.time.LocalDate
+import java.util.*
 
 class SuivietcFragment : Fragment() {
 
@@ -33,14 +35,24 @@ class SuivietcFragment : Fragment() {
 
         val recyclerView_TC : RecyclerView = binding.recyclerViewSuivieTc
 
+        fun recupDate() : String{
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+             val date = "$day/${month + 1}/$year"
+
+            return date
+        }
+
         val items_tc = listOf(
 
-            Tc ( "MEDU1807661 20 DV", "TG-2253-AX"),
-            Tc ( "MSDU2941187 20 DV", "TG-2835-X"),
-            Tc ( "MSCU6870920 20 DV", "TG-6525-AI"),
-            Tc ( "GLDU3457516 20 DV", "TG-2253-AX"),
-            Tc ( "MSDU1807661 20 DV", "TG-0053-AM"),
-            Tc ( "MSMU1805660 20 DV", "TG-2113-AP")
+            Tc ( "MEDU1807661 20 DV", "TG-2253-AX","MEDU1807661 20 DV","1208",recupDate()),
+            Tc ( "MSDU2941187 20 DV", "TG-2835-X","MEDU1807661 20 DV","1208",recupDate()),
+            Tc ( "MSCU6870920 20 DV", "TG-6525-AI","MEDU1807661 20 DV","1208",recupDate()),
+            Tc ( "GLDU3457516 20 DV", "TG-2253-AX","MEDU1807661 20 DV","1208",recupDate()),
+            Tc ( "MSDU1807661 20 DV", "TG-0053-AM","MEDU1807661 20 DV","1208",recupDate()),
+            Tc ( "MSMU1805660 20 DV", "TG-2113-AP","MEDU1807661 20 DV","1208",recupDate())
 
         )
 
