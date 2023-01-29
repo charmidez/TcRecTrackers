@@ -58,7 +58,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
         var step : Int = 0
         fun clickSuivant(){
             btnSuivant.setOnClickListener {
-                //Toast.makeText(itemView.getContext(), "Toast message $step", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.getContext(), "Toast message $step", Toast.LENGTH_SHORT).show()
                 if (step<4){
                     step=step+1
                     stepView.go(step,false)
