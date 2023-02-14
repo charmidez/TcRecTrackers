@@ -24,8 +24,6 @@ class ReglagesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val reglagesViewModel =
-            ViewModelProvider(this).get(ReglagesViewModel::class.java)
 
         _binding = FragmentReglagesBinding.inflate(inflater, container, false)
         val root: View = binding.root

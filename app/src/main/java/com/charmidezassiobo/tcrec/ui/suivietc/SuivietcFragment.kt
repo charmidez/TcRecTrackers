@@ -1,18 +1,19 @@
 package com.charmidezassiobo.tcrec.ui.suivietc
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.TCAdapter
-import com.charmidezassiobo.tcrec.Tc
+import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
-import com.shuhart.stepview.StepView
-import java.time.LocalDate
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class SuivietcFragment : Fragment() {
@@ -22,18 +23,32 @@ class SuivietcFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    val db = Firebase.firestore
+    val voyRef = db.collection("Voyage")
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val suivietcViewModel =
-            ViewModelProvider(this).get(SuivietcViewModel::class.java)
 
         _binding = FragmentSuivietcBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val recyclerView_TC : RecyclerView = binding.recyclerViewSuivieTc
+
+        //Récupération des données sur le net.
+        voyRef.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+
 
         fun recupDate() : String{
             val calendar = Calendar.getInstance()

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +8,15 @@
     android:padding="@dimen/all_padding"
     tools:context=".ui.ajoutertc.AjoutertcFragment">
 
+    <!-- Titre -->
     <TextView
         android:id="@+id/titreajouter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/all_padding"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:text="Ajout de TC ( Conteneur)"
         android:background="@drawable/rounded_white_background"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:padding="@dimen/all_padding"
+        android:text="Ajout de TC ( Conteneur)"
         android:textColor="@color/white"
         android:textSize="26dp"
 
@@ -28,23 +30,23 @@
         android:id="@+id/textFieldBookingNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/num_booking"
         app:boxBackgroundColor="@color/gray"
         app:hintTextColor="@color/black"
-        android:layout_marginTop="@dimen/all_margin"
-        app:startIconDrawable="@drawable/ic_bk"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titreajouter"
+        app:startIconDrawable="@drawable/ic_bk"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputBookingNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:inputType="textCapCharacters"
             android:background="@drawable/rounded_editable_text"
+            android:inputType="textCapCharacters"
+            android:textAllCaps="true"
             android:textColor="@color/blue" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,14 +56,14 @@
         android:id="@+id/textFieldTcNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/num_tc_off"
-        app:startIconDrawable="@drawable/ic_tc"
         app:boxBackgroundColor="@color/gray"
         app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/all_margin"
         app:layout_constraintTop_toBottomOf="@+id/textFieldBookingNum"
+        app:startIconDrawable="@drawable/ic_tc"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -69,8 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_editable_text"
-            android:textAllCaps="true"
             android:inputType="textCapCharacters"
+            android:textAllCaps="true"
             android:textColor="@color/blue" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,14 +82,14 @@
         android:id="@+id/textFieldCamionNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/num_camion"
         app:boxBackgroundColor="@color/gray"
         app:hintTextColor="@color/black"
-        app:startIconDrawable="@drawable/ic_cam"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/all_margin"
         app:layout_constraintTop_toBottomOf="@+id/textFieldTcNum"
+        app:startIconDrawable="@drawable/ic_cam"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -95,8 +97,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_editable_text"
-            android:textAllCaps="true"
             android:inputType="textCapCharacters"
+            android:textAllCaps="true"
+            android:textColor="@color/blue" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Desc Tc -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldTcDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
+        android:hint="@string/tc_desc"
+        app:boxBackgroundColor="@color/gray"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCamionNum"
+        app:startIconDrawable="@drawable/txt"
+        tools:ignore="MissingConstraints">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_editable_text"
+            android:inputType="textCapCharacters"
+            android:textAllCaps="true"
             android:textColor="@color/blue" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -105,15 +132,15 @@
         android:id="@+id/ajouteTcButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_view"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:text="@string/but_addtc"
+        android:textColor="@color/white"
         android:layout_marginTop="@dimen/all_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        android:backgroundTint="@color/blue"
-        android:background="@drawable/rounded_corner_view"
-        android:textColor="@color/white"
-        android:text="@string/but_addtc"
-        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldCamionNum" />
+        app:layout_constraintTop_toBottomOf="@+id/textFieldTcDesc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

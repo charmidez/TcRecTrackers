@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec
+package com.charmidezassiobo.tcrec.data
 
 import java.sql.Time
 import java.util.*

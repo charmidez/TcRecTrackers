@@ -18,4 +18,5 @@
     <string name="developper">Charmidez Assiobo</string>
     <string name="change_language_english">Choose English Language</string>
     <string name="change_language">Langue</string>
+    <string name="tc_desc">Description du TC</string>
 </resources>

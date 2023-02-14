@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "946097609163",
+    "project_id": "tc-rec-trackers",
+    "storage_bucket": "tc-rec-trackers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946097609163:android:289be9ff2f76cd9916be4e",
+        "android_client_info": {
+          "package_name": "com.charmidezassiobo.tcrec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946097609163-fqu8g6nqrvncl5rjqcm4051ctshbp3hc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4M_05v5LzF6-BIY7lVl-EhUe2A5o5tJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946097609163-fqu8g6nqrvncl5rjqcm4051ctshbp3hc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
