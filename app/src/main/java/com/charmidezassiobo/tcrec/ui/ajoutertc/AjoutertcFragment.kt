@@ -40,7 +40,7 @@ class AjoutertcFragment : Fragment() {
 
        //Numéro Booking
         var numBookingTc : TextInputEditText = binding.textInputBookingNum
-        var numbookingtc = ""
+        //var numbookingtc = ""
 
         //Numéro Tc
         var numTCOff : TextInputEditText = binding.textInputTcNum
@@ -48,11 +48,11 @@ class AjoutertcFragment : Fragment() {
 
         //Numéro Camion
         var numCamion : TextInputEditText = binding.textInputCamionNum
-        var numcam = ""
+        //var numcam = ""
 
         //Desc Recup
         var descTC : TextInputEditText = binding.textInputDesc
-        var desctc = ""
+        //var desctc = ""
 
         //La date récupérée
         val currentDate = LocalDate.now()
@@ -68,10 +68,8 @@ class AjoutertcFragment : Fragment() {
             //numbookingtc = numBookingTc.text.toString()
             butAjouter.text = "Chargement..."
             butAjouter.isEnabled = false
-            //numtcoff = numTCOff.text.toString()
-            //numcam = numCamion.text.toString()
             ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
-            //desctc = descTC.text.toString()
+
             step_tc = 0
 
             val registerTc = hashMapOf(

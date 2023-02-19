@@ -26,8 +26,8 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
     override fun onBindViewHolder(holder: TCViewHolder, position: Int) {
         val tc = items[position]
         holder.bindTC(tc)
-        holder.setupStepView()
         holder.clickSuivant()
+        holder.setupStepView()
     }
 
     class TCViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,6 +36,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
          var datetc : TextView
          var stepView : StepView
          var btnSuivant : Button
+        var step : Int
 
         init {
             numtc = itemView.findViewById(R.id.textViewTCNum_item)
@@ -44,23 +45,23 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
 
             stepView = itemView.findViewById(R.id.step_view_item)
             btnSuivant = itemView.findViewById(R.id.button_suivant_item)
+
+            step = 0
+
+            //stepView_etape = stepView.go()
         }
 
         fun bindTC(tc : Tc){
             numtc.text = tc.num_TC
             numcamion.text = tc.num_Camion
             datetc.text = tc.date_tc
+            //stepView.go(tc.step_voyage!!,false)
+            //step = tc.step_voyage!!.toInt()
+
+
         }
 
-        @SuppressLint("ResourceType")
-        fun setupStepView(){
-            stepView.state
-                .stepsNumber(5)
-                .animationDuration(android.R.integer.config_longAnimTime)
-                .commit()
-        }
 
-        var step : Int = 0
         fun clickSuivant(){
             btnSuivant.setOnClickListener {
                 if (step<4){
@@ -69,9 +70,18 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
 
                 } else if (step == 4){
                     stepView.done(true)
-                    Toast.makeText(itemView.getContext(), "Voyage terminé", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.getContext(), "Voyage terminé sur ${stepView.currentStep}", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+
+        @SuppressLint("ResourceType")
+        fun setupStepView(){
+            stepView.state
+                .stepsNumber(5)
+                .animationDuration(android.R.integer.config_longAnimTime)
+                .commit()
         }
 
     }
