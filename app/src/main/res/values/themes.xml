@@ -56,4 +56,6 @@
     <style name="switch_btn" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorAccent">@color/yellow</item>
     </style>
+
+
 </resources>

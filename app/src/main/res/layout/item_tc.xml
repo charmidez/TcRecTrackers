@@ -137,7 +137,7 @@
             app:sv_stepViewStyle="@style/StepView"
             app:sv_typeface="@font/source_sans_pro_bold" /-->
 
-        <com.shuhart.stepview.StepView
+        <com.charmidezassiobo.tcrec.data.CurrentStepTransform
             android:id="@+id/step_view_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

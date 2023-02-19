@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +30,8 @@ class SuivietcFragment : Fragment() {
     val db = Firebase.firestore
     val voyRef = db.collection("Voyage")
 
+    // var numBookingTc : TextInputEditText = binding.textInputBookingNum
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +42,7 @@ class SuivietcFragment : Fragment() {
         _binding = FragmentSuivietcBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val recyclerView_TC : RecyclerView = binding.recyclerViewSuivieTc
+        var txtView_charging : TextView = binding.textViewCharging
 
         //val voyId = FirebaseAuthCredentialsProvider
 
@@ -74,6 +80,7 @@ class SuivietcFragment : Fragment() {
                         recyclerView_TC.apply {
                             recyclerView_TC.adapter = TCAdapter(items_tc)
                         }
+                        txtView_charging.isVisible  = false
                     }
                 }
             }
@@ -85,6 +92,7 @@ class SuivietcFragment : Fragment() {
         recyclerView_TC.apply {
             recyclerView_TC.adapter = TCAdapter(items_tc)
         }
+        //txtView_charging.text = ""
 
         return root
     }
