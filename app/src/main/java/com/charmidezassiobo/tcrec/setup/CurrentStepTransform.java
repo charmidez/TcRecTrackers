@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.data;
+package com.charmidezassiobo.tcrec.setup;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,9 +6,14 @@ import android.util.AttributeSet;
 import com.shuhart.stepview.StepView;
 
 public class CurrentStepTransform extends StepView {
+
+    //protected int currentStep;
+
+
     private static final int NOUVELLE_VALEUR = 1;
-    public int START_STEP = 0;
-    public int currentStep = 0;
+    //public int START_STEP;
+    //public int currentStep;
+    //public int IDLE = 1;
 
 
 
@@ -24,13 +29,10 @@ public class CurrentStepTransform extends StepView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void transCurrentStep(int stptr) {
-        START_STEP = NOUVELLE_VALEUR;
-        //stepTruePosition = stptr;
+    public int transCurrentStep(int stptr) {
+        int stepCount = getStepCount();
+        return stepCount;
+
     }
 
-    @Override
-    public int getCurrentStep() {
-        return currentStep;
-    }
 }

@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec
+package com.charmidezassiobo.tcrec.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.ktx.firestore

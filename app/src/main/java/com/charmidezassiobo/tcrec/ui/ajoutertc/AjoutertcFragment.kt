@@ -21,55 +21,31 @@ import java.util.*
 class AjoutertcFragment : Fragment() {
 
     private var _binding: FragmentAjoutertcBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
     private var db = Firebase.firestore
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentAjoutertcBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-       //Numéro Booking
         var numBookingTc : TextInputEditText = binding.textInputBookingNum
-        //var numbookingtc = ""
-
-        //Numéro Tc
         var numTCOff : TextInputEditText = binding.textInputTcNum
-        var numtcoff =""
-
-        //Numéro Camion
         var numCamion : TextInputEditText = binding.textInputCamionNum
-        //var numcam = ""
-
-        //Desc Recup
         var descTC : TextInputEditText = binding.textInputDesc
-        //var desctc = ""
-
-        //La date récupérée
         val currentDate = LocalDate.now()
         var ajouterdate : String
-
-        //Etape
         var step_tc : Int
-
+        var id_tc : Int
 
         //Prendre Les données du conteneur
         val butAjouter : Button = binding.ajouteTcButton
+
         butAjouter.setOnClickListener{
-            //numbookingtc = numBookingTc.text.toString()
             butAjouter.text = "Chargement..."
             butAjouter.isEnabled = false
             ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
-
             step_tc = 0
 
             val registerTc = hashMapOf(
@@ -79,14 +55,11 @@ class AjoutertcFragment : Fragment() {
                 "num_Camion" to numCamion.text.toString(),
                 "step_TC" to step_tc,
                 "desc_TC" to descTC.text.toString()
-
             )
-
-            //val voyageTcId = FirebaseFirestore.getInstance()
 
             db.collection("Voyage").document().set(registerTc)
                 .addOnSuccessListener {
-                    Toast.makeText(context, "Le conteneur $numtcoff a été bien enrégistré ce $ajouterdate", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate", Toast.LENGTH_SHORT).show()
                     numBookingTc.text?.clear()
                     numTCOff.text?.clear()
                     numCamion.text?.clear()
@@ -95,7 +68,7 @@ class AjoutertcFragment : Fragment() {
                     butAjouter.isEnabled = true
                 }
                 .addOnFailureListener{
-                    Toast.makeText(context, "Le conteneur $numtcoff na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
                     butAjouter.text = getText(R.string.but_addtc)
                     butAjouter.isEnabled = true
                 }
@@ -108,16 +81,5 @@ class AjoutertcFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    fun recupDate() : String{
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val date = "$day/${month + 1}/$year"
-
-        return date
-    }
-
 
 }

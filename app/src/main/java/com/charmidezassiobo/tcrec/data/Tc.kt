@@ -9,6 +9,5 @@ data class Tc(
     var num_booking : String,
     var num_bind : String,
     var date_tc : String,
-    var step_voyage : Int?
-    //var time_tc : String
+    var step_TC : Int
     )

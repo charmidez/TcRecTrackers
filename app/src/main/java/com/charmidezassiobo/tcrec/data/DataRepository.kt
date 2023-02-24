@@ -1,5 +1,5 @@
 package com.charmidezassiobo.tcrec.data
 
-class DataRepository {
+open class DataRepository {
 
 }

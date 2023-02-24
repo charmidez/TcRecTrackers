@@ -8,9 +8,9 @@ plugins {
 repositories {
     mavenCentral()
     google()
-
+    maven { url "https://jitpack.io" }
 }
-*/
+ */
 
 android {
     namespace 'com.charmidezassiobo.tcrec'
@@ -59,6 +59,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
 
     implementation 'com.github.shuhart:stepview:1.5.1'
+
+    implementation 'com.github.baoyachi:StepView:1.9'
 
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.3'
 
