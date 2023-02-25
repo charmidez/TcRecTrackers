@@ -2,16 +2,19 @@ package com.charmidezassiobo.tcrec.ui.ajoutertc
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -37,7 +40,6 @@ class AjoutertcFragment : Fragment() {
         val currentDate = LocalDate.now()
         var ajouterdate : String
         var step_tc : Int
-        var id_tc : Int
 
         //Prendre Les données du conteneur
         val butAjouter : Button = binding.ajouteTcButton
@@ -47,6 +49,8 @@ class AjoutertcFragment : Fragment() {
             butAjouter.isEnabled = false
             ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
             step_tc = 0
+
+            if (numBookingTc == null || numBookingTc.text ==null || numTCOff.text ==null || numBookingTc.text ==null || numCamion.text ==null ){
 
             val registerTc = hashMapOf(
                 "Date" to ajouterdate,
@@ -59,7 +63,10 @@ class AjoutertcFragment : Fragment() {
 
             db.collection("Voyage").document().set(registerTc)
                 .addOnSuccessListener {
-                    Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate", Toast.LENGTH_SHORT).show()
+                    val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",Snackbar.LENGTH_LONG)
+                    snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
+                    snack.show()
                     numBookingTc.text?.clear()
                     numTCOff.text?.clear()
                     numCamion.text?.clear()
@@ -68,12 +75,21 @@ class AjoutertcFragment : Fragment() {
                     butAjouter.isEnabled = true
                 }
                 .addOnFailureListener{
-                    Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
+                    val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré",Snackbar.LENGTH_LONG)
+                    snack.show()
                     butAjouter.text = getText(R.string.but_addtc)
                     butAjouter.isEnabled = true
                 }
+            } else {
+                val snack = Snackbar.make(binding.root,"Veuillez renseigner les informations",Snackbar.LENGTH_LONG)
+                snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
+                snack.show()
+                butAjouter.isEnabled = true
+                butAjouter.text = getText(R.string.but_addtc)
+            }
         }
-
         return root
     }
 

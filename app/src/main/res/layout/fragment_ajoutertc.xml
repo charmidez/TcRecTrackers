@@ -13,7 +13,7 @@
         android:id="@+id/titreajouter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_white_background"
+        android:background="@drawable/rounded_blue_background"
         android:fontFamily="@font/source_sans_pro_bold"
         android:padding="@dimen/all_padding"
         android:text="Ajout de TC ( Conteneur)"

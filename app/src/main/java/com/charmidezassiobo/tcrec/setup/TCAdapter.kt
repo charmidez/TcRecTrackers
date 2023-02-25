@@ -10,11 +10,14 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
@@ -51,13 +54,8 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
          var etape : Int
          var step_tc : Int
 
-        //val dbInstance = FirebaseFirestore.getInstance()
-        val db = FirebaseFirestore.getInstance()
-        val collectionRef = db.collection("Voyage")
-        //var docRef = dbInstance.collection("Voyage").document().get()
-
-
-
+        var db : FirebaseFirestore
+        var collectionRef : CollectionReference
 
         init {
             numtc = itemView.findViewById(R.id.textViewTCNum_item)
@@ -80,6 +78,9 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
             stepBean4 = StepBean("Arrivée Port", -1)
             step_tc = 0
 
+            db = FirebaseFirestore.getInstance()
+            collectionRef = db.collection("Voyage")
+
         }
 
         fun bindTC(tc : Tc){
@@ -90,11 +91,13 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
         }
 
         fun clickSuivant(tc : Tc){
-            val documentId = collectionRef
+
             val nummtc = tc.num_TC
             btnSuivant.setOnClickListener {
                 Log.d("Document Id",nummtc)
-                val query = collectionRef.whereEqualTo("num_TC", tc.num_TC)
+                val query = collectionRef.whereEqualTo("num_TC", tc.num_TC )
+                                                                        .whereEqualTo("num_Camion", tc.num_Camion )
+                                                                        .whereEqualTo("Date", tc.date_tc )
                 if (etape<5) {
                     etape = etape + 1
                     query.get().addOnSuccessListener { documents ->
@@ -102,38 +105,17 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                             val documentId = document.id
                             val docRef = collectionRef.document(documentId)
                             docRef.update("step_TC", etape)
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Document mis à jour avec succès")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.w(TAG, "Erreur lors de la mise à jour", e)
-                                }
                         }
                     }
                     step_change()
+
+                } else if (etape == 5){
+
+                    val snack = Snackbar.make(itemView,"Voyage Terminé", Snackbar.LENGTH_LONG)
+                    snack.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+                    snack.setBackgroundTint(ContextCompat.getColor(itemView.context, R.color.blue))
+                    snack.show()
                 }
-                /*
-                    docRef.get().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val document = task.result
-                            if (document.exists()) {
-                                // Mise à jour du document
-                                docRef.update("step_TC", etape)
-                                    .addOnSuccessListener {
-                                        Log.d(TAG, "Document mis à jour avec succès")
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Log.w(TAG, "Erreur lors de la mise à jour", e)
-                                    }
-                            } else {
-                                Log.d(TAG, "Le document n'existe pas dans la base de données")
-                            }
-                        } else {
-                            Log.w(TAG, "Erreur lors de la recherche du document", task.exception)
-                        }
-                    }
-                }
-                */
             }
         }
 
@@ -230,7 +212,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                     stepBean3 = StepBean("Sortie", 1)
                     stepBean4 = StepBean("Arrivée Port", 1)
                     setupStepView()
-                    Toast.makeText(itemView.context!!,"Voyage Terminé", Toast.LENGTH_SHORT).show()
+                    btnSuivant.isInvisible = true
                 }
             }
         }

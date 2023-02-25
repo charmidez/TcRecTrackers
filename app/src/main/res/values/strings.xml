@@ -10,6 +10,7 @@
     <string name="num_camion">Immatriculation"</string>
     <string name="num_camion_item">TG-2642-BF</string>
     <string name="progression"></string>
+    <string name="chargement">Chargement...</string>
     <string name="dark_mode">Mode sombre</string>
     <string name="active_dark_mode">Activer mode sombre</string>
     <string name="apropos">Rec Logistics</string>
@@ -19,4 +20,5 @@
     <string name="change_language_english">Choose English Language</string>
     <string name="change_language">Langue</string>
     <string name="tc_desc">Description du TC</string>
+    <string name="btnSuivant">Suivant</string>
 </resources>
