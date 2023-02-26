@@ -148,7 +148,7 @@
             android:textAllCaps="false"
             android:textSize="18dp"
             android:backgroundTint="@color/gray2"
-            android:background="@drawable/btn_drawable"
+            android:background="@drawable/btn_drawable "
             app:layout_constraintBottom_toBottomOf="@+id/date_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/date_item"
