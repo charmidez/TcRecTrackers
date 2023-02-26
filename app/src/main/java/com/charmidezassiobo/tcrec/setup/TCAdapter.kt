@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
@@ -108,13 +109,6 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                         }
                     }
                     step_change()
-
-                } else if (etape == 5){
-
-                    val snack = Snackbar.make(itemView,"Voyage Terminé", Snackbar.LENGTH_LONG)
-                    snack.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                    snack.setBackgroundTint(ContextCompat.getColor(itemView.context, R.color.blue))
-                    snack.show()
                 }
             }
         }
@@ -212,7 +206,14 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                     stepBean3 = StepBean("Sortie", 1)
                     stepBean4 = StepBean("Arrivée Port", 1)
                     setupStepView()
-                    btnSuivant.isInvisible = true
+                    /*
+                    val snack = Snackbar.make(itemView,"Voyage Terminé", Snackbar.LENGTH_LONG)
+                    snack.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+                    snack.setBackgroundTint(ContextCompat.getColor(itemView.context, R.color.blue))
+                    snack.show()
+                     */
+                    btnSuivant.isEnabled = false
+                    btnSuivant.text = "Fin"
                 }
             }
         }

@@ -78,7 +78,7 @@ class AjoutertcFragment : Fragment() {
                     //Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
                     val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré",Snackbar.LENGTH_LONG)
                     snack.show()
-                    butAjouter.text = getText(R.string.but_addtc)
+                    butAjouter.text = context!!.getText(R.string.btn_fini_itemview)
                     butAjouter.isEnabled = true
                 }
             } else {

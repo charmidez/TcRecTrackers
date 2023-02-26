@@ -33,7 +33,7 @@
         android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/num_booking"
         app:boxBackgroundColor="@color/gray"
-        app:hintTextColor="@color/black"
+        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titreajouter"
@@ -47,7 +47,7 @@
             android:background="@drawable/rounded_editable_text"
             android:inputType="textCapCharacters"
             android:textAllCaps="true"
-            android:textColor="@color/blue" />
+            android:textColor="@color/textColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +73,7 @@
             android:background="@drawable/rounded_editable_text"
             android:inputType="textCapCharacters"
             android:textAllCaps="true"
-            android:textColor="@color/blue" />
+            android:textColor="@color/textColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +99,7 @@
             android:background="@drawable/rounded_editable_text"
             android:inputType="textCapCharacters"
             android:textAllCaps="true"
-            android:textColor="@color/blue" />
+            android:textColor="@color/textColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +124,7 @@
             android:background="@drawable/rounded_editable_text"
             android:inputType="textCapCharacters"
             android:textAllCaps="true"
-            android:textColor="@color/blue" />
+            android:textColor="@color/textColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,8 +132,7 @@
         android:id="@+id/ajouteTcButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corner_view"
-        android:backgroundTint="@color/blue"
+        android:background="@drawable/rounded_blue_corner_view"
         android:fontFamily="@font/source_sans_pro_bold"
         android:text="@string/but_addtc"
         android:textColor="@color/white"

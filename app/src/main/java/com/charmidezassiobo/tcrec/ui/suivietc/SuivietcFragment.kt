@@ -32,12 +32,13 @@ class SuivietcFragment : Fragment() {
 
         _binding = FragmentSuivietcBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+
         val recyclerView_TC : RecyclerView = binding.recyclerViewSuivieTc
         var txtView_charging : TextView = binding.textViewCharging
 
         var items_tc : MutableList<Tc> = mutableListOf()
 
-        //Récupération des données sur le net.
         voyRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {

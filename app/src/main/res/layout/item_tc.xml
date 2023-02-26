@@ -12,7 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/padd">
+        android:paddingTop="@dimen/padd"
+        android:paddingLeft="@dimen/padd"
+        android:paddingRight="@dimen/padd">
 
         <!--label num TC-->
         <ImageView
@@ -83,10 +85,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/all_margin"
-            android:background="@drawable/rounded_corner_view"
+            android:background="@drawable/rounded_blue_corner_view"
             android:padding="@dimen/padd"
             android:text="@string/num_camion_item"
-            android:textColor="@color/blue"
+            android:textColor="@color/textColor"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgView_numcamion"
             app:layout_constraintHorizontal_bias="0.0"
@@ -102,11 +104,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8/02/2023"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor"
             android:textSize="18dp"
             android:padding="@dimen/padd"
-            android:backgroundTint="@color/date_color"
-            android:background="@drawable/rounded_corner_view"
+            android:background="@drawable/rounded_white_background_gray"
             android:layout_marginLeft="@dimen/all_margin"
             app:layout_constraintBottom_toBottomOf="@+id/textViewCamionNum_item"
             app:layout_constraintStart_toEndOf="@+id/textViewCamionNum_item"
@@ -128,38 +129,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/all_padding"
-            android:background="@drawable/rounded_corner_white"
+            android:background="@drawable/rounded_white_back_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider"
             />
 
-        <!--Button next-->
-        <!--Button
-            android:id="@+id/button_dernier_item"
-            android:layout_width="56dp"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_corner_view"
-            android:drawableLeft="@drawable/ic_previous"
-            android:layout_marginLeft="@dimen/all_margin"
-            app:layout_constraintBottom_toBottomOf="@+id/date_item"
-            app:layout_constraintStart_toEndOf="@+id/date_item"
-            app:layout_constraintTop_toTopOf="@+id/date_item" /-->
+        <!--Button next #B6D6CC -->
         <Button
             android:id="@+id/button_suivant_item"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@drawable/rounded_corner_view"
             android:layout_marginLeft="@dimen/all_margin"
             android:text="@string/btnSuivant"
+            android:elevation="8dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            android:backgroundTint="@color/gray2"
+            android:background="@drawable/btn_drawable"
             app:layout_constraintBottom_toBottomOf="@+id/date_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/date_item"
-            app:layout_constraintTop_toTopOf="@+id/date_item"
-            />
+            app:layout_constraintTop_toTopOf="@+id/date_item" />
 
-
-
+        <View
+            android:id="@+id/divider_fin"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_suivant_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
