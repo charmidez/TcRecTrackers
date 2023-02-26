@@ -7,7 +7,7 @@
     app:cardBackgroundColor="@color/gray"
     app:cardCornerRadius="16dp"
     android:layout_margin="@dimen/padd"
-    android:elevation="4dp">
+    android:elevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -145,10 +145,9 @@
             android:elevation="8dp"
             android:textColor="@color/white"
             android:fontFamily="@font/source_sans_pro_black"
-            android:textAllCaps="false"
             android:textSize="18dp"
             android:backgroundTint="@color/gray2"
-            android:background="@drawable/btn_drawable "
+            android:background="@drawable/btn_drawable"
             app:layout_constraintBottom_toBottomOf="@+id/date_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/date_item"

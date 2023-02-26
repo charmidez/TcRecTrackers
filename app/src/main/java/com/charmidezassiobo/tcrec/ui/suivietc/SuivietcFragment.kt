@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
+import com.charmidezassiobo.tcrec.setup.RecyclerViewItemClickListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -37,8 +39,11 @@ class SuivietcFragment : Fragment() {
         val recyclerView_TC : RecyclerView = binding.recyclerViewSuivieTc
         var txtView_charging : TextView = binding.textViewCharging
 
+        var progressBar_view : ProgressBar = binding.progressBarId
+
         var items_tc : MutableList<Tc> = mutableListOf()
 
+        progressBar_view.setVisibility(View.VISIBLE)
         voyRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
@@ -53,9 +58,10 @@ class SuivietcFragment : Fragment() {
                            if (step_tc_ok != null ){
                                items_tc.add(Tc( "$numtc_ok","$num_cam_ok","$num_booking_tc","","$date_ok", step_tc_ok))
                                recyclerView_TC.apply {
-                                   recyclerView_TC.adapter = TCAdapter(items_tc)
+                                   recyclerView_TC.adapter = TCAdapter(items_tc,childFragmentManager)
                                }
                                txtView_charging.isVisible  = false
+                               progressBar_view.setVisibility(View.GONE); // pour masquer la barre de progression
                            }
                         }
                     }
@@ -66,7 +72,7 @@ class SuivietcFragment : Fragment() {
             }
 
         recyclerView_TC.apply {
-            recyclerView_TC.adapter = TCAdapter(items_tc)
+            recyclerView_TC.adapter = TCAdapter(items_tc, childFragmentManager)
         }
 
         return root

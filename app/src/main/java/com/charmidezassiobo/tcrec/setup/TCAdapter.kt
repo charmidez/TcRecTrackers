@@ -2,26 +2,33 @@ package com.charmidezassiobo.tcrec.setup
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.core.view.isInvisible
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.ui.suivietc.DetailvoyagetcFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
+class TCAdapter(var items : List<Tc>, private val fragmentManager: FragmentManager) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
+
+    var listener: RecyclerViewItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TCViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_tc, parent, false)
@@ -36,6 +43,10 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
         holder.bindTC(tc)
         holder.step_change()
         holder.clickSuivant(tc)
+        holder.itemView.setOnClickListener { listener?.onItemClicked(tc)
+            holder.onClick(tc,fragmentManager)
+        }
+
     }
 
     class TCViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -59,6 +70,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
         var collectionRef : CollectionReference
 
         init {
+
             numtc = itemView.findViewById(R.id.textViewTCNum_item)
             numcamion  = itemView.findViewById(R.id.textViewCamionNum_item)
             datetc = itemView.findViewById(R.id.date_item)
@@ -206,19 +218,29 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                     stepBean3 = StepBean("Sortie", 1)
                     stepBean4 = StepBean("Arrivée Port", 1)
                     setupStepView()
-                    /*
-                    val snack = Snackbar.make(itemView,"Voyage Terminé", Snackbar.LENGTH_LONG)
-                    snack.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                    snack.setBackgroundTint(ContextCompat.getColor(itemView.context, R.color.blue))
-                    snack.show()
-                     */
                     btnSuivant.isEnabled = false
                     btnSuivant.text = "Fin"
                 }
             }
         }
 
+        fun onClick(tc : Tc,fragmentManager: FragmentManager) {
+            val snack = Snackbar.make(itemView,"Veuillez renseigner les informations ${tc.num_booking}",Snackbar.LENGTH_LONG)
+            snack.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+            snack.setBackgroundTint(ContextCompat.getColor(itemView.context, R.color.gray2))
+            snack.show()
+            val fragment = DetailvoyagetcFragment()
+            // Ajouter les arguments nécessaires pour le nouveau fragment
+            fragment.arguments = Bundle().apply {
+                putString("num_TC", tc.num_TC)
+            }
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.nav_host_fragment_activity_main, fragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
     }
 
 }
+
 

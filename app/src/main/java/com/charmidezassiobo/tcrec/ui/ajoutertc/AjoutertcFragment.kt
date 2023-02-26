@@ -84,7 +84,7 @@ class AjoutertcFragment : Fragment() {
             } else {
                 val snack = Snackbar.make(binding.root,"Veuillez renseigner les informations",Snackbar.LENGTH_LONG)
                 snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
+                snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.gray2))
                 snack.show()
                 butAjouter.isEnabled = true
                 butAjouter.text = getText(R.string.but_addtc)
