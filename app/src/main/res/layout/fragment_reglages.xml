@@ -9,20 +9,6 @@
     android:visibility="visible"
     tools:context=".ui.reglages.ReglagesFragment">
 
-
-    <TextView
-        android:id="@+id/textView6"
-        style="@style/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/progression"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView7"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
     <TextView
         android:id="@+id/textView_darkmode2"
         android:layout_width="wrap_content"
@@ -41,9 +27,9 @@
         style="@style/switch_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/blue"
+        android:layout_marginTop="30dp"
         android:thumbTint="@color/blue"
+        android:trackTint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/switch_darkmode"
         app:layout_constraintStart_toStartOf="@+id/switch_darkmode"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -75,18 +61,15 @@
 
     <Switch
         android:id="@+id/switch_darkmode"
-        style="@style/switch_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_padding"
-        android:layout_marginEnd="@dimen/all_padding"
-        android:buttonTint="@color/blue"
         android:thumbTint="@color/blue"
+        android:trackTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/imgView_tc_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imgView_tc_item"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -160,11 +143,14 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="256dp"
+        android:layout_height="128dp"
         android:layout_marginStart="2dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/logo_blanc"
         android:layout_marginTop="@dimen/all_margin"
+        android:background="@drawable/rounded_blue_background"
+        android:paddingLeft="@dimen/all_padding"
+        android:paddingRight="@dimen/all_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -175,8 +161,8 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_marginTop="12dp"
-        android:background="@color/blue"
-        android:backgroundTint="@color/blue"
+        android:background="@color/blueup"
+        android:backgroundTint="@color/blueup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -200,7 +186,7 @@
         android:layout_marginBottom="@dimen/all_padding"
         android:fontFamily="@font/source_sans_pro_bold"
         android:text="@string/developper"
-        android:textColor="@color/gray"
+        android:textColor="@color/grisabsolut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -212,20 +198,37 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/source_sans_pro_bold"
         android:text="from"
-        android:textColor="@color/gray"
+        android:textColor="@color/grisabsolut"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <TextView
         android:id="@+id/imageView4"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:src="@mipmap/ic_launcher"
+        android:text="REC TC Trackers"
+        android:textSize="18dp"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:textColor="@color/gray2"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maj"
+        android:paddingLeft="@dimen/all_padding"
+        android:paddingRight="@dimen/all_padding"
+        android:background="@drawable/btn_drawable_red"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/textView_nous"
+        app:layout_constraintTop_toBottomOf="@+id/divider_last" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

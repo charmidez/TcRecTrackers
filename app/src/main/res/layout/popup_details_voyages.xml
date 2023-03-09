@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/gray"
+    app:cardCornerRadius="16dp"
+
+    android:layout_marginTop="@dimen/all_margin_demi"
+    android:layout_marginRight="@dimen/all_margin"
+    android:layout_marginLeft="@dimen/all_margin"
+    android:layout_marginBottom="@dimen/all_margin_demi">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/all_padding">
+
+        <!-- Titre -->
+        <TextView
+            android:id="@+id/titredetails_voyage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:padding="@dimen/all_padding"
+            android:text="@string/titre_details_voyage"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView_etape_et_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_drawable_not_selected"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:padding="@dimen/all_padding"
+            android:text="@string/titre_etape_et_date"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_marginTop="@dimen/all_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titredetails_voyage" />
+
+
+        <!--Voiture -->
+        <ImageView
+            android:id="@+id/imgView_tc_item"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_cam"
+            android:layout_marginTop="@dimen/all_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_etape_et_date" />
+        <TextView
+            android:id="@+id/textViewCamionNum_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_background"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:padding="@dimen/padd"
+            android:text="@string/num_camion_item"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_tc_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgView_tc_item"
+            app:layout_constraintTop_toTopOf="@+id/imgView_tc_item" />
+
+        <!--Contenaire-->
+        <ImageView
+            android:id="@+id/imgView_numcamion"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:src="@drawable/ic_tc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgView_tc_item" />
+        <TextView
+            android:id="@+id/textViewTCNum_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_corner_view"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:padding="@dimen/padd"
+            android:text="@string/num_tc_item"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_numcamion"
+
+            app:layout_constraintStart_toEndOf="@+id/imgView_numcamion"
+            app:layout_constraintTop_toTopOf="@+id/imgView_numcamion" />
+        <TextView
+            android:id="@+id/num_plomb_tc_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/num_plomb_vrai"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
+            app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item"
+            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="@dimen/padd"
+            android:textColor="@color/textColor"
+            android:textSize="14dp"/>
+
+        <!--Contenaire 2-->
+        <ImageView
+            android:id="@+id/imgView_numtc2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:src="@drawable/ic_tc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgView_numcamion" />
+        <TextView
+            android:id="@+id/textViewTCNum_item2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_corner_view"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:padding="@dimen/padd"
+            android:text="@string/num_tc_item"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_numtc2"
+            app:layout_constraintStart_toEndOf="@+id/imgView_numtc2"
+            app:layout_constraintTop_toTopOf="@+id/imgView_numtc2" />
+        <TextView
+            android:id="@+id/num_plomb_tc_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/num_plomb_vrai"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item2"
+            app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item2"
+            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item2"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="@dimen/padd"
+            android:textColor="@color/textColor"
+            android:textSize="14dp"/>
+
+        <!--Numero Telephone-->
+        <ImageView
+            android:id="@+id/imgView_numPhoneChauffeur"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:src="@drawable/ic_tc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgView_numtc2" />
+
+        <TextView
+            android:id="@+id/textViewTCnumPhoneChauffeur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/btn_drawable_call"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:padding="@dimen/padd"
+            android:text="@string/num_phone"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_numPhoneChauffeur"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imgView_numPhoneChauffeur"
+            app:layout_constraintTop_toTopOf="@+id/imgView_numPhoneChauffeur" />
+        <!--TextView
+            android:id="@+id/date_mise_en_circulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/num_plomb_vrai"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTCnumPhoneChauffeur"
+            app:layout_constraintStart_toEndOf="@+id/textViewTCnumPhoneChauffeur"
+            app:layout_constraintTop_toTopOf="@+id/textViewTCnumPhoneChauffeur"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="@dimen/padd"
+            android:textColor="@color/textColor"
+            android:textSize="14dp"/-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

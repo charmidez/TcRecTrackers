@@ -18,22 +18,12 @@ class ReglagesFragment : Fragment() {
     private var _binding: FragmentReglagesBinding? = null
     private val binding get() = _binding!!
 
-    var stepsBeanList: MutableList<StepBean> = ArrayList()
-    lateinit var bayoStepView : HorizontalStepView
-    lateinit var stepBean0 : StepBean
-    lateinit var stepBean1 : StepBean
-    lateinit var stepBean2 : StepBean
-    lateinit var stepBean3 : StepBean
-    lateinit var stepBean4 : StepBean
-    var etape = 0
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentReglagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        //step_change()
-        //clickBut()
+
 
         return root
     }

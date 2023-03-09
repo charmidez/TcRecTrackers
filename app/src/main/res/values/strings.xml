@@ -1,15 +1,19 @@
 <resources>
     <string name="app_name">REC TC Tracker</string>
+
+    <string name="menu_list">Voyages TC</string>
     <string name="menu_ajout">Ajouter TC</string>
-    <string name="menu_list">Suivie TC</string>
     <string name="menu_setting">Réglages</string>
+
+    <string name="list_tc">Liste de camions en circulation</string>
     <string name="num_booking">Numéro Booking TC</string>
     <string name="num_tc_off">Numéro TC</string>
     <string name="num_tc_item">MSDU1807661</string>
     <string name="but_addtc">Ajouter TC (Conteneur) </string>
-    <string name="num_camion">Immatriculation"</string>
+    <string name="num_camion">Immatriculation du camion</string>
     <string name="num_camion_item">TG-2642-BF</string>
     <string name="progression"></string>
+    <string name="fin_voyage">Voyage Terminé</string>
     <string name="chargement">Chargement...</string>
     <string name="dark_mode">Mode sombre</string>
     <string name="active_dark_mode">Activer mode sombre</string>
@@ -22,6 +26,23 @@
     <string name="tc_desc">Description du TC</string>
     <string name="btn_fini_itemview">Fin</string>
     <string name="btnSuivant">Suivant</string>
+    <string name="maj">Mettre à Jour</string>
+    <string name="importer"> Importation </string>
+    <string name="exporter"> Exportation </string>
+
+    <string name="bind_txt_tc">Veuiller renseigner le numéro Plomb TC</string>
+    <string name="bind_num_vraie">Numéro Plomb du TC</string>
+
+    <string name="ajout_bind_num_vraie">Ajouter le numéro Plomb TC</string>
+    <string name="poursuivre_voyage_popup">Numéro Plomb enregistré avec succès</string>
+
+    <!--pop up-->
+    <string name="titre_details_voyage">Details</string>
+    <string name="num_phone">+228 90 02 56 54</string>
+    <string name="num_plomb_vrai">78GT16</string>
+    <string name="titre_etape_et_date">TC en chargement depuis ce 9/03/2023</string>
+
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

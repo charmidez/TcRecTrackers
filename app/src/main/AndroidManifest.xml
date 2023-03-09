@@ -19,7 +19,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                    Theme.MaterialComponents.DayNight.DarkActionBar
+                    Theme.PermisDeConduire.Splashscreen
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-->
@@ -27,7 +28,7 @@
             android:screenOrientation="portrait"
             android:name=".ui.SplashscreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.PermisDeConduire.Splashscreen">
+            android:theme="@style/Theme.Charmidez.Assiobo.Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

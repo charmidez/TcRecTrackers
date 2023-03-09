@@ -10,11 +10,7 @@
         android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcFragment"
         android:label="@string/menu_list"
         android:fontFamily="@font/source_sans_pro_bold"
-        tools:layout="@layout/fragment_suivietc" >
-        <action
-            android:id="@+id/action_navigation_suivietc_to_detailvoyagetcFragment"
-            app:destination="@id/detailvoyagetcFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_suivietc" />
 
     <fragment
         android:id="@+id/navigation_ajoutertc"
@@ -29,13 +25,4 @@
         android:label="@string/menu_setting"
         android:fontFamily="@font/source_sans_pro_bold"
         tools:layout="@layout/fragment_reglages" />
-    <fragment
-        android:id="@+id/detailvoyagetcFragment"
-        android:name="com.charmidezassiobo.tcrec.ui.suivietc.DetailvoyagetcFragment"
-        android:label="fragment_detailvoyagetc"
-        tools:layout="@layout/fragment_detailvoyagetc" >
-        <action
-            android:id="@+id/action_detailvoyagetcFragment_to_navigation_suivietc"
-            app:destination="@id/navigation_suivietc" />
-    </fragment>
 </navigation>

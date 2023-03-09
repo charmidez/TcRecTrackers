@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,15 +14,82 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_blue_background"
         android:fontFamily="@font/source_sans_pro_bold"
+        android:gravity="center"
         android:padding="@dimen/all_padding"
-        android:text="Ajout de TC ( Conteneur)"
+        android:text="Ajout de TC ( Conteneur )"
         android:textColor="@color/white"
-        android:textSize="26dp"
-
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--La ligne rouge -->
+    <View
+        android:id="@+id/viewRedLine"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/gray2"
+        android:backgroundTint="@color/gray2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titreajouter" />
+
+    <!-- Les radio -->
+    <!--RadioGroup
+        android:id="@+id/radioGroup_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_yellow_background"
+        app:layout_constraintTop_toBottomOf="@id/viewRedLine">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButton_Import"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/all_padding"
+            android:text="@string/importer"
+            android:textColor="@color/white" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButton_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/all_padding"
+            android:text="@string/exporter"
+            android:textColor="@color/white"
+            app:useMaterialThemeColors="false" />
+    </RadioGroup-->
+
+    <!-- Label Immatriculation  Camion-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldCamionNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
+        android:hint="@string/num_camion"
+        app:boxBackgroundColor="@color/gray"
+        app:boxStrokeColor="@color/gray"
+        app:hintTextColor="@color/grisabsolut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewRedLine"
+        app:startIconDrawable="@drawable/ic_cam"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputCamionNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_editable_text"
+            android:inputType="textCapCharacters"
+            android:textAllCaps="true"
+            android:textColor="@color/textColor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!--Label Booking -->
     <com.google.android.material.textfield.TextInputLayout
@@ -33,10 +99,11 @@
         android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/num_booking"
         app:boxBackgroundColor="@color/gray"
-        app:hintTextColor="@color/white"
+        app:boxStrokeColor="@color/gray"
+        app:hintTextColor="@color/grisabsolut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titreajouter"
+        app:layout_constraintTop_toBottomOf="@id/textFieldTcNum"
         app:startIconDrawable="@drawable/ic_bk"
         tools:ignore="MissingConstraints">
 
@@ -54,16 +121,19 @@
     <!-- Label Num Tc -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textFieldTcNum"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/num_tc_off"
         app:boxBackgroundColor="@color/gray"
-        app:hintTextColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/gray"
+        app:hintTextColor="@color/grisabsolut"
+        android:layout_marginRight="@dimen/all_margin"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldBookingNum"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldCamionNum"
         app:startIconDrawable="@drawable/ic_tc"
+        app:layout_constraintHorizontal_bias="0"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -77,31 +147,18 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Label Immatriculation -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldCamionNum"
-        android:layout_width="match_parent"
+    <!-- Ajout Nouveau Contenaire-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_margin"
-        android:hint="@string/num_camion"
-        app:boxBackgroundColor="@color/gray"
-        app:hintTextColor="@color/black"
+        android:src="@drawable/ic_next"
+        android:background="@drawable/rounded_blue_corner_view"
+        android:padding="@dimen/all_padding"
+        app:layout_constraintBottom_toBottomOf="@id/textFieldTcNum"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldTcNum"
-        app:startIconDrawable="@drawable/ic_cam"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputCamionNum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_editable_text"
-            android:inputType="textCapCharacters"
-            android:textAllCaps="true"
-            android:textColor="@color/textColor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toTopOf="@id/textFieldTcNum" />
 
     <!-- Desc Tc -->
     <com.google.android.material.textfield.TextInputLayout
@@ -111,12 +168,14 @@
         android:layout_marginTop="@dimen/all_margin"
         android:hint="@string/tc_desc"
         app:boxBackgroundColor="@color/gray"
-        app:hintTextColor="@color/black"
+        app:boxStrokeColor="@color/gray"
+        app:hintTextColor="@color/grisabsolut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldCamionNum"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldBookingNum"
         app:startIconDrawable="@drawable/txt"
         tools:ignore="MissingConstraints">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputDesc"
             android:layout_width="match_parent"
@@ -128,17 +187,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <!-- Button -->
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ajouteTcButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_blue_corner_view"
+        android:background="@drawable/btn_drawable_red"
         android:fontFamily="@font/source_sans_pro_bold"
+        android:paddingLeft="@dimen/all_padding"
+        android:paddingRight="@dimen/all_padding"
         android:text="@string/but_addtc"
         android:textColor="@color/white"
+        app:layout_constraintHorizontal_bias="1"
         android:layout_marginTop="@dimen/all_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFieldTcDesc" />
 

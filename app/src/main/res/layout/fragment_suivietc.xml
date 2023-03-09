@@ -8,43 +8,81 @@
     android:layout_height="match_parent"
     tools:context=".ui.suivietc.SuivietcFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_suivie_tc"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipp_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:padding="1dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView_charging"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chargement..."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.17000002"
-            android:textColor="@color/black"
-            android:fontFamily="@font/source_sans_pro_light"
-            android:textSize="18dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progress_bar_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="50dp"
-            android:minHeight="50dp"
-            android:layout_centerInParent="true"
-            style="@style/CircularProgressBarStyle"
-            app:layout_constraintBottom_toTopOf="@+id/textView_charging"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                        <!-- Titre -->
+                        <TextView
+                            android:id="@+id/titrelistetc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_blue_background"
+                            android:fontFamily="@font/source_sans_pro_bold"
+                            android:padding="@dimen/all_padding"
+                            android:text="@string/list_tc"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/all_margin"
+                            android:layout_marginLeft="@dimen/all_margin"
+                            android:layout_marginRight="@dimen/all_margin"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- RecyclerView-->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_suivie_tc"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:scrollbars="vertical"
+                            android:padding="1dp"
+                            android:layout_marginTop="@dimen/all_margin"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/titrelistetc" />
+
+                        <!--Chargement -->
+                        <TextView
+                            android:id="@+id/textView_charging"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/source_sans_pro_light"
+                            android:text="Chargement..."
+                            android:textColor="@color/black"
+                            android:textSize="18dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+
+                        <!--ProgressBar -->
+                        <ProgressBar
+                            android:id="@+id/progress_bar_id"
+                            style="@style/CircularProgressBarStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:minWidth="50dp"
+                            android:minHeight="50dp"
+                            app:layout_constraintBottom_toTopOf="@+id/textView_charging"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.871" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

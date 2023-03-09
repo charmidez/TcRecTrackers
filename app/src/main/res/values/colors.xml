@@ -2,13 +2,16 @@
 <resources>
     <!--Couleur de Base-->
 
-    <color name="blueup">#9DBF9E</color>
+    <!--color name="blueup">#2C5DE4</color-->
+    <color name="blueup">#79A384</color>
     <color name="blue">#0081A7 </color>
 
     <color name="yellow">#FAA916</color>
 
     <color name="gray">#FBFFFE</color>
     <color name="gray2"> #D7263D</color>
+
+    <color name="gray2_not_selected">#959393</color>
 
     <color name="textColor">#2B2A27</color>
 
@@ -17,5 +20,15 @@
     <!--White Black-->
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
+
+    <!--Autres COuleurs-->
+    <color name="autre_vert_bleue">#A3E9ED</color>
+    <color name="autre_blanc_jaune">#FEFAB4</color>
+    <color name="autre_bleue_sombre">#8C9FB0</color>
+    <color name="autre_vert_sombre">#79A384</color>
+    <color name="autre_violet">#B67EFE</color>
+    <color name="autre_rose">#F9C6FE</color>
+
+    <color name="gris_cardview">#EAEAEA</color>
 
 </resources>
