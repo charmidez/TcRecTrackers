@@ -1,12 +1,13 @@
 package com.charmidezassiobo.tcrec.ui
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+//import com.charmidezassiobo.tcrec.Manifest
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Autoriser internet
+        if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, Array(1) { android.Manifest.permission.INTERNET},8427)
+        }
+
         //FireStore
         FirebaseApp.initializeApp(this)
         val db = Firebase.firestore
@@ -35,5 +41,12 @@ class MainActivity : AppCompatActivity() {
 
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 8427 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+        }
     }
 }

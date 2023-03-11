@@ -29,6 +29,8 @@
     <color name="autre_violet">#B67EFE</color>
     <color name="autre_rose">#F9C6FE</color>
 
+    <color name="autre_vert_btn_gris">#9EBFA7</color>
+
     <color name="gris_cardview">#EAEAEA</color>
 
 </resources>

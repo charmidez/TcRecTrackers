@@ -55,20 +55,21 @@ class SuivietcFragment : Fragment() {
             //Suppression dans la base de donnée
             //v.adapterPosition >= 0 && v.adapterPosition < items_tc.size
             if (true) {
-                val tc = items_tc.get(v.adapterPosition + 1)
+                val tc = items_tc.get(v.adapterPosition)
+                //val tc = items_tc.
 
-                val query = docRef.whereEqualTo("num_TC", tc.num_TC )
-                    .whereEqualTo("num_Camion", tc.num_Camion )
-                    .whereEqualTo("Date", tc.date_tc )
-
-                query.get().addOnSuccessListener {
-                        documents ->
+                val db = FirebaseFirestore.getInstance()
+                val query = db.collection("Voyage")
+                    .whereEqualTo("num_TC", tc.num_TC)
+                    .whereEqualTo("num_Camion", tc.num_Camion)
+                query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val docData = docRef.document(document.id)
-                        docData.delete()
+                        var docId = document.id
+                        //iddoc = docId
+                        val docRef = db.collection("Voyage").document(docId)
+                        docRef.delete()
                     }
-                }.addOnFailureListener{
-                    Log.w(TAG, "Error getting documents.", it)
+                    //Log.d("Doc Id",iddoc)
                 }
                 val snack = Snackbar.make(recyclerView_TC,"TC Supprimé", Snackbar.LENGTH_LONG)
                 snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -123,12 +124,21 @@ class SuivietcFragment : Fragment() {
                             val num_cam_ok = document.data.get("num_Camion").toString()
                             val step_tc_ok = document.getLong("step_TC")?.toInt()
                             val date_ok = document.data.get("Date").toString()
-                            // à mettre dans la base de données
-                            val num_phone_chauffeur_ok = 90202524
-                            val numtcsecond_ok = "MODO3768018"
+                            val plomb_ok = document.data.get("num_plomb_TC").toString()
+                            val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
+                            val numtcsecond_ok = document.data.get("num_TC_Second").toString()
+                            val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                             if ( idtc_ok != null){
                                 if (step_tc_ok != null ){
-                                    items_tc.add(Tc( "$numtc_ok","$numtcsecond_ok","$num_cam_ok","$num_phone_chauffeur_ok"," $num_booking_tc", "","$date_ok",step_tc_ok))
+                                    items_tc.add(Tc( "$numtc_ok",
+                                        "$numtcsecond_ok",
+                                        "$num_cam_ok",
+                                        "$num_phone_chauffeur_ok",
+                                        " $num_booking_tc",
+                                        "$plomb_ok",
+                                        "$date_ok",
+                                        step_tc_ok,
+                                        "$numplombsecond_ok"))
                                     recyclerView_TC.apply {
                                         recyclerView_TC.adapter = TCAdapter(items_tc)
                                     }

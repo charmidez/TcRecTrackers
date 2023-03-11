@@ -25,7 +25,7 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:fontFamily="@font/source_sans_pro_semi_bold"
             android:gravity="center"
-            android:text="@string/bind_txt_tc"
+            android:text="@string/bind_txt_tc_second"
             android:textColor="@color/gray2"
             android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/textFieldBindNum"
@@ -38,7 +38,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/all_margin"
-            android:hint="@string/bind_num_vraie"
+            android:hint="@string/bind_num_vraie_un"
+            app:boxBackgroundColor="@color/gray"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/grisabsolut"
+            app:layout_constraintBottom_toTopOf="@+id/textFieldBindNum_second"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_tc">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputBindNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_editable_text"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:textColor="@color/textColor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldBindNum_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/all_margin"
+            android:hint="@string/bind_num_vraie_second"
             app:boxBackgroundColor="@color/gray"
             app:boxStrokeColor="@color/gray"
             app:hintTextColor="@color/grisabsolut"
@@ -48,7 +73,7 @@
             app:startIconDrawable="@drawable/ic_tc">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputBindNum"
+                android:id="@+id/textInputBindNum_second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_editable_text"

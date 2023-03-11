@@ -74,8 +74,7 @@
             android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
             app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item"
-            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item"
-            />
+            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item" />
 
         <View
             android:id="@+id/divider"
@@ -127,16 +126,15 @@
             android:layout_height="38dp"
             android:background="@drawable/btn_drawable_call"
             android:drawablePadding="4dp"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:padding="@dimen/padd"
             android:text="90203435"
-            android:textSize="12dp"
-            android:fontFamily="@font/source_sans_pro_bold"
             android:textColor="@color/white"
+            android:textSize="12dp"
 
             app:layout_constraintBottom_toBottomOf="@+id/textViewCamionNum_item"
             app:layout_constraintEnd_toStartOf="@+id/date_item"
-            app:layout_constraintTop_toTopOf="@+id/textViewCamionNum_item"
-            />
+            app:layout_constraintTop_toTopOf="@+id/textViewCamionNum_item" />
 
         <TextView
             android:id="@+id/date_item"
@@ -179,6 +177,7 @@
             android:id="@+id/button_suivant_item"
             android:layout_width="0dp"
             android:layout_height="32dp"
+            android:layout_marginLeft="@dimen/all_margin"
             android:background="@drawable/btn_drawable_red"
             android:elevation="8dp"
             android:fontFamily="@font/source_sans_pro_black"
@@ -188,7 +187,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginLeft="@dimen/all_margin"
             app:layout_constraintStart_toEndOf="@+id/textViewSecondTCNum_item"
             app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item" />
 

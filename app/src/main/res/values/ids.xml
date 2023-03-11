@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="step_view" type="id" />
+    <item name="radioGroup_ok" type="id" />
+    <item name="radioButton_Import" type="id" />
+    <item name="radioButton_export" type="id" />
 </resources>

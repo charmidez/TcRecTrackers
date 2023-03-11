@@ -22,8 +22,6 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
 
@@ -42,7 +40,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
         val tc = items[position]
         holder.dateChangement(tc)
         holder.bindTC(tc)
-        holder.step_change()
+        holder.step_change(tc)
         holder.clickSuivant(tc)
         holder.itemClick(tc)
     }
@@ -70,10 +68,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
          val txtSizeStep = 8
 
         var numPlomb_string : String
-
-        var docRef : DocumentReference
-        var db : FirebaseFirestore
-        var collectionRef : CollectionReference
+        var numPlomb_second_string : String
 
         init {
             cardV = itemView.findViewById(R.id.itemCardView_item_tc)
@@ -95,12 +90,8 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
             stepBean4 = StepBean("Arrivée Port", -1)
             step_tc = 0
             numPlomb_string = ""
-
-            db = FirebaseFirestore.getInstance()
-            collectionRef = db.collection("Voyage")
-            docRef = collectionRef.document()
+            numPlomb_second_string = ""
         }
-
 
 
         fun bindTC(tc : Tc){
@@ -111,38 +102,40 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
             phoneChauffeur.text = tc.num_tel_chauffeur
             numtcsecond.text = tc.num_TCSecond
 
-            if (numtcsecond.text == ""){
-                numtcsecond.isInvisible = true
-            }
-            if(phoneChauffeur.text == ""){
+
+            if(phoneChauffeur.text == "null" || phoneChauffeur == null || phoneChauffeur.text == ""){
                 phoneChauffeur.text = "Non Disponible"
                 phoneChauffeur.isEnabled = false
                 phoneChauffeur.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
             }
+            if (numtcsecond.text == "null" || numtcsecond == null || numtcsecond.text == "" ){
+                numtcsecond.isInvisible = true
+            }
         }
 
         fun clickSuivant(tc : Tc){
-
-            btnSuivant.setOnClickListener {
-                val query = collectionRef.whereEqualTo("num_TC", tc.num_TC )
-                                                                        .whereEqualTo("num_Camion", tc.num_Camion )
-                                                                        .whereEqualTo("Date", tc.date_tc )
-
-                Log.d("query","${query.get()}")
-                if (etape<5) {
+            var iddoc  =""
+            btnSuivant.setOnClickListener{
+                if (etape < 5){
                     etape = etape + 1
-
+                    step_change(tc)
+                    val db = FirebaseFirestore.getInstance()
+                    val query = db.collection("Voyage")
+                        .whereEqualTo("num_TC", tc.num_TC)
+                        .whereEqualTo("num_Camion", tc.num_Camion)
                     query.get().addOnSuccessListener { documents ->
                         for (document in documents) {
-                            //docRef = collectionRef.document()
+                            var docId = document.id
+                            iddoc = docId
+                            val docRef = db.collection("Voyage").document(docId)
                             docRef.update("step_TC", etape)
-                            docRef.update("num_plomb",numPlomb_string)
+                            //docRef.update("num_plomb_TC",numPlomb_string)
                         }
-                        Log.d("etat","${docRef.id}")
+                        Log.d("Doc Id",iddoc)
                     }
-                    step_change()
                 }
             }
+
         }
 
         @SuppressLint("ResourceType")
@@ -167,7 +160,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
 
         }
 
-        fun step_change(){
+        fun step_change(tc : Tc){
             when(etape){
                 0 -> {
                     stepsBeanList= ArrayList()
@@ -206,7 +199,13 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                     stepBean3 = StepBean("Sortie", 0)
                     stepBean4 = StepBean("Arrivée Port", -1)
                     setupStepView()
-                    popUpPlomb()
+
+                    if (tc.num_TCSecond == "null" || tc.num_TCSecond == null || tc.num_TCSecond == "" ){
+                        popUpPlomb(tc)
+                    } else {
+                        popUpPlomb_second(tc)
+                    }
+
                 }
                 4 -> {
                     stepsBeanList= ArrayList()
@@ -227,6 +226,10 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                     stepBean4 = StepBean("Arrivée Port", 1)
                     setupStepView()
                     btnSuivant.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+                    numcamion.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+                    numtc.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+                    numtcsecond.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+                    phoneChauffeur.setBackground(getDrawable(itemView.context,R.drawable.btn_call_not_selected))
                     btnSuivant.setText(R.string.fin_voyage)
                     btnSuivant.isEnabled = false
                     itemView.setBackgroundResource(R.drawable.rounded_cardview_gray)
@@ -258,6 +261,7 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
 
             var  numtc_popup : TextView = v.findViewById(R.id.textViewTCNum_item)
             var num_plomb_tc1 : TextView = v.findViewById(R.id.num_plomb_tc_1)
+
             var numtcsecond_popup : TextView = v.findViewById(R.id.textViewTCNum_item2)
             var num_plomb_tc2 : TextView = v.findViewById(R.id.num_plomb_tc_2)
 
@@ -269,24 +273,45 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
                 1 -> date_etape_tc_popup.text = "Tc à l'usine / ${tc.date_tc}"
                 2 -> date_etape_tc_popup.text = "Tc en chargement / ${tc.date_tc}"
                 3 -> date_etape_tc_popup.text = "Tc sortie de l'entrepot / ${tc.date_tc}"
-                4 -> date_etape_tc_popup.text = "Tc arrivé au Port"
-                5 -> date_etape_tc_popup.text = "Tc arrivé à bon port"
+                4 -> date_etape_tc_popup.text = "Tc arrivé au Port / ${tc.date_tc}"
+                5 -> date_etape_tc_popup.text = "Tc arrivé à bon port / ${tc.date_tc}"
             }
+
             numcamion_popup.text = tc.num_Camion
             numtc_popup.text = tc.num_TC
             numtcsecond_popup.text = tc.num_TCSecond
-            num_plomb_tc1.text = tc.num_bind
+            num_plomb_tc1.text = tc.num_plomb
+            num_plomb_tc2.text = tc.num_plomb_second
             phoneChauffeur_popup.text = tc.num_tel_chauffeur
+
+            // Checker si le phone est disponible
+            if(phoneChauffeur_popup.text == "null" || phoneChauffeur_popup == null || phoneChauffeur_popup.text == ""){
+                phoneChauffeur_popup.text = "Non Disponible"
+                phoneChauffeur_popup.isEnabled = false
+                phoneChauffeur_popup.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+            }
+            // Checker si le second tc est disponible
+            if (tc.num_TCSecond == "null" || tc.num_TCSecond == null || tc.num_TCSecond == "" ){
+                numtcsecond_popup.text = "Non disponible"
+                numtcsecond_popup.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+            }
+            //Checker si le second plomb est dispo
+            if (tc.num_plomb_second == "null" || tc.num_plomb_second == null || tc.num_plomb_second == "" ){
+                num_plomb_tc2.isInvisible = true
+            }
+            //Checker si le premier plomb est dispo
+            if (tc.num_plomb == "null" || tc.num_plomb == null || tc.num_plomb == "" ){
+                num_plomb_tc1.isInvisible = true
+            }
 
 
 
             val dialog = builder.create()
             dialog.show()
             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
         }
 
-        private fun popUpPlomb(){
+        private fun popUpPlomb(tc : Tc){
             val v = View.inflate(itemView.context,R.layout.popup_num_bind, null)
             val  builder = AlertDialog.Builder(itemView.context)
             builder.setView(v)
@@ -296,13 +321,79 @@ class TCAdapter(var items : List<Tc>) : RecyclerView.Adapter<TCAdapter.TCViewHol
             val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
             val txtView_popup = v.findViewById<TextView>(R.id.txtView_pop_up)
 
+            var iddoc  =""
             btnRecupBind.setOnClickListener {
                 val numbind_tc = recupEditText_bind.text
                 Log.d("Bind ",numbind_tc.toString())
                 numPlomb_string = numbind_tc.toString()
+                val db = FirebaseFirestore.getInstance()
+                val query = db.collection("Voyage")
+                    .whereEqualTo("num_TC", tc.num_TC)
+                    .whereEqualTo("num_Camion", tc.num_Camion)
+                query.get().addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        var docId = document.id
+                        iddoc = docId
+                        val docRef = db.collection("Voyage").document(docId)
+                        //docRef.update("step_TC", etape)
+                        docRef.update("num_plomb_TC",numPlomb_string)
+                    }
+                    Log.d("Doc Id",iddoc)
+                }
                 recupEditText_bind.text?.clear()
                 recupEditText_bind.isVisible = false
                 labelBind.isVisible = false
+                btnRecupBind.isVisible = false
+                txtView_popup.setText(R.string.poursuivre_voyage_popup)
+                txtView_popup.setTextColor(v.resources.getColor(R.color.autre_vert_sombre))
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+
+        private fun popUpPlomb_second(tc : Tc){
+            val v = View.inflate(itemView.context,R.layout.popup_num_bind_second, null)
+            val  builder = AlertDialog.Builder(itemView.context)
+            builder.setView(v)
+
+            //plomb 1
+            val labelBind = v.findViewById<TextInputLayout>(R.id.textFieldBindNum)
+            val recupEditText_bind = v.findViewById<TextInputEditText>(R.id.textInputBindNum)
+            //plomb 2
+            val labelBind_second = v.findViewById<TextInputLayout>(R.id.textFieldBindNum_second)
+            val recupEditText_bind_second = v.findViewById<TextInputEditText>(R.id.textInputBindNum_second)
+
+            val txtView_popup = v.findViewById<TextView>(R.id.txtView_pop_up)
+            val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
+
+            var iddoc  =""
+            btnRecupBind.setOnClickListener {
+                val numbind_tc = recupEditText_bind.text
+                val numbind_tc_second = recupEditText_bind_second.text
+                numPlomb_string = numbind_tc.toString()
+                numPlomb_second_string = numbind_tc_second.toString()
+                val db = FirebaseFirestore.getInstance()
+                val query = db.collection("Voyage")
+                    .whereEqualTo("num_TC", tc.num_TC)
+                    .whereEqualTo("num_Camion", tc.num_Camion)
+                query.get().addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        var docId = document.id
+                        iddoc = docId
+                        val docRef = db.collection("Voyage").document(docId)
+                        docRef.update("num_plomb_TC",numPlomb_string)
+                        docRef.update("num_plomb_TC_2",numPlomb_second_string)
+                    }
+                    Log.d("Doc Id",iddoc)
+                }
+                recupEditText_bind.text?.clear()
+                recupEditText_bind_second.text?.clear()
+                recupEditText_bind.isVisible = false
+                recupEditText_bind_second.isVisible = false
+                labelBind.isVisible = false
+                labelBind_second.isVisible = false
                 btnRecupBind.isVisible = false
                 txtView_popup.setText(R.string.poursuivre_voyage_popup)
                 txtView_popup.setTextColor(v.resources.getColor(R.color.autre_vert_sombre))

@@ -8,6 +8,7 @@
     <string name="list_tc">Liste de camions en circulation</string>
     <string name="num_booking">Numéro Booking TC</string>
     <string name="num_tc_off">Numéro TC</string>
+    <string name="num_tc_off_2">Numéro Deuxième TC</string>
     <string name="num_tc_item">MSDU1807661</string>
     <string name="but_addtc">Ajouter TC (Conteneur) </string>
     <string name="num_camion">Immatriculation du camion</string>
@@ -36,11 +37,17 @@
     <string name="ajout_bind_num_vraie">Ajouter le numéro Plomb TC</string>
     <string name="poursuivre_voyage_popup">Numéro Plomb enregistré avec succès</string>
 
+    <string name="bind_txt_tc_second">Renseigner les numéro plomb des TC</string>
+    <string name="bind_num_vraie_un">Numéro Plomb du TC 1</string>
+    <string name="bind_num_vraie_second">Numéro Plomb du TC 2</string>
+
     <!--pop up-->
     <string name="titre_details_voyage">Details</string>
     <string name="num_phone">+228 90 02 56 54</string>
     <string name="num_plomb_vrai">78GT16</string>
     <string name="titre_etape_et_date">TC en chargement depuis ce 9/03/2023</string>
+
+    <string name="phone_du_chauffeur">Numéro du chauffeur</string>
 
 
     <string name="large_text">
