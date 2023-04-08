@@ -20,22 +20,44 @@
 
                         <!-- Titre -->
                         <TextView
-                            android:id="@+id/titrelistetc"
+                            android:id="@+id/titrelisttc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_blue_background"
                             android:fontFamily="@font/source_sans_pro_bold"
+                            android:gravity="center"
                             android:padding="@dimen/all_padding"
                             android:text="@string/list_tc"
                             android:textColor="@color/white"
                             android:textSize="18dp"
-                            android:gravity="center"
                             android:layout_marginTop="@dimen/all_margin"
                             android:layout_marginLeft="@dimen/all_margin"
                             android:layout_marginRight="@dimen/all_margin"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardView_searchlistetc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/gray"
+                            app:cardCornerRadius="@dimen/radius"
+                            android:layout_marginTop="@dimen/all_margin"
+                            android:layout_marginLeft="@dimen/all_margin"
+                            android:layout_marginRight="@dimen/all_margin"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/titrelisttc">
+                                <androidx.appcompat.widget.SearchView
+                                    android:id="@+id/searchView_tc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:queryHint="@string/search_hint"
+                                    app:iconifiedByDefault="false"
+                                    app:queryBackground="@android:color/transparent"
+                                    />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <!-- RecyclerView-->
                         <androidx.recyclerview.widget.RecyclerView
@@ -49,7 +71,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/titrelistetc" />
+                            app:layout_constraintTop_toBottomOf="@id/cardView_searchlistetc" />
 
                         <!--Chargement -->
                         <TextView
@@ -84,5 +106,15 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_constraintBottom_toBottomOf="@+id/swipp_refresh_layout"
+            app:layout_constraintEnd_toEndOf="@+id/swipp_refresh_layout"
+            app:srcCompat="@drawable/ic_pdf" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.charmidezassiobo.tcrec.ui.ajoutertc
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -37,18 +39,22 @@ class AjoutertcFragment : Fragment() {
         _binding = FragmentAjoutertcBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        var numBookingTc : TextInputEditText = binding.textInputBookingNum
-        var numTCOff : TextInputEditText = binding.textInputTcNum
-        var numCamion : TextInputEditText = binding.textInputCamionNum
-        var descTC : TextInputEditText = binding.textInputDesc
-        var phone : TextInputEditText = binding.textInputPhoneChauffeur
-        var numTCSecondOff : TextInputEditText = binding.textInputTcNum2
+        val numBookingTc : TextInputEditText = binding.textInputBookingNum
+        val numTCOff : TextInputEditText = binding.textInputTcNum
+        val numCamion : TextInputEditText = binding.textInputCamionNum
+        val descTC : TextInputEditText = binding.textInputDesc
+        val phone : TextInputEditText = binding.textInputPhoneChauffeur
+        val numTCSecondOff : TextInputEditText = binding.textInputTcNum2
 
-        var numTCSecondLabel : TextInputLayout = binding.textFieldTcNum2
-        var imgViewBtn : ImageView = binding.imageViewPlusTc
-        var constraintLayout_ajout_tc = binding.constraintLayoutAjouterTc
-        var textViewTC_label = binding.textFieldTcNum
-        var textViewBooking_label = binding.textFieldBookingNum
+        val numTCSecondLabel : TextInputLayout = binding.textFieldTcNum2
+        val imgViewBtn : ImageView = binding.imageViewPlusTc
+        val constraintLayout_ajout_tc = binding.constraintLayoutAjouterTc
+        val textViewTC_label = binding.textFieldTcNum
+        val textViewBooking_label = binding.textFieldBookingNum
+
+        val connectivityManager = binding.root.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
 
         val currentDate = LocalDate.now()
 
@@ -59,6 +65,8 @@ class AjoutertcFragment : Fragment() {
 
         var typeTransat = ""
 
+        imgViewBtn.isVisible = false
+
         val radioGrp : RadioGroup = binding.radioGroupOk
         radioGrp.setOnCheckedChangeListener { group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
@@ -66,9 +74,11 @@ class AjoutertcFragment : Fragment() {
             when(selectOption){
                 "Importation" -> {
                     typeTransat = "Import"
+                    imgViewBtn.isVisible = false
                 }
                 "Exportation" -> {
                     typeTransat = "Export"
+                    imgViewBtn.isVisible = true
                 }
             }
         }
@@ -92,67 +102,82 @@ class AjoutertcFragment : Fragment() {
         val butAjouter : Button = binding.ajouteTcButton
 
         butAjouter.setOnClickListener{
-            butAjouter.text = "Chargement..."
-            butAjouter.isEnabled = false
-            butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
-            ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
-            step_tc = 0
-            num_plomb =""
-            num_plomb_2 = ""
+            if (isConnected){
+                butAjouter.text = "Chargement..."
+                butAjouter.isEnabled = false
+                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
+                ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
+                step_tc = 0
+                num_plomb =""
+                num_plomb_2 = ""
 
-            val recup_numCamion  = numCamion.text.toString()
-            val recup_numTc = numTCOff.text.toString()
+                val recup_numCamion  = numCamion.text.toString()
+                val recup_numTc = numTCOff.text.toString()
 
-            Log.d("Type Transacte",typeTransat)
+                if (typeTransat != ""){
+                    if (recup_numCamion != "" || recup_numTc != "" ){
+                        val registerTc = hashMapOf(
+                            "Date" to ajouterdate,
+                            "num_Booking" to numBookingTc.text.toString(),
+                            "num_TC" to numTCOff.text.toString(),
+                            "num_TC_Second" to numTCSecondOff.text.toString(),
+                            "num_Camion" to numCamion.text.toString(),
+                            "step_TC" to step_tc,
+                            "desc_TC" to descTC.text.toString(),
+                            "num_plomb_TC" to num_plomb,
+                            "num_plomb_TC_2" to num_plomb_2,
+                            "phone_chauffeur_TC" to phone.text.toString(),
+                            "import_export" to typeTransat
+                        )
+                        db.collection("Voyage").document().set(registerTc)
+                            .addOnSuccessListener {
+                                val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",Snackbar.LENGTH_LONG)
+                                snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
+                                snack.show()
+                                numBookingTc.text?.clear()
+                                numTCOff.text?.clear()
+                                numCamion.text?.clear()
+                                descTC.text?.clear()
+                                phone.text?.clear()
+                                numTCSecondOff.text?.clear()
+                                butAjouter.text = getText(R.string.but_addtc)
+                                butAjouter.isEnabled = true
+                                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
+                            }
+                            .addOnFailureListener{
+                                //Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
+                                val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré",Snackbar.LENGTH_LONG)
+                                snack.show()
+                                butAjouter.text = getText(R.string.but_addtc)
+                                butAjouter.isEnabled = true
+                                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
+                            }
 
-            if (recup_numCamion != "" || recup_numTc != "" ){
-
-            val registerTc = hashMapOf(
-                "Date" to ajouterdate,
-                "num_Booking" to numBookingTc.text.toString(),
-                "num_TC" to numTCOff.text.toString(),
-                "num_TC_Second" to numTCSecondOff.text.toString(),
-                "num_Camion" to numCamion.text.toString(),
-                "step_TC" to step_tc,
-                "desc_TC" to descTC.text.toString(),
-                "num_plomb_TC" to num_plomb,
-                "num_plomb_TC_2" to num_plomb_2,
-                "phone_chauffeur_TC" to phone.text.toString()
-            )
-            db.collection("Voyage").document().set(registerTc)
-                .addOnSuccessListener {
-                    val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",Snackbar.LENGTH_LONG)
+                    }
+                    else if(recup_numCamion == "" || recup_numTc == "") {
+                        val snack = Snackbar.make(binding.root,"Veuillez renseigner les informations du TC",Snackbar.LENGTH_LONG)
+                        snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.gray2))
+                        snack.show()
+                        butAjouter.text = getText(R.string.but_addtc)
+                        butAjouter.isEnabled = true
+                        butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
+                    }
+                }else if(typeTransat == ""){
+                    val snack = Snackbar.make(binding.root,"Veuillez renseigner le type de transaction",Snackbar.LENGTH_LONG)
                     snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
-                    snack.show()
-                    numBookingTc.text?.clear()
-                    numTCOff.text?.clear()
-                    numCamion.text?.clear()
-                    descTC.text?.clear()
-                    phone.text?.clear()
-                    numTCSecondOff.text?.clear()
-                    butAjouter.text = getText(R.string.but_addtc)
-                    butAjouter.isEnabled = true
-                    butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
-                }
-                .addOnFailureListener{
-                    //Toast.makeText(context, "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré", Toast.LENGTH_SHORT).show()
-                    val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré",Snackbar.LENGTH_LONG)
+                    snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.gray2))
                     snack.show()
                     butAjouter.text = getText(R.string.but_addtc)
                     butAjouter.isEnabled = true
                     butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
                 }
-
-            }
-            else if(recup_numCamion == "" || recup_numTc == "") {
-                val snack = Snackbar.make(binding.root,"Veuillez renseigner les informations",Snackbar.LENGTH_LONG)
-                snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.gray2))
+            } else {
+                // Pas de connexion Internet
+                val snack = Snackbar.make(binding.constraintLayoutAjouterTc,"Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
+                snack.setBackgroundTint(ContextCompat.getColor(root.context, R.color.gray2))
                 snack.show()
-                butAjouter.text = getText(R.string.but_addtc)
-                butAjouter.isEnabled = true
-                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
             }
 
         }

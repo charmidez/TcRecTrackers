@@ -9,5 +9,6 @@ data class Tc(
     var num_plomb : String,
     var date_tc : String,
     var step_TC : Int,
-    var num_plomb_second : String
+    var num_plomb_second : String,
+    var type_transat : String
     )

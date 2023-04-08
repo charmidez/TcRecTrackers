@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/all_padding"
+    tools:context=".ui.suivietc.SuivietcSousFragment">
+
+    <TextView
+        android:id="@+id/titredetails_voyage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:gravity="center"
+
+        android:text="@string/titre_details_voyage"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView_etape_et_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
+        android:background="@drawable/btn_drawable_not_selected"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:gravity="center"
+        android:padding="@dimen/all_padding"
+        android:text="@string/titre_etape_et_date"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titredetails_voyage" />
+    <com.baoyachi.stepview.HorizontalStepView
+        android:id="@+id/step_view_baoya_vertical_view_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_white_back_white"
+        android:layout_centerInParent="true"
+        app:layout_constraintTop_toBottomOf="@+id/textView_etape_et_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <ImageView
+        android:id="@+id/imgView_tc_item"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/all_margin"
+        android:src="@drawable/ic_cam"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/step_view_baoya_vertical_view_item" />
+    <EditText
+        android:id="@+id/textViewCamionNum_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:background="@drawable/rounded_blue_background"
+        android:fontFamily="@font/source_sans_pro_black"
+        android:paddingLeft="@dimen/padd"
+        android:paddingRight="@dimen/all_padding"
+        android:paddingTop="@dimen/padd"
+        android:paddingBottom="@dimen/padd"
+        android:text="@string/num_camion_item"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgView_tc_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgView_tc_item"
+        app:layout_constraintTop_toTopOf="@+id/imgView_tc_item" />
+
+    <ImageView
+        android:id="@+id/imgView_booking"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/all_margin"
+        android:src="@drawable/ic_bk"
+        app:layout_constraintStart_toStartOf="@+id/imgView_tc_item"
+        app:layout_constraintTop_toBottomOf="@+id/imgView_tc_item"
+        />
+
+    <TextView
+        android:id="@+id/txtView_numBooking"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:background="@drawable/rounded_cardview_gray"
+        android:fontFamily="@font/source_sans_pro_black"
+        android:padding="@dimen/padd"
+        android:text="@string/num_tc_item"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgView_booking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgView_booking"
+        app:layout_constraintTop_toTopOf="@+id/imgView_booking" />
+
+    <ImageView
+        android:id="@+id/imgView_numcamion"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/all_margin"
+        android:src="@drawable/ic_tc"
+        app:layout_constraintStart_toStartOf="@+id/imgView_booking"
+        app:layout_constraintTop_toBottomOf="@+id/imgView_booking" />
+    <TextView
+        android:id="@+id/textViewTCNum_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:background="@drawable/rounded_blue_corner_view"
+        android:fontFamily="@font/source_sans_pro_black"
+        android:padding="@dimen/padd"
+        android:text="@string/num_tc_item"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgView_numcamion"
+
+        app:layout_constraintStart_toEndOf="@+id/imgView_numcamion"
+        app:layout_constraintTop_toTopOf="@+id/imgView_numcamion" />
+    <TextView
+        android:id="@+id/num_plomb_tc_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:padding="@dimen/padd"
+        android:text="@string/num_plomb_vrai"
+        android:textColor="@color/textColor"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
+        app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item"
+        app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item" />
+    <ImageView
+        android:id="@+id/imgView_numtc2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/all_margin"
+        android:src="@drawable/ic_tc"
+        app:layout_constraintStart_toStartOf="@+id/imgView_numcamion"
+        app:layout_constraintTop_toBottomOf="@+id/imgView_numcamion" />
+    <TextView
+        android:id="@+id/textViewTCNum_item2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:background="@drawable/rounded_blue_corner_view"
+        android:fontFamily="@font/source_sans_pro_black"
+        android:padding="@dimen/padd"
+        android:text="@string/num_tc_item"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgView_numtc2"
+        app:layout_constraintStart_toEndOf="@+id/imgView_numtc2"
+        app:layout_constraintTop_toTopOf="@+id/imgView_numtc2" />
+    <TextView
+        android:id="@+id/num_plomb_tc_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:padding="@dimen/padd"
+        android:text="@string/num_plomb_vrai"
+        android:textColor="@color/textColor"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item2"
+        app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item2"
+        app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item2" />
+    <ImageView
+        android:id="@+id/imgView_numPhoneChauffeur"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/all_margin"
+        android:src="@drawable/phone_number"
+        app:layout_constraintStart_toStartOf="@+id/imgView_numtc2"
+        app:layout_constraintTop_toBottomOf="@+id/imgView_numtc2" />
+    <EditText
+        android:id="@+id/textViewTCnumPhoneChauffeur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:background="@drawable/btn_drawable_call"
+        android:fontFamily="@font/source_sans_pro_black"
+        android:padding="@dimen/padd"
+        android:text="@string/num_phone"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgView_numPhoneChauffeur"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgView_numPhoneChauffeur"
+        app:layout_constraintTop_toTopOf="@+id/imgView_numPhoneChauffeur" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_popup_maj"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
+        android:background="@drawable/btn_drawable_red"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:text="Mettre à jour"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/imgView_numPhoneChauffeur"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgView_numPhoneChauffeur"
+        />
+
+
+
+    
+
+</androidx.constraintlayout.widget.ConstraintLayout>

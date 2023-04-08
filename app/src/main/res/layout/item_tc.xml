@@ -8,11 +8,11 @@
     android:id="@+id/itemCardView_item_tc"
     app:cardBackgroundColor="@color/gray"
     app:cardCornerRadius="16dp"
+    android:elevation="8dp"
     android:layout_marginTop="@dimen/all_margin_demi"
     android:layout_marginRight="@dimen/all_margin"
     android:layout_marginLeft="@dimen/all_margin"
-    android:layout_marginBottom="@dimen/all_margin_demi"
-    android:elevation="8dp">
+    android:layout_marginBottom="@dimen/all_margin_demi">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -88,6 +88,19 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewCamionNum_item" />
 
         <!--Label  camion-->
+        <TextView
+            android:id="@+id/textView_import_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Export"
+            android:textColor="@color/blue"
+            android:paddingLeft="@dimen/padd"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/date_item"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/date_item"
+            app:layout_constraintTop_toBottomOf="@+id/date_item" />
+
         <ImageView
             android:id="@+id/imgView_numcamion"
             android:layout_width="30dp"
@@ -140,22 +153,18 @@
             android:id="@+id/date_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:padding="@dimen/padd"
+            android:paddingLeft="@dimen/padd"
             android:text="8/02/2023"
             android:textColor="@color/textColor"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewCamionNum_item"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/btnNumChauffeur" />
 
         <View
             android:id="@+id/divider2"
             android:layout_width="370dp"
             android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/all_margin"
             android:background="?android:attr/listDivider"
             android:backgroundTint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +174,7 @@
         <com.baoyachi.stepview.HorizontalStepView
             android:id="@+id/step_view_baoya_view_item"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/rounded_white_back_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
