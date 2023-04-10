@@ -1,5 +1,6 @@
 package com.charmidezassiobo.tcrec.ui.suivietc
 
+import android.content.ClipData.Item
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
@@ -56,6 +57,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     val sousfragment : Fragment = SuivietcSousFragment()
 
     var items_tc : MutableList<Tc> = ArrayList()
+    var tempArrayList : MutableList<Tc> = ArrayList()
     lateinit var adapter : TCAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -103,29 +105,24 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
         inputItemInRecyclerView(txtView_charging,progressBar_view,recyclerView_TC)
 
-        /*
-        repo.updateTc {
-            recyclerView_TC.adapter = TCAdapter(repo.itemListTc, this@SuivietcFragment)
-            txtView_charging.isVisible  = false
-            progressBar_view.setVisibility(View.GONE)
-        }
-        */
-
-        /*
-        searchView_tc.setOnQueryTextListener(object  : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-            override fun onQueryTextChange(newText: String): Boolean {
-                filterList(newText)
-                return true
-            }
-        })
-        */
+        tempArrayList = arrayListOf<Tc>()
 
         //Bien réorganiser le Pdf
         createPdf("En cours de création","Tc.pdf", convertPdfBtn, recyclerView_TC)
         touchHelper.attachToRecyclerView(recyclerView_TC)
+
+        searchView_tc.onFocusChangeListener.apply {
+            searchView_tc.setOnQueryTextListener(object  : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+                override fun onQueryTextChange(query: String): Boolean {
+                    filterList(query)
+                    return false
+                }
+            })
+        }
+
 
         refresh.setOnRefreshListener{
             items_tc.clear()
@@ -149,6 +146,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     }
 
     private fun filterList(query : String){
+
         if (query  != null ){
             val filteredList = ArrayList<Tc>()
             for (i in items_tc){
@@ -162,9 +160,15 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                 snack.show()
             } else {
                 //adapter.setFilteredList(filteredList)
-                TCAdapter(items_tc, this@SuivietcFragment).setFilteredList(filteredList)
+                //items_tc = filteredList
+                recyclerView_TC.adapter = TCAdapter(filteredList, this@SuivietcFragment)
+                //TCAdapter(items_tc, this@SuivietcFragment).setFilteredList(filteredList)
+                //recyclerView_TC.adapter = recycler
+                //Log.d("Herve", "$filteredList")
+
             }
         }
+
     }
 
     fun createPdf(contenuDuPdf : String, nomDuPdf : String, convertPdfBtn : FloatingActionButton, recyclerView : RecyclerView){

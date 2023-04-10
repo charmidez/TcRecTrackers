@@ -37,6 +37,13 @@ import java.time.LocalDate
 
 class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
 
+    /*
+    fun setFilteredList(filteredList : List<Tc>){
+        this.items = filteredList
+        notifyDataSetChanged()
+    }
+    */
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TCViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_tc, parent, false)
 
@@ -502,11 +509,6 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             txtV_import_export.text = typeTransact
         }
 
-    }
-
-    fun setFilteredList(items : List<Tc>){
-        this.items = items
-        notifyDataSetChanged()
     }
 
 }
