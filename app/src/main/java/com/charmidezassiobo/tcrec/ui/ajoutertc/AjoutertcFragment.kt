@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioButton
@@ -18,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.charmidezassiobo.tcrec.R
+import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -65,7 +68,18 @@ class AjoutertcFragment : Fragment() {
 
         var typeTransat = ""
 
+        //var bookingList = ArrayList<String>()
+        var bookingList = mutableListOf<String>()
+        var spinner_ajout_tc = binding.spinnerAjoutTc
+        var getData = GetDataFromDB()
+        var items_tc = getData.itemListTc
+
+        var bookingListRD : List<String> = listOf()
+
         imgViewBtn.isVisible = false
+
+        val context : Context
+        context = requireContext()
 
         val radioGrp : RadioGroup = binding.radioGroupOk
         radioGrp.setOnCheckedChangeListener { group, i ->
@@ -97,6 +111,28 @@ class AjoutertcFragment : Fragment() {
             Log.d("ImageView","ImageVie appuyé")
             imgViewBtn.isVisible = false
         }
+
+
+        //Spinner
+        getData.updateTc {
+            bookingList = getData.listBooking
+            //bookingList.distinct()
+            bookingListRD = bookingList.distinct().toList()
+            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingListRD)
+            spinner_ajout_tc.adapter  = adapter
+        }
+        bookingList.add("")
+        spinner_ajout_tc.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = bookingList[position]
+                numBookingTc.setText(selectedItem)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        })
 
         //Prendre Les données du conteneur
         val butAjouter : Button = binding.ajouteTcButton

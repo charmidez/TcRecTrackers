@@ -21,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView_etape_et_date"
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titredetails_voyage" />
+
     <com.baoyachi.stepview.HorizontalStepView
         android:id="@+id/step_view_baoya_vertical_view_item"
         android:layout_width="wrap_content"
@@ -171,6 +173,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item2"
         app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item2"
         app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item2" />
+
     <ImageView
         android:id="@+id/imgView_numPhoneChauffeur"
         android:layout_width="36dp"
