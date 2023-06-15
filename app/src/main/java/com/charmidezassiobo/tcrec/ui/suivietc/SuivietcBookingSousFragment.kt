@@ -32,9 +32,6 @@ class SuivietcBookingSousFragment : Fragment() {
     private var _binding : FragmentSuivietcBookingSousBinding? = null
     private val binding get() = _binding!!
 
-
-    val db = Firebase.firestore
-
     var items_tc : MutableList<Tc> = ArrayList()
     lateinit var getData : GetDataFromDB
     lateinit var adapter : TCBookingAdapter

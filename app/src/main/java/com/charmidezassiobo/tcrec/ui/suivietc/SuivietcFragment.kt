@@ -51,8 +51,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     lateinit var convertPdfBtn : FloatingActionButton
     lateinit var imgView_list_tc_bk : ImageView
 
-    //private val repo = GetDataFromDB()
-
     val db = Firebase.firestore
     val voyRef = db.collection("Voyage")
 
@@ -61,7 +59,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
     var items_tc : MutableList<Tc> = ArrayList()
     var tempArrayList : MutableList<Tc> = ArrayList()
-    lateinit var adapter : TCAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -84,6 +81,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
         progressBar_view.setVisibility(View.VISIBLE)
 
+        
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
             override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
                 return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -106,6 +104,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                 }
             }
         })
+
+
 
         inputItemInRecyclerView(txtView_charging,progressBar_view,recyclerView_TC)
 
@@ -173,24 +173,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
             if (filteredList.isEmpty()){
                 recyclerView_TC.adapter = TCAdapter(filteredList, this@SuivietcFragment)
 
-                    /*.apply {
-                    val snack = Snackbar.make(binding.swipeInit,"Objet non trouvé", Snackbar.LENGTH_LONG)
-                    snack.setBackgroundTint(ContextCompat.getColor(binding.root.context, R.color.gray2))
-                    snack.show()
-                }*/
-
             } else {
-                //adapter.setFilteredList(filteredList)
-                //items_tc = filteredList
-
                 recyclerView_TC.adapter = TCAdapter(filteredList, this@SuivietcFragment)
-
-                //TCAdapter(items_tc, this@SuivietcFragment).setFilteredList(filteredList)
-                //recyclerView_TC.adapter = TCAdapter(items_tc, this@SuivietcFragment)
-
-                //recyclerView_TC.adapter = recycler
-                //Log.d("Herve", "$filteredList")
-
             }
         }
 

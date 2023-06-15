@@ -80,6 +80,7 @@
                             android:scrollbars="vertical"
                             android:padding="1dp"
                             android:layout_marginTop="@dimen/all_margin"
+                            tools:listitem="@layout/item_tc"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

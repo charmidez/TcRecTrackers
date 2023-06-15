@@ -11,15 +11,21 @@
         android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/logo_blanc" />
+        android:background="@drawable/rounded_blue_background"
+        android:paddingLeft="@dimen/all_padding"
+        android:paddingRight="@dimen/all_padding"
+        android:src="@drawable/logo_blanc_new" />
 
     <TextView
         android:id="@+id/txtView_rec_tc_tracker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REC TC TRACKER"
+        android:text="@string/app_name_uppercase"
         android:fontFamily="@font/source_sans_pro_black"
         android:textSize="22dp"
+        android:background="@drawable/rounded_blue_background"
+        android:layout_marginTop="@dimen/all_margin"
+        android:padding="@dimen/all_padding"
         android:textColor="@color/white"
         android:layout_below="@+id/imgView_logo"
         android:layout_centerVertical="true"

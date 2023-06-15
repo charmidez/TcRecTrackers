@@ -8,7 +8,7 @@ import com.google.firebase.ktx.Firebase
 class GetDataFromDB {
 
         val db = Firebase.firestore
-        val voyTc = db.collection("Voyage")
+        val voyTc = db.collection("Voyagetest")
         var itemListTc = arrayListOf<Tc>()
 
 

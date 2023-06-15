@@ -37,16 +37,8 @@ import java.time.LocalDate
 
 class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
 
-    /*
-    fun setFilteredList(filteredList : List<Tc>){
-        this.items = filteredList
-        notifyDataSetChanged()
-    }
-    */
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TCViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_tc, parent, false)
-
         return TCViewHolder(itemView)
     }
 
@@ -56,16 +48,10 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
     override fun onBindViewHolder(holder: TCViewHolder, position: Int) {
         val tc = items[position]
 
-        //holder.dateChangement(tc)
         holder.bindTC(tc)
         holder.import_export_text(tc.type_transat)
-
         holder.step_change(tc)
         holder.clickSuivant(tc)
-
-        //holder.itemClick(tc, items)
-        //holder.itemView.setOnClickListener { if ( onClickListener != null){ onClickListener!!.onClick(position, tc ) } }
-
         holder.callButton()
     }
 
@@ -421,8 +407,6 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             val  builder = AlertDialog.Builder(itemView.context)
             builder.setView(v)
 
-
-
             val recupEditText_bind = v.findViewById<TextInputEditText>(R.id.textInputBindNum)
             val labelBind = v.findViewById<TextInputLayout>(R.id.textFieldBindNum)
             val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
@@ -530,133 +514,4 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
         }
 
     }
-
 }
-
-
-/*
-   // A function to bind the onclickListener.
-   fun setOnClickListener(onClickListener: OnClickListener) {
-       this.onClickListener = onClickListener
-   }
-
-   // onClickListener Interface
-   interface OnClickListener {
-       fun onClick(position: Int, model: Tc)
-   }
-   */
-
-/*
-in init
-            itemView.setOnClickListener {
-                val position = adapterPosition
-                listener.onItemClick(position)
-            }
-            */
-
-/*
-in inner class ViewHolder
-        //private var listener : (() -> Unit)? = null
-
-        private fun popUpDetails(tc : Tc){
-            val v = View.inflate(itemView.context,R.layout.popup_details_voyages, null)
-            val  builder = AlertDialog.Builder(itemView.context)
-            builder.setView(v)
-            var date_etape_tc_popup : TextView = v.findViewById(R.id.textView_etape_et_date)
-            var numcamion_popup : EditText = v.findViewById(R.id.textViewCamionNum_item)
-
-            var  numtc_popup : TextView = v.findViewById(R.id.textViewTCNum_item)
-            var num_plomb_tc1 : TextView = v.findViewById(R.id.num_plomb_tc_1)
-
-            var numtcsecond_popup : TextView = v.findViewById(R.id.textViewTCNum_item2)
-            var num_plomb_tc2 : TextView = v.findViewById(R.id.num_plomb_tc_2)
-
-            var phoneChauffeur_popup : EditText = v.findViewById(R.id.textViewTCnumPhoneChauffeur)
-            var btn_maj_popup : Button = v.findViewById(R.id.btn_popup_maj)
-
-                when(tc.type_transat){
-                    "Import" -> {
-                        when (tc.step_TC) {
-                            0 -> date_etape_tc_popup.text = "Tc arrivé au Port / ${tc.date_tc}"
-                            1 -> date_etape_tc_popup.text = "Tc en Dédouanement / ${tc.date_tc}"
-                            2 -> date_etape_tc_popup.text = "Tc sorti du Port / ${tc.date_tc}"
-                            3 -> date_etape_tc_popup.text = "Tc arrivé à Destination / ${tc.date_tc}"
-                            4 -> date_etape_tc_popup.text = "Transaction Terminé / ${tc.date_tc}"
-                        }
-                    }
-                    "Export" -> {
-                        when(tc.step_TC){
-                            0 -> date_etape_tc_popup.text = "Tc au port / ${tc.date_tc}"
-                            1 -> date_etape_tc_popup.text = "Tc à l'usine / ${tc.date_tc}"
-                            2 -> date_etape_tc_popup.text = "Tc en chargement / ${tc.date_tc}"
-                            3 -> date_etape_tc_popup.text = "Tc sortie de l'entrepot / ${tc.date_tc}"
-                            4 -> date_etape_tc_popup.text = "Tc arrivé au Port / ${tc.date_tc}"
-                            5 -> date_etape_tc_popup.text = "Transaction Terminé / ${tc.date_tc}"
-                        }
-                    }
-                }
-
-            numcamion_popup.setText(tc.num_Camion)
-            numtc_popup.text = tc.num_TC
-            numtcsecond_popup.text = tc.num_TCSecond
-            num_plomb_tc1.text = tc.num_plomb
-            num_plomb_tc2.text = tc.num_plomb_second
-            phoneChauffeur_popup.setText(tc.num_tel_chauffeur)
-
-            // Checker si le phone est disponible
-            if(phoneChauffeur_popup.text.toString() == "null" || phoneChauffeur_popup == null || phoneChauffeur_popup.text.toString() == ""){
-                phoneChauffeur_popup.setText("Non Disponible")
-                phoneChauffeur_popup.isEnabled = false
-                phoneChauffeur_popup.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-            }
-            // Checker si le second tc est disponible
-            if (tc.num_TCSecond == "null" || tc.num_TCSecond == null || tc.num_TCSecond == "" ){
-                numtcsecond_popup.text = "Non disponible"
-                numtcsecond_popup.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-            }
-            //Checker si le second plomb est dispo
-            if (tc.num_plomb_second == "null" || tc.num_plomb_second == null || tc.num_plomb_second == "" ){
-                num_plomb_tc2.isInvisible = true
-            }
-            //Checker si le premier plomb est dispo
-            if (tc.num_plomb == "null" || tc.num_plomb == null || tc.num_plomb == "" ){
-                num_plomb_tc1.isInvisible = true
-            }
-            var iddoc  =""
-            btn_maj_popup.setOnClickListener {
-                val nouveau_num_immatriculation = numcamion_popup.text.toString()
-                val nouveau_num_chauffeur = phoneChauffeur_popup.text.toString()
-                Log.d("btn rouge", "Appuyé $nouveau_num_immatriculation")
-
-                val db = FirebaseFirestore.getInstance()
-                val query = db.collection("Voyage")
-                    .whereEqualTo("num_TC", tc.num_TC)
-                    .whereEqualTo("num_Camion", tc.num_Camion)
-                query.get().addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        var docId = document.id
-                        iddoc = docId
-                        val docRef = db.collection("Voyage").document(docId)
-                        docRef.update("num_Camion", nouveau_num_immatriculation)
-                        docRef.update("phone_chauffeur_TC",nouveau_num_chauffeur)
-                    }
-                }
-                btn_maj_popup.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-                btn_maj_popup.text = "Mis à jour éffectué"
-            }
-
-
-            val dialog = builder.create()
-            dialog.show()
-            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
-
-
-        fun itemClick(tc : Tc, items : List<Tc>){
-            itemView.setOnClickListener{
-                //popUpDetails(tc)
-            }
-        }
-        */
-
-
