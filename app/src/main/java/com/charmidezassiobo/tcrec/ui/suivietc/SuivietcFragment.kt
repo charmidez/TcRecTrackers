@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -49,13 +48,16 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     lateinit var progressBar_view : ProgressBar
     lateinit var searchView_tc : androidx.appcompat.widget.SearchView
     lateinit var convertPdfBtn : FloatingActionButton
-    lateinit var imgView_list_tc_bk : ImageView
 
+<<<<<<< HEAD
+=======
+    private val repo = GetDataFromDB()
+
+>>>>>>> parent of 3de0da0... 15 2023 Tout est operationnel
     val db = Firebase.firestore
     val voyRef = db.collection("Voyage")
 
     val sousfragment : Fragment = SuivietcSousFragment()
-    val sousfragmentbooking : Fragment = SuivietcBookingSousFragment()
 
     var items_tc : MutableList<Tc> = ArrayList()
     var tempArrayList : MutableList<Tc> = ArrayList()
@@ -76,7 +78,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         progressBar_view  = binding.progressBarId
         searchView_tc  = binding.searchViewTc
         convertPdfBtn = binding.fab
-        imgView_list_tc_bk = binding.imageViewBkTc
         items_tc = mutableListOf()
 
         progressBar_view.setVisibility(View.VISIBLE)
@@ -127,8 +128,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
             })
         }
 
-        voirListDesTc(imgView_list_tc_bk)
-
 
         refresh.setOnRefreshListener{
             items_tc.clear()
@@ -156,25 +155,29 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         if (query  != null ){
             val filteredList = ArrayList<Tc>()
             for (i in items_tc){
-
-                if(i.num_TC.lowercase(Locale.ROOT).contains(query) || i.num_TC.uppercase(Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-                if( i.num_TCSecond.lowercase(Locale.ROOT).contains(query) || i.num_TCSecond.uppercase(Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-                if(i.num_Camion.lowercase(Locale.ROOT).contains(query) || i.num_Camion.uppercase(Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-                if(i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(Locale.ROOT).contains(query)){
+                if(i.num_TC.lowercase(Locale.ROOT).contains(query)){
                     filteredList.add(i)
                 }
             }
             if (filteredList.isEmpty()){
+<<<<<<< HEAD
                 recyclerView_TC.adapter = TCAdapter(filteredList, this@SuivietcFragment)
 
             } else {
                 recyclerView_TC.adapter = TCAdapter(filteredList, this@SuivietcFragment)
+=======
+                val snack = Snackbar.make(binding.swipeInit,"Conteneur non trouvé", Snackbar.LENGTH_LONG)
+                snack.setBackgroundTint(ContextCompat.getColor(binding.root.context, R.color.gray2))
+                snack.show()
+            } else {
+                //adapter.setFilteredList(filteredList)
+                //items_tc = filteredList
+                recyclerView_TC.adapter = TCAdapter(filteredList, this@SuivietcFragment)
+                //TCAdapter(items_tc, this@SuivietcFragment).setFilteredList(filteredList)
+                //recyclerView_TC.adapter = recycler
+                //Log.d("Herve", "$filteredList")
+
+>>>>>>> parent of 3de0da0... 15 2023 Tout est operationnel
             }
         }
 
@@ -275,7 +278,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                                 }
                                 txtView_charging.isVisible  = false
                                 progressBar_view.setVisibility(View.GONE)
-                                items_tc.sortWith(compareBy({it.step_TC}))
                             }
                         }
                     }
@@ -318,16 +320,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                 .addToBackStack(null)
                 .commit()
             }
-    }
-
-    fun voirListDesTc(img :  ImageView){
-        img.setOnClickListener {
-            parentFragmentManager.beginTransaction().apply {
-                replace(R.id.nav_host_fragment_activity_main, sousfragmentbooking)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
     }
 
     override fun onDestroyView() {

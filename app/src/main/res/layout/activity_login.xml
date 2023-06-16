@@ -77,6 +77,9 @@
 
     </RadioGroup>
 
+<!--    app:startIconDrawable="@drawable/login_user"-->
+<!--    app:startIconDrawable="@drawable/user_password"-->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username"
         android:layout_width="match_parent"
@@ -89,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
-        app:startIconDrawable="@drawable/login_user"
+
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
-        app:startIconDrawable="@drawable/user_password"
+
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText

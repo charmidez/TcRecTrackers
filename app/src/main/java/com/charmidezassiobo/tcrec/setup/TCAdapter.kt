@@ -74,7 +74,6 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
          var stepBean2_export : StepBean
          var stepBean3_export : StepBean
          var stepBean4_export : StepBean
-         var stepBean5_export : StepBean
 
         var stepBean0_import : StepBean
         var stepBean1_import : StepBean
@@ -110,9 +109,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             stepBean0_export = StepBean("Port", 0)
             stepBean1_export = StepBean("Usine", -1)
             stepBean2_export = StepBean("Chargement", -1)
-            stepBean3_export = StepBean("Douane", -1)
-            stepBean4_export = StepBean("Sortie", -1)
-            stepBean5_export = StepBean("Arrivée Port", -1)
+            stepBean3_export = StepBean("Sortie", -1)
+            stepBean4_export = StepBean("Arrivée Port", -1)
 
             stepBean0_import = StepBean("Arrivée Port",0)
             stepBean1_import = StepBean("Dédouanement",-1)
@@ -179,7 +177,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                     "Export" -> {
                         var iddoc  =""
                         btnSuivant.setOnClickListener{
-                            if (etape < 6){
+                            if (etape < 5){
                                 etape = etape + 1
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
@@ -232,8 +230,6 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                     stepsBeanList.add(stepBean2_export)
                     stepsBeanList.add(stepBean3_export)
                     stepsBeanList.add(stepBean4_export)
-                    stepsBeanList.add(stepBean5_export)
-
 
                     bayoStepView
                         .setStepViewTexts(stepsBeanList)
@@ -313,9 +309,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean0_export = StepBean("Port", 0)
                             stepBean1_export = StepBean("Usine", -1)
                             stepBean2_export = StepBean("Chargement", -1)
-                            stepBean3_export = StepBean("Douane", -1)
-                            stepBean4_export = StepBean("Sortie", -1)
-                            stepBean5_export = StepBean("Arrivée Port", -1)
+                            stepBean3_export = StepBean("Sortie", -1)
+                            stepBean4_export = StepBean("Arrivée Port", -1)
                             setupStepView(tc.type_transat)
                         }
                         1 -> {
@@ -323,9 +318,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean0_export = StepBean("Port", 1)
                             stepBean1_export = StepBean("Usine", 0)
                             stepBean2_export = StepBean("Chargement", -1)
-                            stepBean3_export = StepBean("Douane", -1)
-                            stepBean4_export = StepBean("Sortie", -1)
-                            stepBean5_export = StepBean("Arrivée Port", -1)
+                            stepBean3_export = StepBean("Sortie", -1)
+                            stepBean4_export = StepBean("Arrivée Port", -1)
                             setupStepView(tc.type_transat)
 
                         }
@@ -334,9 +328,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean0_export = StepBean("Port", 1)
                             stepBean1_export = StepBean("Usine", 1)
                             stepBean2_export = StepBean("Chargement", 0)
-                            stepBean3_export = StepBean("Douane", -1)
-                            stepBean4_export = StepBean("Sortie", -1)
-                            stepBean5_export = StepBean("Arrivée Port", -1)
+                            stepBean3_export = StepBean("Sortie", -1)
+                            stepBean4_export = StepBean("Arrivée Port", -1)
                             setupStepView(tc.type_transat)
 
                         }
@@ -345,9 +338,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean0_export = StepBean("Port", 1)
                             stepBean1_export = StepBean("Usine", 1)
                             stepBean2_export = StepBean("Chargement", 1)
-                            stepBean3_export = StepBean("Douane", 0)
-                            stepBean4_export = StepBean("Sortie", -1)
-                            stepBean5_export = StepBean("Arrivée Port", -1)
+                            stepBean3_export = StepBean("Sortie", 0)
+                            stepBean4_export = StepBean("Arrivée Port", -1)
                             setupStepView(tc.type_transat)
 
                             if (tc.num_TCSecond == "null" || tc.num_TCSecond == null || tc.num_TCSecond == "" ){
@@ -362,9 +354,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean0_export = StepBean("Port", 1)
                             stepBean1_export = StepBean("Usine", 1)
                             stepBean2_export = StepBean("Chargement", 1)
-                            stepBean3_export = StepBean("Douane", 1)
-                            stepBean4_export = StepBean("Sortie", 0)
-                            stepBean5_export = StepBean("Arrivée Port", -1)
+                            stepBean3_export = StepBean("Sortie", 1)
+                            stepBean4_export = StepBean("Arrivée Port", 0)
                             setupStepView(tc.type_transat)
 
                         }
@@ -373,19 +364,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean0_export = StepBean("Port", 1)
                             stepBean1_export = StepBean("Usine", 1)
                             stepBean2_export = StepBean("Chargement", 1)
-                            stepBean3_export = StepBean("Douane", 1)
-                            stepBean4_export = StepBean("Sortie", 1)
-                            stepBean5_export = StepBean("Arrivée Port", 0)
-                            setupStepView(tc.type_transat)
-                        }
-                        6 -> {
-                            stepsBeanList= ArrayList()
-                            stepBean0_export = StepBean("Port", 1)
-                            stepBean1_export = StepBean("Usine", 1)
-                            stepBean2_export = StepBean("Chargement", 1)
-                            stepBean3_export = StepBean("Douane", 1)
-                            stepBean4_export = StepBean("Sortie", 1)
-                            stepBean5_export = StepBean("Arrivée Port", 1)
+                            stepBean3_export = StepBean("Sortie", 1)
+                            stepBean4_export = StepBean("Arrivée Port", 1)
                             setupStepView(tc.type_transat)
                             btnSuivant.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
                             numcamion.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))

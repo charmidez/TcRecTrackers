@@ -21,33 +21,21 @@
                         <!-- Titre -->
                         <TextView
                             android:id="@+id/titrelisttc"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/all_margin"
-                            android:layout_marginTop="@dimen/all_margin"
                             android:background="@drawable/rounded_blue_background"
                             android:fontFamily="@font/source_sans_pro_bold"
                             android:gravity="center"
                             android:padding="@dimen/all_padding"
-                            android:layout_marginRight="@dimen/all_margin"
                             android:text="@string/list_tc"
                             android:textColor="@color/white"
                             android:textSize="18dp"
-
-                            app:layout_constraintEnd_toStartOf="@+id/imageView_bk_tc"
+                            android:layout_marginTop="@dimen/all_margin"
+                            android:layout_marginLeft="@dimen/all_margin"
+                            android:layout_marginRight="@dimen/all_margin"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/imageView_bk_tc"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_bk"
-                            android:layout_marginRight="@dimen/all_margin"
-                            app:layout_constraintBottom_toBottomOf="@+id/titrelisttc"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/titrelisttc"
-                            />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/cardView_searchlistetc"
@@ -125,8 +113,6 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:visibility="invisible"
             android:layout_margin="16dp"
             app:layout_anchorGravity="bottom|end"
             app:layout_constraintBottom_toBottomOf="@+id/swipp_refresh_layout"

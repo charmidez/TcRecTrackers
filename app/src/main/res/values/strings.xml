@@ -6,6 +6,7 @@
     <string name="menu_ajout">Ajout Transaction</string>
     <string name="menu_setting">Réglages</string>
 
+<!--<<<<<<< HEAD-->
     <string name="page_de_connexion">Page de connexion</string>
 
     <string name="prompt_usernam">Nom d\'utilisateur</string>
@@ -17,9 +18,11 @@
 
     <string name="prompt_password">Mot de passe</string>
 
+=======
+<!-->>>>>>> parent of 3de0da0... 15 2023 Tout est operationnel-->
     <string name="list_tc">Liste de camions en circulation</string>
     <string name="ajout_tc">Ajouter une transat ( Conteneur )</string>
-    <string name="search_hint">Chercher...</string>
+    <string name="search_hint">Chercher un contenaire ou un chauffeur</string>
     <string name="num_booking">Numéro Booking TC</string>
     <string name="num_tc_off">Numéro TC</string>
     <string name="num_tc_off_2">Numéro Deuxième TC</string>
@@ -64,6 +67,7 @@
     <string name="phone_du_chauffeur">Numéro du chauffeur</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--<<<<<<< HEAD-->
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
 
@@ -80,5 +84,7 @@
         <item>Booking 1</item>
         <item>Booking 2</item>
     </string-array>
+=======
+<!--&gt;>>>>>> parent of 3de0da0... 15 2023 Tout est operationnel-->
 
 </resources>
