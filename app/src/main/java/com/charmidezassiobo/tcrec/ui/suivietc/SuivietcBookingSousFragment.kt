@@ -50,9 +50,7 @@ class SuivietcBookingSousFragment : Fragment() {
             }
             if (filteredList.isEmpty()){
                 recyclerView_TC.adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, filteredList)
-
             } else {
-
                 recyclerView_TC.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredList)
             }
         }
@@ -86,8 +84,6 @@ class SuivietcBookingSousFragment : Fragment() {
             recyclerViewBooking.adapter = adapter
         }
 
-
-
         getData.updateTc {
             bookingList.add("Numéros booking")
             bookingList = getData.listBooking
@@ -106,7 +102,6 @@ class SuivietcBookingSousFragment : Fragment() {
 
                 }
             })
-
 
         return root
     }
