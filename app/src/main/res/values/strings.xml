@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Rec Container Tracking</string>
-    <string name="app_name_uppercase">REC CONTAINER TRACKING</string>
+    <string name="app_name">REC TC Tracker</string>
 
     <string name="menu_list">Transactions</string>
     <string name="menu_ajout">Ajout Transaction</string>
@@ -13,8 +12,6 @@
     <string name="admin">Administrateur</string>
     <string name="moderateur">Moderateur</string>
     <string name="client">Client</string>
-
-    <string name="personnel">Personnel</string>
 
     <string name="prompt_password">Mot de passe</string>
 
@@ -71,8 +68,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
 
-    <string name="list_tc_booking">Liste de TC Classés par Numéro booking</string>
-
     <string name="action_sign_in">Se connecter</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
@@ -81,8 +76,10 @@
     <string name="login_failed">"Login failed"</string>
 
     <string-array name="oktest">
-        <item>Booking 1</item>
-        <item>Booking 2</item>
+        <item>Module 1</item>
+        <item>Module 2</item>
+        <item>Module 3</item>
+        <item>Module 4</item>
     </string-array>
 =======
 <!--&gt;>>>>>> parent of 3de0da0... 15 2023 Tout est operationnel-->
