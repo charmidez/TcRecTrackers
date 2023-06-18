@@ -49,7 +49,7 @@ class SuivietcBookingSousFragment : Fragment() {
                 }
             }
             if (filteredList.isEmpty()){
-                recyclerView_TC.adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, filteredList)
+                recyclerView_TC.adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, items_tc)
             } else {
                 recyclerView_TC.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredList)
             }
@@ -85,21 +85,22 @@ class SuivietcBookingSousFragment : Fragment() {
         }
 
         getData.updateTc {
-            bookingList.add("Numéros booking")
-            bookingList = getData.listBooking
+            bookingList.add("Bookings")
+            //bookingList = getData.listBooking
+            bookingList.addAll(getData.listBooking)
             bookingListRD = bookingList.distinct().toList()
             val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingListRD)
             spinner.adapter  = adapter
         }
         bookingList.add("")
-
         spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val selectedItem = bookingList[position]
+                    Log.d("NumBooking","$selectedItem")
                     filterList(selectedItem, recyclerViewBooking)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                    filterList("", recyclerViewBooking)
                 }
             })
 
