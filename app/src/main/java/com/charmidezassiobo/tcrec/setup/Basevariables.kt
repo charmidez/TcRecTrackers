@@ -6,4 +6,6 @@ import com.google.firebase.ktx.Firebase
 class Basevariables {
     val db = Firebase.firestore
     val voyRef = db.collection("Voyagetest")
+
+    val documentOfficiel = db.collection("Voyagetest")
 }

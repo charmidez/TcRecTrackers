@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashback">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <ImageView
-        android:id="@+id/imgView_logo"
-        android:layout_width="130dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/rounded_blue_background"
-        android:paddingLeft="@dimen/all_padding"
-        android:paddingRight="@dimen/all_padding"
-        android:src="@drawable/logo_blanc_new" />
+        <ImageView
+            android:id="@+id/imgView_logo"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_blue_background"
+            android:paddingLeft="@dimen/all_padding"
+            android:paddingRight="@dimen/all_padding"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_blanc_new" />
 
-    <TextView
-        android:id="@+id/txtView_rec_tc_tracker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name_uppercase"
-        android:fontFamily="@font/source_sans_pro_black"
-        android:textSize="22dp"
-        android:background="@drawable/rounded_blue_background"
-        android:layout_marginTop="@dimen/all_margin"
-        android:padding="@dimen/all_padding"
-        android:textColor="@color/white"
-        android:layout_below="@+id/imgView_logo"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
+        <TextView
+            android:id="@+id/txtView_rec_tc_tracker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name_uppercase"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:textSize="22dp"
+            android:background="@drawable/rounded_blue_background"
+            android:layout_marginTop="@dimen/all_margin"
+            android:padding="@dimen/all_padding"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="From"
-        android:layout_above="@+id/app_name"
-        android:textColor="@color/grisabsolut"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:fontFamily="@font/source_sans_pro_regular"/>
+            />
 
-    <TextView
-        android:id="@+id/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:textColor="@color/grisabsolut"
-        android:text="@string/developper"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        />
-</RelativeLayout>
+        <!--TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From"
+            android:layout_above="@+id/app_name"
+            android:textColor="@color/grisabsolut"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/source_sans_pro_regular"/>
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:textColor="@color/grisabsolut"
+            android:text="@string/developper"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            /-->
+
+    </LinearLayout>
+
+</FrameLayout>

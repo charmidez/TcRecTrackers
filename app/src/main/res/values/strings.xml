@@ -5,6 +5,8 @@
     <string name="menu_list">Transactions</string>
     <string name="menu_ajout">Ajout Transaction</string>
     <string name="menu_setting">Réglages</string>
+    <string name="menu_find_tc">Finder</string>
+    <string name="menu_find_tc_titre">Trouver mon colis</string>
 
     <string name="page_de_connexion">Page de connexion</string>
 
@@ -28,7 +30,7 @@
     <string name="num_camion">Immatriculation du camion</string>
     <string name="num_camion_item">TG-2642-BF</string>
     <string name="progression"></string>
-    <string name="fin_voyage">Voyage Terminé</string>
+    <string name="fin_voyage">Terminé</string>
     <string name="chargement">Chargement...</string>
     <string name="dark_mode">Mode sombre</string>
     <string name="active_dark_mode">Activer mode sombre</string>
@@ -80,5 +82,16 @@
         <item>Booking 1</item>
         <item>Booking 2</item>
     </string-array>
+
+
+    <string name="exp_tracking">Export Tracking</string>
+    <string name="imp_tracking">Import Tracking</string>
+    <string name="road_tracking">Road Transport Tracking</string>
+
+    <string name="sea_exp">SEA Export</string>
+    <string name="air_exp">AIR Export</string>
+
+    <string name="sea_imp">SEA Import</string>
+    <string name="air_imp">AIR Import</string>
 
 </resources>

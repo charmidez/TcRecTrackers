@@ -17,6 +17,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -60,6 +62,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     var items_tc : MutableList<Tc> = ArrayList()
     var tempArrayList : MutableList<Tc> = ArrayList()
 
+    //var navController : NavController =  findNavController()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -69,6 +73,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
+
+        var navController = findNavController()
 
         recyclerView_TC = binding.recyclerViewSuivieTc
         refresh = binding.swippRefreshLayout
@@ -105,8 +111,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
             }
         })
 
-
-
         inputItemInRecyclerView(txtView_charging,progressBar_view,recyclerView_TC)
 
         tempArrayList = arrayListOf<Tc>()
@@ -127,7 +131,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
             })
         }
 
-        voirListDesTc(imgView_list_tc_bk)
+        //voirListDesTc(imgView_list_tc_bk)
+        voirListDesTc(imgView_list_tc_bk,navController)
 
 
         refresh.setOnRefreshListener{
@@ -312,22 +317,35 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         bundle.putString("inputTelChauffeur", inputTelChauffeur)
         sousfragment.arguments = bundle
 
-        parentFragmentManager
+        /*parentFragmentManager
             .beginTransaction().apply {
                 replace(R.id.nav_host_fragment_activity_main,sousfragment)
                 .addToBackStack(null)
                 .commit()
-            }
+            }*/
+
+        val navController = findNavController()
+        //val tc = Tc(inputTc,inputTcSecond,inputCamion,inputTelChauffeur,inputBooking,inputPlomb,inputDate,inputPositionVoyages,inputPlombSecond,inputTypeTransact)
+        //val action = SuivietcFragmentDirections.actionNavigationSuivietcToSuivietcSousFragment(tc)
+        navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
+        //com.charmidezassiobo.tcrec.data.Tc
+
+
     }
 
-    fun voirListDesTc(img :  ImageView){
-        img.setOnClickListener {
+    fun voirListDesTc(img :  ImageView, navController : NavController){
+
+        /*img.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.nav_host_fragment_activity_main, sousfragmentbooking)
                     .addToBackStack(null)
                     .commit()
             }
+        }*/
+        img.setOnClickListener {
+            navController.navigate(R.id.action_navigation_suivietc_to_suivietcBookingSousFragment)
         }
+
     }
 
     override fun onDestroyView() {

@@ -3,6 +3,7 @@ package com.charmidezassiobo.tcrec.ui
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -48,6 +49,17 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController.addOnDestinationChangedListener{_,destination,_->
+            if (  destination.id == R.id.navigation_findtc ||
+                    destination.id == R.id.navigation_suivietc ||
+                    destination.id == R.id.navigation_ajoutertc ||
+                    destination.id == R.id.navigation_reglages
+                    )
+                navView.visibility = View.VISIBLE
+            else {
+                navView.visibility = View.GONE
+            }
+        }
         repo.updateTc {
             navView.setupWithNavController(navController)
         }

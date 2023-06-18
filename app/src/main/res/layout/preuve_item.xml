@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemCardView_item_tc"
+    app:cardBackgroundColor="@color/gray"
+    app:cardCornerRadius="@dimen/radius"
+    android:elevation="8dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/grisabsolut"
+    android:layout_marginTop="@dimen/all_margin_demi"
+    android:layout_marginRight="@dimen/all_margin"
+    android:layout_marginLeft="@dimen/all_margin"
+    android:layout_marginBottom="@dimen/all_margin_demi">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padd"
+        android:paddingTop="@dimen/padd"
+        android:paddingRight="@dimen/padd">
+
+        <!--label num TC-->
+        <ImageView
+            android:id="@+id/imgView_tc_item"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_cam"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Numero TC  -->
+
+        <!--ImageView
+            android:id="@+id/imgButtonDetails"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_menu"
+            android:background="@drawable/rounded_blue_background"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+
+            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item" /-->
+
+        <!-- Tiret 1-->
+
+        <TextView
+            android:id="@+id/textViewTCNum_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_blue_corner_view"
+            android:fontFamily="@font/source_sans_pro_semi_bold"
+            android:padding="@dimen/padd"
+            android:text="@string/num_tc_item"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_numcamion"
+            app:layout_constraintStart_toStartOf="@+id/textViewCamionNum_item"
+            app:layout_constraintTop_toTopOf="@+id/imgView_numcamion" />
+
+        <TextView
+            android:id="@+id/textViewSecondTCNum_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_corner_view"
+            android:fontFamily="@font/source_sans_pro_semi_bold"
+            android:padding="@dimen/padd"
+            android:text="@string/num_tc_item"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
+            app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item"
+            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="370dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCamionNum_item" />
+
+        <!--Label  camion-->
+        <TextView
+            android:id="@+id/textView_import_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Export"
+            android:textColor="@color/blue"
+            android:paddingLeft="@dimen/padd"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/date_item"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/date_item"
+            app:layout_constraintTop_toBottomOf="@+id/date_item" />
+
+        <ImageView
+            android:id="@+id/imgView_numcamion"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:src="@drawable/ic_tc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <!--Numéro Camion-->
+
+        <!-- Date -->
+
+        <!-- Tiret 2-->
+
+        <TextView
+            android:id="@+id/textViewCamionNum_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_background"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:padding="@dimen/padd"
+            android:text="@string/num_camion_item"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_tc_item"
+            app:layout_constraintEnd_toStartOf="@+id/btnNumChauffeur"
+            app:layout_constraintStart_toEndOf="@+id/imgView_tc_item"
+            app:layout_constraintTop_toTopOf="@+id/imgView_tc_item" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNumChauffeur"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:background="@drawable/btn_drawable_call"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:padding="@dimen/padd"
+            android:text="90203435"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+
+            app:layout_constraintBottom_toBottomOf="@+id/textViewCamionNum_item"
+            app:layout_constraintEnd_toStartOf="@+id/date_item"
+            app:layout_constraintTop_toTopOf="@+id/textViewCamionNum_item" />
+
+        <TextView
+            android:id="@+id/date_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:paddingLeft="@dimen/padd"
+            android:text="8/02/2023"
+            android:textColor="@color/textColor"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnNumChauffeur" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="370dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/step_view_baoya_view_item" />
+
+        <com.baoyachi.stepview.HorizontalStepView
+            android:id="@+id/step_view_baoya_view_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_white_back_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!--Button next #B6D6CC -->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_suivant_item"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/btn_drawable_red"
+            android:elevation="8dp"
+            android:fontFamily="@font/source_sans_pro_black"
+            android:text="@string/btnSuivant"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewSecondTCNum_item"
+            app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item" />
+
+        <View
+            android:id="@+id/divider_fin"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_suivant_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

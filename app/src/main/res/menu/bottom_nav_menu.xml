@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/navigation_findtc"
+        android:icon="@drawable/ic_finder"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:title="@string/menu_find_tc" />
+
+    <item
         android:id="@+id/navigation_suivietc"
         android:icon="@drawable/ic_list"
         android:fontFamily="@font/source_sans_pro_bold"

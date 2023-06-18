@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_suivietc">
+    app:startDestination="@+id/navigation_findtc">
 
     <fragment
         android:id="@+id/navigation_suivietc"
@@ -13,11 +13,11 @@
         tools:layout="@layout/fragment_suivietc" >
         <action
             android:id="@+id/action_navigation_suivietc_to_suivietcSousFragment"
-            app:destination="@id/suivietcSousFragment" />
-        <argument
-            android:name="data"
-            app:argType="string"
-            android:defaultValue="dataa" />
+            app:destination="@id/suivietcSousFragment" >
+        </action>
+        <action
+            android:id="@+id/action_navigation_suivietc_to_suivietcBookingSousFragment"
+            app:destination="@id/suivietcBookingSousFragment" />
     </fragment>
 
     <fragment
@@ -33,13 +33,23 @@
         android:label="@string/menu_setting"
         android:fontFamily="@font/source_sans_pro_bold"
         tools:layout="@layout/fragment_reglages" />
+
     <fragment
         android:id="@+id/suivietcSousFragment"
         android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcSousFragment"
         android:label="fragment_suivietc_sous"
         tools:layout="@layout/fragment_suivietc_sous" >
-        <argument
-            android:name="data"
-            app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_findtc"
+        android:name="com.charmidezassiobo.tcrec.ui.findtc.FindtcFragment"
+        android:label="fragment_findtc"
+        tools:layout="@layout/fragment_findtc" />
+
+    <fragment
+        android:id="@+id/suivietcBookingSousFragment"
+        android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcBookingSousFragment"
+        android:label="fragment_suivietc_booking_sous"
+        tools:layout="@layout/fragment_suivietc_booking_sous" />
 </navigation>

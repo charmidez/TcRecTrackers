@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_cardview_item_tc"
-    android:id="@+id/itemCardView_item_tc"
     android:elevation="8dp"
     android:layout_marginTop="@dimen/all_margin_demi"
     android:layout_marginRight="@dimen/all_margin"
@@ -15,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/padd"
-        android:background="@drawable/button_push"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,12 +140,10 @@
                 android:elevation="8dp"
                 android:fontFamily="@font/source_sans_pro_black"
                 android:text="@string/btnSuivant"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:textSize="10dp" />
         </LinearLayout>
-
     </LinearLayout>
 
 </FrameLayout>

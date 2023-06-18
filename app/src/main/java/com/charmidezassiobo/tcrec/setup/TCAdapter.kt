@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
@@ -56,11 +57,11 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
     }
 
     inner class TCViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var cardV : CardView
+        var cardV : FrameLayout
          var  numtc : TextView
          var numcamion : TextView
          var datetc : TextView
-         var phoneChauffeur : Button
+         var phoneChauffeur : TextView
          var numtcsecond : TextView
          var txtV_import_export : TextView
 

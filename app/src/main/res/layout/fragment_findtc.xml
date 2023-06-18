@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/splashback_sombre"
+    android:padding="@dimen/all_padding"
+    tools:context=".ui.findtc.FindtcFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_blue_background"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:padding="@dimen/all_padding"
+            android:text="@string/menu_find_tc"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_imp_exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioButton_import_trucking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/all_padding"
+                android:layout_marginBottom="@dimen/all_margin"
+                android:text="@string/imp_tracking"
+                android:background="@drawable/rounded_radio"
+                android:buttonTint="@color/white"
+                android:textSize="18dp"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/radioButton_export_trucking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/all_padding"
+                android:textSize="18dp"
+                android:layout_marginBottom="@dimen/all_margin"
+                android:text="@string/exp_tracking"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:background="@drawable/rounded_radio" />
+
+            <RadioButton
+                android:id="@+id/radioButton_road_transport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/all_padding"
+                android:textSize="18dp"
+                android:text="@string/road_tracking"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:background="@drawable/rounded_radio" />
+
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:background="@color/white"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup_export_tracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radioButton_sea_exp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:layout_marginRight="@dimen/all_margin"
+                android:text="@string/sea_exp"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:buttonTint="@color/white"
+                android:textColor="@color/white" />
+            <RadioButton
+                android:id="@+id/radioButton_air_exp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/air_exp"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:background="@drawable/rounded_blue_corner_view" />
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroup_import_tracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radioButton_sea_imp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:layout_marginRight="@dimen/all_margin"
+                android:text="@string/sea_imp"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:buttonTint="@color/white"
+                android:textColor="@color/white" />
+            <RadioButton
+                android:id="@+id/radioButton_air_imp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/air_imp"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:background="@drawable/rounded_blue_corner_view" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/all_margin"
+            android:background="@color/white"/>
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_search"
+            android:layout_marginTop="@dimen/all_margin"
+            app:queryHint="@string/search_hint"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            />
+
+    </LinearLayout>
+
+
+</FrameLayout>
