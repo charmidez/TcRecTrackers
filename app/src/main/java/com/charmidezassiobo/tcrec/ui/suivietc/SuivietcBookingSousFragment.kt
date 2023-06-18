@@ -1,3 +1,5 @@
+
+
 package com.charmidezassiobo.tcrec.ui.suivietc
 
 import android.content.Context
@@ -85,24 +87,31 @@ class SuivietcBookingSousFragment : Fragment() {
         }
 
         getData.updateTc {
-            bookingList.add("Bookings")
-            //bookingList = getData.listBooking
-            bookingList.addAll(getData.listBooking)
-            bookingListRD = bookingList.distinct().toList()
-            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingListRD)
+            bookingList = getData.listBooking
+            //bookingListRD = bookingList.distinct().toList()
+            val set: Set<String> =  bookingList.toHashSet()
+            bookingList.clear()
+            bookingList.add("Tous les TC")
+            bookingList.addAll(set)
+
+            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingList)
             spinner.adapter  = adapter
         }
         bookingList.add("")
+
         spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val selectedItem = bookingList[position]
-                    Log.d("NumBooking","$selectedItem")
-                    filterList(selectedItem, recyclerViewBooking)
-                }
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    filterList("", recyclerViewBooking)
-                }
-            })
+            var selectedItem : String? = null
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedItem = bookingList[position]
+                Log.d("NumBooking","$selectedItem")
+                filterList(selectedItem, recyclerViewBooking)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedItem = null
+                filterList(selectedItem, recyclerViewBooking)
+            }
+
+        })
 
         return root
     }

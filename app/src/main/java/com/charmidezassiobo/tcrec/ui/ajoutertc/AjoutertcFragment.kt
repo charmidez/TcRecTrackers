@@ -115,8 +115,11 @@ class AjoutertcFragment : Fragment() {
         getData.updateTc {
             bookingList = getData.listBooking
             //bookingList.distinct()
-            bookingListRD = bookingList.distinct().toList()
-            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingListRD)
+            //bookingListRD = bookingList.distinct().toList()
+            val set: Set<String> =  bookingList.toHashSet()
+            bookingList.clear()
+            bookingList.addAll(set)
+            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingList)
             spinner_ajout_tc.adapter  = adapter
         }
         bookingList.add("")
