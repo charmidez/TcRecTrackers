@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -51,7 +49,7 @@ class AjoutertcFragment : Fragment() {
 
         val numTCSecondLabel : TextInputLayout = binding.textFieldTcNum2
         val imgViewBtn : ImageView = binding.imageViewPlusTc
-        val constraintLayout_ajout_tc = binding.constraintLayoutAjouterTc
+        val frameLayout_ajout_tc = binding.frameLayoutAjoutTc
         val textViewTC_label = binding.textFieldTcNum
         val textViewBooking_label = binding.textFieldBookingNum
 
@@ -101,14 +99,14 @@ class AjoutertcFragment : Fragment() {
 
             //numTCSecondOff.visibility = View.VISIBLE // Affiche la vue
             numTCSecondLabel.isVisible = true
-            val constraintSet = ConstraintSet()
+            /*val constraintSet = ConstraintSet()
             constraintSet.clone(constraintLayout_ajout_tc) // "constraintLayout" est le parent de la vue
             constraintSet.connect(numTCSecondLabel.id, ConstraintSet.START, constraintLayout_ajout_tc.id, ConstraintSet.START)
             constraintSet.connect(numTCSecondLabel.id, ConstraintSet.END, constraintLayout_ajout_tc.id, ConstraintSet.END)
             constraintSet.connect(numTCSecondLabel.id, ConstraintSet.TOP, textViewTC_label.id, ConstraintSet.BOTTOM)
             constraintSet.connect(textViewBooking_label.id, ConstraintSet.TOP, numTCSecondLabel.id, ConstraintSet.BOTTOM)
             constraintSet.applyTo(constraintLayout_ajout_tc)
-            Log.d("ImageView","ImageVie appuyé")
+            Log.d("ImageView","ImageVie appuyé")*/
             imgViewBtn.isVisible = false
         }
 
@@ -211,7 +209,7 @@ class AjoutertcFragment : Fragment() {
                 }
             } else {
                 // Pas de connexion Internet
-                val snack = Snackbar.make(binding.constraintLayoutAjouterTc,"Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
+                val snack = Snackbar.make(binding.frameLayoutAjoutTc,"Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
                 snack.setBackgroundTint(ContextCompat.getColor(root.context, R.color.gray2))
                 snack.show()
             }

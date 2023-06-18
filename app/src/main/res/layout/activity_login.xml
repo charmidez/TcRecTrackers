@@ -1,182 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:padding="@dimen/all_padding"
     tools:context=".ui.LoginActivity">
 
-    <!-- Titre -->
-    <TextView
-        android:id="@+id/titreajouter"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_blue_background"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:gravity="center"
-        android:padding="@dimen/all_padding"
-        android:text="@string/page_de_connexion"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Les radio -->
-    <RadioGroup
-        android:id="@+id/radioGroup_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_margin"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titreajouter">
-
-        <RadioButton
-            android:id="@+id/radio_button_admin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/all_padding"
-            android:layout_marginRight="@dimen/all_margin"
-            android:text="@string/personnel"
-            android:textSize="10dp"
-            android:background="@drawable/rounded_radio_admin"
-            android:buttonTint="@color/white"
-            android:textColor="@color/white" />
-
-        <!--RadioButton
-            android:id="@+id/radio_button_moderateur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/all_padding"
-            android:text="@string/moderateur"
-            android:textSize="10dp"
-            android:layout_marginRight="@dimen/all_margin"
-            android:textColor="@color/white"
-            android:buttonTint="@color/white"
-            android:background="@drawable/rounded_radio_moderateur" /-->
-
-        <RadioButton
-            android:id="@+id/radio_button_client"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/all_padding"
-            android:text="@string/client"
-            android:textSize="10dp"
-            android:layout_marginRight="@dimen/all_margin"
-            android:textColor="@color/white"
-            android:buttonTint="@color/white"
-            android:background="@drawable/rounded_radio_client" />
-
-    </RadioGroup>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_margin"
-        android:hint="@string/prompt_usernam"
-        app:boxBackgroundColor="@color/gray"
-        app:boxStrokeColor="@color/gray"
-        app:hintTextColor="@color/grisabsolut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
-        app:startIconDrawable="@drawable/login_user"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_username"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/titreajouter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_editable_text"
-            android:inputType="textCapCharacters"
-            android:textAllCaps="true"
-            android:focusable="auto"
-            android:textColor="@color/textColor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_margin"
-        android:hint="@string/prompt_password"
-        app:boxBackgroundColor="@color/gray"
-        app:boxStrokeColor="@color/gray"
-        app:hintTextColor="@color/grisabsolut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:startIconDrawable="@drawable/user_password"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_password"
+            android:background="@drawable/rounded_blue_background"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:padding="@dimen/all_padding"
+            android:text="@string/page_de_connexion"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <RadioGroup
+            android:id="@+id/radioGroup_ok"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_editable_text"
-            android:inputType="textCapCharacters"
-            android:textAllCaps="true"
-            android:focusable="auto"
-            android:textColor="@color/textColor" />
+            android:layout_marginTop="@dimen/all_margin"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titreajouter">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <RadioButton
+                android:id="@+id/radio_button_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:layout_marginRight="@dimen/all_margin"
+                android:text="@string/personnel"
+                android:textSize="14dp"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:buttonTint="@color/white"
+                android:textColor="@color/white" />
 
+            <RadioButton
+                android:id="@+id/radio_button_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/client"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                android:buttonTint="@color/white"
+                android:background="@drawable/rounded_blue_corner_view" />
 
+        </RadioGroup>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:hint="@string/prompt_usernam"
+            app:boxBackgroundColor="@color/gray"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/grisabsolut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
+            app:startIconDrawable="@drawable/login_user"
+            tools:ignore="MissingConstraints">
 
-    <!--EditText
-        android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" /-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_editable_text"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:focusable="auto"
+                android:textColor="@color/textColor" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_margin"
-        android:background="@drawable/btn_drawable_red"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:paddingLeft="@dimen/all_padding"
-        android:paddingRight="@dimen/all_padding"
-        android:enabled="false"
-        android:textColor="@color/white"
-        android:text="@string/action_sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.2" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/all_margin"
+            android:hint="@string/prompt_password"
+            app:boxBackgroundColor="@color/gray"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/grisabsolut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            app:startIconDrawable="@drawable/user_password"
+            tools:ignore="MissingConstraints">
 
-    <!--ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="64dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" /-->
-    <!-- carré -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_editable_text"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:focusable="auto"
+                android:textColor="@color/textColor" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:background="@drawable/btn_drawable_red"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:paddingLeft="@dimen/all_padding"
+            android:paddingRight="@dimen/all_padding"
+            android:enabled="false"
+            android:textColor="@color/white"
+            android:text="@string/action_sign_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.2" />
+    </LinearLayout>
+
+</FrameLayout>
