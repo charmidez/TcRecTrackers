@@ -6,6 +6,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.suivietc.SuivietcBookingSousFragment">
 
+    <!-- Titre -->
+    <TextView
+        android:id="@+id/titrelisttc_booking"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/all_margin"
+        android:layout_marginRight="@dimen/all_margin"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:background="@drawable/rounded_blue_background"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:gravity="center"
+        android:padding="@dimen/all_padding"
+        android:text="@string/list_tc_booking"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView_searchlistetc_booking"
         android:layout_width="0dp"
@@ -17,7 +36,7 @@
         android:layout_marginRight="@dimen/all_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/titrelisttc_booking">
         <!--androidx.appcompat.widget.SearchView
             android:id="@+id/searchView_tc"
             android:layout_width="match_parent"

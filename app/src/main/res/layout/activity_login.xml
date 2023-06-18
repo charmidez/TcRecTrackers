@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -44,66 +45,37 @@
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/all_padding"
             android:layout_marginRight="@dimen/all_margin"
-            android:text="@string/admin"
-            android:textSize="12dp"
-            android:background="@drawable/rounded_blue_corner_view"
+            android:text="@string/personnel"
+            android:textSize="10dp"
+            android:background="@drawable/rounded_radio_admin"
             android:buttonTint="@color/white"
             android:textColor="@color/white" />
 
-        <RadioButton
+        <!--RadioButton
             android:id="@+id/radio_button_moderateur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/all_padding"
             android:text="@string/moderateur"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:layout_marginRight="@dimen/all_margin"
             android:textColor="@color/white"
             android:buttonTint="@color/white"
-            android:background="@drawable/rounded_blue_corner_view" />
+            android:background="@drawable/rounded_radio_moderateur" /-->
 
-        <!--RadioButton
+        <RadioButton
             android:id="@+id/radio_button_client"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/all_padding"
             android:text="@string/client"
-            android:textSize="12dp"
+            android:textSize="10dp"
+            android:layout_marginRight="@dimen/all_margin"
             android:textColor="@color/white"
             android:buttonTint="@color/white"
-            android:background="@drawable/rounded_blue_corner_view" /-->
+            android:background="@drawable/rounded_radio_client" />
+
     </RadioGroup>
-
-<<<<<<< HEAD
-<!--    app:startIconDrawable="@drawable/login_user"-->
-<!--    app:startIconDrawable="@drawable/user_password"-->
-=======
-    <!--com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/num_camion"
-        android:layout_marginTop="@dimen/all_margin"
-        app:boxBackgroundColor="@color/gray"
-        app:boxStrokeColor="@color/gray"
-        app:hintTextColor="@color/grisabsolut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
-        app:startIconDrawable="@drawable/ic_cam"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:hint="@string/prompt_usernam"
-            android:inputType="text"
-            android:selectAllOnFocus="true"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout-->
->>>>>>> parent of 16d01a6... 15 2023 Tout est operationnel avec changement de tc
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username"
@@ -117,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
-
+        app:startIconDrawable="@drawable/login_user"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -144,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
-
+        app:startIconDrawable="@drawable/user_password"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -192,7 +164,7 @@
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.2" />
 
-    <ProgressBar
+    <!--ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -204,6 +176,6 @@
         app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.3" /-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

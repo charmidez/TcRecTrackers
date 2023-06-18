@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.addOnDestinationChangedListener{_,destination,_->
             if (  destination.id == R.id.navigation_findtc ||

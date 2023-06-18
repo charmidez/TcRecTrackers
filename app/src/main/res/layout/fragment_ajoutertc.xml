@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ajoutertc.AjoutertcFragment"
-    >
+    tools:context=".ui.ajoutertc.AjoutertcFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -107,14 +107,15 @@
         <!--Label Booking -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldBookingNum"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
             android:hint="@string/num_booking"
             app:boxBackgroundColor="@color/gray"
             app:boxStrokeColor="@color/gray"
             app:hintTextColor="@color/grisabsolut"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="@dimen/all_margin"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_ajout_tc"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textFieldTcNum"
             app:startIconDrawable="@drawable/ic_bk"
@@ -125,12 +126,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_editable_text"
+                android:focusable="auto"
                 android:inputType="textCapCharacters"
                 android:textAllCaps="true"
-                android:focusable="auto"
                 android:textColor="@color/textColor" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_ajout_tc"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/oktest"
+            android:padding="@dimen/all_padding"
+            app:layout_constraintTop_toTopOf="@id/textFieldBookingNum"
+            app:layout_constraintBottom_toBottomOf="@id/textFieldBookingNum"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <!-- Label Num Tc -->
         <com.google.android.material.textfield.TextInputLayout

@@ -11,6 +11,10 @@ class GetDataFromDB {
         val voyTc = db.collection("Voyage")
         var itemListTc = arrayListOf<Tc>()
 
+
+        var listBooking = arrayListOf<String>()
+        var distincList = arrayListOf<String>()
+
     fun updateTc(callback: () -> Unit){
         voyTc.get().addOnSuccessListener {documents ->
             itemListTc.clear()
@@ -39,6 +43,7 @@ class GetDataFromDB {
                                 step_tc_ok,
                                 "$numplombsecond_ok",
                                 "$type_transact"))
+                            listBooking.add(num_booking_tc)
                         }
                     }
                 }
