@@ -13,20 +13,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <!-- Titre et button -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_blue_background"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:gravity="center"
-            android:padding="@dimen/all_padding"
-            android:text="@string/menu_find_tc"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/all_margin"
+                android:background="@drawable/rounded_blue_background"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:padding="@dimen/all_padding"
+                android:text="@string/menu_find_tc"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+            <ImageView
+                android:id="@+id/imgView_btn_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_search_icone_tc"
+                android:background="@drawable/btn_call_not_selected"
+                android:padding="@dimen/padd"/>
+        </LinearLayout>
 
+        <!-- Grande categories -->
         <RadioGroup
-            android:id="@+id/radioGroup_imp_exp"
+            android:id="@+id/radioGroup_imp_exp_road"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
@@ -77,11 +93,13 @@
             android:layout_marginTop="@dimen/all_margin"
             android:background="@color/white"/>
 
+        <!-- group export tracking -->
         <RadioGroup
             android:id="@+id/radioGroup_export_tracking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
+            android:visibility="gone"
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/radioButton_sea_exp"
@@ -105,11 +123,14 @@
                 android:buttonTint="@color/white"
                 android:background="@drawable/rounded_blue_corner_view" />
         </RadioGroup>
+
+        <!-- group export tracking -->
         <RadioGroup
             android:id="@+id/radioGroup_import_tracking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
+            android:visibility="gone"
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/radioButton_sea_imp"
@@ -134,21 +155,214 @@
                 android:background="@drawable/rounded_blue_corner_view" />
         </RadioGroup>
 
+        <!-- trait à afficher -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/all_margin"
+            android:visibility="gone"
             android:background="@color/white"/>
 
-        <androidx.appcompat.widget.SearchView
+        <!-- search bar -->
+        <LinearLayout
+            android:id="@+id/lineairLayout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_search"
             android:layout_marginTop="@dimen/all_margin"
-            app:queryHint="@string/search_hint"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            />
+            android:visibility="gone"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/all_margin"
+                android:background="@drawable/rounded_white_back_white"
+                android:padding="@dimen/padd"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:fontFamily="@font/source_sans_pro_semi_bold"
+                android:hint="Chercher..."/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:padding="@dimen/padd"
+                android:src="@drawable/ic_search_1"/>
+        </LinearLayout>
+
+        <!-- resultat de recherche -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="1dp"
+            android:scrollbars="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/all_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <!-- les résultats -->
+        <LinearLayout
+            android:id="@+id/lineairLayout_result_request"
+            android:background="@drawable/rounded_white_back_white"
+            android:padding="@dimen/padd"
+            android:elevation="5dp"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/all_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- etape cardView -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!-- nom etape du Tc -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Étape actuel du Tc"
+                    android:padding="@dimen/padd"
+                    android:textSize="16dp"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:layout_gravity="center"
+                    android:textColor="@color/textColor"
+                    style="@style/textMidTitle_result"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="5dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:background="@color/blue"/>
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_cam"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:layout_marginLeft="@dimen/all_margin"
+                        android:background="@drawable/circle_gray_background"
+                        android:padding="@dimen/all_margin"/>
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="5dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:background="@color/grisabsolut"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="10/06/2023"
+                        android:padding="@dimen/padd"
+                        android:background="@color/white"
+                        android:layout_gravity="center"
+                        android:textColor="@color/textColor"
+                        style="@style/textMidTitle_result"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/all_margin"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:text="17/06/2023"
+                        android:padding="@dimen/padd"
+                        android:background="@drawable/rounded_cardview_gray"
+                        android:layout_gravity="center"
+                        android:textColor="@color/textColor"
+                        style="@style/textMidTitle_result"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="17/06/2023"
+                        android:padding="@dimen/padd"
+                        android:background="@color/white"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        style="@style/textMidTitle_result"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Booking -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:id="@+id/imgView_booking"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_bk" />
+                <TextView
+                    android:id="@+id/txtView_numBooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Tc 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:id="@+id/imgView_numcamion"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_tc" />
+                <TextView
+                    android:id="@+id/textViewTCNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/num_plomb_tc_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_plomb_vrai"
+                    android:textColor="@color/textColor"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

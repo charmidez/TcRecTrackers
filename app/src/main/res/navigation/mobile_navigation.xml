@@ -39,6 +39,9 @@
         android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcSousFragment"
         android:label="fragment_suivietc_sous"
         tools:layout="@layout/fragment_suivietc_sous" >
+        <action
+            android:id="@+id/action_suivietcSousFragment_to_suivietcStepdateSousFragment"
+            app:destination="@id/suivietcStepdateSousFragment" />
     </fragment>
 
     <fragment
@@ -52,4 +55,9 @@
         android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcBookingSousFragment"
         android:label="fragment_suivietc_booking_sous"
         tools:layout="@layout/fragment_suivietc_booking_sous" />
+    <fragment
+        android:id="@+id/suivietcStepdateSousFragment"
+        android:name="com.charmidezassiobo.tcrec.ui.suivietc.SuivietcStepdateSousFragment"
+        android:label="fragment_suivietc_stepdate_sous"
+        tools:layout="@layout/fragment_suivietc_stepdate_sous" />
 </navigation>

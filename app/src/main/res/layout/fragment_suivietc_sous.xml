@@ -22,19 +22,35 @@
             android:textColor="@color/black"
             android:textSize="18dp" />
 
-        <!--Titre où y'a la date-->
-        <TextView
-            android:id="@+id/textView_etape_et_date"
+        <!-- titre et calendrier -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:background="@drawable/btn_drawable_not_selected"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:gravity="center"
-            android:padding="@dimen/all_padding"
-            android:text="@string/titre_etape_et_date"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/all_margin">
+            <!--Titre où y'a la date-->
+            <TextView
+                android:id="@+id/textView_date_enregistement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/all_margin"
+                android:background="@drawable/btn_drawable_not_selected"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:padding="@dimen/all_padding"
+                android:text="@string/titre_etape_et_date"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+            <ImageView
+                android:id="@+id/imgView_date_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_date_icone"
+                android:background="@drawable/rounded_blue_background"
+                android:padding="@dimen/padd"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
         <!-- Le étapes -->
         <com.baoyachi.stepview.HorizontalStepView
@@ -43,6 +59,69 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_white_back_white"
             android:layout_centerInParent="true" />
+
+        <!-- Boutton suivant et arrière -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retour"
+                android:drawableLeft="@drawable/drawable_with_margin_ic_back"
+                android:padding="@dimen/padd"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:background="@drawable/rounded_blue_corner_view"/>
+            <TextView
+                android:id="@+id/textView_etape_et_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/padd"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:text="Transaction"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suivant"
+                android:drawableRight="@drawable/drawable_with_margin_ic_next_step"
+                android:padding="@dimen/padd"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:background="@drawable/rounded_blue_corner_view"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grisabsolut"
+            android:layout_marginTop="@dimen/all_margin"/>
+
+        <!--Date d'enregistrement>
+        <TextView
+            android:id="@+id/textView_date_enregistement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_corner_view_gray"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:padding="@dimen/all_padding"
+            android:text="@string/titre_etape_et_date"
+            android:textColor="@color/black"
+            android:textSize="16dp" /-->
 
         <!-- Chauffeur -->
         <LinearLayout
@@ -181,46 +260,7 @@
                 android:textSize="16dp" />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Retour"
-                android:drawableLeft="@drawable/drawable_with_margin_ic_back"
-                android:padding="@dimen/padd"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:background="@drawable/rounded_blue_corner_view"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/padd"
-                android:gravity="center"
-                android:textColor="@color/gray2_not_selected"
-                android:textSize="16sp"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:layout_marginRight="@dimen/all_margin"
-                android:background="@drawable/rounded_blue_corner_view_gray"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:text="Transaction"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suivant"
-                android:drawableRight="@drawable/drawable_with_margin_ic_next_step"
-                android:padding="@dimen/padd"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:background="@drawable/rounded_blue_corner_view"/>
-        </LinearLayout>
-
+        <!-- Mise à Jour -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_popup_maj"
             android:layout_width="match_parent"

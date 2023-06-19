@@ -10,12 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
+import androidx.navigation.fragment.findNavController
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.VerticalStepView
 import com.baoyachi.stepview.bean.StepBean
@@ -62,6 +64,9 @@ class SuivietcSousFragment : Fragment() {
         var numtcsecond_popup : TextView = binding.textViewTCNumItem2
         var num_plomb_tc2 : TextView = binding.numPlombTc2
         var phoneChauffeur_popup : EditText = binding.textViewTCnumPhoneChauffeur
+        var dateSaveTc : TextView = binding.textViewDateEnregistement
+        var imgBtnDate : ImageView = binding.imgViewDateStep
+
 
         var btn_maj_popup : Button = binding.btnPopupMaj
 
@@ -82,26 +87,27 @@ class SuivietcSousFragment : Fragment() {
         val num_Camion = data?.getString("inputCamion")
         stepChange(stepvoyage, typetransact, bayoStepView)
         dateChangement(date.toString(), date_etape_tc_popup)
+        dateSaveTc.text = "TC enrégistré le $date"
 
         when(typetransact){
             "Import" -> {
                 when (stepvoyage) {
-                    0 -> date_etape_tc_popup.text = "${date } -> Tc arrivé au Port "
-                    1 -> date_etape_tc_popup.text = "${date } -> Tc en Dédouanement "
-                    2 -> date_etape_tc_popup.text = "${date } -> Tc sorti du Port "
-                    3 -> date_etape_tc_popup.text = "${date } -> Tc arrivé à Destination "
-                    4 -> date_etape_tc_popup.text = "${date } -> Transaction Terminé "
+                    0 -> date_etape_tc_popup.text = "Tc arrivé au Port "
+                    1 -> date_etape_tc_popup.text = "Tc en Dédouanement "
+                    2 -> date_etape_tc_popup.text = "Tc sorti du Port "
+                    3 -> date_etape_tc_popup.text = "Tc arrivé à Destination "
+                    4 -> date_etape_tc_popup.text = "Transaction Terminé "
                 }
             }
             "Export" -> {
                 when(stepvoyage){
-                    0 -> date_etape_tc_popup.text = "${date } -> Tc au port"
-                    1 -> date_etape_tc_popup.text = "${date } -> Tc à l'usine"
-                    2 -> date_etape_tc_popup.text = "${date } -> Tc en chargement"
-                    3 -> date_etape_tc_popup.text = "${date } -> Tc à la douane"
-                    4 -> date_etape_tc_popup.text = "${date } -> Tc arrivé sortie de l'entrepot"
-                    5 -> date_etape_tc_popup.text = "${date } -> Tc plein arrivé au port"
-                    6 -> date_etape_tc_popup.text = "${date } -> Transaction Terminé"
+                    0 -> date_etape_tc_popup.text = "Tc au port"
+                    1 -> date_etape_tc_popup.text = "Tc à l'usine"
+                    2 -> date_etape_tc_popup.text = "Tc en chargement"
+                    3 -> date_etape_tc_popup.text = "Tc à la douane"
+                    4 -> date_etape_tc_popup.text = "Tc arrivé sortie de l'entrepot"
+                    5 -> date_etape_tc_popup.text = "Tc plein arrivé au port"
+                    6 -> date_etape_tc_popup.text = "Transaction Terminé"
                 }
             }
         }
@@ -148,6 +154,9 @@ class SuivietcSousFragment : Fragment() {
             btn_maj_popup.setBackground(AppCompatResources.getDrawable(binding.root.context, R.drawable.btn_drawable_not_selected))
             btn_maj_popup.text = "Mis à jour éffectué"
         }
+
+        val navController = findNavController()
+        navController.navigate(R.id.action_suivietcSousFragment_to_suivietcStepdateSousFragment)
 
         return root
     }
