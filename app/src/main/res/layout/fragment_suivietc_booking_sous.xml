@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,100 +8,132 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.suivietc.SuivietcBookingSousFragment">
 
-    <!-- Titre -->
-    <TextView
-        android:id="@+id/titrelisttc_booking"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/all_margin"
-        android:layout_marginRight="@dimen/all_margin"
-        android:layout_marginLeft="@dimen/all_margin"
-        android:background="@drawable/rounded_blue_background"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:gravity="center"
-        android:padding="@dimen/all_padding"
-        android:text="@string/list_tc_booking"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView_searchlistetc_booking"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/gray"
-        app:cardCornerRadius="@dimen/radius"
-        android:layout_marginTop="@dimen/all_margin"
-        android:layout_marginLeft="@dimen/all_margin"
-        android:layout_marginRight="@dimen/all_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titrelisttc_booking">
-        <!--androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView_tc"
+        <!-- Titre -->
+        <TextView
+            android:id="@+id/titrelisttc_booking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_search"
-            app:queryHint="@string/search_hint"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            /-->
+            android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_background"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:padding="@dimen/all_padding"
+            android:text="@string/list_tc_booking"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:entries="@array/oktest"
-            android:padding="@dimen/all_padding"
+            android:background="@drawable/rounded_white_back_white"
+            android:elevation="4dp" />
 
+        <!--com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView_searchlistetc_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="@dimen/radius"
+            android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin">
+
+        </com.google.android.material.card.MaterialCardView-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_tc" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:fontFamily="@font/source_sans_pro_black"
+                android:padding="@dimen/padd"
+                android:layout_marginRight="@dimen/all_margin"
+                android:text="Numéro Tc"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:padding="@dimen/padd"
+                android:text="Numéro Plomb"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray2_not_selected"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
+            android:layout_marginTop="@dimen/all_margin"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_booking_tc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="1dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <!--ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progress_bar_id_booking"
+            style="@style/CircularProgressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/textView_charging_booking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.871" />
+        <TextView
+            android:id="@+id/textView_charging_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro_light"
+            android:text="Chargement..."
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
-    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_booking_tc"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/all_margin"
-        android:padding="1dp"
-        android:scrollbars="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_searchlistetc_booking" />
+    </LinearLayout>
 
-    <!--ProgressBar -->
-    <ProgressBar
-        android:id="@+id/progress_bar_id_booking"
-        style="@style/CircularProgressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:minWidth="50dp"
-        android:minHeight="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_charging_booking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.871" />
-
-    <TextView
-        android:id="@+id/textView_charging_booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/source_sans_pro_light"
-        android:text="Chargement..."
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

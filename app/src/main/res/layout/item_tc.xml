@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rounded_cardview_item_tc"
+    android:background="@drawable/button_push"
     android:id="@+id/itemCardView_item_tc"
     android:elevation="8dp"
+
     android:layout_marginTop="@dimen/all_margin_demi"
     android:layout_marginRight="@dimen/all_margin"
     android:layout_marginLeft="@dimen/all_margin"
@@ -15,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/padd"
-        android:background="@drawable/button_push"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:background="@color/white"
             android:layout_marginTop="@dimen/padd"
             android:layout_marginBottom="@dimen/padd"/>
@@ -93,7 +93,7 @@
             android:background="@drawable/rounded_white_back_white" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:background="@color/white"
             android:layout_marginTop="@dimen/padd"
             android:layout_marginBottom="@dimen/padd"/>
@@ -140,11 +140,10 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="@dimen/all_margin"
                 android:padding="@dimen/padd"
-                android:background="@drawable/btn_drawable_red"
+                android:background="@drawable/button_selector"
                 android:elevation="8dp"
                 android:fontFamily="@font/source_sans_pro_black"
                 android:text="@string/btnSuivant"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:textSize="10dp" />

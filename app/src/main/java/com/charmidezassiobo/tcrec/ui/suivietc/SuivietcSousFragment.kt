@@ -54,6 +54,8 @@ class SuivietcSousFragment : Fragment() {
         _binding = FragmentSuivietcSousBinding.inflate(inflater,container, false)
         val root: View = binding.root
 
+        val navController = findNavController()
+
         var bayoStepView : HorizontalStepView = binding.stepViewBaoyaVerticalViewItem
 
         var date_etape_tc_popup : TextView = binding.textViewEtapeEtDate
@@ -155,8 +157,9 @@ class SuivietcSousFragment : Fragment() {
             btn_maj_popup.text = "Mis à jour éffectué"
         }
 
-        val navController = findNavController()
-        navController.navigate(R.id.action_suivietcSousFragment_to_suivietcStepdateSousFragment)
+        binding.imgViewDateStep.setOnClickListener {
+            navController.navigate(R.id.action_suivietcSousFragment_to_suivietcStepdateSousFragment)
+        }
 
         return root
     }

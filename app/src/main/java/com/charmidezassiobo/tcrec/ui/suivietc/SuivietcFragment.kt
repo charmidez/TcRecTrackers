@@ -335,13 +335,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
     fun voirListDesTc(img :  ImageView, navController : NavController){
 
-        /*img.setOnClickListener {
-            parentFragmentManager.beginTransaction().apply {
-                replace(R.id.nav_host_fragment_activity_main, sousfragmentbooking)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }*/
         img.setOnClickListener {
             navController.navigate(R.id.action_navigation_suivietc_to_suivietcBookingSousFragment)
         }

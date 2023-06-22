@@ -93,5 +93,6 @@
 
     <string name="sea_imp">SEA Import</string>
     <string name="air_imp">AIR Import</string>
+    <string name="road_track">Road Tracking</string>
 
 </resources>

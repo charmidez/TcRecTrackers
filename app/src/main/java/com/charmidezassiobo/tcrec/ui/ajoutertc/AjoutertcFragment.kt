@@ -82,13 +82,13 @@ class AjoutertcFragment : Fragment() {
         val radioGrp : RadioGroup = binding.radioGroupOk
         radioGrp.setOnCheckedChangeListener { group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
-            val selectOption = radioBtn.text.toString()
+            val selectOption = radioBtn.id
             when(selectOption){
-                "Importation" -> {
+                R.id.radioButton_Import_ajout -> {
                     typeTransat = "Import"
                     imgViewBtn.isVisible = false
                 }
-                "Exportation" -> {
+                R.id.radioGroup_export_tracking_ajout -> {
                     typeTransat = "Export"
                     imgViewBtn.isVisible = true
                 }

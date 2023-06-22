@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentFindtcBinding
 
+
 class FindtcFragment : Fragment() {
 
     private var _binding : FragmentFindtcBinding? = null
@@ -108,7 +109,7 @@ class FindtcFragment : Fragment() {
             }
         }
 
-
+        //Reset The Search !
         btnInitialise.setOnClickListener {
             clearRadioBtn(radioGroupExpImpRoad)
             resetFragment(radioGroupExpImpRoad,radioExpTracking, radioImpTracking,  lnSearch, recyclerResult, lnCardResult)
