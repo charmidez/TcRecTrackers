@@ -44,8 +44,8 @@
     <string name="btn_fini_itemview">Fin</string>
     <string name="btnSuivant">Suivant</string>
     <string name="maj">Mettre à Jour</string>
-    <string name="importer"> Importation </string>
-    <string name="exporter"> Exportation </string>
+    <string name="importer"> Import </string>
+    <string name="exporter"> Export </string>
 
     <string name="bind_txt_tc">Veuiller renseigner le numéro Plomb TC</string>
     <string name="bind_num_vraie">Numéro Plomb du TC</string>

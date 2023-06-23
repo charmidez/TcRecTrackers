@@ -19,14 +19,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
+import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
+import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.*
+import java.sql.Date
 
 class AjoutertcFragment : Fragment() {
 
@@ -97,16 +101,7 @@ class AjoutertcFragment : Fragment() {
 
         imgViewBtn.setOnClickListener{
 
-            //numTCSecondOff.visibility = View.VISIBLE // Affiche la vue
             numTCSecondLabel.isVisible = true
-            /*val constraintSet = ConstraintSet()
-            constraintSet.clone(constraintLayout_ajout_tc) // "constraintLayout" est le parent de la vue
-            constraintSet.connect(numTCSecondLabel.id, ConstraintSet.START, constraintLayout_ajout_tc.id, ConstraintSet.START)
-            constraintSet.connect(numTCSecondLabel.id, ConstraintSet.END, constraintLayout_ajout_tc.id, ConstraintSet.END)
-            constraintSet.connect(numTCSecondLabel.id, ConstraintSet.TOP, textViewTC_label.id, ConstraintSet.BOTTOM)
-            constraintSet.connect(textViewBooking_label.id, ConstraintSet.TOP, numTCSecondLabel.id, ConstraintSet.BOTTOM)
-            constraintSet.applyTo(constraintLayout_ajout_tc)
-            Log.d("ImageView","ImageVie appuyé")*/
             imgViewBtn.isVisible = false
         }
 
@@ -138,8 +133,30 @@ class AjoutertcFragment : Fragment() {
         //Prendre Les données du conteneur
         val butAjouter : Button = binding.ajouteTcButton
 
+        var getDateReal : HeureStep
+        val currentTimestamp = Timestamp(System.currentTimeMillis())
+        val currentRealDate = Date()
+
+        var heureRealStartTc = AllFunctions().miseEnPlaceHeure()
+        val dateRealChiffre = AllFunctions().miseEnPlaceDate(true)
+        val dateRealDate = AllFunctions().miseEnPlaceDate(false)
+
+
+        getDateReal = HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc)
+
+        val lesDatesNew = listOf(HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc),
+            HeureStep("","",""))
+
         butAjouter.setOnClickListener{
-            if (isConnected){
+
+            val registerNewTc = hashMapOf(
+                "numsTc" to "numsTc",
+                "stepTC" to 4,
+                "lesStepHour" to  lesDatesNew
+            )
+            db.collection("Voyagetest").document().set(registerNewTc)
+
+/*            if (isConnected){
                 butAjouter.text = "Chargement..."
                 butAjouter.isEnabled = false
                 butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
@@ -215,7 +232,7 @@ class AjoutertcFragment : Fragment() {
                 val snack = Snackbar.make(binding.frameLayoutAjoutTc,"Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
                 snack.setBackgroundTint(ContextCompat.getColor(root.context, R.color.gray2))
                 snack.show()
-            }
+            }*/
 
         }
         return root

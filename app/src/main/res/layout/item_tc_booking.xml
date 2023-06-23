@@ -61,40 +61,29 @@
                 android:id="@+id/imgView_numtc2"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_tc"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/imgView_numcamion"
-                app:layout_constraintTop_toBottomOf="@+id/imgView_numcamion" />
+                android:src="@drawable/ic_tc" />
             <TextView
                 android:id="@+id/textViewTCNum_item_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="@dimen/all_margin"
-                android:visibility="gone"
                 android:background="@drawable/rounded_blue_corner_view"
                 android:fontFamily="@font/source_sans_pro_black"
                 android:padding="@dimen/padd"
                 android:text="@string/num_tc_item"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgView_numtc2"
-                app:layout_constraintStart_toEndOf="@+id/imgView_numtc2"
-                app:layout_constraintTop_toTopOf="@+id/imgView_numtc2" />
+                android:textSize="16sp" />
             <TextView
                 android:id="@+id/num_plomb_tc_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/all_margin"
-                android:visibility="gone"
                 android:fontFamily="@font/source_sans_pro_bold"
                 android:padding="@dimen/padd"
                 android:text="@string/num_plomb_vrai"
                 android:textColor="@color/textColor"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewTCNum_item_2"
-                app:layout_constraintStart_toEndOf="@+id/textViewTCNum_item_2"
-                app:layout_constraintTop_toTopOf="@+id/textViewTCNum_item_2" />
+                android:textSize="14dp" />
         </LinearLayout>
 
     </LinearLayout>

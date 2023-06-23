@@ -84,6 +84,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
 
          var etape : Int
          var step_tc : Int
+         //var
          val txtSizeStep = 8
 
         var numPlomb_string : String
@@ -193,6 +194,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                         iddoc = docId
                                         val docRef = db.collection("Voyage").document(docId)
                                         docRef.update("step_TC", etape)
+                                        //Mettre à jour la date à chaque suivant
+                                        docRef.update("lesDatesEtape","" )
                                     }
                                     Log.d("Doc Id",iddoc)
                                 }

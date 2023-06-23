@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/all_padding"
-                    android:drawableRight="@drawable/ic_road_transport_trucking"
+                    android:text="@string/road_track"
                     android:textColor="@color/white"
                     android:buttonTint="@color/white"
                     android:background="@drawable/rounded_blue_corner_view" />
