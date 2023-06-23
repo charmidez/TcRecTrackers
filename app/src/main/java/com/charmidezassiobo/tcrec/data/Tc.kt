@@ -10,5 +10,6 @@ data class Tc(
     var date_tc : String,
     var step_TC : Int,
     var num_plomb_second : String,
-    var type_transat : String
+    var type_transat : String,
+    var lesStepDateHour :  List<HeureStep>
     )

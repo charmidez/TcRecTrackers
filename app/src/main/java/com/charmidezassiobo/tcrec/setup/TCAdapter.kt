@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
+import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.ui.suivietc.SuivietcSousFragment
 import com.google.android.material.snackbar.Snackbar
@@ -56,6 +57,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
         holder.callButton()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     inner class TCViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var cardV : FrameLayout
          var  numtc : TextView
@@ -84,7 +86,10 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
 
          var etape : Int
          var step_tc : Int
-         //var
+         var dateActuelStep : HeureStep
+         var allFunctions = AllFunctions()
+
+         var tableauSateHeureStep : List<HeureStep>
          val txtSizeStep = 8
 
         var numPlomb_string : String
@@ -124,6 +129,9 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             step_tc = 0
             numPlomb_string = ""
             numPlomb_second_string = ""
+
+            dateActuelStep = HeureStep(allFunctions.miseEnPlaceDate(true),allFunctions.miseEnPlaceDate(false),allFunctions.miseEnPlaceHeure())
+            tableauSateHeureStep = mutableListOf(dateActuelStep)
 
             itemView.setOnLongClickListener {
                 val position = adapterPosition
@@ -170,7 +178,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                     for (document in documents) {
                                         var docId = document.id
                                         iddoc = docId
-                                        val docRef = db.collection("Voyage").document(docId)
+                                        //val docRef = db.collection("Voyage").document(docId)
+                                        val docRef = db.collection("Voyagetest").document(docId)
                                         docRef.update("step_TC", etape)
                                     }
                                     Log.d("Doc Id",iddoc)
@@ -192,9 +201,11 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                     for (document in documents) {
                                         var docId = document.id
                                         iddoc = docId
-                                        val docRef = db.collection("Voyage").document(docId)
+                                        //val docRef = db.collection("Voyage").document(docId)
+                                        val docRef = db.collection("Voyagetest").document(docId)
                                         docRef.update("step_TC", etape)
                                         //Mettre à jour la date à chaque suivant
+                                        tableauSateHeureStep
                                         docRef.update("lesDatesEtape","" )
                                     }
                                     Log.d("Doc Id",iddoc)

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
+import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
@@ -54,7 +55,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     lateinit var imgView_list_tc_bk : ImageView
 
     val db = Firebase.firestore
-    val voyRef = db.collection("Voyage")
+    //val voyRef = db.collection("Voyage")
+    val voyRef = db.collection("Voyagetest")
 
     val sousfragment : Fragment = SuivietcSousFragment()
     val sousfragmentbooking : Fragment = SuivietcBookingSousFragment()
@@ -263,6 +265,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                         val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                         val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                         val type_transact = document.data.get("import_export")
+                        val heureDeChaqueStep  = document.data.get("lesStepDateHour") as List<HeureStep>
+
                         if ( idtc_ok != null){
                             if (step_tc_ok != null ){
                                 items_tc.add(Tc( "$numtc_ok",
@@ -274,7 +278,10 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                                     "$date_ok",
                                     step_tc_ok,
                                     "$numplombsecond_ok",
-                                    "$type_transact"))
+                                    "$type_transact",
+                                    heureDeChaqueStep
+                                    )
+                                )
                                 recyclerView_TC.apply {
                                     recyclerView_TC.adapter = TCAdapter(items_tc, this@SuivietcFragment)
                                 }
@@ -303,6 +310,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         val inputPlomb = items_tc[position].num_plomb
         val inputPlombSecond = items_tc[position].num_plomb_second
         val inputTelChauffeur = items_tc[position].num_tel_chauffeur
+        val inputStepDate = items_tc[position].lesStepDateHour
 
         val bundle = Bundle()
         bundle.putString("inputTypeTransact", inputTypeTransact)
@@ -315,6 +323,10 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         bundle.putString("inputPlomb", inputPlomb)
         bundle.putString("inputPlombSecond", inputPlombSecond)
         bundle.putString("inputTelChauffeur", inputTelChauffeur)
+
+        bundle.putSerializable(" inputStepDate", ArrayList(inputStepDate))
+
+
         sousfragment.arguments = bundle
 
         /*parentFragmentManager

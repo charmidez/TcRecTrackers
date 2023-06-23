@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.brouillons
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

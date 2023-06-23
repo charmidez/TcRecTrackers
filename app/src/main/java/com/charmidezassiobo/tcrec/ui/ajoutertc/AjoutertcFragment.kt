@@ -144,11 +144,11 @@ class AjoutertcFragment : Fragment() {
 
         getDateReal = HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc)
 
-        val lesDatesNew = listOf(HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc),
+        val lesStepHour = listOf(HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc),
             HeureStep("","",""))
 
         butAjouter.setOnClickListener{
-
+/*
             val registerNewTc = hashMapOf(
                 "numsTc" to "numsTc",
                 "stepTC" to 4,
@@ -156,7 +156,9 @@ class AjoutertcFragment : Fragment() {
             )
             db.collection("Voyagetest").document().set(registerNewTc)
 
-/*            if (isConnected){
+            */
+
+            if (isConnected){
                 butAjouter.text = "Chargement..."
                 butAjouter.isEnabled = false
                 butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
@@ -181,9 +183,11 @@ class AjoutertcFragment : Fragment() {
                             "num_plomb_TC" to num_plomb,
                             "num_plomb_TC_2" to num_plomb_2,
                             "phone_chauffeur_TC" to phone.text.toString(),
-                            "import_export" to typeTransat
+                            "import_export" to typeTransat,
+                            "lesStepDateHour" to  lesStepHour
                         )
-                        db.collection("Voyage").document().set(registerTc)
+                        //db.collection("Voyage").document().set(registerTc)
+                        db.collection("Voyagetest").document().set(registerTc)
                             .addOnSuccessListener {
                                 val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",Snackbar.LENGTH_LONG)
                                 snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -232,7 +236,7 @@ class AjoutertcFragment : Fragment() {
                 val snack = Snackbar.make(binding.frameLayoutAjoutTc,"Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
                 snack.setBackgroundTint(ContextCompat.getColor(root.context, R.color.gray2))
                 snack.show()
-            }*/
+            }
 
         }
         return root

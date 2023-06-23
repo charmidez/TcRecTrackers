@@ -8,7 +8,8 @@ import com.google.firebase.ktx.Firebase
 class GetDataFromDB {
 
         val db = Firebase.firestore
-        val voyTc = db.collection("Voyage")
+        //val voyTc = db.collection("Voyage")
+        val voyTc = db.collection("Voyagetest")
         var itemListTc = arrayListOf<Tc>()
 
 
@@ -31,6 +32,7 @@ class GetDataFromDB {
                     val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                     val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                     val type_transact = document.data.get("import_export")
+                    val heureDeChaqueStep  = document.data.get("lesStepDateHour") as? List<HeureStep>
                     if ( idtc_ok != null){
                         if (step_tc_ok != null ){
                             itemListTc.add(Tc( "$numtc_ok",
@@ -42,7 +44,10 @@ class GetDataFromDB {
                                 "$date_ok",
                                 step_tc_ok,
                                 "$numplombsecond_ok",
-                                "$type_transact"))
+                                "$type_transact",
+                                heureDeChaqueStep!!
+                                )
+                            )
                             listBooking.add(num_booking_tc)
                         }
                     }

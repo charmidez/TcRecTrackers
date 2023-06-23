@@ -141,14 +141,16 @@ class SuivietcSousFragment : Fragment() {
             Log.d("btn rouge", "Appuyé $nouveau_num_immatriculation")
 
             val db = FirebaseFirestore.getInstance()
-            val query = db.collection("Voyage")
+            //val query = db.collection("Voyage")
+            val query = db.collection("Voyagetest")
                 .whereEqualTo("num_TC", num_TC)
                 .whereEqualTo("num_Camion", num_Camion)
             query.get().addOnSuccessListener { documents ->
                 for (document in documents) {
                     var docId = document.id
                     iddoc = docId
-                    val docRef = db.collection("Voyage").document(docId)
+                    //val docRef = db.collection("Voyage").document(docId)
+                    val docRef = db.collection("Voyagetest").document(docId)
                     docRef.update("num_Camion", nouveau_num_immatriculation)
                     docRef.update("phone_chauffeur_TC",nouveau_num_chauffeur)
                 }
