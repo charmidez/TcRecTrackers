@@ -92,7 +92,11 @@ class AjoutertcFragment : Fragment() {
                     typeTransat = "Import"
                     imgViewBtn.isVisible = false
                 }
-                R.id.radioGroup_export_tracking_ajout -> {
+                R.id.radioButton_export_ajout -> {
+                    typeTransat = "Export"
+                    imgViewBtn.isVisible = true
+                }
+                R.id.radioButton_road_ajout -> {
                     typeTransat = "Export"
                     imgViewBtn.isVisible = true
                 }
@@ -144,8 +148,9 @@ class AjoutertcFragment : Fragment() {
 
         getDateReal = HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc)
 
-        val lesStepHour = listOf(HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc),
-            HeureStep("","",""))
+        val lesStepHour = listOf(
+            HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc)
+        )
 
         butAjouter.setOnClickListener{
 /*

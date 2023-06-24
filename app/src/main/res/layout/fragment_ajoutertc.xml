@@ -60,7 +60,7 @@
                     android:buttonTint="@color/white"
                     android:background="@drawable/rounded_blue_corner_view" />
                 <RadioButton
-                    android:id="@+id/radioButton_road"
+                    android:id="@+id/radioButton_road_ajout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/all_padding"

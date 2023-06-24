@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -22,6 +23,7 @@ import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.VerticalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
+import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -69,6 +71,8 @@ class SuivietcSousFragment : Fragment() {
         var dateSaveTc : TextView = binding.textViewDateEnregistement
         var imgBtnDate : ImageView = binding.imgViewDateStep
 
+        //var tableauHeure : MutableList<HeureStep>
+
 
         var btn_maj_popup : Button = binding.btnPopupMaj
 
@@ -84,32 +88,36 @@ class SuivietcSousFragment : Fragment() {
         num_plomb_tc2.text = data?.getString("inputPlombSecond")
         phoneChauffeur_popup.setText(data?.getString("inputTelChauffeur"))
 
+        var stepDateHeureReal = data?.getSerializable("inputStepDate") as? List<HeureStep>
+        val dateChiffres = stepDateHeureReal!![0].stepDateChiffre
+        //val dateChiffre = tableauHeure?.stepDateLettre
+
         val date = data?.getString("inputDate")
         val num_TC = data?.getString("inputTc")
         val num_Camion = data?.getString("inputCamion")
         stepChange(stepvoyage, typetransact, bayoStepView)
         dateChangement(date.toString(), date_etape_tc_popup)
-        dateSaveTc.text = "TC enrégistré le $date"
+        dateSaveTc.text = "TC enrégistré le ${stepDateHeureReal!![0].stepDateLettre}"
 
         when(typetransact){
             "Import" -> {
                 when (stepvoyage) {
-                    0 -> date_etape_tc_popup.text = "Tc arrivé au Port "
-                    1 -> date_etape_tc_popup.text = "Tc en Dédouanement "
-                    2 -> date_etape_tc_popup.text = "Tc sorti du Port "
-                    3 -> date_etape_tc_popup.text = "Tc arrivé à Destination "
-                    4 -> date_etape_tc_popup.text = "Transaction Terminé "
+                    0 -> date_etape_tc_popup.text = "Tc arrivé au Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}  "
+                    1 -> date_etape_tc_popup.text = "Tc en Dédouanement le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                    2 -> date_etape_tc_popup.text = "Tc sorti du Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                    3 -> date_etape_tc_popup.text = "Tc arrivé à Destination le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                    4 -> date_etape_tc_popup.text = "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
                 }
             }
             "Export" -> {
                 when(stepvoyage){
-                    0 -> date_etape_tc_popup.text = "Tc au port"
-                    1 -> date_etape_tc_popup.text = "Tc à l'usine"
-                    2 -> date_etape_tc_popup.text = "Tc en chargement"
-                    3 -> date_etape_tc_popup.text = "Tc à la douane"
-                    4 -> date_etape_tc_popup.text = "Tc arrivé sortie de l'entrepot"
-                    5 -> date_etape_tc_popup.text = "Tc plein arrivé au port"
-                    6 -> date_etape_tc_popup.text = "Transaction Terminé"
+                    0 -> date_etape_tc_popup.text = "Tc au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                    1 -> date_etape_tc_popup.text = "Tc à l'usine le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                    2 -> date_etape_tc_popup.text = "Tc en chargement le: ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                    3 -> date_etape_tc_popup.text = "Tc à la douane le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                    4 -> date_etape_tc_popup.text = "Tc arrivé sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                    5 -> date_etape_tc_popup.text = "Tc plein arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                    6 -> date_etape_tc_popup.text = "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
                 }
             }
         }
@@ -355,6 +363,29 @@ class SuivietcSousFragment : Fragment() {
             dateCurrentHier -> { date_etape_tc_popup.text = "Hier"}
             dateCurrentAvantHier -> { date_etape_tc_popup.text = "Avant Hier"}
         }
+    }
+
+    fun popUpShowDate(list : MutableList<HeureStep>, step : Int){
+
+        val v = View.inflate(binding.root.context, R.layout.popup_show_date_step, null)
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(v)
+
+        /*when(step){
+            0 -> { "Tc arrivée au port le : ${list!![stepvoyage].stepDateChiffre} à ${list!![stepvoyage].stepHeure} " }
+        }*/
+        val container = v.findViewById<LinearLayout>(R.id.lineair_container)
+
+        list.forEach { element ->
+            var textView = v.findViewById<TextView>(R.id.textView_date_et_heure_1)
+            textView.text = "${list!![stepvoyage].stepDateChiffre} à ${list!![stepvoyage].stepHeure}"
+
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
     }
 
     override fun onDestroyView() {

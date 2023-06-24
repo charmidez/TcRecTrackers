@@ -16,7 +16,7 @@ class AllFunctions {
         var localRealDate = LocalDate.now()
 
         var cRealDay = localRealDate.dayOfWeek.toString()
-        var cRealDayChiffre = localRealDate.dayOfMonth
+        var cRealDayChiffre = localRealDate.dayOfMonth.toString()
 
         var cRealMonth = localRealDate.month.toString()
         var cRealMonthChiffre = localRealDate.monthValue
@@ -48,7 +48,6 @@ class AllFunctions {
             "DECEMBER" -> {cRealMonth = "Décembre"}
         }
 
-
         //Date reel chiffre
         var chiffreRealDate = "$cRealDayChiffre/$cRealMonthChiffre/$cRealYear"
 
@@ -66,6 +65,33 @@ class AllFunctions {
     fun miseEnPlaceHeure():String{
         var hh = LocalTime.now().hour.toString()
         var mm = LocalTime.now().minute.toString()
+
+        when(hh){
+            "0" -> "00"
+            "1" -> "01"
+            "2" -> "02"
+            "3" -> "03"
+            "4" -> "04"
+            "5" -> "05"
+            "6" -> "06"
+            "7" -> "07"
+            "8" -> "08"
+            "9" -> "09"
+        }
+
+        when(mm){
+            "0" -> "00"
+            "1" -> "01"
+            "2" -> "02"
+            "3" -> "03"
+            "4" -> "04"
+            "5" -> "05"
+            "6" -> "06"
+            "7" -> "07"
+            "8" -> "08"
+            "9" -> "09"
+        }
+
         var localRealHeure = "$hh:$mm"
         return localRealHeure
     }

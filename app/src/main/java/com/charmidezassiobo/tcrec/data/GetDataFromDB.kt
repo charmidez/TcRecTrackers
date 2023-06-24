@@ -32,7 +32,7 @@ class GetDataFromDB {
                     val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                     val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                     val type_transact = document.data.get("import_export")
-                    val heureDeChaqueStep  = document.data.get("lesStepDateHour") as? List<HeureStep>
+                    val heureDeChaqueStep  = document.data.get("lesStepDateHour") as? MutableList<HeureStep>
                     if ( idtc_ok != null){
                         if (step_tc_ok != null ){
                             itemListTc.add(Tc( "$numtc_ok",

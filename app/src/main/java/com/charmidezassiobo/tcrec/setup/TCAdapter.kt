@@ -86,11 +86,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
 
          var etape : Int
          var step_tc : Int
-         var dateActuelStep : HeureStep
-         var allFunctions = AllFunctions()
+         //var dateActuelStep : HeureStep
+         //var allFunctions = AllFunctions()
 
-         var tableauSateHeureStep : List<HeureStep>
-         val txtSizeStep = 8
+        /*var dateRealChiffre : String
+        var dateRealLettre : String
+        var heureRealChiffre : String
+        */
+         var tableauSateHeureStep : MutableList<HeureStep>
+        //var dbOldDateStep : MutableList<HeureStep>
+        val txtSizeStep = 8
 
         var numPlomb_string : String
         var numPlomb_second_string : String
@@ -130,10 +135,15 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             numPlomb_string = ""
             numPlomb_second_string = ""
 
-            dateActuelStep = HeureStep(allFunctions.miseEnPlaceDate(true),allFunctions.miseEnPlaceDate(false),allFunctions.miseEnPlaceHeure())
-            tableauSateHeureStep = mutableListOf(dateActuelStep)
+            /*dateRealChiffre = allFunctions.miseEnPlaceDate(true)
+            dateRealLettre = allFunctions.miseEnPlaceDate(false)
+            heureRealChiffre = allFunctions.miseEnPlaceHeure()
 
-            itemView.setOnLongClickListener {
+            dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)*/
+            tableauSateHeureStep = mutableListOf()
+            //dbOldDateStep = mutableListOf()
+
+            itemView.setOnClickListener {
                 val position = adapterPosition
                 listener.onItemClick(position)
                 true
@@ -147,6 +157,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             etape = tc.step_TC
             phoneChauffeur.text = tc.num_tel_chauffeur
             numtcsecond.text = tc.num_TCSecond
+            tableauSateHeureStep = tc.lesStepDateHour
+
 
 
             if(phoneChauffeur.text == "null" || phoneChauffeur == null || phoneChauffeur.text == ""){
@@ -171,7 +183,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                 etape = etape + 1
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
-                                val query = db.collection("Voyage")
+                                //val query = db.collection("Voyage")
+                                val query = db.collection("Voyagetest")
                                     .whereEqualTo("num_TC", tc.num_TC)
                                     .whereEqualTo("num_Camion", tc.num_Camion)
                                 query.get().addOnSuccessListener { documents ->
@@ -194,7 +207,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                 etape = etape + 1
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
-                                val query = db.collection("Voyage")
+                                //val query = db.collection("Voyage")
+                                val query = db.collection("Voyagetest")
                                     .whereEqualTo("num_TC", tc.num_TC)
                                     .whereEqualTo("num_Camion", tc.num_Camion)
                                 query.get().addOnSuccessListener { documents ->
@@ -205,8 +219,17 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                         val docRef = db.collection("Voyagetest").document(docId)
                                         docRef.update("step_TC", etape)
                                         //Mettre à jour la date à chaque suivant
-                                        tableauSateHeureStep
-                                        docRef.update("lesDatesEtape","" )
+
+                                        var allFunctions = AllFunctions()
+                                        var dateRealChiffre = allFunctions.miseEnPlaceDate(true)
+                                        var dateRealLettre = allFunctions.miseEnPlaceDate(false)
+                                        var heureRealChiffre = allFunctions.miseEnPlaceHeure()
+
+                                        var dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)
+                                        //tableauSateHeureStep = dbOldDateStep
+
+                                        tableauSateHeureStep.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
+                                        docRef.update("lesStepDateHour",tableauSateHeureStep )
                                     }
                                     Log.d("Doc Id",iddoc)
                                 }
@@ -324,8 +347,10 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 "Export" -> {
                     when(etape){
                         0 -> {
+                            //var step1 = tc.lesStepDateHour[0].stepDateChiffre.toString()
+                            //Log.d("step1", step1)
                             stepsBeanList= ArrayList()
-                            stepBean0_export = StepBean("Port", 0)
+                            stepBean0_export = StepBean("Port ", 0)
                             stepBean1_export = StepBean("Usine", -1)
                             stepBean2_export = StepBean("Chargement", -1)
                             stepBean3_export = StepBean("Douane", -1)
@@ -435,14 +460,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 Log.d("Bind ",numbind_tc.toString())
                 numPlomb_string = numbind_tc.toString()
                 val db = FirebaseFirestore.getInstance()
-                val query = db.collection("Voyage")
+                //val query = db.collection("Voyage")
+                val query = db.collection("Voyagetest")
                     .whereEqualTo("num_TC", tc.num_TC)
                     .whereEqualTo("num_Camion", tc.num_Camion)
                 query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var docId = document.id
                         iddoc = docId
-                        val docRef = db.collection("Voyage").document(docId)
+                        //val docRef = db.collection("Voyage").document(docId)
+                        val docRef = db.collection("Voyagetest").document(docId)
                         //docRef.update("step_TC", etape)
                         docRef.update("num_plomb_TC",numPlomb_string)
                     }
@@ -485,14 +512,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 numPlomb_string = numbind_tc.toString()
                 numPlomb_second_string = numbind_tc_second.toString()
                 val db = FirebaseFirestore.getInstance()
-                val query = db.collection("Voyage")
+                //val query = db.collection("Voyage")
+                val query = db.collection("Voyagetest")
                     .whereEqualTo("num_TC", tc.num_TC)
                     .whereEqualTo("num_Camion", tc.num_Camion)
                 query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var docId = document.id
                         iddoc = docId
-                        val docRef = db.collection("Voyage").document(docId)
+                        //val docRef = db.collection("Voyage").document(docId)
+                        val docRef = db.collection("Voyagetest").document(docId)
                         docRef.update("num_plomb_TC",numPlomb_string)
                         docRef.update("num_plomb_TC_2",numPlomb_second_string)
                     }

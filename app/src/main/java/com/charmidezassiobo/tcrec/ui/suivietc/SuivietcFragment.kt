@@ -38,6 +38,7 @@ import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import java.io.FileOutputStream
+import java.io.Serializable
 import java.util.Locale
 
 class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
@@ -61,7 +62,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     val sousfragment : Fragment = SuivietcSousFragment()
     val sousfragmentbooking : Fragment = SuivietcBookingSousFragment()
 
-    var items_tc : MutableList<Tc> = ArrayList()
+    var items_tc : MutableList<Tc> = mutableListOf()
     var tempArrayList : MutableList<Tc> = ArrayList()
 
     //var navController : NavController =  findNavController()
@@ -265,7 +266,16 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                         val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                         val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                         val type_transact = document.data.get("import_export")
-                        val heureDeChaqueStep  = document.data.get("lesStepDateHour") as List<HeureStep>
+
+                        //val heureDeChaqueStep  = document.data.get("lesStepDateHour") as MutableList<HeureStep>
+                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                        val heureDeChaqueStep = heureDeChaqueStepList?.map {
+                            HeureStep(
+                                it["stepDateChiffre"] ?: "",
+                                it["stepDateLettre"] ?: "",
+                                it["stepHeure"] ?: ""
+                            )
+                        }
 
                         if ( idtc_ok != null){
                             if (step_tc_ok != null ){
@@ -279,7 +289,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                                     step_tc_ok,
                                     "$numplombsecond_ok",
                                     "$type_transact",
-                                    heureDeChaqueStep
+
+                                    heureDeChaqueStep!!.toMutableList()
                                     )
                                 )
                                 recyclerView_TC.apply {
@@ -312,6 +323,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         val inputTelChauffeur = items_tc[position].num_tel_chauffeur
         val inputStepDate = items_tc[position].lesStepDateHour
 
+        //Log.d("step1",inputStepDate)
+
         val bundle = Bundle()
         bundle.putString("inputTypeTransact", inputTypeTransact)
         bundle.putInt("inputPositionVoyages",inputPositionVoyages)
@@ -324,7 +337,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         bundle.putString("inputPlombSecond", inputPlombSecond)
         bundle.putString("inputTelChauffeur", inputTelChauffeur)
 
-        bundle.putSerializable(" inputStepDate", ArrayList(inputStepDate))
+        bundle.putSerializable("inputStepDate", inputStepDate as Serializable)
 
 
         sousfragment.arguments = bundle
