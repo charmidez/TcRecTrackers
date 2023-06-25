@@ -7,275 +7,312 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/all_padding"
     tools:context=".ui.suivietc.SuivietcSousFragment">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/titredetails_voyage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:gravity="center"
-            android:text="@string/titre_details_voyage"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
-
-        <!-- titre et calendrier -->
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/all_margin">
-            <!--Titre où y'a la date-->
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--Button Retour-->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnBackToPreviousFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_button_fragment"
+                    android:background="@color/white"
+                    android:padding="@dimen/padd"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/titredetails_voyage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_blue_background"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
+                    android:text="@string/titre_details_voyage"
+                    android:padding="@dimen/all_padding"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+
+
+            <!-- titre et calendrier -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+
+                <!--Titre où y'a la date-->
+                <TextView
+                    android:id="@+id/textView_date_enregistement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:background="@drawable/btn_drawable_not_selected"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:gravity="center"
+                    android:padding="@dimen/all_padding"
+                    android:text="@string/titre_etape_et_date"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/imgView_date_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_date_icone"
+                    android:background="@drawable/rounded_blue_background"
+                    android:padding="@dimen/padd"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <!-- Le étapes -->
+            <com.baoyachi.stepview.HorizontalStepView
+                android:id="@+id/step_view_baoya_vertical_view_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_white_back_white"
+                android:layout_centerInParent="true" />
+
+            <!-- Boutton suivant et arrière -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/all_margin"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_back_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Retour"
+                    android:drawableLeft="@drawable/drawable_with_margin_ic_back"
+                    android:padding="@dimen/padd"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:background="@drawable/rounded_blue_corner_view"/>
+                <TextView
+                    android:id="@+id/textView_etape_et_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="47dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padd"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:background="@drawable/rounded_blue_corner_view_gray"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:text="Transaction"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_next_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Suivant"
+                    android:layout_gravity="center"
+                    android:drawableRight="@drawable/drawable_with_margin_ic_next_step"
+                    android:padding="@dimen/padd"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:background="@drawable/rounded_blue_corner_view"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grisabsolut"
+                android:layout_marginTop="@dimen/all_margin"/>
+
+            <!--Date d'enregistrement>
             <TextView
                 android:id="@+id/textView_date_enregistement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="@dimen/all_margin"
-                android:background="@drawable/btn_drawable_not_selected"
+                android:layout_marginTop="@dimen/all_margin"
+                android:background="@drawable/rounded_blue_corner_view_gray"
                 android:fontFamily="@font/source_sans_pro_bold"
                 android:gravity="center"
                 android:padding="@dimen/all_padding"
                 android:text="@string/titre_etape_et_date"
                 android:textColor="@color/black"
-                android:textSize="16dp" />
-            <ImageView
-                android:id="@+id/imgView_date_step"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_date_icone"
-                android:background="@drawable/rounded_blue_background"
-                android:padding="@dimen/padd"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+                android:textSize="16dp" /-->
 
-        <!-- Le étapes -->
-        <com.baoyachi.stepview.HorizontalStepView
-            android:id="@+id/step_view_baoya_vertical_view_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_white_back_white"
-            android:layout_centerInParent="true" />
-
-        <!-- Boutton suivant et arrière -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Chauffeur -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Retour"
-                android:drawableLeft="@drawable/drawable_with_margin_ic_back"
-                android:padding="@dimen/padd"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/all_margin"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imgView_tc_item"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_cam" />
+                <EditText
+                    android:id="@+id/textViewCamionNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:background="@drawable/rounded_blue_background"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_camion_item"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/textViewTCnumPhoneChauffeur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:drawableLeft="@drawable/drawable_with_margin"
+                    android:background="@drawable/btn_drawable_call"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="90213333"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!--Booking -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:id="@+id/imgView_booking"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_bk" />
+                <EditText
+                    android:id="@+id/txtView_numBooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Tc 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:id="@+id/imgView_numcamion"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_tc" />
+                <EditText
+                    android:id="@+id/textViewTCNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/num_plomb_tc_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_plomb_vrai"
+                    android:background="@drawable/rounded_blue_corner_view_2"
+                    android:textColor="@color/textColor"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <!-- Tc 2 -->
+            <LinearLayout
+                android:id="@+id/ln_tc2_remove_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:id="@+id/imgView_numtc2"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_tc" />
+                <EditText
+                    android:id="@+id/textViewTCNum_item2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/num_plomb_tc_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_plomb_vrai"
+                    android:textColor="@color/textColor"
+                    android:background="@drawable/rounded_blue_corner_view_2"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+
+
+            <!-- Mise à Jour -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_popup_maj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/all_margin"
+                android:layout_marginBottom="@dimen/all_padding"
+                android:background="@drawable/btn_drawable_red"
                 android:fontFamily="@font/source_sans_pro_bold"
-                android:background="@drawable/rounded_blue_corner_view"/>
-            <TextView
-                android:id="@+id/textView_etape_et_date"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:padding="@dimen/padd"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:background="@drawable/rounded_blue_corner_view_gray"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:layout_marginRight="@dimen/all_margin"
-                android:text="Transaction"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suivant"
-                android:drawableRight="@drawable/drawable_with_margin_ic_next_step"
-                android:padding="@dimen/padd"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:background="@drawable/rounded_blue_corner_view"/>
+                android:text="Mettre à jour"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/grisabsolut"
-            android:layout_marginTop="@dimen/all_margin"/>
-
-        <!--Date d'enregistrement>
-        <TextView
-            android:id="@+id/textView_date_enregistement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:background="@drawable/rounded_blue_corner_view_gray"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:gravity="center"
-            android:padding="@dimen/all_padding"
-            android:text="@string/titre_etape_et_date"
-            android:textColor="@color/black"
-            android:textSize="16dp" /-->
-
-        <!-- Chauffeur -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/imgView_tc_item"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_cam" />
-            <EditText
-                android:id="@+id/textViewCamionNum_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:background="@drawable/rounded_blue_background"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_camion_item"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-            <EditText
-                android:id="@+id/textViewTCnumPhoneChauffeur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:drawableLeft="@drawable/drawable_with_margin"
-                android:background="@drawable/btn_drawable_call"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="90213333"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!--Booking -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/all_margin">
-            <ImageView
-                android:id="@+id/imgView_booking"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_bk" />
-            <TextView
-                android:id="@+id/txtView_numBooking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:background="@drawable/rounded_cardview_gray"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_tc_item"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Tc 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/all_margin">
-            <ImageView
-                android:id="@+id/imgView_numcamion"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_tc" />
-            <TextView
-                android:id="@+id/textViewTCNum_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_blue_corner_view"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_tc_item"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-            <TextView
-                android:id="@+id/num_plomb_tc_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:layout_gravity="center"
-                android:padding="@dimen/padd"
-                android:text="@string/num_plomb_vrai"
-                android:textColor="@color/textColor"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <!-- Tc 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/all_margin">
-            <ImageView
-                android:id="@+id/imgView_numtc2"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_tc" />
-            <TextView
-                android:id="@+id/textViewTCNum_item2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:background="@drawable/rounded_blue_corner_view"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_tc_item"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-            <TextView
-                android:id="@+id/num_plomb_tc_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:padding="@dimen/padd"
-                android:text="@string/num_plomb_vrai"
-                android:textColor="@color/textColor"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <!-- Mise à Jour -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_popup_maj"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:layout_marginBottom="@dimen/all_padding"
-            android:background="@drawable/btn_drawable_red"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Mettre à jour"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-
-
-    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

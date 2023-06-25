@@ -47,7 +47,7 @@ class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List
 
         //tc.num_TCSecond != null || tc.num_TCSecond != "" || tc.num_TCSecond != "null"
 
-        if (holder.txtView_plomb2.text != ""){
+        if (holder.txtView_plomb2.text.isNullOrEmpty()){
             holder.imgVtc2.visibility = View.INVISIBLE
             holder.txtView_tc2.visibility = View.INVISIBLE
             holder.txtView_plomb2.visibility = View.INVISIBLE

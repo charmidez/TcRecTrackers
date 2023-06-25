@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
@@ -63,6 +64,7 @@ class SuivietcBookingSousFragment : Fragment() {
 
         _binding = FragmentSuivietcBookingSousBinding.inflate(inflater, container, false)
         val root : View = binding.root
+        val navController = findNavController()
 
         var recyclerViewBooking = binding.recyclerViewBookingTc
 
@@ -74,6 +76,10 @@ class SuivietcBookingSousFragment : Fragment() {
         var progressBar_view = binding.progressBarIdBooking
         val context : Context
         context = requireContext()
+
+        binding.btnBackToPreviousFragment.setOnClickListener {
+            navController.popBackStack(R.id.navigation_suivietc, false)
+        }
 
         getData = GetDataFromDB()
         items_tc = getData.itemListTc

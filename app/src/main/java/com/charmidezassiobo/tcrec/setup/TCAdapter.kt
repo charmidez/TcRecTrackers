@@ -159,8 +159,6 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             numtcsecond.text = tc.num_TCSecond
             tableauSateHeureStep = tc.lesStepDateHour
 
-
-
             if(phoneChauffeur.text == "null" || phoneChauffeur == null || phoneChauffeur.text == ""){
                 phoneChauffeur.text = "Non Disponible"
                 phoneChauffeur.isEnabled = false
@@ -225,7 +223,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                         var dateRealLettre = allFunctions.miseEnPlaceDate(false)
                                         var heureRealChiffre = allFunctions.miseEnPlaceHeure()
 
-                                        var dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)
+                                        //var dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)
                                         //tableauSateHeureStep = dbOldDateStep
 
                                         tableauSateHeureStep.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
