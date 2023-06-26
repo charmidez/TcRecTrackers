@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/splashback_sombre"
-    android:padding="@dimen/all_padding"
     tools:context=".ui.findtc.FindtcFragment">
 
     <LinearLayout
@@ -17,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -40,12 +39,21 @@
                 android:padding="@dimen/padd"/>
         </LinearLayout>
 
+        <!--image-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cargaison"/>
+
         <!-- Grande categories -->
         <RadioGroup
             android:id="@+id/radioGroup_imp_exp_road"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:gravity="center"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -59,7 +67,7 @@
                 android:text="@string/imp_tracking"
                 android:background="@drawable/rounded_radio"
                 android:buttonTint="@color/white"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textColor="@color/white" />
 
             <RadioButton
@@ -67,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/all_padding"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:layout_marginBottom="@dimen/all_margin"
                 android:text="@string/exp_tracking"
                 android:textColor="@color/white"
@@ -79,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/all_padding"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:text="@string/road_tracking"
                 android:textColor="@color/white"
                 android:buttonTint="@color/white"
@@ -91,7 +99,9 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/all_margin"
-            android:background="@color/white"/>
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
+            android:background="@color/gray2_not_selected"/>
 
         <!-- group export tracking -->
         <RadioGroup
@@ -99,6 +109,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:visibility="gone"
             android:orientation="horizontal">
             <RadioButton
@@ -130,6 +142,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:visibility="gone"
             android:orientation="horizontal">
             <RadioButton
@@ -160,8 +174,10 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:visibility="gone"
-            android:background="@color/white"/>
+            android:background="@color/gray2_not_selected"/>
 
         <!-- search bar -->
         <LinearLayout
@@ -169,6 +185,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:visibility="gone"
             android:orientation="horizontal">
             <EditText
@@ -177,10 +195,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginRight="@dimen/all_margin"
-                android:background="@drawable/rounded_white_back_white"
-                android:padding="@dimen/padd"
+                android:background="@drawable/rounded_white_black_contour"
+                android:padding="@dimen/all_padding"
                 android:layout_gravity="center"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:fontFamily="@font/source_sans_pro_semi_bold"
                 android:hint="Chercher..."/>
             <ImageButton
@@ -212,6 +230,8 @@
             android:visibility="gone"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/all_margin"
+            android:layout_marginLeft="@dimen/all_margin"
+            android:layout_marginRight="@dimen/all_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!-- etape cardView -->

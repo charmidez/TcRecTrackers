@@ -109,7 +109,7 @@ class SuivietcSousFragment : Fragment() {
         val num_Camion = data?.getString("inputCamion")
         stepChange(stepvoyage, typetransact, bayoStepView)
         dateChangement(date.toString(), dateEtapeTcSub)
-        dateSaveTcSub.text = "TC enrégistré le ${stepDateHeureReal!![0].stepDateLettre}"
+        dateSaveTcSub.text = "TC enrégistré le $date"
 
         when (typetransact) {
             "Import" -> {
