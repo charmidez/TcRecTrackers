@@ -38,7 +38,7 @@
     <string name="qui_sommes_nous">Qui sommes-nous ?</string>
     <string name="score_quizz"></string>
     <string name="developper">Charmidez Assiobo</string>
-    <string name="change_language_english">Choose English Language</string>
+    <string name="change_language_english">Switch to english</string>
     <string name="change_language">Langue</string>
     <string name="tc_desc">Description du TC</string>
     <string name="btn_fini_itemview">Fin</string>

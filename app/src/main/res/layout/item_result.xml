@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!-- les résultats -->
+    <LinearLayout
+        android:id="@+id/lineairLayout_result_request"
+        android:background="@drawable/rounded_white_back_white"
+        android:padding="@dimen/padd"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/all_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- etape cardView et date -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- nom etape du Tc -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView_etape_actuel_tc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tc arrivé au port"
+                    android:padding="@dimen/padd"
+                    android:textSize="14dp"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:layout_gravity="center"
+                    android:textColor="@color/textColor"
+                    style="@style/textMidTitle_result"/>
+                <!--TextView
+                    android:id="@+id/txtView_heure_date_etape"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:text="17/06/2023"
+                    android:padding="@dimen/padd"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:layout_gravity="center"
+                    android:textColor="@color/textColor"
+                    style="@style/textMidTitle_result"/-->
+            </LinearLayout>
+            <!-- etape avec voiture-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:background="@color/blue"/>
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_cam"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:background="@drawable/circle_gray_background"
+                    android:padding="@dimen/padd"/>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:background="@color/grisabsolut"/>
+            </LinearLayout>
+            <!--les dates-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc arrivé au port le : "
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc arrivé à l'usine le : "
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc en chargement le : "
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc arrivé à la douane le :"
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc sortie de l'entrepot le : "
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc plein arrivé au port le : "
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lineairLaout_etap_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/all_margin"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tc plein arrivé au port le : "
+                        android:drawableLeft="@drawable/drawable_with_margin_step_finish"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:background="@drawable/rounded_blue_corner_view"/>
+
+                    <TextView
+                        android:id="@+id/textView_date_et_heure_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="16:00"
+                        android:padding="@dimen/padd"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--Booking -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/all_margin">
+            <ImageView
+                android:id="@+id/imgView_booking"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_bk" />
+            <TextView
+                android:id="@+id/txtView_numBooking_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:background="@drawable/rounded_cardview_gray"
+                android:fontFamily="@font/source_sans_pro_black"
+                android:padding="@dimen/padd"
+                android:text="@string/num_tc_item"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Tc 1 -->
+        <LinearLayout
+            android:id="@+id/lineairLayoutTc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/all_margin">
+            <ImageView
+                android:id="@+id/imgView_numcamion"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_tc" />
+            <TextView
+                android:id="@+id/textViewTCNum_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:fontFamily="@font/source_sans_pro_black"
+                android:padding="@dimen/padd"
+                android:text="@string/num_tc_item"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/num_plomb_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:background="@drawable/rounded_cardview_gray"
+                android:layout_gravity="center"
+                android:padding="@dimen/padd"
+                android:text="@string/num_plomb_vrai"
+                android:textColor="@color/textColor"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <!-- Tc 2 -->
+        <LinearLayout
+            android:id="@+id/lineairLayoutTc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/all_margin">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_tc" />
+            <TextView
+                android:id="@+id/textViewTC2Num_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:fontFamily="@font/source_sans_pro_black"
+                android:padding="@dimen/padd"
+                android:text="@string/num_tc_item"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/num_plomb2_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:background="@drawable/rounded_cardview_gray"
+                android:layout_gravity="center"
+                android:padding="@dimen/padd"
+                android:text="@string/num_plomb_vrai"
+                android:textColor="@color/textColor"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</FrameLayout>

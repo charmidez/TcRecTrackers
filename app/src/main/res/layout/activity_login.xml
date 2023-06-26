@@ -8,166 +8,162 @@
     android:layout_height="match_parent"
     tools:context=".ui.LoginActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/all_margin"
-            android:layout_marginRight="@dimen/all_margin"
-            android:layout_marginLeft="@dimen/all_margin"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="96dp"
-                android:layout_height="64dp"
-                android:src="@drawable/logoff_bleue"/>
-            <TextView
-                android:id="@+id/titreajouter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_white_back_white"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:padding="@dimen/all_padding"
-                android:text="Bienvenue à Rec Logisitcs"
-                android:textColor="#3A3A9A"
-                android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardElevation="@dimen/all_margin"
-            android:layout_margin="@dimen/all_margin"
-            app:cardCornerRadius="@dimen/radius">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="192dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rec_egery" />
-        </androidx.cardview.widget.CardView>
-
-        <RadioGroup
-            android:id="@+id/radioGroup_ok"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/all_margin"
-            android:layout_marginRight="@dimen/all_margin"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titreajouter">
-
-            <RadioButton
-                android:id="@+id/radio_button_admin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="@dimen/all_padding"
-                android:layout_marginRight="@dimen/all_margin"
-                android:text="@string/personnel"
-                android:textSize="14dp"
-                android:background="@drawable/rounded_radio_admin"
-                android:buttonTint="@color/white"
-                android:textColor="@color/white" />
-
-            <RadioButton
-                android:id="@+id/radio_button_client"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="@dimen/all_padding"
-                android:text="@string/client"
-                android:textSize="14dp"
-                android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:background="@drawable/rounded_blue_background" />
-
-        </RadioGroup>
-
-        <LinearLayout
-            android:id="@+id/lineairLayout_admin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/all_margin"
             android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/username"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_usernam"
-                app:boxBackgroundColor="@color/gray"
-                app:boxStrokeColor="@color/gray"
-                app:hintTextColor="@color/grisabsolut"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
-                app:startIconDrawable="@drawable/login_user"
-                tools:ignore="MissingConstraints">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_username"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="@dimen/all_margin"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/logoff_bleue"/>
+                <TextView
+                    android:id="@+id/titreajouter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_editable_text"
-                    android:inputType="textCapCharacters"
-                    android:textAllCaps="true"
-                    android:focusable="auto"
-                    android:textColor="@color/textColor" />
+                    android:background="@drawable/rounded_white_back_white"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:padding="@dimen/all_padding"
+                    android:text="Bienvenue à Rec Logisitcs"
+                    android:textColor="#3A3A9A"
+                    android:textSize="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/all_margin"
+                android:layout_margin="@dimen/all_margin"
+                app:cardCornerRadius="@dimen/radius">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rec_egery" />
+            </androidx.cardview.widget.CardView>
+
+            <RadioGroup
+                android:id="@+id/radioGroup_admin_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/all_margin"
-                android:hint="@string/prompt_password"
-                app:boxBackgroundColor="@color/gray"
-                app:boxStrokeColor="@color/gray"
-                app:hintTextColor="@color/grisabsolut"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/username"
-                app:startIconDrawable="@drawable/user_password"
-                tools:ignore="MissingConstraints">
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_password"
+                <RadioButton
+                    android:id="@+id/radio_button_admin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_editable_text"
-                    android:inputType="textCapCharacters"
-                    android:textAllCaps="true"
-                    android:focusable="auto"
-                    android:textColor="@color/textColor" />
+                    android:layout_weight="1"
+                    android:paddingRight="@dimen/all_padding"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:text="@string/personnel"
+                    android:textSize="14dp"
+                    android:background="@drawable/rounded_radio_admin"
+                    android:buttonTint="@color/white"
+                    android:textColor="@color/white" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/login"
+                <RadioButton
+                    android:id="@+id/radio_button_client"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingRight="@dimen/all_padding"
+                    android:text="@string/client"
+                    android:textSize="14dp"
+                    android:textColor="@color/white"
+                    android:buttonTint="@color/white"
+                    android:background="@drawable/rounded_blue_background" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/lineairLayout_admin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/all_margin"
-                android:background="@drawable/btn_drawable_red"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:paddingLeft="@dimen/all_padding"
-                android:paddingRight="@dimen/all_padding"
-                android:enabled="false"
-                android:textColor="@color/white"
-                android:text="@string/action_sign_in"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password"
-                app:layout_constraintVertical_bias="0.2" />
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:layout_marginBottom="@dimen/all_margin"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_usernam"
+                    app:boxBackgroundColor="@color/gray"
+                    app:boxStrokeColor="@color/gray"
+                    app:hintTextColor="@color/grisabsolut"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup_ok"
+                    app:startIconDrawable="@drawable/login_user"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
+                        android:textColor="@color/textColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/all_margin"
+                    android:hint="@string/prompt_password"
+                    app:boxBackgroundColor="@color/gray"
+                    app:boxStrokeColor="@color/gray"
+                    app:hintTextColor="@color/grisabsolut"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/username"
+                    app:startIconDrawable="@drawable/user_password"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
+                        android:textColor="@color/textColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/all_margin"
+                    android:background="@drawable/btn_drawable_red"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:paddingLeft="@dimen/all_padding"
+                    android:paddingRight="@dimen/all_padding"
+                    android:textColor="@color/white"
+                    android:text="@string/action_sign_in" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

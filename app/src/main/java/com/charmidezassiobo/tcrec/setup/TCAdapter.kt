@@ -181,16 +181,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                 etape = etape + 1
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
-                                //val query = db.collection("Voyage")
-                                val query = db.collection("Voyagetest")
+                                val query = db.collection("Voyage")
+                                //val query = db.collection("Voyagetest")
                                     .whereEqualTo("num_TC", tc.num_TC)
                                     .whereEqualTo("num_Camion", tc.num_Camion)
                                 query.get().addOnSuccessListener { documents ->
                                     for (document in documents) {
                                         var docId = document.id
                                         iddoc = docId
-                                        //val docRef = db.collection("Voyage").document(docId)
-                                        val docRef = db.collection("Voyagetest").document(docId)
+                                        val docRef = db.collection("Voyage").document(docId)
+                                        //val docRef = db.collection("Voyagetest").document(docId)
                                         docRef.update("step_TC", etape)
                                     }
                                     Log.d("Doc Id",iddoc)
@@ -205,16 +205,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                 etape = etape + 1
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
-                                //val query = db.collection("Voyage")
-                                val query = db.collection("Voyagetest")
+                                val query = db.collection("Voyage")
+                                //val query = db.collection("Voyagetest")
                                     .whereEqualTo("num_TC", tc.num_TC)
                                     .whereEqualTo("num_Camion", tc.num_Camion)
                                 query.get().addOnSuccessListener { documents ->
                                     for (document in documents) {
                                         var docId = document.id
                                         iddoc = docId
-                                        //val docRef = db.collection("Voyage").document(docId)
-                                        val docRef = db.collection("Voyagetest").document(docId)
+                                        val docRef = db.collection("Voyage").document(docId)
+                                        //val docRef = db.collection("Voyagetest").document(docId)
                                         docRef.update("step_TC", etape)
                                         //Mettre à jour la date à chaque suivant
 
@@ -458,16 +458,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 Log.d("Bind ",numbind_tc.toString())
                 numPlomb_string = numbind_tc.toString()
                 val db = FirebaseFirestore.getInstance()
-                //val query = db.collection("Voyage")
-                val query = db.collection("Voyagetest")
+                val query = db.collection("Voyage")
+                //val query = db.collection("Voyagetest")
                     .whereEqualTo("num_TC", tc.num_TC)
                     .whereEqualTo("num_Camion", tc.num_Camion)
                 query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var docId = document.id
                         iddoc = docId
-                        //val docRef = db.collection("Voyage").document(docId)
-                        val docRef = db.collection("Voyagetest").document(docId)
+                        val docRef = db.collection("Voyage").document(docId)
+                        //val docRef = db.collection("Voyagetest").document(docId)
                         //docRef.update("step_TC", etape)
                         docRef.update("num_plomb_TC",numPlomb_string)
                     }
@@ -510,16 +510,16 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 numPlomb_string = numbind_tc.toString()
                 numPlomb_second_string = numbind_tc_second.toString()
                 val db = FirebaseFirestore.getInstance()
-                //val query = db.collection("Voyage")
-                val query = db.collection("Voyagetest")
+                val query = db.collection("Voyage")
+                //val query = db.collection("Voyagetest")
                     .whereEqualTo("num_TC", tc.num_TC)
                     .whereEqualTo("num_Camion", tc.num_Camion)
                 query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var docId = document.id
                         iddoc = docId
-                        //val docRef = db.collection("Voyage").document(docId)
-                        val docRef = db.collection("Voyagetest").document(docId)
+                        val docRef = db.collection("Voyage").document(docId)
+                        //val docRef = db.collection("Voyagetest").document(docId)
                         docRef.update("num_plomb_TC",numPlomb_string)
                         docRef.update("num_plomb_TC_2",numPlomb_second_string)
                     }

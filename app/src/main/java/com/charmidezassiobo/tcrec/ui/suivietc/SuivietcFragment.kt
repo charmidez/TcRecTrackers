@@ -56,8 +56,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     lateinit var imgView_list_tc_bk : ImageView
 
     val db = Firebase.firestore
-    //val voyRef = db.collection("Voyage")
-    val voyRef = db.collection("Voyagetest")
+    val voyRef = db.collection("Voyage")
+    //val voyRef = db.collection("Voyagetest")
 
     val sousfragment : Fragment = SuivietcSousFragment()
     val sousfragmentbooking : Fragment = SuivietcBookingSousFragment()

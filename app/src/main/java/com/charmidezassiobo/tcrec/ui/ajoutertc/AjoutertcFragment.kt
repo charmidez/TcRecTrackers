@@ -191,8 +191,8 @@ class AjoutertcFragment : Fragment() {
                             "import_export" to typeTransat,
                             "lesStepDateHour" to  lesStepHour
                         )
-                        //db.collection("Voyage").document().set(registerTc)
-                        db.collection("Voyagetest").document().set(registerTc)
+                        db.collection("Voyage").document().set(registerTc)
+                        //db.collection("Voyagetest").document().set(registerTc)
                             .addOnSuccessListener {
                                 val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",Snackbar.LENGTH_LONG)
                                 snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))

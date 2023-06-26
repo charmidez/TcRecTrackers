@@ -146,10 +146,10 @@ class SuivietcSousFragment : Fragment() {
                         "Tc à la douane le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
 
                     4 -> dateEtapeTcSub.text =
-                        "Tc arrivé sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        "Tc sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
 
                     5 -> dateEtapeTcSub.text =
-                        "Tc plein arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        "Tc plein et arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
 
                     6 -> dateEtapeTcSub.text =
                         "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
@@ -240,8 +240,8 @@ class SuivietcSousFragment : Fragment() {
             Log.d("btn rouge", "Appuyé $nouveauNumImmatriculation")
 
             val db = FirebaseFirestore.getInstance()
-            //val query = db.collection("Voyage")
-            val query = db.collection("Voyagetest")
+            val query = db.collection("Voyage")
+            //val query = db.collection("Voyagetest")
                 .whereEqualTo("num_TC", num_TC)
                 .whereEqualTo("num_Camion", num_Camion)
             query.get().addOnSuccessListener { documents ->
@@ -250,7 +250,8 @@ class SuivietcSousFragment : Fragment() {
                     iddoc = docId
                     //val docRef = db.collection("Voyage").document(docId)
 
-                    val docRef = db.collection("Voyagetest").document(docId)
+                    //val docRef = db.collection("Voyagetest").document(docId)
+                    val docRef = db.collection("Voyage").document(docId)
                     docRef.update("num_Camion", nouveauNumImmatriculation)
                     docRef.update("phone_chauffeur_TC", nouveauNumChauffeur)
 
