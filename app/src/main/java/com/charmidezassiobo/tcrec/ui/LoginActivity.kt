@@ -39,7 +39,6 @@ class LoginActivity : AppCompatActivity() {
 
         //sharedPreferences = this.getSharedPreferences("app_state",Context.MODE_PRIVATE)
 
-
         val lineairLayoutAdmin = binding.lineairLayoutAdmin
 
         val radioBtnGroup = binding.radioGroupAdminClient
@@ -69,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 val snack = Snackbar.make(binding.root,"Veuillez entrer votre nom d'utilisateur et mot de passe", Snackbar.LENGTH_LONG)
                 snack.setBackgroundTint(ContextCompat.getColor(this, R.color.gray2))
                 snack.show()
-            } else if (recupUsername == "recAdmin" || recupPassword == "recMotDePasse") {
+            } else if (recupUsername == "recModerate" || recupPassword == "recModerate") {
                 username.setText("")
                 password.setText("")
 

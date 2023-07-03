@@ -25,6 +25,9 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
         var lnTc1 : LinearLayout
         var lnTc2 : LinearLayout
 
+        /*
+
+
         var lnEtape0 : LinearLayout
         var txtViewDateHeure0 : TextView
 
@@ -43,8 +46,9 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
         var lnEtape5 : LinearLayout
         var txtViewDateHeure5 : TextView
 
-        //var lnEtape6 : LinearLayout
-        //var txtViewDateHeure6 : TextView
+         */
+        var txtViewStepExact : TextView
+
 
         init {
             etapeActuelDuTc = itemView.findViewById(R.id.textView_etape_actuel_tc)
@@ -58,29 +62,26 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
             numPlomb = itemView.findViewById(R.id.num_plomb_result)
             numPlomb2 = itemView.findViewById(R.id.num_plomb2_result)
 
+            txtViewStepExact = itemView.findViewById(R.id.textView_etap_exact)
+
             lnTc1 = itemView.findViewById(R.id.lineairLayoutTc1)
             lnTc2 = itemView.findViewById(R.id.lineairLayoutTc2)
 
+/*
             lnEtape0 = itemView.findViewById(R.id.lineairLaout_etap_0)
             txtViewDateHeure0 = itemView.findViewById(R.id.textView_date_et_heure_0)
-
             lnEtape1 = itemView.findViewById(R.id.lineairLaout_etap_1)
             txtViewDateHeure1 = itemView.findViewById(R.id.textView_date_et_heure_1)
-
             lnEtape2 = itemView.findViewById(R.id.lineairLaout_etap_2)
             txtViewDateHeure2 = itemView.findViewById(R.id.textView_date_et_heure_2)
-
             lnEtape3 = itemView.findViewById(R.id.lineairLaout_etap_3)
             txtViewDateHeure3 = itemView.findViewById(R.id.textView_date_et_heure_3)
-
             lnEtape4 = itemView.findViewById(R.id.lineairLaout_etap_4)
             txtViewDateHeure4 = itemView.findViewById(R.id.textView_date_et_heure_4)
-
             lnEtape5 = itemView.findViewById(R.id.lineairLaout_etap_5)
             txtViewDateHeure5 = itemView.findViewById(R.id.textView_date_et_heure_5)
-
             lnEtape5 = itemView.findViewById(R.id.lineairLaout_etap_6)
-            txtViewDateHeure5 = itemView.findViewById(R.id.textView_date_et_heure_6)
+            txtViewDateHeure5 = itemView.findViewById(R.id.textView_date_et_heure_6)*/
         }
     }
 
@@ -92,21 +93,7 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: TCResultViewHolder, position: Int) {
-       /*        val tc = items[position]
 
-        holder.txtView_tc1.text = tc.num_TC
-        holder.txtView_plomb1.text = tc.num_plomb
-
-        holder.txtView_tc2.text = tc.num_TCSecond
-        holder.txtView_plomb2.text = tc.num_plomb_second
-
-        //tc.num_TCSecond != null || tc.num_TCSecond != "" || tc.num_TCSecond != "null"
-
-        if (holder.txtView_plomb2.text.isNullOrEmpty()){
-            holder.imgVtc2.visibility = View.INVISIBLE
-            holder.txtView_tc2.visibility = View.INVISIBLE
-            holder.txtView_plomb2.visibility = View.INVISIBLE
-        }*/
         val tc = items[position]
 
         holder.numBooking.text = tc.num_booking
@@ -129,42 +116,36 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
         }
 
 
-        /*when(tc.step_TC){
+        when(tc.step_TC){
             0 -> {
-                holder.etapeActuelDuTc.text = "Conteneur au port "
-                //holder.dateActuelTc.text = "${tc.stepDateHeureReal!![stepvoyage].stepDateChiffre} "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur au port  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
             1 -> {
-                holder.etapeActuelDuTc.text = "Conteneur à l'usine "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur à l'usine  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
             2 -> {
-                holder.etapeActuelDuTc.text = "Conteneur en chargement "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur en chargement  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
             3 -> {
-                holder.etapeActuelDuTc.text = "Conteneur à la douane "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur à la douane  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
             4 -> {
-                holder.etapeActuelDuTc.text = "Conteneur sortie de l'entrepot "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur sortie de l'entrepot  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
             5 -> {
-                holder.etapeActuelDuTc.text = "Conteneur plein arrivé au port "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur plein arrivé au port  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
             6 -> {
-                holder.etapeActuelDuTc.text = "Transaction terminé "
-                holder.dateActuelTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Transaction terminé  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
             }
-        }*/
+        }
+
         holder.etapeActuelDuTc.text = "Conteneur enrégistré le ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
 
-        showDate(tc.step_TC,holder,tc)
+
     }
 
+/*
     fun showDate(step : Int, holder : TCResultViewHolder, tc : Tc){
         if(step != null){
             var list = tc.lesStepDateHour
@@ -249,5 +230,6 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
             }
         }
     }
+*/
 
 }

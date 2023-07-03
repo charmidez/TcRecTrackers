@@ -78,6 +78,8 @@ class SuivietcSousFragment : Fragment() {
         var viewList = listOf(numImmatriculationCamionSub, phoneChauffeurSub, numBookingSub, numTc1Sub, numPlombTc1Sub,
             numtc2Sub, numPlombTc2Sub,btnBackToLeft,btnNextToRight)
 
+        var desc_TC = binding.textViewTCNumItemDescription
+
         var tableauSateHeureStep : MutableList<HeureStep>
 
 
@@ -103,6 +105,8 @@ class SuivietcSousFragment : Fragment() {
         //val dateChiffres = stepDateHeureReal!![0].stepDateChiffre
         //val dateChiffre = tableauHeure?.stepDateLettre
         tableauSateHeureStep = stepDateHeureReal as MutableList<HeureStep>
+        val contenu = data?.getString("inputDesc")
+        desc_TC.setText("Contenu : $contenu")
 
         val date = data?.getString("inputDate")
         val num_TC = data?.getString("inputTc")

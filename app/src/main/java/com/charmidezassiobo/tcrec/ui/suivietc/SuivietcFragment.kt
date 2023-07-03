@@ -249,6 +249,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         snack.show()
     }
 
+/*
     fun inputItemInRecyclerView(txtView_charging : TextView, progressBar_view : ProgressBar, recyclerView_TC: RecyclerView){
         items_tc.clear()
         voyRef.get()
@@ -266,9 +267,10 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                         val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                         val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                         val type_transact = document.data.get("import_export")
+                        val desc_TC = document.data.get("desc_TC")
 
                         //val heureDeChaqueStep  = document.data.get("lesStepDateHour") as MutableList<HeureStep>
-                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
                         val heureDeChaqueStep = heureDeChaqueStepList?.map {
                             HeureStep(
                                 it["stepDateChiffre"] ?: "",
@@ -289,8 +291,10 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                                     step_tc_ok,
                                     "$numplombsecond_ok",
                                     "$type_transact",
-
+                                    "$desc_TC",
                                     heureDeChaqueStep!!.toMutableList()
+
+                                    //heureDeChaqueStep!!.toMutableList()
                                     )
                                 )
                                 recyclerView_TC.apply {
@@ -308,6 +312,68 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                 Log.w(TAG, "Error getting documents.", exception)
             }
     }
+*/
+
+    fun inputItemInRecyclerView(txtView_charging: TextView, progressBar_view: ProgressBar, recyclerView_TC: RecyclerView) {
+        items_tc.clear()
+        voyRef.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document != null) {
+                        val idtc_ok = document.getLong("step_TC")?.toInt()
+                        val numtc_ok = document.data.get("num_TC").toString()
+                        val num_booking_tc = document.data.get("num_Booking").toString()
+                        val num_cam_ok = document.data.get("num_Camion").toString()
+                        val step_tc_ok = document.getLong("step_TC")?.toInt()
+                        val date_ok = document.data.get("Date").toString()
+                        val plomb_ok = document.data.get("num_plomb_TC").toString()
+                        val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
+                        val numtcsecond_ok = document.data.get("num_TC_Second").toString()
+                        val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
+                        val type_transact = document.data.get("import_export")
+                        val desc_TC = document.data.get("desc_TC")
+
+                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
+
+                        if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
+                            val heureDeChaqueStep = heureDeChaqueStepList.map {
+                                HeureStep(
+                                    it["stepDateChiffre"] ?: "",
+                                    it["stepDateLettre"] ?: "",
+                                    it["stepHeure"] ?: ""
+                                )
+                            }
+
+                            items_tc.add(
+                                Tc(
+                                    "$numtc_ok",
+                                    "$numtcsecond_ok",
+                                    "$num_cam_ok",
+                                    "$num_phone_chauffeur_ok",
+                                    " $num_booking_tc",
+                                    "$plomb_ok",
+                                    "$date_ok",
+                                    step_tc_ok,
+                                    "$numplombsecond_ok",
+                                    "$type_transact",
+                                    "$desc_TC",
+                                    heureDeChaqueStep.toMutableList()
+                                )
+                            )
+
+                            recyclerView_TC.adapter = TCAdapter(items_tc, this@SuivietcFragment)
+                            txtView_charging.isVisible = false
+                            progressBar_view.setVisibility(View.GONE)
+                            items_tc.sortWith(compareBy({ it.step_TC }))
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
+
 
     override fun onItemClick(position: Int) {
 
@@ -322,6 +388,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         val inputPlombSecond = items_tc[position].num_plomb_second
         val inputTelChauffeur = items_tc[position].num_tel_chauffeur
         val inputStepDate = items_tc[position].lesStepDateHour
+        val inputDesc = items_tc[position].desc_TC
 
         //Log.d("step1",inputStepDate)
 
@@ -336,6 +403,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         bundle.putString("inputPlomb", inputPlomb)
         bundle.putString("inputPlombSecond", inputPlombSecond)
         bundle.putString("inputTelChauffeur", inputTelChauffeur)
+        bundle.putString("inputDesc",inputDesc)
 
         bundle.putSerializable("inputStepDate", inputStepDate as Serializable)
 

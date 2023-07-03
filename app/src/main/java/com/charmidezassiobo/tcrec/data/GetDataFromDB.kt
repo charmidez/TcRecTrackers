@@ -16,7 +16,7 @@ class GetDataFromDB {
         var listBooking = arrayListOf<String>()
         var distincList = arrayListOf<String>()
 
-    fun updateTc(callback: () -> Unit){
+/*    fun updateTc(callback: () -> Unit){
         voyTc.get().addOnSuccessListener {documents ->
             itemListTc.clear()
             for (document in documents) {
@@ -32,15 +32,18 @@ class GetDataFromDB {
                     val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                     val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
                     val type_transact = document.data.get("import_export")
-                    //val heureDeChaqueStep  = document.data.get("lesStepDateHour") as? MutableList<HeureStep>
+
+                    val desc_TC = document.data.get("desc_TC")
+
                     val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
-                    val heureDeChaqueStep = heureDeChaqueStepList?.map {
-                        HeureStep(
-                            it["stepDateChiffre"] ?: "",
-                            it["stepDateLettre"] ?: "",
-                            it["stepHeure"] ?: ""
-                        )
+                    var heureDeChaqueStep :  List<HeureStep>? = mutableListOf()
+
+                    if (heureDeChaqueStepList != null){
+                        heureDeChaqueStep = heureDeChaqueStepList?.map {
+                            HeureStep(it["stepDateChiffre"] ?: "", it["stepDateLettre"] ?: "", it["stepHeure"] ?: "")
+                        }
                     }
+
                     if ( idtc_ok != null){
                         if (step_tc_ok != null ){
                             itemListTc.add(Tc( "$numtc_ok",
@@ -53,6 +56,8 @@ class GetDataFromDB {
                                 step_tc_ok,
                                 "$numplombsecond_ok",
                                 "$type_transact",
+                                "$desc_TC",
+                                //heureDeChaqueStep!!.toMutableList()
                                 heureDeChaqueStep!!.toMutableList()
                                 )
                             )
@@ -66,6 +71,62 @@ class GetDataFromDB {
             .addOnFailureListener { exception ->
             Log.w(ContentValues.TAG, "Error getting documents.", exception)
         }
+    }
+    */
+
+    fun updateTc(callback: () -> Unit) {
+        voyTc.get().addOnSuccessListener { documents ->
+            itemListTc.clear()
+            for (document in documents) {
+                if (document != null) {
+                    val idtc_ok = document.getLong("step_TC")?.toInt()
+                    val numtc_ok = document.data.get("num_TC").toString()
+                    val num_booking_tc = document.data.get("num_Booking").toString()
+                    val num_cam_ok = document.data.get("num_Camion").toString()
+                    val step_tc_ok = document.getLong("step_TC")?.toInt()
+                    val date_ok = document.data.get("Date").toString()
+                    val plomb_ok = document.data.get("num_plomb_TC").toString()
+                    val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
+                    val numtcsecond_ok = document.data.get("num_TC_Second").toString()
+                    val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
+                    val type_transact = document.data.get("import_export")
+                    val desc_TC = document.data.get("desc_TC")
+
+                    val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                    var heureDeChaqueStep: List<HeureStep>? = null
+
+                    if (heureDeChaqueStepList != null) {
+                        heureDeChaqueStep = heureDeChaqueStepList.map {
+                            HeureStep(it["stepDateChiffre"] ?: "", it["stepDateLettre"] ?: "", it["stepHeure"] ?: "")
+                        }
+                    }
+
+                    if (idtc_ok != null && step_tc_ok != null) {
+                        itemListTc.add(
+                            Tc(
+                                "$numtc_ok",
+                                "$numtcsecond_ok",
+                                "$num_cam_ok",
+                                "$num_phone_chauffeur_ok",
+                                " $num_booking_tc",
+                                "$plomb_ok",
+                                "$date_ok",
+                                step_tc_ok,
+                                "$numplombsecond_ok",
+                                "$type_transact",
+                                "$desc_TC",
+                                heureDeChaqueStep!!.toMutableList()
+                            )
+                        )
+                        listBooking.add(num_booking_tc)
+                    }
+                }
+            }
+            callback()
+        }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
     }
 
 }

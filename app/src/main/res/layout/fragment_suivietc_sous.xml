@@ -262,7 +262,6 @@
                 android:id="@+id/ln_tc2_remove_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/all_margin">
                 <ImageView
@@ -295,7 +294,26 @@
                     android:textSize="14dp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin"
+                android:layout_weight="1">
 
+                <EditText
+                    android:id="@+id/textViewTCNum_itemDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="Contenu : "
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
             <!-- Mise à Jour -->
             <androidx.appcompat.widget.AppCompatButton

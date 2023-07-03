@@ -72,6 +72,8 @@ class ClientActivity : AppCompatActivity() {
         var recyclerViewResult = binding.recyclerViewResult
         recyclerViewResult.visibility = View.GONE
 
+        var imgCargaison = binding.imgViewCargaison
+
         getData = GetDataFromDB()
         items_tc = getData.itemListTc
         adapter = TCResultAdapter(this, items_tc)
@@ -83,6 +85,10 @@ class ClientActivity : AppCompatActivity() {
 
         var  searchViewBar = binding.editTextSearchView
         var btnSearch = binding.btnSearch
+        var lnSearch = binding.lineairLayoutSearchBar
+        var btnNewSearch = binding.btnNouvelleRecherche
+        var txtViewNotaBene = binding.txtViewNotabebe
+        btnNewSearch.visibility = View.GONE
 
         btnSearch.setOnClickListener {
             var getSearchQuery = searchViewBar.text.toString()
@@ -92,8 +98,22 @@ class ClientActivity : AppCompatActivity() {
                 snack.setBackgroundTint(ContextCompat.getColor(applicationContext, R.color.gray2))
                 snack.show()
             } else {
-                filterListClientResult(getSearchQuery, recyclerViewResult)
+                filterListClientResult(getSearchQuery, recyclerViewResult).apply {
+                    imgCargaison.visibility = View.GONE
+                    lnSearch.visibility = View.GONE
+                    txtViewNotaBene.visibility = View.GONE
+                    btnNewSearch.visibility = View.VISIBLE
+                }
             }
+        }
+
+        btnNewSearch.setOnClickListener {
+            imgCargaison.visibility = View.VISIBLE
+            lnSearch.visibility = View.VISIBLE
+            searchViewBar.setText("")
+            recyclerViewResult.visibility = View.GONE
+            btnNewSearch.visibility = View.GONE
+            txtViewNotaBene.visibility = View.VISIBLE
         }
 
     }
