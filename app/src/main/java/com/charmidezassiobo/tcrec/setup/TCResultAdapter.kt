@@ -1,20 +1,25 @@
 package com.charmidezassiobo.tcrec.setup
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
-import com.charmidezassiobo.tcrec.ui.clientlogin.ClientActivity
+import com.charmidezassiobo.tcrec.ui.clientloginadmin.ClientActivity
 
-class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
+class TCResultAdapter(var context : Context, var items : List<Tc>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
+
+
+
     class TCResultViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {
 
-        var etapeActuelDuTc : TextView
-        //var dateActuelTc : TextView
+        //var etapeActuelDuTc : TextView
+        var dateCreationTc : TextView
         var numBooking : TextView
 
         var numTc : TextView
@@ -25,34 +30,17 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
         var lnTc1 : LinearLayout
         var lnTc2 : LinearLayout
 
-        /*
-
-
-        var lnEtape0 : LinearLayout
-        var txtViewDateHeure0 : TextView
-
-        var lnEtape1 : LinearLayout
-        var txtViewDateHeure1 : TextView
-
-        var lnEtape2 : LinearLayout
-        var txtViewDateHeure2 : TextView
-
-        var lnEtape3 : LinearLayout
-        var txtViewDateHeure3 : TextView
-
-        var lnEtape4 : LinearLayout
-        var txtViewDateHeure4 : TextView
-
-        var lnEtape5 : LinearLayout
-        var txtViewDateHeure5 : TextView
-
-         */
         var txtViewStepExact : TextView
 
+        var typetransact: String
+
+        var bayoStepView : HorizontalStepView
+
+        var theAllFunction : AllFunctions
 
         init {
-            etapeActuelDuTc = itemView.findViewById(R.id.textView_etape_actuel_tc)
-            //dateActuelTc = itemView.findViewById(R.id.txtView_heure_date_etape)
+
+            dateCreationTc = itemView.findViewById(R.id.txtView_creation_tc)
 
             numBooking = itemView.findViewById(R.id.txtView_numBooking_result)
 
@@ -67,21 +55,12 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
             lnTc1 = itemView.findViewById(R.id.lineairLayoutTc1)
             lnTc2 = itemView.findViewById(R.id.lineairLayoutTc2)
 
-/*
-            lnEtape0 = itemView.findViewById(R.id.lineairLaout_etap_0)
-            txtViewDateHeure0 = itemView.findViewById(R.id.textView_date_et_heure_0)
-            lnEtape1 = itemView.findViewById(R.id.lineairLaout_etap_1)
-            txtViewDateHeure1 = itemView.findViewById(R.id.textView_date_et_heure_1)
-            lnEtape2 = itemView.findViewById(R.id.lineairLaout_etap_2)
-            txtViewDateHeure2 = itemView.findViewById(R.id.textView_date_et_heure_2)
-            lnEtape3 = itemView.findViewById(R.id.lineairLaout_etap_3)
-            txtViewDateHeure3 = itemView.findViewById(R.id.textView_date_et_heure_3)
-            lnEtape4 = itemView.findViewById(R.id.lineairLaout_etap_4)
-            txtViewDateHeure4 = itemView.findViewById(R.id.textView_date_et_heure_4)
-            lnEtape5 = itemView.findViewById(R.id.lineairLaout_etap_5)
-            txtViewDateHeure5 = itemView.findViewById(R.id.textView_date_et_heure_5)
-            lnEtape5 = itemView.findViewById(R.id.lineairLaout_etap_6)
-            txtViewDateHeure5 = itemView.findViewById(R.id.textView_date_et_heure_6)*/
+            typetransact = ""
+
+            bayoStepView = itemView.findViewById(R.id.step_view_baoya_view_result)
+
+            theAllFunction = AllFunctions()
+
         }
     }
 
@@ -104,6 +83,9 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
         holder.numTc2.text = tc.num_TCSecond
         holder.numPlomb2.text = tc.num_plomb_second
 
+        holder.typetransact = tc.type_transat
+
+
         if (holder.numTc2.text.isNullOrEmpty()){
             holder.lnTc2.visibility = View.GONE
         }
@@ -114,7 +96,6 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
         if (holder.numPlomb2.text.isNullOrEmpty()){
             holder.numPlomb2.visibility = View.GONE
         }
-
 
         when(tc.step_TC){
             0 -> {
@@ -140,96 +121,9 @@ class TCResultAdapter(var context : ClientActivity, var items : List<Tc>) : Recy
             }
         }
 
-        holder.etapeActuelDuTc.text = "Conteneur enrégistré le ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+        holder.theAllFunction.stepChange(tc.step_TC, holder.typetransact,holder.bayoStepView, context)
 
+        holder.dateCreationTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre}"
 
     }
-
-/*
-    fun showDate(step : Int, holder : TCResultViewHolder, tc : Tc){
-        if(step != null){
-            var list = tc.lesStepDateHour
-            when(step){
-                0 -> {
-                    holder.txtViewDateHeure0.text = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.lnEtape0.visibility = View.VISIBLE
-                }
-                1 -> {
-                    holder.txtViewDateHeure0.text  = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.txtViewDateHeure1.text  = "${list!![1].stepDateLettre} à ${list!![1].stepHeure}"
-
-                    holder.lnEtape0.visibility = View.VISIBLE
-                    holder.lnEtape1.visibility = View.VISIBLE
-                }
-                2 -> {
-                    holder.txtViewDateHeure0.text  = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.txtViewDateHeure1.text  = "${list!![1].stepDateLettre} à ${list!![1].stepHeure}"
-                    holder.txtViewDateHeure2.text  = "${list!![2].stepDateLettre} à ${list!![2].stepHeure}"
-
-
-                    holder.lnEtape0.visibility = View.VISIBLE
-                    holder.lnEtape1.visibility = View.VISIBLE
-                    holder.lnEtape2.visibility = View.VISIBLE
-                }
-                3 -> {
-                    holder.txtViewDateHeure0.text  = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.txtViewDateHeure1.text  = "${list!![1].stepDateLettre} à ${list!![1].stepHeure}"
-                    holder.txtViewDateHeure2.text  = "${list!![2].stepDateLettre} à ${list!![2].stepHeure}"
-                    holder.txtViewDateHeure3.text  = "${list!![3].stepDateLettre} à ${list!![3].stepHeure}"
-
-
-                    holder.lnEtape0.visibility = View.VISIBLE
-                    holder.lnEtape1.visibility = View.VISIBLE
-                    holder.lnEtape2.visibility = View.VISIBLE
-                    holder.lnEtape3.visibility = View.VISIBLE
-                }
-                4 -> {
-                    holder.txtViewDateHeure0.text  = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.txtViewDateHeure1.text  = "${list!![1].stepDateLettre} à ${list!![1].stepHeure}"
-                    holder.txtViewDateHeure2.text  = "${list!![2].stepDateLettre} à ${list!![2].stepHeure}"
-                    holder.txtViewDateHeure3.text  = "${list!![3].stepDateLettre} à ${list!![3].stepHeure}"
-                    holder.txtViewDateHeure4.text  = "${list!![4].stepDateLettre} à ${list!![4].stepHeure}"
-
-
-                    holder.lnEtape0.visibility = View.VISIBLE
-                    holder.lnEtape1.visibility = View.VISIBLE
-                    holder.lnEtape2.visibility = View.VISIBLE
-                    holder.lnEtape3.visibility = View.VISIBLE
-                    holder.lnEtape4.visibility = View.VISIBLE
-                }
-                5 -> {
-                    holder.txtViewDateHeure0.text  = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.txtViewDateHeure1.text  = "${list!![1].stepDateLettre} à ${list!![1].stepHeure}"
-                    holder.txtViewDateHeure2.text  = "${list!![2].stepDateLettre} à ${list!![2].stepHeure}"
-                    holder.txtViewDateHeure3.text  = "${list!![3].stepDateLettre} à ${list!![3].stepHeure}"
-                    holder.txtViewDateHeure4.text  = "${list!![4].stepDateLettre} à ${list!![4].stepHeure}"
-                    holder.txtViewDateHeure5.text  = "${list!![5].stepDateLettre} à ${list!![5].stepHeure}"
-
-                    holder.lnEtape0.visibility = View.VISIBLE
-                    holder.lnEtape1.visibility = View.VISIBLE
-                    holder.lnEtape2.visibility = View.VISIBLE
-                    holder.lnEtape3.visibility = View.VISIBLE
-                    holder.lnEtape4.visibility = View.VISIBLE
-                    holder.lnEtape5.visibility = View.VISIBLE
-                }
-                6 -> {
-                    holder.txtViewDateHeure0.text  = "${list!![0].stepDateLettre} à ${list!![0].stepHeure}"
-                    holder.txtViewDateHeure1.text  = "${list!![1].stepDateLettre} à ${list!![1].stepHeure}"
-                    holder.txtViewDateHeure2.text  = "${list!![2].stepDateLettre} à ${list!![2].stepHeure}"
-                    holder.txtViewDateHeure3.text  = "${list!![3].stepDateLettre} à ${list!![3].stepHeure}"
-                    holder.txtViewDateHeure4.text  = "${list!![4].stepDateLettre} à ${list!![4].stepHeure}"
-                    holder.txtViewDateHeure5.text  = "${list!![5].stepDateLettre} à ${list!![5].stepHeure}"
-
-                    holder.lnEtape0.visibility = View.VISIBLE
-                    holder.lnEtape1.visibility = View.VISIBLE
-                    holder.lnEtape2.visibility = View.VISIBLE
-                    holder.lnEtape3.visibility = View.VISIBLE
-                    holder.lnEtape4.visibility = View.VISIBLE
-                    holder.lnEtape5.visibility = View.VISIBLE
-                }
-            }
-        }
-    }
-*/
-
 }

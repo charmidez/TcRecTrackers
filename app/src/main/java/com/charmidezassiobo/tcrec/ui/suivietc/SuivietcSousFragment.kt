@@ -22,6 +22,7 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
+import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
 
@@ -29,6 +30,8 @@ class SuivietcSousFragment : Fragment() {
 
     private var _binding: FragmentSuivietcSousBinding? = null
     private val binding get() = _binding!!
+
+    private val dataBasePath = AllVariables().dbPath
 
     var stepvoyage: Int = 0
     var typetransact: String = ""
@@ -172,6 +175,7 @@ class SuivietcSousFragment : Fragment() {
                 )
             )
         }
+
         // Checker si le second tc est disponible
         if (numtc2Sub.text.isNullOrEmpty()) {
             //numtc2Sub.setText( "Non disponible")
@@ -183,6 +187,7 @@ class SuivietcSousFragment : Fragment() {
                 )
             )
         }
+
         //Checker si le second plomb est dispo
         if (numPlombTc2Sub.text.isNullOrEmpty()) {
             numPlombTc2Sub.hint = "Non disponible"
@@ -193,6 +198,7 @@ class SuivietcSousFragment : Fragment() {
                 )
             )
         }
+
         //Checker si le premier plomb est dispo
         if (numPlombTc1Sub.text.isNullOrEmpty()) {
             numPlombTc1Sub.hint = "Non disponible"
@@ -212,6 +218,7 @@ class SuivietcSousFragment : Fragment() {
                 stepChange(stepvoyage, typetransact, bayoStepView)
             }
         }
+
         btnNextToRight.setOnClickListener {
             if (stepvoyage < 6){
                 stepvoyage +=1
@@ -244,18 +251,15 @@ class SuivietcSousFragment : Fragment() {
             Log.d("btn rouge", "Appuyé $nouveauNumImmatriculation")
 
             val db = FirebaseFirestore.getInstance()
-            val query = db.collection("Voyage")
-            //val query = db.collection("Voyagetest")
+            val query = db.collection(dataBasePath)
                 .whereEqualTo("num_TC", num_TC)
                 .whereEqualTo("num_Camion", num_Camion)
             query.get().addOnSuccessListener { documents ->
                 for (document in documents) {
                     var docId = document.id
                     iddoc = docId
-                    //val docRef = db.collection("Voyage").document(docId)
 
-                    //val docRef = db.collection("Voyagetest").document(docId)
-                    val docRef = db.collection("Voyage").document(docId)
+                    val docRef = db.collection(dataBasePath).document(docId)
                     docRef.update("num_Camion", nouveauNumImmatriculation)
                     docRef.update("phone_chauffeur_TC", nouveauNumChauffeur)
 
@@ -288,18 +292,12 @@ class SuivietcSousFragment : Fragment() {
         binding.imgViewDateStep.setOnClickListener {
             //navController.navigate(R.id.action_suivietcSousFragment_to_suivietcStepdateSousFragment)
             if (stepvoyage != null) {
+
                 Log.d("stepvoyage", stepvoyage.toString())
+
                 popUpShowDate(stepDateHeureReal, stepvoyage)
             }
         }
-
-        /*        dateEtapeTcSub.setOnClickListener {
-            //popUpShowDate(stepDateHeureReal, stepvoyage)
-            if(stepvoyage != null){
-                Log.d("stepvoyage",stepvoyage.toString())
-                popUpShowDate(stepDateHeureReal, stepvoyage)
-            }
-        }*/
 
         return root
     }

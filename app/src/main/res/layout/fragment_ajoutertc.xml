@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/all_padding"
             android:orientation="vertical">
+
             <!-- Titre -->
             <TextView
                 android:id="@+id/titreajouter"
@@ -133,6 +134,46 @@
                     android:background="@drawable/rounded_blue_corner_view" />
             </RadioGroup>
 
+            <!-- Booking -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/all_margin"
+                android:orientation="horizontal">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textFieldBookingNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/num_booking"
+                    app:boxBackgroundColor="@color/gray"
+                    app:boxStrokeColor="@color/gray"
+                    app:hintTextColor="@color/grisabsolut"
+                    android:layout_marginRight="@dimen/all_margin"
+                    app:startIconDrawable="@drawable/ic_bk"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputBookingNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
+                        android:inputType="textCapCharacters"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_ajout_tc"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/spinner_background"
+                    android:layout_marginRight="@dimen/padd"
+                    android:padding="@dimen/all_padding" />
+            </LinearLayout>
+
             <!-- Immatriculation -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textFieldCamionNum"
@@ -218,46 +259,6 @@
                     android:textColor="@color/textColor" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Booking -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/all_margin"
-                android:orientation="horizontal">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textFieldBookingNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/num_booking"
-                    app:boxBackgroundColor="@color/gray"
-                    app:boxStrokeColor="@color/gray"
-                    app:hintTextColor="@color/grisabsolut"
-                    android:layout_marginRight="@dimen/all_margin"
-                    app:startIconDrawable="@drawable/ic_bk"
-                    tools:ignore="MissingConstraints">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputBookingNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_editable_text"
-                        android:focusable="auto"
-                        android:inputType="textCapCharacters"
-                        android:textAllCaps="true"
-                        android:textColor="@color/textColor" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner_ajout_tc"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/spinner_background"
-                    android:layout_marginRight="@dimen/padd"
-                    android:padding="@dimen/all_padding" />
-            </LinearLayout>
 
             <!-- Chauffeur -->
             <com.google.android.material.textfield.TextInputLayout

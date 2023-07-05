@@ -1,6 +1,5 @@
 package com.charmidezassiobo.tcrec.ui.suivietc
 
-import android.content.ClipData.Item
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
@@ -23,11 +22,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
+import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -46,6 +45,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     private var _binding: FragmentSuivietcBinding? = null
     private val binding get() = _binding!!
 
+    private val dataBasePath = AllVariables().dbPath
+
     // Variable des View
     lateinit var recyclerView_TC : RecyclerView
     lateinit var refresh : SwipeRefreshLayout
@@ -56,10 +57,9 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
     lateinit var imgView_list_tc_bk : ImageView
 
     val db = Firebase.firestore
-    val voyRef = db.collection("Voyage")
-    //val voyRef = db.collection("Voyagetest")
+    val voyRef = db.collection(dataBasePath)
 
-    val sousfragment : Fragment = SuivietcSousFragment()
+    val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
     val sousfragmentbooking : Fragment = SuivietcBookingSousFragment()
 
     var items_tc : MutableList<Tc> = mutableListOf()
@@ -226,12 +226,12 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
         // Suppression de l'élément de Firebase Firestore
         val db = FirebaseFirestore.getInstance()
-        val query = db.collection("Voyage")
+        val query = db.collection(dataBasePath)
             .whereEqualTo("num_TC", tc.num_TC)
             .whereEqualTo("num_Camion", tc.num_Camion)
         query.get().addOnSuccessListener { documents ->
             for (document in documents) {
-                val docRef = db.collection("Voyage").document(document.id)
+                val docRef = db.collection(dataBasePath).document(document.id)
                 docRef.delete().addOnSuccessListener {
                     Log.d(TAG, "DocumentSnapshot successfully deleted!")
                 }.addOnFailureListener { e ->
@@ -330,8 +330,8 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
                         val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
                         val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                         val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
-                        val type_transact = document.data.get("import_export")
-                        val desc_TC = document.data.get("desc_TC")
+                        val type_transact = document.data.get("import_export").toString()
+                        val desc_TC = document.data.get("desc_TC").toString()
 
                         val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
 
@@ -390,7 +390,6 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         val inputStepDate = items_tc[position].lesStepDateHour
         val inputDesc = items_tc[position].desc_TC
 
-        //Log.d("step1",inputStepDate)
 
         val bundle = Bundle()
         bundle.putString("inputTypeTransact", inputTypeTransact)
@@ -408,21 +407,10 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         bundle.putSerializable("inputStepDate", inputStepDate as Serializable)
 
 
-        sousfragment.arguments = bundle
-
-        /*parentFragmentManager
-            .beginTransaction().apply {
-                replace(R.id.nav_host_fragment_activity_main,sousfragment)
-                .addToBackStack(null)
-                .commit()
-            }*/
+        sousfragmentSuivieTc.arguments = bundle
 
         val navController = findNavController()
-        //val tc = Tc(inputTc,inputTcSecond,inputCamion,inputTelChauffeur,inputBooking,inputPlomb,inputDate,inputPositionVoyages,inputPlombSecond,inputTypeTransact)
-        //val action = SuivietcFragmentDirections.actionNavigationSuivietcToSuivietcSousFragment(tc)
         navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
-        //com.charmidezassiobo.tcrec.data.Tc
-
 
     }
 

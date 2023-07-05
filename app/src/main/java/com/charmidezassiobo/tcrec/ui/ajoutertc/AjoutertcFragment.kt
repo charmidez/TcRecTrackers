@@ -22,6 +22,7 @@ import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
+import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -34,8 +35,12 @@ import java.sql.Date
 
 class AjoutertcFragment : Fragment() {
 
+    val dataBasePath = AllVariables().dbPath
+
     private var _binding: FragmentAjoutertcBinding? = null
     private val binding get() = _binding!!
+
+
     private var db = Firebase.firestore
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -153,15 +158,6 @@ class AjoutertcFragment : Fragment() {
         )
 
         butAjouter.setOnClickListener{
-/*
-            val registerNewTc = hashMapOf(
-                "numsTc" to "numsTc",
-                "stepTC" to 4,
-                "lesStepHour" to  lesDatesNew
-            )
-            db.collection("Voyagetest").document().set(registerNewTc)
-
-            */
 
             if (isConnected){
                 butAjouter.text = "Chargement..."
@@ -191,8 +187,7 @@ class AjoutertcFragment : Fragment() {
                             "import_export" to typeTransat,
                             "lesStepDateHour" to  lesStepHour
                         )
-                        db.collection("Voyage").document().set(registerTc)
-                        //db.collection("Voyagetest").document().set(registerTc)
+                        db.collection(dataBasePath).document().set(registerTc)
                             .addOnSuccessListener {
                                 val snack = Snackbar.make(binding.root,"Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",Snackbar.LENGTH_LONG)
                                 snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))

@@ -8,10 +8,9 @@ import android.view.View
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.ActivityLoginBinding
-import com.charmidezassiobo.tcrec.ui.clientlogin.ClientActivity
+import com.charmidezassiobo.tcrec.ui.clientloginadmin.ClientActivity
 import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
@@ -36,8 +35,6 @@ class LoginActivity : AppCompatActivity() {
         val username = binding.editTextUsername
         val password = binding.editTextPassword
         val loginBtn = binding.loginButton
-
-        //sharedPreferences = this.getSharedPreferences("app_state",Context.MODE_PRIVATE)
 
         val lineairLayoutAdmin = binding.lineairLayoutAdmin
 

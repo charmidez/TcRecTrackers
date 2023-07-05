@@ -1,10 +1,8 @@
-package com.charmidezassiobo.tcrec.ui.clientlogin
+package com.charmidezassiobo.tcrec.ui.clientloginadmin
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
@@ -13,10 +11,8 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.ActivityClientBinding
-import com.charmidezassiobo.tcrec.setup.TCBookingAdapter
 import com.charmidezassiobo.tcrec.setup.TCResultAdapter
 import com.charmidezassiobo.tcrec.ui.LoginActivity
-import com.charmidezassiobo.tcrec.ui.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 

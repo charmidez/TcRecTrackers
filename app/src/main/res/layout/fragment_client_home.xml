@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cargaison_background_2"
+    tools:context=".ui.clientloginadmin.ClientHomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- Titre-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="@dimen/all_margin"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/logoff_bleue"/>
+                <TextView
+                    android:id="@+id/titreajouter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:padding="@dimen/all_padding"
+                    android:text="Bienvenue à Rec Logisitcs"
+                    android:textColor="#3A3A9A"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <!-- Image -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/all_margin"
+                android:layout_margin="@dimen/all_margin"
+                app:cardCornerRadius="@dimen/radius">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rec_egery" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Button réseré à l'administration -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_personnel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adminstration"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/source_sans_pro_black"/>
+
+            <!-- bare de recherche et mot cherché-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/lineairLayout_search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/all_margin"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_marginRight="@dimen/all_margin">
+                    <EditText
+                        android:id="@+id/editText_search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textSize="16dp"
+                        android:cursorVisible="true"
+                        android:hint="MSMY239934..."
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:padding="@dimen/all_padding"
+                        android:textColor="@color/black"
+                        android:background="@drawable/rounded_white_black_contour"/>
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btnSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/padd"
+                        android:src="@drawable/ic_search_1"
+                        android:background="@drawable/rounded_blue_background"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/txtView_notabebe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_white_back_white"
+                    android:paddingLeft="@dimen/padd"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:textSize="8dp"
+                    android:text="Suivre mon colis par son numéro Contenair, Booking, Réference..."/>
+                <!--androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_searchItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradiant">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,6 @@
             android:paddingRight="@dimen/all_padding"
             android:layout_gravity="center"
             android:src="@drawable/logo_blanc_new" />
-
 
     </LinearLayout>
 

@@ -2,13 +2,16 @@ package com.charmidezassiobo.tcrec.data
 
 import android.content.ContentValues
 import android.util.Log
+import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class GetDataFromDB {
 
+    val dataBasePath = AllVariables().dbPath
+
         val db = Firebase.firestore
-        val voyTc = db.collection("Voyage")
+        val voyTc = db.collection(dataBasePath)
         //val voyTc = db.collection("Voyagetest")
         var itemListTc = arrayListOf<Tc>()
 
@@ -75,8 +78,9 @@ class GetDataFromDB {
     */
 
     fun updateTc(callback: () -> Unit) {
-        voyTc.get().addOnSuccessListener { documents ->
-            itemListTc.clear()
+        itemListTc.clear()
+        voyTc.get()
+            .addOnSuccessListener { documents ->
             for (document in documents) {
                 if (document != null) {
                     val idtc_ok = document.getLong("step_TC")?.toInt()
@@ -89,19 +93,20 @@ class GetDataFromDB {
                     val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
                     val numtcsecond_ok = document.data.get("num_TC_Second").toString()
                     val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
-                    val type_transact = document.data.get("import_export")
-                    val desc_TC = document.data.get("desc_TC")
+                    val type_transact = document.data.get("import_export").toString()
+                    val desc_TC = document.data.get("desc_TC").toString()
 
                     val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
-                    var heureDeChaqueStep: List<HeureStep>? = null
 
-                    if (heureDeChaqueStepList != null) {
-                        heureDeChaqueStep = heureDeChaqueStepList.map {
-                            HeureStep(it["stepDateChiffre"] ?: "", it["stepDateLettre"] ?: "", it["stepHeure"] ?: "")
+                    if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
+                        val heureDeChaqueStep = heureDeChaqueStepList.map {
+                            HeureStep(
+                                it["stepDateChiffre"] ?: "",
+                                it["stepDateLettre"] ?: "",
+                                it["stepHeure"] ?: ""
+                            )
                         }
-                    }
 
-                    if (idtc_ok != null && step_tc_ok != null) {
                         itemListTc.add(
                             Tc(
                                 "$numtc_ok",
@@ -118,7 +123,9 @@ class GetDataFromDB {
                                 heureDeChaqueStep!!.toMutableList()
                             )
                         )
+
                         listBooking.add(num_booking_tc)
+
                     }
                 }
             }

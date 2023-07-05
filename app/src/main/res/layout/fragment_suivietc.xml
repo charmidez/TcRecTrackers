@@ -33,7 +33,6 @@
                             android:text="@string/list_tc"
                             android:textColor="@color/white"
                             android:textSize="18dp"
-
                             app:layout_constraintEnd_toStartOf="@+id/imageView_bk_tc"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

@@ -22,9 +22,9 @@
     <string name="list_tc">Liste de camions en circulation</string>
     <string name="ajout_tc">Ajouter une transat ( Conteneur )</string>
     <string name="search_hint">Chercher...</string>
-    <string name="num_booking">Numéro Booking TC</string>
-    <string name="num_tc_off">Numéro TC</string>
-    <string name="num_tc_off_2">Numéro Deuxième TC</string>
+    <string name="num_booking">Numéro Booking</string>
+    <string name="num_tc_off">Conteneur 1</string>
+    <string name="num_tc_off_2">Conteneur 2</string>
     <string name="num_tc_item">MSDU1807661</string>
     <string name="but_addtc">Ajouter TC (Conteneur) </string>
     <string name="num_camion">Immatriculation du camion</string>
@@ -94,5 +94,7 @@
     <string name="sea_imp">SEA Import</string>
     <string name="air_imp">AIR Import</string>
     <string name="road_track">Road Tracking</string>
+
+    <string name="adminstration">Je suis de l\'administration.</string>
 
 </resources>
