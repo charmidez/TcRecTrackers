@@ -10,7 +10,8 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.ui.suivietc.SuivietcBookingSousFragment
 
-class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<Tc> ) : RecyclerView.Adapter<TCBookingAdapter.TCBookingViewHolder>(){
+class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<Tc> )
+    : RecyclerView.Adapter<TCBookingAdapter.TCBookingViewHolder>(){
 
     class TCBookingViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {
         var imgVtc2 : ImageView
@@ -31,8 +32,6 @@ class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TCBookingViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_tc_booking,parent, false)
-
-
         return TCBookingViewHolder(itemView)
     }
 
@@ -47,6 +46,10 @@ class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List
 
         if (holder.txtView_plomb2.text.isNullOrEmpty()){
             holder.txtView_plomb2.visibility = View.INVISIBLE
+        }
+
+        if (holder.txtView_plomb1.text.isNullOrEmpty()){
+            holder.txtView_plomb1.visibility = View.INVISIBLE
         }
 
     }

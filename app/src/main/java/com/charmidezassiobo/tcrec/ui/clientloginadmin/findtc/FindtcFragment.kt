@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.ui.findtc
+package com.charmidezassiobo.tcrec.ui.clientloginadmin.findtc
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentFindtcBinding
 
@@ -41,6 +42,8 @@ class FindtcFragment : Fragment() {
 
         _binding = FragmentFindtcBinding.inflate(inflater, container, false)
         val root : View = binding.root
+        val mContext = binding.root.context
+        val navController = findNavController()
 
         /*Début des déclarations des variables*/
         var btnInitialise = binding.imgViewBtnReset
@@ -51,6 +54,7 @@ class FindtcFragment : Fragment() {
         var searchBarTc = binding.editTextSearchBar
         var recyclerResult = binding.recyclerViewResult
         var lnCardResult = binding.lineairLayoutResultRequest
+        var btnBack = binding.btnBackToPreviousFragment
 
 
         //Appui du premier radiogroup exp imp road btn
@@ -113,6 +117,10 @@ class FindtcFragment : Fragment() {
         btnInitialise.setOnClickListener {
             clearRadioBtn(radioGroupExpImpRoad)
             resetFragment(radioGroupExpImpRoad,radioExpTracking, radioImpTracking,  lnSearch, recyclerResult, lnCardResult)
+        }
+
+        btnBack.setOnClickListener {
+            navController.popBackStack(R.id.clientHomeFragment, false)
         }
 
         return root

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <!-- Titre -->
     <TextView
-        android:id="@+id/titrelisttc"
+        android:id="@+id/txtView_searchWord_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/all_margin"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/rounded_blue_corner_view"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/rounded_blue_corner_view_gray"
         android:fontFamily="@font/source_sans_pro_bold"
         android:gravity="center"
         android:padding="@dimen/padd"
         android:textAllCaps="true"
         android:text="ebkg0597641"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="12dp" />
 
 </FrameLayout>

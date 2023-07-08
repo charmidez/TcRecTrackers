@@ -12,7 +12,8 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/all_margin"
         android:layout_marginRight="@dimen/all_margin"
-        android:layout_marginTop="@dimen/all_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

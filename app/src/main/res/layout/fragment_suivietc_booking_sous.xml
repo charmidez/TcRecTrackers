@@ -31,7 +31,6 @@
                 android:padding="@dimen/padd"
                 android:layout_gravity="center"/>
 
-
             <!-- Titre -->
             <TextView
                 android:id="@+id/titrelisttc_booking"
@@ -45,6 +44,7 @@
                 android:text="@string/list_tc_booking"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
+
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatSpinner
@@ -73,6 +73,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/all_margin"
             android:layout_marginRight="@dimen/all_margin"
             android:layout_marginLeft="@dimen/all_margin">
@@ -115,6 +116,7 @@
             android:id="@+id/recycler_view_booking_tc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:padding="1dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -126,14 +128,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginTop="32dp"
             android:minWidth="50dp"
             android:minHeight="50dp"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/textView_charging_booking"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.871" />
+            android:layout_gravity="center" />
         <TextView
             android:id="@+id/textView_charging_booking"
             android:layout_width="wrap_content"
@@ -142,12 +140,7 @@
             android:text="Chargement..."
             android:layout_gravity="center"
             android:textColor="@color/black"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:textSize="18dp" />
 
     </LinearLayout>
 

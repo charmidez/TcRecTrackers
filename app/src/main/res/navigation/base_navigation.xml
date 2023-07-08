@@ -16,15 +16,26 @@
         <action
             android:id="@+id/action_clientHomeFragment_to_adminloginFragment"
             app:destination="@id/adminloginFragment" />
+        <action
+            android:id="@+id/action_clientHomeFragment_to_navigation_findtc"
+            app:destination="@id/navigation_findtc" />
     </fragment>
+
     <fragment
         android:id="@+id/resultsearchFragment"
         android:name="com.charmidezassiobo.tcrec.ui.clientloginadmin.ResultsearchFragment"
         android:label="fragment_resultsearch"
         tools:layout="@layout/fragment_resultsearch" />
+
     <fragment
         android:id="@+id/adminloginFragment"
         android:name="com.charmidezassiobo.tcrec.ui.adminlogin.AdminloginFragment"
         android:label="fragment_adminlogin"
         tools:layout="@layout/fragment_adminlogin" />
+
+    <fragment
+        android:id="@+id/navigation_findtc"
+        android:name="com.charmidezassiobo.tcrec.ui.clientloginadmin.findtc.FindtcFragment"
+        android:label="fragment_findtc"
+        tools:layout="@layout/fragment_findtc" />
 </navigation>

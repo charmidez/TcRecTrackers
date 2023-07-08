@@ -30,7 +30,7 @@
                 android:padding="@dimen/all_padding"
                 android:text="@string/ajout_tc"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <!-- Radio Group General-->
             <RadioGroup

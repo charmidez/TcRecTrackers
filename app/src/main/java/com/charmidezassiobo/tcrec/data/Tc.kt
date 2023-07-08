@@ -1,5 +1,7 @@
 package com.charmidezassiobo.tcrec.data
 
+import java.io.Serializable
+
 data class Tc(
     var num_TC : String,
     var num_TCSecond : String,

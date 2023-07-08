@@ -162,7 +162,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             tableauSateHeureStep = tc.lesStepDateHour
 
             if(phoneChauffeur.text == "null" || phoneChauffeur == null || phoneChauffeur.text == ""){
-                phoneChauffeur.text = "Non Disponible"
+                phoneChauffeur.text = "Indisponible"
                 phoneChauffeur.isEnabled = false
                 phoneChauffeur.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
             }

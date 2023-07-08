@@ -31,7 +31,6 @@ import com.google.firebase.ktx.Firebase
 import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.*
-import java.sql.Date
 
 class AjoutertcFragment : Fragment() {
 
@@ -79,7 +78,7 @@ class AjoutertcFragment : Fragment() {
         var bookingList = mutableListOf<String>()
         var spinner_ajout_tc = binding.spinnerAjoutTc
         var getData = GetDataFromDB()
-        var items_tc = getData.itemListTc
+        var items_tc = getData.getTcAllList()
 
         var bookingListRD : List<String> = listOf()
 
@@ -117,7 +116,7 @@ class AjoutertcFragment : Fragment() {
 
         //Spinner
         getData.updateTc {
-            bookingList = getData.listBooking
+            bookingList = getData.getListBooking()
             //bookingList.distinct()
             //bookingListRD = bookingList.distinct().toList()
             val set: Set<String> =  bookingList.toHashSet()
@@ -157,12 +156,25 @@ class AjoutertcFragment : Fragment() {
             HeureStep(dateRealChiffre,dateRealDate,heureRealStartTc)
         )
 
+
+        // Enréistrement dans la base de donnée
         butAjouter.setOnClickListener{
+
+            //AllFunctions().removeSpaces()
 
             if (isConnected){
                 butAjouter.text = "Chargement..."
                 butAjouter.isEnabled = false
                 butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
+
+                //removing all space
+                val numBookingRmvSpx = AllFunctions().removeSpaces(numBookingTc.text.toString())
+                val numTc1RmvSpx = AllFunctions().removeSpaces(numTCOff.text.toString())
+                val numTc2RmvSpx = AllFunctions().removeSpaces(numTCSecondOff.text.toString())
+                val numCamionRmvSpx = AllFunctions().removeSpaces(numCamion.text.toString())
+                val numPhoneChauffeurRmvSpx = AllFunctions().removeSpaces(phone.text.toString())
+                val descContenuRmvSpx = AllFunctions().removeSpaces(descTC.text.toString())
+
                 ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
                 step_tc = 0
                 num_plomb =""
@@ -175,15 +187,15 @@ class AjoutertcFragment : Fragment() {
                     if (recup_numCamion != "" || recup_numTc != "" ){
                         val registerTc = hashMapOf(
                             "Date" to ajouterdate,
-                            "num_Booking" to numBookingTc.text.toString(),
-                            "num_TC" to numTCOff.text.toString(),
-                            "num_TC_Second" to numTCSecondOff.text.toString(),
-                            "num_Camion" to numCamion.text.toString(),
+                            "num_Booking" to numBookingRmvSpx,
+                            "num_TC" to numTc1RmvSpx,
+                            "num_TC_Second" to numTc2RmvSpx,
+                            "num_Camion" to numCamionRmvSpx,
                             "step_TC" to step_tc,
-                            "desc_TC" to descTC.text.toString(),
+                            "desc_TC" to descContenuRmvSpx,
                             "num_plomb_TC" to num_plomb,
                             "num_plomb_TC_2" to num_plomb_2,
-                            "phone_chauffeur_TC" to phone.text.toString(),
+                            "phone_chauffeur_TC" to numPhoneChauffeurRmvSpx,
                             "import_export" to typeTransat,
                             "lesStepDateHour" to  lesStepHour
                         )

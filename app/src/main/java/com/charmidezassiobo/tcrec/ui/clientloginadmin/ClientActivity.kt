@@ -71,7 +71,7 @@ class ClientActivity : AppCompatActivity() {
         var imgCargaison = binding.imgViewCargaison
 
         getData = GetDataFromDB()
-        items_tc = getData.itemListTc
+        items_tc = getData.getTcAllList()
         adapter = TCResultAdapter(this, items_tc)
 
         getData.updateTc {

@@ -2,6 +2,7 @@ package com.charmidezassiobo.tcrec.setup
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
@@ -27,19 +28,20 @@ class AllFunctions {
     lateinit var stepBean3_export: StepBean
     lateinit var stepBean4_export: StepBean
     lateinit var stepBean5_export: StepBean
+
     //****//
     lateinit var stepBean0_import: StepBean
     lateinit var stepBean1_import: StepBean
     lateinit var stepBean2_import: StepBean
     lateinit var stepBean3_import: StepBean
 
-    var items_tc : MutableList<Tc> = ArrayList()
 
+    fun removeSpaces(str: String): String {
+        return str.replace(" ", "")
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun miseEnPlaceDate(boolean: Boolean):String{
-
-        //ajouterdate = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
 
         var localRealDate = LocalDate.now()
 
@@ -381,75 +383,33 @@ class AllFunctions {
         }
     }
 
-    fun filterResult(query: String?, itemList : MutableList<Tc> ) : Boolean{
+    fun filterResult(query: String?, itemList : MutableList<Tc> ) : MutableList<Tc> {
         val filteredList = ArrayList<Tc>()
-/*        if (query != null){
-            for (i in itemList){
-                if(i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(Locale.ROOT).contains(query) ){
-                    filteredList.add(i)
-                }
-                if(i.num_TC.lowercase(Locale.ROOT).contains(query) || i.num_TC.uppercase(Locale.ROOT).contains(query) ){
-                    filteredList.add(i)
-                }
-                if(i.num_TCSecond.lowercase(Locale.ROOT).contains(query) || i.num_TCSecond.uppercase(Locale.ROOT).contains(query) ){
-                    filteredList.add(i)
-                }
-            }
-        }*/
-
         if (query != null){
-            for (i in itemList){
-                if(i.num_booking.lowercase() == query || i.num_booking.uppercase() == query ){
-                    filteredList.add(i)
+            val queryUpperCase = query.uppercase(Locale.ROOT)
+            for (item in itemList){
+                if (removeSpaces(item.num_booking) == queryUpperCase){
+                    filteredList.add(item)
                 }
-                if(i.num_TC.lowercase() == query || i.num_TC.uppercase() == query ){
-                    filteredList.add(i)
+                if (removeSpaces(item.num_TC) == queryUpperCase){
+                    filteredList.add(item)
                 }
-                if(i.num_TCSecond.lowercase() == query || i.num_TCSecond.uppercase() == query ){
-                    filteredList.add(i)
+                if (removeSpaces(item.num_TCSecond) == queryUpperCase){
+                    filteredList.add(item)
                 }
             }
         }
-
-        if (filteredList.isNotEmpty()){
-            return true
-        } else  {
-            return false
-        }
+        return filteredList
     }
 
-    fun filterListClientResult(context: Context, query : String?, recyclerView_TC : RecyclerView){
-        var mView : View = View(context)
-
-        if (query  != null ){
-            val filteredList = ArrayList<Tc>()
-            for (i in items_tc){
-                if(i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(
-                        Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-                if(i.num_TC.lowercase(Locale.ROOT).contains(query) || i.num_TC.uppercase(Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-                if(i.num_TCSecond.lowercase(Locale.ROOT).contains(query) || i.num_TCSecond.uppercase(
-                        Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-            }
-            if (filteredList.isEmpty()){
-                //recyclerView_TC.adapter = TCResultAdapter(this@ClientActivity, items_tc)
-                recyclerView_TC.visibility = View.GONE
-                val snack = Snackbar.make(mView,"Conteneur ou Booking introuvable", Snackbar.LENGTH_LONG)
-                snack.setTextColor(ContextCompat.getColor(context, R.color.white))
-                snack.setBackgroundTint(ContextCompat.getColor(context, R.color.gray2))
-                snack.show()
-            } else {
-                recyclerView_TC.adapter = TCResultAdapter( context, filteredList)
-                //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-                //recyclerView_TC.visibility = View.VISIBLE
-            }
-        }
+    fun removeRedundance(oldList : ArrayList<String>): ArrayList<String> {
+        val set : Set<String> = oldList.toHashSet()
+        oldList.clear()
+        oldList.addAll(set)
+        return oldList
     }
+
+
 
 
     /*

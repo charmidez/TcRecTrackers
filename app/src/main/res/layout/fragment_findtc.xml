@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.findtc.FindtcFragment">
+    tools:context=".ui.clientloginadmin.findtc.FindtcFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/all_margin"
             android:orientation="horizontal">
-            <TextView
+
+            <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -28,15 +29,34 @@
                 android:padding="@dimen/all_padding"
                 android:text="@string/menu_find_tc"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
-            <ImageView
+                android:textSize="18dp" /-->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnBackToPreviousFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_button_fragment"
+                android:background="@color/white"
+                android:padding="@dimen/padd"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/menu_find_tc"
+                style="@style/textMidTitle_result"
+                android:padding="@dimen/all_padding"
+                android:background="@drawable/rounded_blue_background"
+                android:textColor="@color/white"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/imgView_btn_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_search_icone_tc"
-                android:background="@drawable/btn_call_not_selected"
-                android:padding="@dimen/padd"/>
+                android:src="@drawable/ic_button_reset"
+                android:background="@color/white"
+                />
         </LinearLayout>
 
         <!--image-->

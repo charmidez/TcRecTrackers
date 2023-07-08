@@ -21,8 +21,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
+import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
+import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.setup.TCBookingAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -35,90 +37,87 @@ class SuivietcBookingSousFragment : Fragment() {
     private var _binding : FragmentSuivietcBookingSousBinding? = null
     private val binding get() = _binding!!
 
-    var items_tc : MutableList<Tc> = ArrayList()
-    lateinit var getData : GetDataFromDB
-    lateinit var adapter : TCBookingAdapter
+    //Variable Publique
+    //Others class
+    val allFun : AllFunctions = AllFunctions()
+    var getData : GetDataFromDB = GetDataFromDB()
 
-    private fun filterList(query : String?, recyclerView_TC : RecyclerView){
+    var itemsTc : MutableList<Tc>  = getData.getTcAllList()
+    var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getListBookingWithTitle())
 
+
+/*    private fun filterList(query : String?){
         if (query  != null ){
             val filteredList = ArrayList<Tc>()
-
-            for (i in items_tc){
-
+            for (i in itemsTc){
                 if(i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(
                         Locale.ROOT).contains(query)){
                     filteredList.add(i)
                 }
             }
-            if (filteredList.isEmpty()){
-                recyclerView_TC.adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, items_tc)
+*/
+    /*            if (filteredList.isEmpty()){
+                recyclerView_TC.adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, itemsTc)
             } else {
                 recyclerView_TC.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredList)
-            }
+            }*//*
         }
 
-    }
+    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         _binding = FragmentSuivietcBookingSousBinding.inflate(inflater, container, false)
         val root : View = binding.root
         val navController = findNavController()
+        val mContext : Context = binding.root.context
 
+        //View Variable
         var recyclerViewBooking = binding.recyclerViewBookingTc
-
-        var bookingList = ArrayList<String>()
-        var bookingListRD : List<String>
-
-        var spinner = binding.spinner
+        var spinnerView = binding.spinner
         var txtView_charging = binding.textViewChargingBooking
         var progressBar_view = binding.progressBarIdBooking
-        val context : Context
-        context = requireContext()
+
+        //varible libre
+        var tcBookingAdapter : TCBookingAdapter
+
+        //récupérer les données et bosser
+        getData.updateTc {
+            txtView_charging.isVisible  = false
+            progressBar_view.setVisibility(View.GONE)
+
+            recyclerViewBooking.visibility = View.VISIBLE
+
+            itemBookingList = allFun.removeRedundance(itemBookingList)
+            var arrayAdapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1,  itemBookingList)
+            spinnerView.adapter = arrayAdapter
+
+            spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
+                var selectedItem : String? = null
+                var filteredTcList = mutableListOf<Tc>()
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedItem = itemBookingList[position]
+                    if (selectedItem == "Tous les bookings"){
+                        recyclerViewBooking.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, itemsTc)
+                    } else {
+                        filteredTcList = allFun.filterResult(selectedItem, itemsTc)
+                        recyclerViewBooking.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredTcList)
+                    }
+
+
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    txtView_charging.visibility = View.VISIBLE
+                    progressBar_view.setVisibility(View.VISIBLE)
+                    recyclerViewBooking.visibility = View.INVISIBLE
+                }
+            })
+
+        }
 
         binding.btnBackToPreviousFragment.setOnClickListener {
             navController.popBackStack(R.id.navigation_suivietc, false)
         }
-
-        getData = GetDataFromDB()
-        items_tc = getData.itemListTc
-        adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, items_tc)
-
-        bookingListRD = listOf()
-        getData.updateTc {
-            txtView_charging.isVisible  = false
-            progressBar_view.setVisibility(View.GONE)
-            recyclerViewBooking.adapter = adapter
-        }
-
-        getData.updateTc {
-            bookingList = getData.listBooking
-            //bookingListRD = bookingList.distinct().toList()
-            val set: Set<String> =  bookingList.toHashSet()
-            bookingList.clear()
-            bookingList.add("Tous les TC")
-            bookingList.addAll(set)
-
-            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingList)
-            spinner.adapter  = adapter
-        }
-        bookingList.add("")
-
-        spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-            var selectedItem : String? = null
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedItem = bookingList[position]
-                Log.d("NumBooking","$selectedItem")
-                filterList(selectedItem, recyclerViewBooking)
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                selectedItem = null
-                filterList(selectedItem, recyclerViewBooking)
-            }
-
-        })
-
         return root
     }
 

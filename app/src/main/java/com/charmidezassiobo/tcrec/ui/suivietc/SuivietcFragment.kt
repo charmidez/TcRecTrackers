@@ -2,6 +2,7 @@ package com.charmidezassiobo.tcrec.ui.suivietc
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -26,8 +32,10 @@ import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
+import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,7 +48,11 @@ import java.io.FileOutputStream
 import java.io.Serializable
 import java.util.Locale
 
-class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
+class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewClickItemInterface{
+
+    override fun getOnBackPressedDispatcher(): OnBackPressedDispatcher {
+        return requireActivity().onBackPressedDispatcher
+    }
 
     private var _binding: FragmentSuivietcBinding? = null
     private val binding get() = _binding!!
@@ -72,6 +84,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
         _binding = FragmentSuivietcBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val mContext = binding.root.context
 
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
@@ -89,6 +102,16 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         items_tc = mutableListOf()
 
         progressBar_view.setVisibility(View.VISIBLE)
+
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                onStop()
+                val intent = Intent(mContext, BaseActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
         
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -346,17 +369,17 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
 
                             items_tc.add(
                                 Tc(
-                                    "$numtc_ok",
-                                    "$numtcsecond_ok",
-                                    "$num_cam_ok",
-                                    "$num_phone_chauffeur_ok",
-                                    " $num_booking_tc",
+                                    "${AllFunctions().removeSpaces(numtc_ok)}",
+                                    "${AllFunctions().removeSpaces(numtcsecond_ok)}",
+                                    "${AllFunctions().removeSpaces(num_cam_ok)}",
+                                    "${AllFunctions().removeSpaces(num_phone_chauffeur_ok)}",
+                                    "${AllFunctions().removeSpaces(num_booking_tc )}",
                                     "$plomb_ok",
                                     "$date_ok",
                                     step_tc_ok,
                                     "$numplombsecond_ok",
                                     "$type_transact",
-                                    "$desc_TC",
+                                    "${AllFunctions().removeSpaces(desc_TC)}",
                                     heureDeChaqueStep.toMutableList()
                                 )
                             )
@@ -421,6 +444,7 @@ class SuivietcFragment : Fragment(), RecyclerViewClickItemInterface{
         }
 
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

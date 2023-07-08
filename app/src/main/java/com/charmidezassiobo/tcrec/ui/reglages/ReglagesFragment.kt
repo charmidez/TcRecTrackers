@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.charmidezassiobo.tcrec.databinding.FragmentReglagesBinding
+import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.charmidezassiobo.tcrec.ui.LoginActivity
 
 
@@ -25,8 +26,6 @@ class ReglagesFragment : Fragment() {
 
         binding.buttonDeconection.setOnClickListener {
             showLogoutConfirmation()
-            //val i = Intent(activity, LoginActivity::class.java)
-            //startActivity(i)
         }
 
 
@@ -34,15 +33,18 @@ class ReglagesFragment : Fragment() {
     }
 
     fun showLogoutConfirmation(){
+
+        val mContext = binding.root.context
+
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Confirmation")
         builder.setMessage("Voulez-vous quitter ? ")
         builder.setPositiveButton("Oui"){ dialogueInterface, i ->
-            val editor = binding.root.context.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
+            val editor = mContext.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
             editor.remove("is_authenticated")
             editor.apply()
             onDestroyView()
-            val i = Intent(activity, LoginActivity::class.java)
+            val i = Intent(activity, BaseActivity::class.java)
             startActivity(i)
         }
         builder.setNegativeButton("Non"){dialogueInterface, i ->

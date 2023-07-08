@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_findtc">
+    app:startDestination="@+id/navigation_suivietc">
 
     <fragment
         android:id="@+id/navigation_suivietc"
@@ -44,11 +44,6 @@
             app:destination="@id/suivietcStepdateSousFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_findtc"
-        android:name="com.charmidezassiobo.tcrec.ui.findtc.FindtcFragment"
-        android:label="fragment_findtc"
-        tools:layout="@layout/fragment_findtc" />
 
     <fragment
         android:id="@+id/suivietcBookingSousFragment"

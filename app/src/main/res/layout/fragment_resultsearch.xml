@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginTop="@dimen/all_margin_demi"
             android:scrollbars="vertical"
             tools:listitem="@layout/item_result"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
