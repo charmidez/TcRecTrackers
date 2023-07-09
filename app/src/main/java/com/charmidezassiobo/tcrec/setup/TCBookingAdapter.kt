@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
-import com.charmidezassiobo.tcrec.ui.suivietc.SuivietcBookingSousFragment
+import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcBookingSousFragment
 
 class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<Tc> )
     : RecyclerView.Adapter<TCBookingAdapter.TCBookingViewHolder>(){

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
-import com.charmidezassiobo.tcrec.ui.clientloginadmin.ClientActivity
 
 class TCResultAdapter(var context : Context, var items : List<Tc>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
 

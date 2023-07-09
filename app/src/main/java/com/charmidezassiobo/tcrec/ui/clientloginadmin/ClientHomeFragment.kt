@@ -68,6 +68,8 @@ class ClientHomeFragment : Fragment() , RecyclerViewClickItemInterface {
 
         getSearchingWord = SearchWordDatabaseHelper(mContext)
 
+        var refrshPage = binding.refreshClientSearch
+
         itemsListTc = ArrayList()
         resultFunSearch = mutableListOf()
 
@@ -98,6 +100,7 @@ class ClientHomeFragment : Fragment() , RecyclerViewClickItemInterface {
                         bundle.putSerializable("resultFunSearch", resultFunSearch as Serializable)
                         inputSearchingWordInData(mContext, inputSearchingWord)
                         resultSousFragment.arguments = bundle
+                        binding.editTextSearchView.setText("")
                         navController.navigate(R.id.action_clientHomeFragment_to_resultsearchFragment, bundle)
                     }
                 }
@@ -121,6 +124,8 @@ class ClientHomeFragment : Fragment() , RecyclerViewClickItemInterface {
         binding.btnFinder.setOnClickListener {
             navController.navigate(R.id.action_clientHomeFragment_to_navigation_findtc)
         }
+
+        //refrshPage
 
         var motChercher = getSearchingWordInData()
 

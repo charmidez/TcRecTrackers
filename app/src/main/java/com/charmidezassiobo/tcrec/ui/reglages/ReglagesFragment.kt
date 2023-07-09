@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.charmidezassiobo.tcrec.databinding.FragmentReglagesBinding
 import com.charmidezassiobo.tcrec.ui.BaseActivity
-import com.charmidezassiobo.tcrec.ui.LoginActivity
 
 
 class ReglagesFragment : Fragment() {

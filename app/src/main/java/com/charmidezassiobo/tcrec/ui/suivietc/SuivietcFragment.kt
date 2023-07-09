@@ -13,8 +13,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
@@ -35,9 +33,12 @@ import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.TabAdapter
 import com.charmidezassiobo.tcrec.ui.BaseActivity
+import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -66,13 +67,12 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
     lateinit var progressBar_view : ProgressBar
     lateinit var searchView_tc : androidx.appcompat.widget.SearchView
     lateinit var convertPdfBtn : FloatingActionButton
-    lateinit var imgView_list_tc_bk : ImageView
+    lateinit var imgVoirBooking : ImageView
 
     val db = Firebase.firestore
     val voyRef = db.collection(dataBasePath)
 
     val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
-    val sousfragmentbooking : Fragment = SuivietcBookingSousFragment()
 
     var items_tc : MutableList<Tc> = mutableListOf()
     var tempArrayList : MutableList<Tc> = ArrayList()
@@ -86,6 +86,43 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
         val root: View = binding.root
         val mContext = binding.root.context
 
+
+        /***********Tab*********/
+        var tabLayoutSuivieTc = binding.tabLayoutSuivieTc
+        var viewPagerSuivieTc = binding.viewPagerSuivieTc
+        var titreSuivieTc = binding.titreSuivieTc
+        var imgVoirBooking = binding.imageViewVoirBooking
+
+        val tabAdapter = TabAdapter(mContext, childFragmentManager, tabLayoutSuivieTc.tabCount)
+        viewPagerSuivieTc.adapter = tabAdapter
+        viewPagerSuivieTc.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(tabLayoutSuivieTc).apply {
+                titreSuivieTc.text = getText(R.string.exp_tracking)
+                imgVoirBooking.visibility = View.VISIBLE
+            }
+        )
+        tabLayoutSuivieTc.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                viewPagerSuivieTc.currentItem = tab!!.position
+                when(viewPagerSuivieTc.currentItem){
+                    0 -> {
+                        titreSuivieTc.text = getText(R.string.exp_tracking)
+                        imgVoirBooking.visibility = View.VISIBLE
+                    }
+                    1 -> {
+                        titreSuivieTc.text = getText(R.string.imp_tracking)
+                        imgVoirBooking.visibility = View.GONE
+                    }
+                    2 -> {
+                        titreSuivieTc.text = getText(R.string.road_track)
+                        imgVoirBooking.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
@@ -98,7 +135,7 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
         progressBar_view  = binding.progressBarId
         searchView_tc  = binding.searchViewTc
         convertPdfBtn = binding.fab
-        imgView_list_tc_bk = binding.imageViewBkTc
+        this.imgVoirBooking = binding.imageViewBkTc
         items_tc = mutableListOf()
 
         progressBar_view.setVisibility(View.VISIBLE)
@@ -112,8 +149,6 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
-
-        
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
             override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
                 return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -137,8 +172,6 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
             }
         })
 
-        inputItemInRecyclerView(txtView_charging,progressBar_view,recyclerView_TC)
-
         tempArrayList = arrayListOf<Tc>()
 
         //Bien réorganiser le Pdf
@@ -158,9 +191,13 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
         }
 
         //voirListDesTc(imgView_list_tc_bk)
-        voirListDesTc(imgView_list_tc_bk,navController)
+        imgVoirBooking.setOnClickListener {
+            navController.navigate(R.id.action_navigation_suivietc_to_suivietcBookingSousFragment)
+        }
+        //voirListDesTc(this.imgVoirBooking,navController)
 
 
+/*
         refresh.setOnRefreshListener{
             items_tc.clear()
             if (isConnected) {
@@ -178,6 +215,7 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
                 snack.show()
             }
         }
+*/
 
         return root
     }
@@ -272,71 +310,6 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
         snack.show()
     }
 
-/*
-    fun inputItemInRecyclerView(txtView_charging : TextView, progressBar_view : ProgressBar, recyclerView_TC: RecyclerView){
-        items_tc.clear()
-        voyRef.get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    if (documents != null){
-                        val idtc_ok = document.getLong("step_TC")?.toInt()
-                        val numtc_ok = document.data.get("num_TC").toString()
-                        val num_booking_tc = document.data.get("num_Booking").toString()
-                        val num_cam_ok = document.data.get("num_Camion").toString()
-                        val step_tc_ok = document.getLong("step_TC")?.toInt()
-                        val date_ok = document.data.get("Date").toString()
-                        val plomb_ok = document.data.get("num_plomb_TC").toString()
-                        val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
-                        val numtcsecond_ok = document.data.get("num_TC_Second").toString()
-                        val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
-                        val type_transact = document.data.get("import_export")
-                        val desc_TC = document.data.get("desc_TC")
-
-                        //val heureDeChaqueStep  = document.data.get("lesStepDateHour") as MutableList<HeureStep>
-                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
-                        val heureDeChaqueStep = heureDeChaqueStepList?.map {
-                            HeureStep(
-                                it["stepDateChiffre"] ?: "",
-                                it["stepDateLettre"] ?: "",
-                                it["stepHeure"] ?: ""
-                            )
-                        }
-
-                        if ( idtc_ok != null){
-                            if (step_tc_ok != null ){
-                                items_tc.add(Tc( "$numtc_ok",
-                                    "$numtcsecond_ok",
-                                    "$num_cam_ok",
-                                    "$num_phone_chauffeur_ok",
-                                    " $num_booking_tc",
-                                    "$plomb_ok",
-                                    "$date_ok",
-                                    step_tc_ok,
-                                    "$numplombsecond_ok",
-                                    "$type_transact",
-                                    "$desc_TC",
-                                    heureDeChaqueStep!!.toMutableList()
-
-                                    //heureDeChaqueStep!!.toMutableList()
-                                    )
-                                )
-                                recyclerView_TC.apply {
-                                    recyclerView_TC.adapter = TCAdapter(items_tc, this@SuivietcFragment)
-                                }
-                                txtView_charging.isVisible  = false
-                                progressBar_view.setVisibility(View.GONE)
-                                items_tc.sortWith(compareBy({it.step_TC}))
-                            }
-                        }
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
-    }
-*/
-
     fun inputItemInRecyclerView(txtView_charging: TextView, progressBar_view: ProgressBar, recyclerView_TC: RecyclerView) {
         items_tc.clear()
         voyRef.get()
@@ -397,7 +370,6 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
             }
     }
 
-
     override fun onItemClick(position: Int) {
 
         val inputTypeTransact = items_tc[position].type_transat
@@ -433,7 +405,7 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewC
         sousfragmentSuivieTc.arguments = bundle
 
         val navController = findNavController()
-        navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
+        //navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
 
     }
 

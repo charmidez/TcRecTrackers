@@ -7,6 +7,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
@@ -433,6 +434,34 @@ class AllFunctions {
         ln5EditTextView.visibility = View.GONE
     }
 
+    fun filterListWithRecycler(listener : RecyclerViewClickItemInterface ,query : String, items_tc : MutableList<Tc>, recyclerView_TC : RecyclerView){
+
+        if (query  != null ){
+            val filteredList = ArrayList<Tc>()
+            for (i in items_tc){
+
+                if(i.num_TC.lowercase(Locale.ROOT).contains(query) || i.num_TC.uppercase(Locale.ROOT).contains(query)){
+                    filteredList.add(i)
+                }
+                if( i.num_TCSecond.lowercase(Locale.ROOT).contains(query) || i.num_TCSecond.uppercase(Locale.ROOT).contains(query)){
+                    filteredList.add(i)
+                }
+                if(i.num_Camion.lowercase(Locale.ROOT).contains(query) || i.num_Camion.uppercase(Locale.ROOT).contains(query)){
+                    filteredList.add(i)
+                }
+                if(i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(Locale.ROOT).contains(query)){
+                    filteredList.add(i)
+                }
+            }
+            if (filteredList.isEmpty()){
+                recyclerView_TC.adapter = TCAdapter(filteredList, listener )
+
+            } else {
+                recyclerView_TC.adapter = TCAdapter(filteredList, listener)
+            }
+        }
+
+    }
 
 
 
@@ -522,5 +551,71 @@ class AllFunctions {
         }
     }
 */
+
+    /*
+    fun inputItemInRecyclerView(txtView_charging : TextView, progressBar_view : ProgressBar, recyclerView_TC: RecyclerView){
+        items_tc.clear()
+        voyRef.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (documents != null){
+                        val idtc_ok = document.getLong("step_TC")?.toInt()
+                        val numtc_ok = document.data.get("num_TC").toString()
+                        val num_booking_tc = document.data.get("num_Booking").toString()
+                        val num_cam_ok = document.data.get("num_Camion").toString()
+                        val step_tc_ok = document.getLong("step_TC")?.toInt()
+                        val date_ok = document.data.get("Date").toString()
+                        val plomb_ok = document.data.get("num_plomb_TC").toString()
+                        val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
+                        val numtcsecond_ok = document.data.get("num_TC_Second").toString()
+                        val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
+                        val type_transact = document.data.get("import_export")
+                        val desc_TC = document.data.get("desc_TC")
+
+                        //val heureDeChaqueStep  = document.data.get("lesStepDateHour") as MutableList<HeureStep>
+                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
+                        val heureDeChaqueStep = heureDeChaqueStepList?.map {
+                            HeureStep(
+                                it["stepDateChiffre"] ?: "",
+                                it["stepDateLettre"] ?: "",
+                                it["stepHeure"] ?: ""
+                            )
+                        }
+
+                        if ( idtc_ok != null){
+                            if (step_tc_ok != null ){
+                                items_tc.add(Tc( "$numtc_ok",
+                                    "$numtcsecond_ok",
+                                    "$num_cam_ok",
+                                    "$num_phone_chauffeur_ok",
+                                    " $num_booking_tc",
+                                    "$plomb_ok",
+                                    "$date_ok",
+                                    step_tc_ok,
+                                    "$numplombsecond_ok",
+                                    "$type_transact",
+                                    "$desc_TC",
+                                    heureDeChaqueStep!!.toMutableList()
+
+                                    //heureDeChaqueStep!!.toMutableList()
+                                    )
+                                )
+                                recyclerView_TC.apply {
+                                    recyclerView_TC.adapter = TCAdapter(items_tc, this@SuivietcFragment)
+                                }
+                                txtView_charging.isVisible  = false
+                                progressBar_view.setVisibility(View.GONE)
+                                items_tc.sortWith(compareBy({it.step_TC}))
+                            }
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
+*/
+
 
 }

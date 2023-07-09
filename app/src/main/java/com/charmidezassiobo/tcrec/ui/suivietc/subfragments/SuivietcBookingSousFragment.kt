@@ -1,6 +1,6 @@
 
 
-package com.charmidezassiobo.tcrec.ui.suivietc
+package com.charmidezassiobo.tcrec.ui.suivietc.subfragments
 
 import android.content.Context
 import android.os.Bundle
@@ -45,26 +45,6 @@ class SuivietcBookingSousFragment : Fragment() {
     var itemsTc : MutableList<Tc>  = getData.getTcAllList()
     var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getListBookingWithTitle())
 
-
-/*    private fun filterList(query : String?){
-        if (query  != null ){
-            val filteredList = ArrayList<Tc>()
-            for (i in itemsTc){
-                if(i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(
-                        Locale.ROOT).contains(query)){
-                    filteredList.add(i)
-                }
-            }
-*/
-    /*            if (filteredList.isEmpty()){
-                recyclerView_TC.adapter = TCBookingAdapter(this@SuivietcBookingSousFragment, itemsTc)
-            } else {
-                recyclerView_TC.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredList)
-            }*//*
-        }
-
-    }*/
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         _binding = FragmentSuivietcBookingSousBinding.inflate(inflater, container, false)
@@ -77,9 +57,6 @@ class SuivietcBookingSousFragment : Fragment() {
         var spinnerView = binding.spinner
         var txtView_charging = binding.textViewChargingBooking
         var progressBar_view = binding.progressBarIdBooking
-
-        //varible libre
-        var tcBookingAdapter : TCBookingAdapter
 
         //récupérer les données et bosser
         getData.updateTc {

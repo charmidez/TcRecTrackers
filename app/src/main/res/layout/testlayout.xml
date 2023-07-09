@@ -145,10 +145,9 @@
                 android:textSize="10dp" />
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout-->
 
-<FrameLayout
+<!--FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -158,7 +157,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-                                                     <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -172,11 +171,6 @@
                 android:src="@drawable/logo_blanc_new"
                 android:background="@drawable/rounded_blue_background"
                 android:padding="@dimen/padd"/>
-            <!--TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/textMidTitle_result"
-                android:text="Admin Rec"/-->
         </LinearLayout>
 
         <View
@@ -343,7 +337,6 @@
 
         </LinearLayout>
 
-        <!-- les résultats -->
         <LinearLayout
             android:id="@+id/lineairLayout_result_request"
             android:background="@drawable/rounded_white_back_white"
@@ -356,12 +349,12 @@
             android:layout_marginRight="@dimen/all_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <!-- etape cardView -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <!-- nom etape du Tc -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -651,7 +644,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!--Booking -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -676,7 +668,6 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- Tc 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -747,4 +738,44 @@
     </LinearLayout>
 
 
+</FrameLayout-->
+
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription = "@string/app_name">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/exp_tracking" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imp_tracking" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/road_track" />
+
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </FrameLayout>
+
+
+

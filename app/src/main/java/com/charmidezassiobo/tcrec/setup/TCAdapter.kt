@@ -11,31 +11,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.HeureStep
 import com.charmidezassiobo.tcrec.data.Tc
-import com.charmidezassiobo.tcrec.ui.suivietc.SuivietcSousFragment
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
-import java.time.LocalDate
 
 class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
 
@@ -424,13 +416,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean5_export = StepBean("Arrivée Port", 1)
                             setupStepView(tc.type_transat)
                             btnSuivant.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-                            numcamion.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-                            numtc.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-                            numtcsecond.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
-                            phoneChauffeur.setBackground(getDrawable(itemView.context,R.drawable.btn_call_not_selected))
                             btnSuivant.setText(R.string.fin_voyage)
                             btnSuivant.isEnabled = false
-                            itemView.setBackgroundResource(R.drawable.rounded_cardview_gray)
                         }
                     }
                 }

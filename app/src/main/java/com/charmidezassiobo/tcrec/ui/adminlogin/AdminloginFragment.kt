@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
@@ -16,7 +19,7 @@ import com.charmidezassiobo.tcrec.ui.MainActivity
 import com.google.android.material.snackbar.Snackbar
 
 
-class AdminloginFragment : Fragment() {
+class AdminloginFragment : Fragment(), OnBackPressedDispatcherOwner {
 
     private  var _binding : FragmentAdminloginBinding? = null
     private val binding get() = _binding!!
@@ -67,6 +70,18 @@ class AdminloginFragment : Fragment() {
             }
         }
 
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                onStop()
+                navController.popBackStack(R.id.clientHomeFragment, false)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         return root
+    }
+
+    override fun getOnBackPressedDispatcher(): OnBackPressedDispatcher {
+        return requireActivity().onBackPressedDispatcher
     }
 }

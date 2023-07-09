@@ -20,8 +20,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc arrivé au port le : "
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"
@@ -52,8 +53,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc arrivé à l'usine le : "
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"
@@ -84,8 +86,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc en chargement le : "
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"
@@ -116,8 +119,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc arrivé à la douane le :"
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"
@@ -148,8 +152,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc sortie de l'entrepot le : "
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"
@@ -180,8 +185,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc plein arrivé au port le : "
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"
@@ -212,8 +218,9 @@
             android:layout_marginBottom="@dimen/all_margin"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Tc plein arrivé au port le : "
                 android:drawableLeft="@drawable/drawable_with_margin_step_finish"
                 android:padding="@dimen/padd"

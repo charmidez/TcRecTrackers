@@ -20,7 +20,7 @@
     <string name="prompt_password">Mot de passe</string>
 
     <string name="list_tc">Liste de camions en circulation</string>
-    <string name="ajout_tc">Ajouter une transat ( Conteneur )</string>
+    <string name="ajout_tc">Ajouter une transaction</string>
     <string name="search_hint">Chercher...</string>
     <string name="num_booking">Numéro Booking</string>
 
@@ -36,11 +36,11 @@
     <string name="num_tc_off">Conteneur 1</string>
     <string name="num_tc_off_2">Conteneur 2</string>
     <string name="num_tc_item">MSDU1807661</string>
-    <string name="but_addtc">Ajouter TC (Conteneur) </string>
+    <string name="but_addtc">Ajouter Transaction </string>
     <string name="num_camion">Immatriculation du camion</string>
     <string name="num_camion_item">TG-2642-BF</string>
     <string name="progression"></string>
-    <string name="fin_voyage">Terminé</string>
+    <string name="fin_voyage">Fin</string>
     <string name="chargement">Chargement...</string>
     <string name="dark_mode">Mode sombre</string>
     <string name="active_dark_mode">Activer mode sombre</string>

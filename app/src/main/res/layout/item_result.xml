@@ -1,154 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <!-- les résultats -->
-    <LinearLayout
-        android:id="@+id/lineairLayout_result_request"
-        android:background="@drawable/rounded_white_back_stroke_gray"
-        android:padding="@dimen/padd"
-        android:elevation="5dp"
-        android:orientation="vertical"
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_white_back_white"
         android:layout_marginLeft="@dimen/all_margin"
         android:layout_marginRight="@dimen/all_margin"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!--Booking -->
+        app:cardElevation="@dimen/radius"
+        app:cardCornerRadius="@dimen/radius">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/imgView_booking"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_bk" />
-            <TextView
-                android:id="@+id/txtView_numBooking_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:layout_marginRight="@dimen/all_margin"
-                android:background="@drawable/rounded_cardview_gray"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_tc_item"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/txtView_creation_tc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:textColor="@color/gray2"
-                android:textSize="14sp"
-                android:text="17/06/23"/>
-        </LinearLayout>
-
-        <!-- Tc 1 -->
-        <LinearLayout
-            android:id="@+id/lineairLayoutTc1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/all_margin">
-            <ImageView
-                android:id="@+id/imgView_numcamion"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_tc" />
-            <TextView
-                android:id="@+id/textViewTCNum_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_blue_corner_view"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_tc_item"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/num_plomb_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:background="@drawable/rounded_cardview_gray"
-                android:layout_gravity="center"
-                android:padding="@dimen/padd"
-                android:text="@string/num_plomb_vrai"
-                android:textColor="@color/textColor"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- Tc 2 -->
-        <LinearLayout
-            android:id="@+id/lineairLayoutTc2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/all_margin">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_tc" />
-            <TextView
-                android:id="@+id/textViewTC2Num_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:layout_gravity="center"
-                android:background="@drawable/rounded_blue_corner_view"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:padding="@dimen/padd"
-                android:text="@string/num_tc_item"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/num_plomb2_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/all_margin"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:background="@drawable/rounded_cardview_gray"
-                android:layout_gravity="center"
-                android:padding="@dimen/padd"
-                android:text="@string/num_plomb_vrai"
-                android:textColor="@color/textColor"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- etape avec voiture-->
-        <com.baoyachi.stepview.HorizontalStepView
-            android:id="@+id/step_view_baoya_view_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/all_margin"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_white_back_white" />
-
-        <!-- Date step exact -->
-        <TextView
-            android:id="@+id/textView_etap_exact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tc arrivé au port le : "
+            android:id="@+id/lineairLayout_result_request"
+            android:orientation="vertical"
             android:padding="@dimen/padd"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:background="@drawable/rounded_blue_corner_view"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--Booking -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imgView_booking"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_bk" />
+                <TextView
+                    android:id="@+id/txtView_numBooking_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/txtView_creation_tc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:textColor="@color/gray2"
+                    android:textSize="10sp"
+                    android:text="17/06/23"/>
+            </LinearLayout>
 
-    </LinearLayout>
-</FrameLayout>
+            <!-- Tc 1 -->
+            <LinearLayout
+                android:id="@+id/lineairLayoutTc1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:id="@+id/imgView_numcamion"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_tc" />
+                <TextView
+                    android:id="@+id/textViewTCNum_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/num_plomb_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_plomb_vrai"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Tc 2 -->
+            <LinearLayout
+                android:id="@+id/lineairLayoutTc2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/all_margin">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_tc" />
+                <TextView
+                    android:id="@+id/textViewTC2Num_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_tc_item"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/num_plomb2_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:background="@drawable/rounded_cardview_gray"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padd"
+                    android:text="@string/num_plomb_vrai"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- etape avec voiture-->
+            <com.baoyachi.stepview.HorizontalStepView
+                android:id="@+id/step_view_baoya_view_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/all_margin"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_white_back_white" />
+
+            <!-- Date step exact -->
+            <TextView
+                android:id="@+id/textView_etap_exact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tc arrivé au port le : "
+                android:padding="@dimen/padd"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:background="@drawable/rounded_blue_corner_view"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>

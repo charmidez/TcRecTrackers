@@ -2,8 +2,15 @@ package com.charmidezassiobo.tcrec.data
 
 import android.content.ContentValues
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
+import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -134,7 +141,7 @@ class GetDataFromDB {
         return listOfficielBooking
     }
 
-    fun getTcAllList() : ArrayList<Tc> {
+    fun getTcAllList() : MutableList<Tc> {
         var itemListTc = arrayListOf<Tc>()
         voyTc.get().addOnSuccessListener { documents ->
             for (document in documents) {
@@ -187,6 +194,65 @@ class GetDataFromDB {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
         return itemListTc
+    }
+
+
+    fun inputItemInRecyclerView(listener : RecyclerViewClickItemInterface,  chargement: View, recyclerView_TC: RecyclerView) : MutableList<Tc> {
+        var itemsTc = mutableListOf<Tc>()
+        voyTc.get().addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document != null) {
+                        val idtc_ok = document.getLong("step_TC")?.toInt()
+                        val numtc_ok = document.data.get("num_TC").toString()
+                        val num_booking_tc = document.data.get("num_Booking").toString()
+                        val num_cam_ok = document.data.get("num_Camion").toString()
+                        val step_tc_ok = document.getLong("step_TC")?.toInt()
+                        val date_ok = document.data.get("Date").toString()
+                        val plomb_ok = document.data.get("num_plomb_TC").toString()
+                        val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
+                        val numtcsecond_ok = document.data.get("num_TC_Second").toString()
+                        val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
+                        val type_transact = document.data.get("import_export").toString()
+                        val desc_TC = document.data.get("desc_TC").toString()
+
+                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
+
+                        if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
+                            val heureDeChaqueStep = heureDeChaqueStepList.map {
+                                HeureStep(
+                                    it["stepDateChiffre"] ?: "",
+                                    it["stepDateLettre"] ?: "",
+                                    it["stepHeure"] ?: ""
+                                )
+                            }
+
+                            itemsTc.add(
+                                Tc(
+                                    "${AllFunctions().removeSpaces(numtc_ok)}",
+                                    "${AllFunctions().removeSpaces(numtcsecond_ok)}",
+                                    "${AllFunctions().removeSpaces(num_cam_ok)}",
+                                    "${AllFunctions().removeSpaces(num_phone_chauffeur_ok)}",
+                                    "${AllFunctions().removeSpaces(num_booking_tc )}",
+                                    "$plomb_ok",
+                                    "$date_ok",
+                                    step_tc_ok,
+                                    "$numplombsecond_ok",
+                                    "$type_transact",
+                                    "${AllFunctions().removeSpaces(desc_TC)}",
+                                    heureDeChaqueStep.toMutableList()
+                                )
+                            )
+                            recyclerView_TC.adapter = TCAdapter(itemsTc, listener )
+                            chargement.visibility = View.GONE
+                            itemsTc.sortWith(compareBy({ it.step_TC }))
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents.", exception)
+            }
+        return itemsTc
     }
 
 }

@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.ui.suivietc
+package com.charmidezassiobo.tcrec.ui.suivietc.subfragments
 
 import android.os.Build
 import android.os.Bundle
@@ -24,6 +24,7 @@ import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.firebase.firestore.FirebaseFirestore
+import java.lang.Exception
 import java.time.LocalDate
 
 class SuivietcSousFragment : Fragment() {
@@ -94,7 +95,15 @@ class SuivietcSousFragment : Fragment() {
 
         val data = arguments
         typetransact = data?.getString("inputTypeTransact").toString()
-        stepvoyage = data?.getInt("inputPositionVoyages")!!.toInt()
+
+        try {
+            stepvoyage = data?.getInt("inputPositionVoyages")!!.toInt()
+        } catch (e : Exception) {
+            e.printStackTrace()
+            Log.d("e.Exeption", e.printStackTrace().toString())
+        }
+
+
         dateEtapeTcSub.text = data?.getString("inputDate")
         numBookingSub.setText(data?.getString("inputBooking"))
         numImmatriculationCamionSub.setText(data?.getString("inputCamion"))
@@ -107,7 +116,16 @@ class SuivietcSousFragment : Fragment() {
         var stepDateHeureReal = data?.getSerializable("inputStepDate") as? List<HeureStep>
         //val dateChiffres = stepDateHeureReal!![0].stepDateChiffre
         //val dateChiffre = tableauHeure?.stepDateLettre
-        tableauSateHeureStep = stepDateHeureReal as MutableList<HeureStep>
+
+        try {
+            tableauSateHeureStep = stepDateHeureReal as MutableList<HeureStep>
+        } catch (e : Exception){
+            e.printStackTrace()
+            Log.d("e.Exeption2", e.printStackTrace().toString())
+        }
+
+
+
         val contenu = data?.getString("inputDesc")
         desc_TC.setText("Contenu : $contenu")
 
@@ -158,8 +176,8 @@ class SuivietcSousFragment : Fragment() {
                     5 -> dateEtapeTcSub.text =
                         "Tc plein et arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
 
-                    6 -> dateEtapeTcSub.text =
-                        "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+/*                    6 -> dateEtapeTcSub.text =
+                        "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"*/
                 }
             }
         }
@@ -210,6 +228,7 @@ class SuivietcSousFragment : Fragment() {
             )
         }
 
+        tableauSateHeureStep = mutableListOf()
         btnBackToLeft.setOnClickListener {
             if(stepvoyage >0){
                 tableauSateHeureStep.removeAt(stepvoyage)
@@ -295,7 +314,7 @@ class SuivietcSousFragment : Fragment() {
 
                 Log.d("stepvoyage", stepvoyage.toString())
 
-                popUpShowDate(stepDateHeureReal, stepvoyage)
+                popUpShowDate(stepDateHeureReal!!, stepvoyage)
             }
         }
 

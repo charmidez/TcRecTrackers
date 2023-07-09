@@ -8,13 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentFindtcBinding
 
 
-class FindtcFragment : Fragment() {
+class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
 
     private var _binding : FragmentFindtcBinding? = null
     private val binding get() = _binding!!
@@ -123,7 +126,19 @@ class FindtcFragment : Fragment() {
             navController.popBackStack(R.id.clientHomeFragment, false)
         }
 
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                onStop()
+                navController.popBackStack(R.id.clientHomeFragment, false)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         return root
+    }
+
+    override fun getOnBackPressedDispatcher(): OnBackPressedDispatcher {
+        return requireActivity().onBackPressedDispatcher
     }
 
 }
