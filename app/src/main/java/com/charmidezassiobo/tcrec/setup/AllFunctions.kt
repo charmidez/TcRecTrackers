@@ -2,17 +2,15 @@ package com.charmidezassiobo.tcrec.setup
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.View
-import android.view.WindowManager
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.Tc
-import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.Locale
@@ -407,6 +405,32 @@ class AllFunctions {
         oldList.clear()
         oldList.addAll(set)
         return oldList
+    }
+
+    fun clearRadioBtnInAjoutTC(v : RadioGroup){
+        if(v.checkedRadioButtonId != -1){
+            val rdBtn : RadioButton? = v.findViewById(v.checkedRadioButtonId)
+            rdBtn?.isChecked = false
+        }
+    }
+
+    fun resetFragmentInAjoutTC(radioBtn1: RadioGroup, radioBtn2: RadioGroup, radioBtn3: RadioGroup, ln1EditTextView:View , ln2EditTextView:View , ln3EditTextView:View, ln4EditTextView:View, ln5EditTextView:View ){
+        radioBtn1.visibility = View.VISIBLE
+        radioBtn2.visibility = View.GONE
+        radioBtn3.visibility = View.GONE
+        ln1EditTextView.visibility = View.GONE
+        ln2EditTextView.visibility = View.GONE
+        ln3EditTextView.visibility = View.GONE
+        ln4EditTextView.visibility = View.GONE
+        ln5EditTextView.visibility = View.GONE
+    }
+
+    fun resetAllLnInAjoutTC(ln1EditTextView:View , ln2EditTextView:View , ln3EditTextView:View, ln4EditTextView:View, ln5EditTextView:View ){
+        ln1EditTextView.visibility = View.GONE
+        ln2EditTextView.visibility = View.GONE
+        ln3EditTextView.visibility = View.GONE
+        ln4EditTextView.visibility = View.GONE
+        ln5EditTextView.visibility = View.GONE
     }
 
 

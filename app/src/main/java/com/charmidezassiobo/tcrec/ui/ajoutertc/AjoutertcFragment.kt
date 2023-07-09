@@ -4,18 +4,17 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
@@ -47,6 +46,29 @@ class AjoutertcFragment : Fragment() {
 
         _binding = FragmentAjoutertcBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val mContext = binding.root.context
+
+        val allFun = AllFunctions()
+
+        //*******All var mecanisme for Export**************//
+        val radioGrp : RadioGroup = binding.radioGroupOk
+
+        //Import Variable
+        val radioGrp_import : RadioGroup = binding.radioGroupImportAirSeaTrackingAjout
+        val lnEditTextAirImport = binding.linearLayoutAirImportEditViewGroup
+        val lnEditTextSeaImport = binding.linearLayoutSeaImportEditViewGroup
+
+        //Export Variable
+        val radioGrp_export : RadioGroup = binding.radioGroupExportAirSeaTrackingAjout
+        val lnEditTextAirExport = binding.linearLayoutAirExportEditViewGroup
+        val lnEditTextSeaExport = binding.linearLayoutSeaExportEditViewGroup
+
+        //Road Varaible
+        val lnEditTextRoad = binding.linearLayoutRoadEditViewGroup
+
+
+
+
 
         val numBookingTc : TextInputEditText = binding.textInputBookingNum
         val numTCOff : TextInputEditText = binding.textInputTcNum
@@ -56,7 +78,7 @@ class AjoutertcFragment : Fragment() {
         val numTCSecondOff : TextInputEditText = binding.textInputTcNum2
 
         val numTCSecondLabel : TextInputLayout = binding.textFieldTcNum2
-        val imgViewBtn : ImageView = binding.imageViewPlusTc
+        //val imgViewBtn : ImageView = binding.imageViewPlusTc
         val frameLayout_ajout_tc = binding.frameLayoutAjoutTc
         val textViewTC_label = binding.textFieldTcNum
         val textViewBooking_label = binding.textFieldBookingNum
@@ -74,44 +96,92 @@ class AjoutertcFragment : Fragment() {
 
         var typeTransat = ""
 
-        //var bookingList = ArrayList<String>()
         var bookingList = mutableListOf<String>()
         var spinner_ajout_tc = binding.spinnerAjoutTc
         var getData = GetDataFromDB()
         var items_tc = getData.getTcAllList()
 
-        var bookingListRD : List<String> = listOf()
 
-        imgViewBtn.isVisible = false
-
-        val context : Context
-        context = requireContext()
-
-        val radioGrp : RadioGroup = binding.radioGroupOk
+        /********************Début de mécanisme des radio button / Radio Button Mecanism Start*******************/
         radioGrp.setOnCheckedChangeListener { group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when(selectOption){
+
+                //When i choose Import
                 R.id.radioButton_Import_ajout -> {
                     typeTransat = "Import"
-                    imgViewBtn.isVisible = false
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_export)
+                    allFun.resetFragmentInAjoutTC(radioGrp, radioGrp_export, radioGrp_import, lnEditTextAirImport, lnEditTextAirExport, lnEditTextSeaImport, lnEditTextSeaExport, lnEditTextRoad)
+                    radioGrp_import.visibility = View.VISIBLE
+
                 }
+
+                //When i choose Export
                 R.id.radioButton_export_ajout -> {
                     typeTransat = "Export"
-                    imgViewBtn.isVisible = true
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_import)
+                    allFun.resetFragmentInAjoutTC(radioGrp, radioGrp_export, radioGrp_import, lnEditTextAirImport, lnEditTextAirExport, lnEditTextSeaImport, lnEditTextSeaExport, lnEditTextRoad)
+                    radioGrp_export.visibility = View.VISIBLE
                 }
+
+                //When i choose Road
                 R.id.radioButton_road_ajout -> {
-                    typeTransat = "Export"
-                    imgViewBtn.isVisible = true
+                    typeTransat = "Road"
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_import)
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_export)
+                    allFun.resetFragmentInAjoutTC(radioGrp, radioGrp_export, radioGrp_import, lnEditTextAirImport, lnEditTextAirExport, lnEditTextSeaImport, lnEditTextSeaExport, lnEditTextRoad)
+                    lnEditTextRoad.visibility = View.VISIBLE
                 }
             }
         }
 
-        imgViewBtn.setOnClickListener{
 
-            numTCSecondLabel.isVisible = true
-            imgViewBtn.isVisible = false
+        /*****Export Radio Button Mecanism *******/
+        radioGrp_import.setOnCheckedChangeListener { group, i ->
+            val radioBtn = group.findViewById<RadioButton>(i)
+            val selectOption = radioBtn.id
+            when(selectOption){
+                //Je choisie SEA Import
+                R.id.radioButton_sea_imp_ajout -> {
+                    allFun.resetAllLnInAjoutTC(lnEditTextAirImport, lnEditTextSeaImport, lnEditTextAirExport, lnEditTextSeaExport, lnEditTextRoad)
+                    lnEditTextSeaImport.visibility = View.VISIBLE
+                }
+
+                //Je choisie AIR Import
+                R.id.radioButton_air_imp_ajout -> {
+                    allFun.resetAllLnInAjoutTC(lnEditTextAirImport, lnEditTextSeaImport, lnEditTextAirExport, lnEditTextSeaExport, lnEditTextRoad)
+                    lnEditTextAirImport.visibility = View.VISIBLE
+                }
+            }
         }
+
+        /**** Import Radio Butto Mecanism *****/
+        radioGrp_export.setOnCheckedChangeListener { group, i ->
+            val radioBtn = group.findViewById<RadioButton>(i)
+            val selectOption = radioBtn.id
+            when(selectOption){
+                //Je choisie SEA Export
+                R.id.radioButton_sea_exp_ajout -> {
+                    allFun.resetAllLnInAjoutTC(lnEditTextAirImport, lnEditTextSeaImport, lnEditTextAirExport, lnEditTextSeaExport, lnEditTextRoad)
+                    lnEditTextSeaExport.visibility = View.VISIBLE
+                }
+                //Je choisie AIR Export
+                R.id.radioButton_air_exp_ajout -> {
+                    allFun.resetAllLnInAjoutTC(lnEditTextAirImport, lnEditTextSeaImport, lnEditTextAirExport, lnEditTextSeaExport, lnEditTextRoad)
+                    lnEditTextAirExport.visibility = View.VISIBLE
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
 
 
         //Spinner
@@ -122,7 +192,7 @@ class AjoutertcFragment : Fragment() {
             val set: Set<String> =  bookingList.toHashSet()
             bookingList.clear()
             bookingList.addAll(set)
-            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, bookingList)
+            val adapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1, bookingList)
             spinner_ajout_tc.adapter  = adapter
         }
         bookingList.add("")
@@ -131,7 +201,6 @@ class AjoutertcFragment : Fragment() {
                 val selectedItem = bookingList[position]
                 numBookingTc.setText(selectedItem)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
