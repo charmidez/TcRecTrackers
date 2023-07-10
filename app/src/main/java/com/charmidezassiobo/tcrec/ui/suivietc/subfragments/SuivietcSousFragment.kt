@@ -136,51 +136,57 @@ class SuivietcSousFragment : Fragment() {
         dateChangement(date.toString(), dateEtapeTcSub)
         dateSaveTcSub.text = "TC enrégistré le $date"
 
-        when (typetransact) {
-            "Import" -> {
-                when (stepvoyage) {
-                    0 -> dateEtapeTcSub.text =
-                        "Tc arrivé au Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}  "
+        try {
+            when (typetransact) {
+                "Import" -> {
+                    when (stepvoyage) {
+                        0 -> dateEtapeTcSub.text =
+                            "Tc arrivé au Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}  "
 
-                    1 -> dateEtapeTcSub.text =
-                        "Tc en Dédouanement le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                        1 -> dateEtapeTcSub.text =
+                            "Tc en Dédouanement le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
 
-                    2 -> dateEtapeTcSub.text =
-                        "Tc sorti du Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                        2 -> dateEtapeTcSub.text =
+                            "Tc sorti du Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
 
-                    3 -> dateEtapeTcSub.text =
-                        "Tc arrivé à Destination le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                        3 -> dateEtapeTcSub.text =
+                            "Tc arrivé à Destination le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
 
-                    4 -> dateEtapeTcSub.text =
-                        "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                        4 -> dateEtapeTcSub.text =
+                            "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                    }
+                }
+
+                "Export" -> {
+                    when (stepvoyage) {
+                        0 -> dateEtapeTcSub.text =
+                            "Tc au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+
+                        1 -> dateEtapeTcSub.text =
+                            "Tc à l'usine le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+
+                        2 -> dateEtapeTcSub.text =
+                            "Tc en chargement le: ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+
+                        3 -> dateEtapeTcSub.text =
+                            "Tc à la douane le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+
+                        4 -> dateEtapeTcSub.text =
+                            "Tc sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+
+                        5 -> dateEtapeTcSub.text =
+                            "Tc plein et arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+
+                        /*                    6 -> dateEtapeTcSub.text =
+                                                "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"*/
+                    }
                 }
             }
-
-            "Export" -> {
-                when (stepvoyage) {
-                    0 -> dateEtapeTcSub.text =
-                        "Tc au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
-
-                    1 -> dateEtapeTcSub.text =
-                        "Tc à l'usine le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
-
-                    2 -> dateEtapeTcSub.text =
-                        "Tc en chargement le: ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
-
-                    3 -> dateEtapeTcSub.text =
-                        "Tc à la douane le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
-
-                    4 -> dateEtapeTcSub.text =
-                        "Tc sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
-
-                    5 -> dateEtapeTcSub.text =
-                        "Tc plein et arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
-
-/*                    6 -> dateEtapeTcSub.text =
-                        "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"*/
-                }
-            }
+        } catch (e : Exception){
+            e.printStackTrace()
         }
+
+
 
         // Checker si le phone est disponible
         if (phoneChauffeurSub.text.toString() == "null" || phoneChauffeurSub == null || phoneChauffeurSub.text.toString() == "") {

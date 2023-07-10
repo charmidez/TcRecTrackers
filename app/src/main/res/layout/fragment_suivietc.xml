@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_init"
@@ -8,190 +7,72 @@
     android:layout_height="match_parent"
     tools:context=".ui.suivietc.SuivietcFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--Titre -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/all_margin"
+            android:orientation="horizontal">
+            <!-- Titre -->
+            <TextView
+                android:id="@+id/titreSuivieTc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_blue_background"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:padding="@dimen/all_padding"
+                android:text="@string/list_tc"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
 
-                <!--Titre -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/all_margin"
-                        android:orientation="horizontal">
-                        <!-- Titre -->
-                        <TextView
-                            android:id="@+id/titreSuivieTc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="@dimen/all_margin"
-                            android:layout_marginRight="@dimen/all_margin"
-                            android:background="@drawable/rounded_blue_background"
-                            android:fontFamily="@font/source_sans_pro_bold"
-                            android:gravity="center"
-                            android:padding="@dimen/all_padding"
-                            android:text="@string/list_tc"
-                            android:textColor="@color/white"
-                            android:textSize="18dp" />
-                        <ImageView
-                            android:id="@+id/imageView_voir_booking"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_bk"
-                            android:visibility="gone"
-                            android:layout_marginRight="@dimen/all_margin"
-                            android:layout_gravity="center" />
-                </LinearLayout>
-
-                <!-- Création des tabulations -->
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout_suivie_tc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:contentDescription = "@string/app_name">
-
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/exp_tracking" />
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/imp_tracking" />
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/road_track" />
-
-                </com.google.android.material.tabs.TabLayout>
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/view_pager_suivie_tc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/swipp_refresh_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                                <!-- Titre -->
-                                <TextView
-                                    android:id="@+id/titrelisttc"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/all_margin"
-                                    android:layout_marginTop="@dimen/all_margin"
-                                    android:background="@drawable/rounded_blue_background"
-                                    android:fontFamily="@font/source_sans_pro_bold"
-                                    android:gravity="center"
-                                    android:padding="@dimen/all_padding"
-                                    android:layout_marginRight="@dimen/all_margin"
-                                    android:text="@string/list_tc"
-                                    android:textColor="@color/white"
-                                    android:textSize="18dp"
-                                    app:layout_constraintEnd_toStartOf="@+id/imageView_bk_tc"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-                                <ImageView
-                                    android:id="@+id/imageView_bk_tc"
-                                    android:layout_width="36dp"
-                                    android:layout_height="36dp"
-                                    android:src="@drawable/ic_bk"
-                                    android:layout_marginRight="@dimen/all_margin"
-                                    app:layout_constraintBottom_toBottomOf="@+id/titrelisttc"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="@+id/titrelisttc"
-                                    />
-
-
-
-                                <com.google.android.material.card.MaterialCardView
-                                    android:id="@+id/cardView_searchlistetc"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    app:cardBackgroundColor="@color/gray"
-                                    app:cardCornerRadius="@dimen/radius"
-                                    android:layout_marginTop="@dimen/all_margin"
-                                    android:layout_marginLeft="@dimen/all_margin"
-                                    android:layout_marginRight="@dimen/all_margin"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/titrelisttc">
-                                        <androidx.appcompat.widget.SearchView
-                                            android:id="@+id/searchView_tc"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:background="@drawable/rounded_search"
-                                            app:queryHint="@string/search_hint"
-                                            app:iconifiedByDefault="false"
-                                            app:queryBackground="@android:color/transparent"
-                                            />
-                                </com.google.android.material.card.MaterialCardView>
-
-                                <!-- RecyclerView-->
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/recycler_view_suivie_tc"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:scrollbars="vertical"
-                                    android:padding="1dp"
-                                    android:layout_marginTop="@dimen/all_margin"
-                                    tools:listitem="@layout/item_tc"
-                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/cardView_searchlistetc" />
-
-                                <!--Chargement -->
-                                <TextView
-                                    android:id="@+id/textView_charging"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/source_sans_pro_light"
-                                    android:text="Chargement..."
-                                    android:textColor="@color/black"
-                                    android:textSize="18dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    />
-
-                                <!--ProgressBar -->
-                                <ProgressBar
-                                    android:id="@+id/progress_bar_id"
-                                    style="@style/CircularProgressBarStyle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:minWidth="50dp"
-                                    android:minHeight="50dp"
-                                    app:layout_constraintBottom_toTopOf="@+id/textView_charging"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.871" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:visibility="invisible"
-                    android:layout_margin="16dp"
-                    app:layout_anchorGravity="bottom|end"
-                    app:layout_constraintBottom_toBottomOf="@+id/swipp_refresh_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/swipp_refresh_layout"
-                    app:srcCompat="@drawable/ic_pdf" />
+            <ImageView
+                android:id="@+id/imageView_voir_booking"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/all_margin"
+                android:src="@drawable/ic_bk"
+                android:visibility="gone" />
         </LinearLayout>
+
+        <!-- Création des tabulations -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout_suivie_tc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exp_tracking" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imp_tracking" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/road_track" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_suivie_tc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </FrameLayout>

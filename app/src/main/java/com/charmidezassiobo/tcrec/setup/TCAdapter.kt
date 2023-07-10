@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -60,6 +61,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
          var phoneChauffeur : TextView
          var numtcsecond : TextView
          var txtV_import_export : TextView
+         var imgCheck : ImageView
 
          var stepvoyage : Int
          var stepView : HorizontalStepView
@@ -110,6 +112,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             phoneChauffeur = itemView.findViewById(R.id.btnNumChauffeur)
             numtcsecond = itemView.findViewById(R.id.textViewSecondTCNum_item)
             txtV_import_export = itemView.findViewById(R.id.textView_import_export)
+            imgCheck = itemView.findViewById(R.id.imgCheck)
             stepvoyage = 0
             etape = 0
             stepsBeanList= ArrayList()
@@ -140,6 +143,22 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             itemView.setOnClickListener {
                 val position = adapterPosition
                 listener.onItemClick(position)
+                true
+            }
+            itemView.setOnLongClickListener {
+                val position = adapterPosition
+                listener.onLongClickListener(position)
+/*                if (datetc.visibility == View.VISIBLE){
+                    datetc.visibility = View.GONE
+                    txtV_import_export.visibility = View.GONE
+                    imgCheck.visibility = View.VISIBLE
+                    cardV.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
+                } else {
+                    datetc.visibility = View.VISIBLE
+                    txtV_import_export.visibility = View.VISIBLE
+                    imgCheck.visibility = View.GONE
+                    cardV.setBackground(getDrawable(itemView.context,R.drawable.button_push))
+                }*/
                 true
             }
         }

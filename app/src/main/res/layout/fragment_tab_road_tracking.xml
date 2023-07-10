@@ -3,12 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.suivietc.tabfragment.TabRoadTrackingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipp_refresh_layout_road"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- Zone de recherche -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginTop="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                app:cardBackgroundColor="@color/gray"
+                app:cardCornerRadius="@dimen/radius">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView_tc_road"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_search"
+                    app:iconifiedByDefault="false"
+                    app:queryBackground="@android:color/transparent"
+                    app:queryHint="@string/search_hint" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Chargment  And Progrsse Bar -->
+            <LinearLayout
+                android:id="@+id/linearLayout_effectDesChargement_roadTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_charging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/source_sans_pro_light"
+                    android:text="Chargement..."
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_id"
+                    style="@style/CircularProgressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:minWidth="50dp"
+                    android:minHeight="50dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>

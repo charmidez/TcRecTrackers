@@ -8,16 +8,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentTabExportTrackingBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
@@ -27,11 +32,16 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
     private var _binding : FragmentTabExportTrackingBinding? = null
     private val binding get() = _binding!!
 
+    private val selectedItems = HashSet<Tc>()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: RecyclerView.Adapter<TCAdapter.TCViewHolder>
+
     var getDataFromDB = GetDataFromDB()
     var allFun = AllFunctions()
     var itemsTc = mutableListOf<Tc>()
     val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
 
+    lateinit var btnTrashTc : AppCompatImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,14 +54,21 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
         var searchViewTc = binding.searchViewTc
         var recyclerViewTc = binding.recyclerViewSuivieTc
         var chargement = binding.linearLayoutEffectDesChargementSuivieTc
-        var refresh = binding.swippRefreshLayout
+        var refresh = binding.swippRefreshLayoutExport
 
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
 
+        btnTrashTc = binding.btnTrash
+
+        //Reglage RecyclerView
+        recyclerViewTc.setHasFixedSize(true)
+
+        //input in recyclerView and get itemTc
         itemsTc = getDataFromDB.inputItemInRecyclerView(this@TabExportTrackingFragment, chargement, recyclerViewTc)
 
+        //Refreshing page
         refresh.setOnRefreshListener {
             if (isConnected){
                 //Connection Internet
@@ -69,6 +86,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
             }
         }
 
+        //Search in item
         searchViewTc.onFocusChangeListener.apply {
             searchViewTc.setOnQueryTextListener(object  : androidx.appcompat.widget.SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -80,6 +98,12 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
                 }
             })
         }
+
+        //remove item
+        btnTrashTc.setOnClickListener {
+
+        }
+
 
         return root
     }
@@ -127,5 +151,29 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
         navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
 
         Log.d("ItemAppuyer", "$position")
+    }
+
+    override fun onLongClickListener(position: Int) {
+        val item = itemsTc[position]
+        btnTrashTc.visibility = View.VISIBLE
+       //allFun.toggleItemSelection(selectedItems, item)
+        toggleItemSelection(item)
+        adapter.notifyDataSetChanged()
+        true
+    }
+
+    private fun toggleItemSelection(item: Tc) {
+        if (selectedItems.contains(item)) {
+            selectedItems.remove(item)
+        } else {
+            selectedItems.add(item)
+        }
+    }
+
+    private fun deleteSelectedItems(itemList : MutableList<Tc>) {
+        // Supprimer les éléments sélectionnés de votre liste de données
+        // Par exemple, si votre liste de données est une MutableList<Tc> nommée itemList :
+        itemList.removeAll(selectedItems)
+        selectedItems.clear()
     }
 }

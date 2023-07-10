@@ -47,4 +47,6 @@ class SearchWordDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DAT
         }
         return searchWords
     }
+
+    //Function de suppression de tout le contenu de la table
 }

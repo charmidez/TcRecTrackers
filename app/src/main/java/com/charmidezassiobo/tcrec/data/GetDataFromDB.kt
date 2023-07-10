@@ -1,16 +1,21 @@
 package com.charmidezassiobo.tcrec.data
 
 import android.content.ContentValues
+import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.TCAdapter
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -40,7 +45,8 @@ class GetDataFromDB {
                     val type_transact = document.data.get("import_export").toString()
                     val desc_TC = document.data.get("desc_TC").toString()
 
-                    val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                    val heureDeChaqueStepList =
+                        document.get("lesStepDateHour") as? List<HashMap<String, String>>
 
                     if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
                         val heureDeChaqueStep = heureDeChaqueStepList.map {
@@ -57,7 +63,7 @@ class GetDataFromDB {
                                 "${AllFunctions().removeSpaces(numtcsecond_ok)}",
                                 "${AllFunctions().removeSpaces(num_cam_ok)}",
                                 "${AllFunctions().removeSpaces(num_phone_chauffeur_ok)}",
-                                "${AllFunctions().removeSpaces(num_booking_tc )}",
+                                "${AllFunctions().removeSpaces(num_booking_tc)}",
                                 "$plomb_ok",
                                 "$date_ok",
                                 step_tc_ok,
@@ -78,7 +84,7 @@ class GetDataFromDB {
             }
     }
 
-    fun getListBooking() : ArrayList<String>{
+    fun getListBooking(): ArrayList<String> {
         var listOfficielBooking = arrayListOf<String>()
 
         voyTc.get().addOnSuccessListener { documents ->
@@ -88,7 +94,8 @@ class GetDataFromDB {
                     val num_booking_tc = document.data.get("num_Booking").toString()
                     val step_tc_ok = document.getLong("step_TC")?.toInt()
 
-                    val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                    val heureDeChaqueStepList =
+                        document.get("lesStepDateHour") as? List<HashMap<String, String>>
                     if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
                         val heureDeChaqueStep = heureDeChaqueStepList.map {
                             HeureStep(
@@ -109,7 +116,7 @@ class GetDataFromDB {
         return listOfficielBooking
     }
 
-    fun getListBookingWithTitle() : ArrayList<String>{
+    fun getListBookingWithTitle(): ArrayList<String> {
         var listOfficielBooking = arrayListOf<String>()
 
         listOfficielBooking.add("Tous les bookings")
@@ -120,7 +127,8 @@ class GetDataFromDB {
                     val num_booking_tc = document.data.get("num_Booking").toString()
                     val step_tc_ok = document.getLong("step_TC")?.toInt()
 
-                    val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                    val heureDeChaqueStepList =
+                        document.get("lesStepDateHour") as? List<HashMap<String, String>>
                     if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
                         val heureDeChaqueStep = heureDeChaqueStepList.map {
                             HeureStep(
@@ -141,7 +149,7 @@ class GetDataFromDB {
         return listOfficielBooking
     }
 
-    fun getTcAllList() : MutableList<Tc> {
+    fun getTcAllList(): MutableList<Tc> {
         var itemListTc = arrayListOf<Tc>()
         voyTc.get().addOnSuccessListener { documents ->
             for (document in documents) {
@@ -159,7 +167,8 @@ class GetDataFromDB {
                     val type_transact = document.data.get("import_export").toString()
                     val desc_TC = document.data.get("desc_TC").toString()
 
-                    val heureDeChaqueStepList = document.get("lesStepDateHour") as? List<HashMap<String, String>>
+                    val heureDeChaqueStepList =
+                        document.get("lesStepDateHour") as? List<HashMap<String, String>>
 
                     if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
                         val heureDeChaqueStep = heureDeChaqueStepList.map {
@@ -176,7 +185,7 @@ class GetDataFromDB {
                                 "${AllFunctions().removeSpaces(numtcsecond_ok)}",
                                 "${AllFunctions().removeSpaces(num_cam_ok)}",
                                 "${AllFunctions().removeSpaces(num_phone_chauffeur_ok)}",
-                                "${AllFunctions().removeSpaces(num_booking_tc )}",
+                                "${AllFunctions().removeSpaces(num_booking_tc)}",
                                 "$plomb_ok",
                                 "$date_ok",
                                 step_tc_ok,
@@ -196,63 +205,103 @@ class GetDataFromDB {
         return itemListTc
     }
 
-
-    fun inputItemInRecyclerView(listener : RecyclerViewClickItemInterface,  chargement: View, recyclerView_TC: RecyclerView) : MutableList<Tc> {
+    fun inputItemInRecyclerView(
+        listener: RecyclerViewClickItemInterface,
+        chargement: View,
+        recyclerView_TC: RecyclerView
+    ): MutableList<Tc> {
         var itemsTc = mutableListOf<Tc>()
         voyTc.get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    if (document != null) {
-                        val idtc_ok = document.getLong("step_TC")?.toInt()
-                        val numtc_ok = document.data.get("num_TC").toString()
-                        val num_booking_tc = document.data.get("num_Booking").toString()
-                        val num_cam_ok = document.data.get("num_Camion").toString()
-                        val step_tc_ok = document.getLong("step_TC")?.toInt()
-                        val date_ok = document.data.get("Date").toString()
-                        val plomb_ok = document.data.get("num_plomb_TC").toString()
-                        val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
-                        val numtcsecond_ok = document.data.get("num_TC_Second").toString()
-                        val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
-                        val type_transact = document.data.get("import_export").toString()
-                        val desc_TC = document.data.get("desc_TC").toString()
+            for (document in documents) {
+                if (document != null) {
+                    val idtc_ok = document.getLong("step_TC")?.toInt()
+                    val numtc_ok = document.data.get("num_TC").toString()
+                    val num_booking_tc = document.data.get("num_Booking").toString()
+                    val num_cam_ok = document.data.get("num_Camion").toString()
+                    val step_tc_ok = document.getLong("step_TC")?.toInt()
+                    val date_ok = document.data.get("Date").toString()
+                    val plomb_ok = document.data.get("num_plomb_TC").toString()
+                    val num_phone_chauffeur_ok = document.data.get("phone_chauffeur_TC").toString()
+                    val numtcsecond_ok = document.data.get("num_TC_Second").toString()
+                    val numplombsecond_ok = document.data.get("num_plomb_TC_2").toString()
+                    val type_transact = document.data.get("import_export").toString()
+                    val desc_TC = document.data.get("desc_TC").toString()
 
-                        val heureDeChaqueStepList = document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
+                    val heureDeChaqueStepList =
+                        document.get("lesStepDateHour") as? MutableList<HashMap<String, String>>
 
-                        if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
-                            val heureDeChaqueStep = heureDeChaqueStepList.map {
-                                HeureStep(
-                                    it["stepDateChiffre"] ?: "",
-                                    it["stepDateLettre"] ?: "",
-                                    it["stepHeure"] ?: ""
-                                )
-                            }
-
-                            itemsTc.add(
-                                Tc(
-                                    "${AllFunctions().removeSpaces(numtc_ok)}",
-                                    "${AllFunctions().removeSpaces(numtcsecond_ok)}",
-                                    "${AllFunctions().removeSpaces(num_cam_ok)}",
-                                    "${AllFunctions().removeSpaces(num_phone_chauffeur_ok)}",
-                                    "${AllFunctions().removeSpaces(num_booking_tc )}",
-                                    "$plomb_ok",
-                                    "$date_ok",
-                                    step_tc_ok,
-                                    "$numplombsecond_ok",
-                                    "$type_transact",
-                                    "${AllFunctions().removeSpaces(desc_TC)}",
-                                    heureDeChaqueStep.toMutableList()
-                                )
+                    if (idtc_ok != null && step_tc_ok != null && heureDeChaqueStepList != null) {
+                        val heureDeChaqueStep = heureDeChaqueStepList.map {
+                            HeureStep(
+                                it["stepDateChiffre"] ?: "",
+                                it["stepDateLettre"] ?: "",
+                                it["stepHeure"] ?: ""
                             )
-                            recyclerView_TC.adapter = TCAdapter(itemsTc, listener )
-                            chargement.visibility = View.GONE
-                            itemsTc.sortWith(compareBy({ it.step_TC }))
                         }
+
+                        itemsTc.add(
+                            Tc(
+                                "${AllFunctions().removeSpaces(numtc_ok)}",
+                                "${AllFunctions().removeSpaces(numtcsecond_ok)}",
+                                "${AllFunctions().removeSpaces(num_cam_ok)}",
+                                "${AllFunctions().removeSpaces(num_phone_chauffeur_ok)}",
+                                "${AllFunctions().removeSpaces(num_booking_tc)}",
+                                "$plomb_ok",
+                                "$date_ok",
+                                step_tc_ok,
+                                "$numplombsecond_ok",
+                                "$type_transact",
+                                "${AllFunctions().removeSpaces(desc_TC)}",
+                                heureDeChaqueStep.toMutableList()
+                            )
+                        )
+                        recyclerView_TC.adapter = TCAdapter(itemsTc, listener)
+                        chargement.visibility = View.GONE
+                        itemsTc.sortWith(compareBy({ it.step_TC }))
                     }
                 }
             }
+        }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
         return itemsTc
+    }
+
+    fun removedItemInRecyclerView(
+        context: Context,
+        v: RecyclerView.ViewHolder,
+        recyclerView_TC: RecyclerView
+    ) {
+        // Suppression de l'élément de la RecyclerView
+        val itemsTc = mutableListOf<Tc>()
+        val position = v.adapterPosition
+        val tc = itemsTc[position]
+        itemsTc.removeAt(position)
+        recyclerView_TC.adapter!!.notifyItemRemoved(position)
+
+        // Suppression de l'élément de Firebase Firestore
+        val db = FirebaseFirestore.getInstance()
+        val query = db.collection(dataBasePath)
+            .whereEqualTo("num_TC", tc.num_TC)
+            .whereEqualTo("num_Camion", tc.num_Camion)
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val docRef = db.collection(dataBasePath).document(document.id)
+                docRef.delete().addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!")
+                    // Affichage du message de confirmation
+                    val snack = Snackbar.make(recyclerView_TC, "TC Supprimé", Snackbar.LENGTH_LONG)
+                    snack.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    snack.setBackgroundTint(ContextCompat.getColor(context, R.color.gray2))
+                    snack.show()
+                }.addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error deleting document", e)
+                }
+            }
+        }.addOnFailureListener { e ->
+            Log.w(ContentValues.TAG, "Error getting documents", e)
+        }
     }
 
 }
