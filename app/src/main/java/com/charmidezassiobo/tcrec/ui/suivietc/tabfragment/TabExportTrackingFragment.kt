@@ -158,8 +158,8 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
         btnTrashTc.visibility = View.VISIBLE
        //allFun.toggleItemSelection(selectedItems, item)
         toggleItemSelection(item)
-        adapter.notifyDataSetChanged()
-        true
+        //adapter.notifyDataSetChanged()
+        //true
     }
 
     private fun toggleItemSelection(item: Tc) {
