@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.data.SeaExportDataClass
 
-class TCResultAdapter(var context : Context, var items : List<Tc>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
+class TCResultAdapter(var context : Context, var items : List<SeaExportDataClass>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
 
 
 
@@ -74,15 +74,15 @@ class TCResultAdapter(var context : Context, var items : List<Tc>) : RecyclerVie
 
         val tc = items[position]
 
-        holder.numBooking.text = tc.num_booking
+        holder.numBooking.text = tc.numBooking
 
-        holder.numTc.text = tc.num_TC
-        holder.numPlomb.text = tc.num_plomb
+        holder.numTc.text = tc.numTc1
+        holder.numPlomb.text = tc.numPlomb1
 
-        holder.numTc2.text = tc.num_TCSecond
-        holder.numPlomb2.text = tc.num_plomb_second
+        holder.numTc2.text = tc.numTc2
+        holder.numPlomb2.text = tc.numPlomb2
 
-        holder.typetransact = tc.type_transat
+        holder.typetransact = tc.typeTransact
 
 
         if (holder.numTc2.text.isNullOrEmpty()){
@@ -96,33 +96,33 @@ class TCResultAdapter(var context : Context, var items : List<Tc>) : RecyclerVie
             holder.numPlomb2.visibility = View.GONE
         }
 
-        when(tc.step_TC){
+        when(tc.stepTc){
             0 -> {
-                holder.txtViewStepExact.text = "Conteneur au port  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur au port  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
             1 -> {
-                holder.txtViewStepExact.text = "Conteneur à l'usine  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur à l'usine  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
             2 -> {
-                holder.txtViewStepExact.text = "Conteneur en chargement  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur en chargement  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
             3 -> {
-                holder.txtViewStepExact.text = "Conteneur à la douane  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur à la douane  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
             4 -> {
-                holder.txtViewStepExact.text = "Conteneur sortie de l'entrepot  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur sortie de l'entrepot  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
             5 -> {
-                holder.txtViewStepExact.text = "Conteneur plein arrivé au port  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur plein arrivé au port  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
             6 -> {
-                holder.txtViewStepExact.text = "Transaction terminé  : ${tc.lesStepDateHour[tc.step_TC].stepDateLettre} à ${tc.lesStepDateHour[tc.step_TC].stepHeure}"
+                holder.txtViewStepExact.text = "Transaction terminé  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
             }
         }
 
-        holder.theAllFunction.stepChange(tc.step_TC, holder.typetransact,holder.bayoStepView, context)
+        holder.theAllFunction.stepChange(tc.stepTc, holder.typetransact,holder.bayoStepView, context)
 
-        holder.dateCreationTc.text = "${tc.lesStepDateHour[tc.step_TC].stepDateLettre}"
+        holder.dateCreationTc.text = "${tc.dateHourStep[tc.stepTc].stepDateLettre}"
 
     }
 }

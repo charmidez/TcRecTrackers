@@ -1,18 +1,20 @@
 package com.charmidezassiobo.tcrec.data
 
-import java.io.Serializable
-
-data class Tc(
-    var num_TC : String,
-    var num_TCSecond : String,
-    var num_Camion : String,
-    var num_tel_chauffeur : String,
-    var num_booking : String,
-    var num_plomb : String,
-    var date_tc : String,
-    var step_TC : Int,
-    var num_plomb_second : String,
-    var type_transat : String,
-    var desc_TC : String,
-    var lesStepDateHour :  MutableList<HeureStep>
+data class SeaExportDataClass(
+    var numTc1 : String,
+    var numTc2 : String,
+    var numCamion : String,
+    var numChauffeur : String,
+    var numBooking : String,
+    var numPlomb1 : String,
+    var dateAjoutTc : String,
+    var stepTc : Int,
+    var numPlomb2 : String,
+    var typeTransact : String,
+    var descTc : String,
+    var dateHourStep :  MutableList<HeureStep>
     )
+
+data class SeaImport(
+    var mawb : String
+)

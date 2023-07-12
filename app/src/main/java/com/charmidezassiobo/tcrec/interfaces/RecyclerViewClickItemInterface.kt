@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.interfaces
 
 import androidx.navigation.NavController
 

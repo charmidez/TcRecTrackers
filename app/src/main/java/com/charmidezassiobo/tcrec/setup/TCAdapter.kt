@@ -25,12 +25,13 @@ import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.HeureStep
-import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 
-class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
+class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
 
     val dataBasePath = AllVariables().dbPath
 
@@ -46,7 +47,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
         val tc = items[position]
 
         holder.bindTC(tc)
-        holder.import_export_text(tc.type_transat)
+        holder.import_export_text(tc.typeTransact)
         holder.step_change(tc)
         holder.clickSuivant(tc)
         holder.callButton()
@@ -163,14 +164,14 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             }
         }
 
-        fun bindTC(tc : Tc){
-            numtc.text = tc.num_TC
-            numcamion.text = tc.num_Camion
-            datetc.text = tc.date_tc
-            etape = tc.step_TC
-            phoneChauffeur.text = tc.num_tel_chauffeur
-            numtcsecond.text = tc.num_TCSecond
-            tableauSateHeureStep = tc.lesStepDateHour
+        fun bindTC(tc : SeaExportDataClass){
+            numtc.text = tc.numTc1
+            numcamion.text = tc.numCamion
+            datetc.text = tc.dateAjoutTc
+            etape = tc.stepTc
+            phoneChauffeur.text = tc.numChauffeur
+            numtcsecond.text = tc.numTc2
+            tableauSateHeureStep = tc.dateHourStep
 
             if(phoneChauffeur.text == "null" || phoneChauffeur == null || phoneChauffeur.text == ""){
                 phoneChauffeur.text = "Indisponible"
@@ -182,11 +183,11 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             }
         }
 
-        fun clickSuivant(tc : Tc){
+        fun clickSuivant(tc : SeaExportDataClass){
 
             if (isConnected) {
                 // Connexion Internet disponible
-                when(tc.type_transat){
+                when(tc.typeTransact){
                     "Import" -> {
                         var iddoc  =""
                         btnSuivant.setOnClickListener{
@@ -195,8 +196,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
                                 val query = db.collection(dataBasePath)
-                                    .whereEqualTo("num_TC", tc.num_TC)
-                                    .whereEqualTo("num_Camion", tc.num_Camion)
+                                    .whereEqualTo("num_TC", tc.numTc1)
+                                    .whereEqualTo("num_Camion", tc.numCamion)
                                 query.get().addOnSuccessListener { documents ->
                                     for (document in documents) {
                                         var docId = document.id
@@ -217,8 +218,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                                 step_change(tc)
                                 val db = FirebaseFirestore.getInstance()
                                 val query = db.collection(dataBasePath)
-                                    .whereEqualTo("num_TC", tc.num_TC)
-                                    .whereEqualTo("num_Camion", tc.num_Camion)
+                                    .whereEqualTo("num_TC", tc.numTc1)
+                                    .whereEqualTo("num_Camion", tc.numCamion)
                                 query.get().addOnSuccessListener { documents ->
                                     for (document in documents) {
                                         var docId = document.id
@@ -297,8 +298,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
 
         }
 
-        fun step_change(tc : Tc){
-            when(tc.type_transat){
+        fun step_change(tc : SeaExportDataClass){
+            when(tc.typeTransact){
                 "Import" -> {
                     when(etape){
                         0 -> {
@@ -307,7 +308,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean1_import = StepBean("Dédouanement", -1)
                             stepBean2_import = StepBean("Sortie", -1)
                             stepBean3_import = StepBean("Destination Finale", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                         }
                         1 -> {
                             stepsBeanList= ArrayList()
@@ -315,7 +316,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean1_import = StepBean("Dédouanement", 0)
                             stepBean2_import = StepBean("Sortie", -1)
                             stepBean3_import = StepBean("Destination Finale", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                         }
                         2 -> {
                             stepsBeanList= ArrayList()
@@ -323,7 +324,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean1_import = StepBean("Dédouanement", 1)
                             stepBean2_import = StepBean("Sortie", 0)
                             stepBean3_import = StepBean("Destination Finale", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                         }
                         3 -> {
                             stepsBeanList= ArrayList()
@@ -331,7 +332,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean1_import = StepBean("Dédouanement", 1)
                             stepBean2_import = StepBean("Sortie", 1)
                             stepBean3_import = StepBean("Destination Finale", 0)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                         }
                         4 -> {
                             stepsBeanList= ArrayList()
@@ -339,7 +340,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean1_import = StepBean("Dédouanement", 1)
                             stepBean2_import = StepBean("Sortie", 1)
                             stepBean3_import = StepBean("Destination Finale", 1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                             btnSuivant.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
                             numcamion.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
                             numtc.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
@@ -363,7 +364,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", -1)
                             stepBean4_export = StepBean("Sortie", -1)
                             stepBean5_export = StepBean("Arrivée Port", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                         }
                         1 -> {
                             stepsBeanList= ArrayList()
@@ -373,7 +374,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", -1)
                             stepBean4_export = StepBean("Sortie", -1)
                             stepBean5_export = StepBean("Arrivée Port", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
 
                         }
                         2 -> {
@@ -384,7 +385,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", -1)
                             stepBean4_export = StepBean("Sortie", -1)
                             stepBean5_export = StepBean("Arrivée Port", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
 
                         }
                         3 -> {
@@ -395,9 +396,9 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", 0)
                             stepBean4_export = StepBean("Sortie", -1)
                             stepBean5_export = StepBean("Arrivée Port", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
 
-                            if (tc.num_TCSecond == "null" || tc.num_TCSecond == null || tc.num_TCSecond == "" ){
+                            if (tc.numTc2 == "null" || tc.numTc2 == null || tc.numTc2 == "" ){
                                 popUpPlomb(tc)
                             } else {
                                 popUpPlomb_second(tc)
@@ -412,7 +413,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", 1)
                             stepBean4_export = StepBean("Sortie", 0)
                             stepBean5_export = StepBean("Arrivée Port", -1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
 
                         }
                         5 -> {
@@ -423,7 +424,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", 1)
                             stepBean4_export = StepBean("Sortie", 1)
                             stepBean5_export = StepBean("Arrivée Port", 0)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                         }
                         6 -> {
                             stepsBeanList= ArrayList()
@@ -433,7 +434,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                             stepBean3_export = StepBean("Douane", 1)
                             stepBean4_export = StepBean("Sortie", 1)
                             stepBean5_export = StepBean("Arrivée Port", 1)
-                            setupStepView(tc.type_transat)
+                            setupStepView(tc.typeTransact)
                             btnSuivant.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
                             btnSuivant.setText(R.string.fin_voyage)
                             btnSuivant.isEnabled = false
@@ -444,7 +445,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             }
         }
 
-        private fun popUpPlomb(tc : Tc){
+        private fun popUpPlomb(tc : SeaExportDataClass){
             val v = View.inflate(itemView.context,R.layout.popup_num_bind, null)
             val  builder = AlertDialog.Builder(itemView.context)
             builder.setView(v)
@@ -454,7 +455,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
             val txtView_popup = v.findViewById<TextView>(R.id.txtView_pop_up)
 
-            txtView_popup.text = "Veuiller renseigner le numéro Plomb du TC : ${tc.num_TC} "
+            txtView_popup.text = "Veuiller renseigner le numéro Plomb du TC : ${tc.numTc1} "
 
             var iddoc  =""
             btnRecupBind.setOnClickListener {
@@ -463,8 +464,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 numPlomb_string = numbind_tc.toString()
                 val db = FirebaseFirestore.getInstance()
                 val query = db.collection(dataBasePath)
-                    .whereEqualTo("num_TC", tc.num_TC)
-                    .whereEqualTo("num_Camion", tc.num_Camion)
+                    .whereEqualTo("num_TC", tc.numTc1)
+                    .whereEqualTo("num_Camion", tc.numCamion)
                 query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var docId = document.id
@@ -487,7 +488,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         }
 
-        private fun popUpPlomb_second(tc : Tc){
+        private fun popUpPlomb_second(tc : SeaExportDataClass){
             val v = View.inflate(itemView.context,R.layout.popup_num_bind_second, null)
             val  builder = AlertDialog.Builder(itemView.context)
             builder.setView(v)
@@ -502,7 +503,7 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
             val txtView_popup = v.findViewById<TextView>(R.id.txtView_pop_up)
             val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
 
-            txtView_popup.text = "Veuiller renseigner le numéro Plomb du TC1 : ${tc.num_TC} et TC2 : ${tc.num_TCSecond}  "
+            txtView_popup.text = "Veuiller renseigner le numéro Plomb du TC1 : ${tc.numTc1} et TC2 : ${tc.numTc2}  "
 
             var iddoc  =""
             btnRecupBind.setOnClickListener {
@@ -512,8 +513,8 @@ class TCAdapter(var items : List<Tc>, val listener : RecyclerViewClickItemInterf
                 numPlomb_second_string = numbind_tc_second.toString()
                 val db = FirebaseFirestore.getInstance()
                 val query = db.collection(dataBasePath)
-                    .whereEqualTo("num_TC", tc.num_TC)
-                    .whereEqualTo("num_Camion", tc.num_Camion)
+                    .whereEqualTo("num_TC", tc.numTc1)
+                    .whereEqualTo("num_Camion", tc.numCamion)
                 query.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         var docId = document.id

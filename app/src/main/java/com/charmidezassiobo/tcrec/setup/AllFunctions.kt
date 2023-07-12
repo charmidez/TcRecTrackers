@@ -2,11 +2,9 @@ package com.charmidezassiobo.tcrec.setup
 
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Adapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -16,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.itextpdf.text.Document
@@ -158,40 +157,44 @@ class AllFunctions {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun miseEnPlaceHeure(): String {
-        var hh = LocalTime.now().hour.toString()
-        var mm = LocalTime.now().minute.toString()
+        var hh = LocalTime.now().hour
+        var mm = LocalTime.now().minute
 
         when (hh) {
-            "0" -> "00"
-            "1" -> "01"
-            "2" -> "02"
-            "3" -> "03"
-            "4" -> "04"
-            "5" -> "05"
-            "6" -> "06"
-            "7" -> "07"
-            "8" -> "08"
-            "9" -> "09"
+            0 -> "00"
+            1 -> "01"
+            2 -> "02"
+            3 -> "03"
+            4 -> "04"
+            5 -> "05"
+            6 -> "06"
+            7 -> "07"
+            8 -> "08"
+            9 -> "09"
         }
 
         when (mm) {
-            "0" -> "00"
-            "1" -> "01"
-            "2" -> "02"
-            "3" -> "03"
-            "4" -> "04"
-            "5" -> "05"
-            "6" -> "06"
-            "7" -> "07"
-            "8" -> "08"
-            "9" -> "09"
+            0 -> "00"
+            1 -> "01"
+            2 -> "02"
+            3 -> "03"
+            4 -> "04"
+            5 -> "05"
+            6 -> "06"
+            7 -> "07"
+            8 -> "08"
+            9 -> "09"
         }
 
         var localRealHeure = "$hh:$mm"
         return localRealHeure
     }
 
-    fun setupStepView(typetransact: String, bayoStepView: HorizontalStepView, mContext: Context) {
+    fun setupStepView(
+        mContext: Context,
+        typetransact: String,
+        bayoStepView: HorizontalStepView
+        ) {
 
         var txtSizeStep = 9
 
@@ -325,7 +328,7 @@ class AllFunctions {
                         stepBean1_import = StepBean("Dédouanement", -1)
                         stepBean2_import = StepBean("Sortie", -1)
                         stepBean3_import = StepBean("Destination Finale", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
 
                     1 -> {
@@ -334,7 +337,7 @@ class AllFunctions {
                         stepBean1_import = StepBean("Dédouanement", 0)
                         stepBean2_import = StepBean("Sortie", -1)
                         stepBean3_import = StepBean("Destination Finale", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
 
                     2 -> {
@@ -343,7 +346,7 @@ class AllFunctions {
                         stepBean1_import = StepBean("Dédouanement", 1)
                         stepBean2_import = StepBean("Sortie", 0)
                         stepBean3_import = StepBean("Destination Finale", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
 
                     3 -> {
@@ -352,7 +355,7 @@ class AllFunctions {
                         stepBean1_import = StepBean("Dédouanement", 1)
                         stepBean2_import = StepBean("Sortie", 1)
                         stepBean3_import = StepBean("Destination Finale", 0)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
 
                     4 -> {
@@ -361,7 +364,7 @@ class AllFunctions {
                         stepBean1_import = StepBean("Dédouanement", 1)
                         stepBean2_import = StepBean("Sortie", 1)
                         stepBean3_import = StepBean("Destination Finale", 1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
                 }
             }
@@ -376,7 +379,7 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", -1)
                         stepBean4_export = StepBean("Sortie", -1)
                         stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
 
                     1 -> {
@@ -387,7 +390,7 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", -1)
                         stepBean4_export = StepBean("Sortie", -1)
                         stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
 
                     }
 
@@ -399,7 +402,7 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", -1)
                         stepBean4_export = StepBean("Sortie", -1)
                         stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
 
                     }
 
@@ -411,7 +414,7 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", 0)
                         stepBean4_export = StepBean("Sortie", -1)
                         stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
 
                     }
 
@@ -423,7 +426,7 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", 1)
                         stepBean4_export = StepBean("Sortie", 0)
                         stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
 
                     }
 
@@ -435,7 +438,7 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", 1)
                         stepBean4_export = StepBean("Sortie", 1)
                         stepBean5_export = StepBean("Arrivée Port", 0)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
 
                     6 -> {
@@ -446,25 +449,25 @@ class AllFunctions {
                         stepBean3_export = StepBean("Douane", 1)
                         stepBean4_export = StepBean("Sortie", 1)
                         stepBean5_export = StepBean("Arrivée Port", 1)
-                        setupStepView(typetransact, bayoStepView, mContext)
+                        setupStepView(mContext, typetransact, bayoStepView )
                     }
                 }
             }
         }
     }
 
-    fun filterResult(query: String?, itemList: MutableList<Tc>): MutableList<Tc> {
-        val filteredList = ArrayList<Tc>()
+    fun filterResult(query: String?, itemList: MutableList<SeaExportDataClass>): MutableList<SeaExportDataClass> {
+        val filteredList = ArrayList<SeaExportDataClass>()
         if (query != null) {
             val queryUpperCase = query.uppercase(Locale.ROOT)
             for (item in itemList) {
-                if (removeSpaces(item.num_booking) == queryUpperCase) {
+                if (removeSpaces(item.numBooking) == queryUpperCase) {
                     filteredList.add(item)
                 }
-                if (removeSpaces(item.num_TC) == queryUpperCase) {
+                if (removeSpaces(item.numTc1) == queryUpperCase) {
                     filteredList.add(item)
                 }
-                if (removeSpaces(item.num_TCSecond) == queryUpperCase) {
+                if (removeSpaces(item.numTc2) == queryUpperCase) {
                     filteredList.add(item)
                 }
             }
@@ -523,31 +526,31 @@ class AllFunctions {
     fun filterListWithRecycler(
         listener: RecyclerViewClickItemInterface,
         query: String,
-        items_tc: MutableList<Tc>,
+        items_tc: MutableList<SeaExportDataClass>,
         recyclerView_TC: RecyclerView
     ) {
 
         if (query != null) {
-            val filteredList = ArrayList<Tc>()
+            val filteredList = ArrayList<SeaExportDataClass>()
             for (i in items_tc) {
 
-                if (i.num_TC.lowercase(Locale.ROOT)
-                        .contains(query) || i.num_TC.uppercase(Locale.ROOT).contains(query)
+                if (i.numTc1.lowercase(Locale.ROOT)
+                        .contains(query) || i.numTc1.uppercase(Locale.ROOT).contains(query)
                 ) {
                     filteredList.add(i)
                 }
-                if (i.num_TCSecond.lowercase(Locale.ROOT)
-                        .contains(query) || i.num_TCSecond.uppercase(Locale.ROOT).contains(query)
+                if (i.numTc2.lowercase(Locale.ROOT)
+                        .contains(query) || i.numTc2.uppercase(Locale.ROOT).contains(query)
                 ) {
                     filteredList.add(i)
                 }
-                if (i.num_Camion.lowercase(Locale.ROOT).contains(query) || i.num_Camion.uppercase(
+                if (i.numCamion.lowercase(Locale.ROOT).contains(query) || i.numCamion.uppercase(
                         Locale.ROOT
                     ).contains(query)
                 ) {
                     filteredList.add(i)
                 }
-                if (i.num_booking.lowercase(Locale.ROOT).contains(query) || i.num_booking.uppercase(
+                if (i.numBooking.lowercase(Locale.ROOT).contains(query) || i.numBooking.uppercase(
                         Locale.ROOT
                     ).contains(query)
                 ) {
@@ -619,9 +622,8 @@ class AllFunctions {
 
 
     fun toggleItemSelection(
-        selectedItems: HashSet<Tc>,
-        item: Tc,
-        //recyclerView: RecyclerView,
+        selectedItems: HashSet<SeaExportDataClass>,
+        item: SeaExportDataClass
     ) {
         if (selectedItems.contains(item)) {
             selectedItems.remove(item)

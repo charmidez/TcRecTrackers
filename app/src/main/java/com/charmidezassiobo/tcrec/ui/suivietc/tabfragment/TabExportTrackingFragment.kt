@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.appcompat.widget.AppCompatImageButton
@@ -18,27 +16,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
-import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.data.SeaExportDataClass
 import com.charmidezassiobo.tcrec.databinding.FragmentTabExportTrackingBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
 
-class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, RecyclerViewClickItemInterface {
+class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
+    RecyclerViewClickItemInterface {
 
     private var _binding : FragmentTabExportTrackingBinding? = null
     private val binding get() = _binding!!
 
-    private val selectedItems = HashSet<Tc>()
+    private val selectedItems = HashSet<SeaExportDataClass>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecyclerView.Adapter<TCAdapter.TCViewHolder>
 
     var getDataFromDB = GetDataFromDB()
     var allFun = AllFunctions()
-    var itemsTc = mutableListOf<Tc>()
+    var itemsTc = mutableListOf<SeaExportDataClass>()
     val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
 
     lateinit var btnTrashTc : AppCompatImageButton
@@ -114,18 +113,18 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
 
     override fun onItemClick(position: Int) {
 
-        val inputTypeTransact = itemsTc[position].type_transat
-        val inputPositionVoyages = itemsTc[position].step_TC
-        val inputDate = itemsTc[position].date_tc
-        val inputBooking = itemsTc[position].num_booking
-        val inputCamion = itemsTc[position].num_Camion
-        val inputTc = itemsTc[position].num_TC
-        val inputTcSecond = itemsTc[position].num_TCSecond
-        val inputPlomb = itemsTc[position].num_plomb
-        val inputPlombSecond = itemsTc[position].num_plomb_second
-        val inputTelChauffeur = itemsTc[position].num_tel_chauffeur
-        val inputStepDate = itemsTc[position].lesStepDateHour
-        val inputDesc = itemsTc[position].desc_TC
+        val inputTypeTransact = itemsTc[position].typeTransact
+        val inputPositionVoyages = itemsTc[position].stepTc
+        val inputDate = itemsTc[position].dateAjoutTc
+        val inputBooking = itemsTc[position].numBooking
+        val inputCamion = itemsTc[position].numCamion
+        val inputTc = itemsTc[position].numTc1
+        val inputTcSecond = itemsTc[position].numTc2
+        val inputPlomb = itemsTc[position].numPlomb1
+        val inputPlombSecond = itemsTc[position].numPlomb2
+        val inputTelChauffeur = itemsTc[position].numChauffeur
+        val inputStepDate = itemsTc[position].dateHourStep
+        val inputDesc = itemsTc[position].descTc
 
         Log.d("inputCamion", inputCamion)
 
@@ -162,7 +161,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
         //true
     }
 
-    private fun toggleItemSelection(item: Tc) {
+    private fun toggleItemSelection(item: SeaExportDataClass) {
         if (selectedItems.contains(item)) {
             selectedItems.remove(item)
         } else {
@@ -170,7 +169,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner, Recy
         }
     }
 
-    private fun deleteSelectedItems(itemList : MutableList<Tc>) {
+    private fun deleteSelectedItems(itemList : MutableList<SeaExportDataClass>) {
         // Supprimer les éléments sélectionnés de votre liste de données
         // Par exemple, si votre liste de données est une MutableList<Tc> nommée itemList :
         itemList.removeAll(selectedItems)

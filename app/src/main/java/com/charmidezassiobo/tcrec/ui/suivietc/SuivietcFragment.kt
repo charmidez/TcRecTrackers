@@ -1,55 +1,24 @@
 package com.charmidezassiobo.tcrec.ui.suivietc
 
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.HeureStep
-import com.charmidezassiobo.tcrec.setup.TCAdapter
-import com.charmidezassiobo.tcrec.data.Tc
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.AllVariables
-import com.charmidezassiobo.tcrec.setup.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.TabAdapter
 import com.charmidezassiobo.tcrec.ui.BaseActivity
-import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.itextpdf.text.Document
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
-import java.io.FileOutputStream
-import java.io.Serializable
-import java.util.Locale
 
-class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner/*, RecyclerViewClickItemInterface*/ {
+class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner{
 
     override fun getOnBackPressedDispatcher(): OnBackPressedDispatcher {
         return requireActivity().onBackPressedDispatcher

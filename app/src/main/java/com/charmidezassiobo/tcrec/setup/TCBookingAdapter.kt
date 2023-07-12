@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.data.SeaExportDataClass
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcBookingSousFragment
 
-class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<Tc> )
+class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<SeaExportDataClass> )
     : RecyclerView.Adapter<TCBookingAdapter.TCBookingViewHolder>(){
 
     class TCBookingViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {
@@ -38,11 +38,11 @@ class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List
     override fun onBindViewHolder(holder: TCBookingViewHolder, position: Int) {
         val tc = items[position]
 
-        holder.txtView_tc1.text = tc.num_TC
-        holder.txtView_plomb1.text = tc.num_plomb
+        holder.txtView_tc1.text = tc.numTc1
+        holder.txtView_plomb1.text = tc.numPlomb1
 
-        holder.txtView_tc2.text = tc.num_TCSecond
-        holder.txtView_plomb2.text = tc.num_plomb_second
+        holder.txtView_tc2.text = tc.numTc2
+        holder.txtView_plomb2.text = tc.numPlomb2
 
         if (holder.txtView_plomb2.text.isNullOrEmpty()){
             holder.txtView_plomb2.visibility = View.INVISIBLE

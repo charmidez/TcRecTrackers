@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.data.HeureStep
-import com.charmidezassiobo.tcrec.data.Tc
+import com.charmidezassiobo.tcrec.data.SeaExportDataClass
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.TCAdapter
@@ -42,7 +42,7 @@ class SuivietcBookingSousFragment : Fragment() {
     val allFun : AllFunctions = AllFunctions()
     var getData : GetDataFromDB = GetDataFromDB()
 
-    var itemsTc : MutableList<Tc>  = getData.getTcAllList()
+    var itemsTc : MutableList<SeaExportDataClass>  = getData.getTcAllList()
     var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getListBookingWithTitle())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -71,7 +71,7 @@ class SuivietcBookingSousFragment : Fragment() {
 
             spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
                 var selectedItem : String? = null
-                var filteredTcList = mutableListOf<Tc>()
+                var filteredTcList = mutableListOf<SeaExportDataClass>()
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedItem = itemBookingList[position]
                     if (selectedItem == "Tous les bookings"){
