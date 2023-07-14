@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val WRITE_EXTERNAL_STORAGE_PERMISSION_CODE = 1
     private val CALL_PHONE_PERMISSION_CODE = 1
 
-    private val repo = GetDataFromDB()
+    private val getData = GetDataFromDB()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 navView.visibility = View.GONE
             }
         }
-        repo.updateTc {
+        getData.seaCallBack {
             navView.setupWithNavController(navController)
         }
 

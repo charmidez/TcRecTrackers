@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.ajoutertc.AjoutertcFragment"
     android:id="@+id/frameLayout_ajout_tc"
-     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ajoutertc.AjoutertcFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/all_padding"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/all_padding">
 
             <!-- TITRE -->
             <TextView
@@ -32,104 +31,264 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-            <!-- IMPORT / EXPORT / ROAD -->
+            <!-- SEA / AIR / ROAD -->
             <RadioGroup
-                android:id="@+id/radioGroup_ok"
+                android:id="@+id/radioGroupSeaAirRoad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/all_margin"
                 android:orientation="horizontal">
+
                 <RadioButton
-                    android:id="@+id/radioButton_Import_ajout"
+                    android:id="@+id/radioButton_sea_ajout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingRight="@dimen/all_padding"
-                    android:text="@string/importer"
                     android:background="@drawable/btn_bleu_drawable_call"
                     android:buttonTint="@color/white"
+                    android:drawableRight="@drawable/ic_sea_transport"
+                    android:paddingRight="@dimen/all_padding"
+                    android:text="@string/sea"
                     android:textColor="@color/white" />
+
                 <RadioButton
-                    android:id="@+id/radioButton_export_ajout"
+                    android:id="@+id/radioButton_air_ajout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingRight="@dimen/all_padding"
-                    android:layout_marginRight="@dimen/padd"
                     android:layout_marginLeft="@dimen/padd"
-                    android:text="@string/exporter"
-                    android:textColor="@color/white"
+                    android:layout_marginRight="@dimen/padd"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_drawable_call"
                     android:buttonTint="@color/white"
-                    android:background="@drawable/btn_drawable_call" />
+                    android:drawableRight="@drawable/ic_air_transport"
+                    android:paddingRight="@dimen/all_padding"
+                    android:text="@string/air"
+                    android:textColor="@color/white" />
+
                 <RadioButton
                     android:id="@+id/radioButton_road_ajout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/all_padding"
-                    android:text="@string/road_track"
-                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_blue_corner_view"
                     android:buttonTint="@color/white"
-                    android:background="@drawable/rounded_blue_corner_view" />
+                    android:drawableRight="@drawable/ic_road_transport"
+                    android:paddingRight="@dimen/all_padding"
+                    android:text="@string/road"
+                    android:textColor="@color/white" />
             </RadioGroup>
 
-            <!-- Group EXPORT Tracking  + Export Linear Layout -->
+            <!-- Group AIR Tracking  + Air Linear Layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/all_margin"
                 android:orientation="vertical">
-                <!-- Sea / Air radio button -->
+                <!-- AIR Import / Export radio button -->
                 <RadioGroup
-                    android:id="@+id/radioGroup_export_air_sea_tracking_ajout"
+                    android:id="@+id/radioGroup_air_ajout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/radioButton_sea_exp_ajout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingRight="@dimen/all_padding"
-                        android:layout_marginRight="@dimen/all_margin"
-                        android:text="@string/sea_exp"
-                        android:background="@drawable/btn_drawable_call"
-                        android:buttonTint="@color/white"
-                        android:textColor="@color/white" />
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
                     <RadioButton
                         android:id="@+id/radioButton_air_exp_ajout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/all_margin"
                         android:layout_weight="1"
+                        android:background="@drawable/btn_drawable_call"
+                        android:buttonTint="@color/white"
                         android:paddingRight="@dimen/all_padding"
                         android:text="@string/air_exp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_air_import_ajout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_call_not_selected"
                         android:buttonTint="@color/white"
-                        android:background="@drawable/btn_call_not_selected" />
+                        android:paddingRight="@dimen/all_padding"
+                        android:text="@string/air_imp"
+                        android:textColor="@color/white" />
+                </RadioGroup>
+                <!-- AIR Import  EditTextView-->
+                <LinearLayout
+                    android:id="@+id/linearLayout_air_import_editView_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <!-- Mawb -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:layout_weight="1"
+                        android:hint="@string/num_mawb"
+                        app:boxBackgroundColor="@color/gray"
+                        app:boxStrokeColor="@color/gray"
+                        app:hintTextColor="@color/grisabsolut"
+                        app:startIconDrawable="@drawable/ic_bk"
+                        tools:ignore="MissingConstraints">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInput_AirImp_MawbNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true"
+                            android:textColor="@color/textColor" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <!-- Hawb -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:layout_weight="1"
+                        android:hint="@string/num_hawb"
+                        app:boxBackgroundColor="@color/gray"
+                        app:boxStrokeColor="@color/gray"
+                        app:hintTextColor="@color/grisabsolut"
+                        app:startIconDrawable="@drawable/ic_bk"
+                        tools:ignore="MissingConstraints">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInput_AirImp_HawbNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true"
+                            android:textColor="@color/textColor" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <!-- AIR Export  EditTextView-->
+                <LinearLayout
+                    android:id="@+id/linearLayout_air_export_editView_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <!-- Mawb -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:layout_weight="1"
+                        android:hint="@string/num_mawb"
+                        app:boxBackgroundColor="@color/gray"
+                        app:boxStrokeColor="@color/gray"
+                        app:hintTextColor="@color/grisabsolut"
+                        app:startIconDrawable="@drawable/ic_bk"
+                        tools:ignore="MissingConstraints">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInput_AirExp_MawbNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true"
+                            android:textColor="@color/textColor" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <!-- Hawb -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:layout_weight="1"
+                        android:hint="@string/num_hawb"
+                        app:boxBackgroundColor="@color/gray"
+                        app:boxStrokeColor="@color/gray"
+                        app:hintTextColor="@color/grisabsolut"
+                        app:startIconDrawable="@drawable/ic_bk"
+                        tools:ignore="MissingConstraints">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInput_AirExp_HawbNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
+                            android:inputType="textCapCharacters"
+                            android:textAllCaps="true"
+                            android:textColor="@color/textColor" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Group SEA Tracking + Sea Linear Layout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- SEA Import / Export radio button -->
+                <RadioGroup
+                    android:id="@+id/radioGroup_sea_ajout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/radioButton_sea_exp_ajout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_bleu_drawable_call"
+                        android:buttonTint="@color/white"
+                        android:paddingRight="@dimen/all_padding"
+                        android:text="@string/sea_exp"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_sea_imp_ajout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_bleu_drawable_call"
+                        android:buttonTint="@color/white"
+                        android:paddingRight="@dimen/all_padding"
+                        android:text="@string/sea_imp"
+                        android:textColor="@color/white" />
                 </RadioGroup>
                 <!-- SEA Export EditTextView-->
                 <LinearLayout
                     android:id="@+id/linearLayout_sea_export_editView_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/all_margin"
                     android:orientation="vertical"
-                    android:layout_marginTop="@dimen/all_margin">
+                    android:visibility="gone">
                     <!-- Booking -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/textFieldBookingNum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/all_margin"
                             android:layout_weight="1"
                             android:hint="@string/num_booking"
                             app:boxBackgroundColor="@color/gray"
                             app:boxStrokeColor="@color/gray"
                             app:hintTextColor="@color/grisabsolut"
-                            android:layout_marginRight="@dimen/all_margin"
                             app:startIconDrawable="@drawable/ic_bk"
                             tools:ignore="MissingConstraints">
 
@@ -144,13 +303,14 @@
                                 android:textColor="@color/textColor" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/spinner_ajout_tc"
+                            android:id="@+id/spinner_booking_sea_export"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:background="@drawable/spinner_background"
                             android:layout_marginRight="@dimen/padd"
+                            android:background="@drawable/spinner_background"
                             android:padding="@dimen/all_padding" />
                     </LinearLayout>
                     <!-- Immatriculation -->
@@ -171,9 +331,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
                             android:inputType="textCapCharacters"
                             android:textAllCaps="true"
-                            android:focusable="auto"
                             android:textColor="@color/textColor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -182,22 +342,23 @@
                         android:id="@+id/textFieldTcNum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/all_margin"
                         android:layout_weight="1"
                         android:hint="@string/num_tc_off"
-                        android:layout_marginTop="@dimen/all_margin"
                         app:boxBackgroundColor="@color/gray"
                         app:boxStrokeColor="@color/gray"
                         app:hintTextColor="@color/grisabsolut"
                         app:startIconDrawable="@drawable/ic_tc"
                         tools:ignore="MissingConstraints">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textInputTcNum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
                             android:inputType="textCapCharacters"
                             android:textAllCaps="true"
-                            android:focusable="auto"
                             android:textColor="@color/textColor" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <!-- Numéro Tc 2 -->
@@ -243,9 +404,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
                             android:inputType="textCapCharacters"
                             android:textAllCaps="true"
-                            android:focusable="auto"
                             android:textColor="@color/textColor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -254,8 +415,8 @@
                         android:id="@+id/textFieldTcDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginTop="@dimen/all_margin"
+                        android:layout_weight="1"
                         android:hint="@string/tc_desc"
                         app:boxBackgroundColor="@color/gray"
                         app:boxStrokeColor="@color/gray"
@@ -268,142 +429,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_editable_text"
+                            android:focusable="auto"
                             android:inputType="textCapCharacters"
                             android:textAllCaps="true"
-                            android:focusable="auto"
                             android:textColor="@color/textColor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-                <!-- AIR Export EditTextView -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/all_margin"
-                    android:id="@+id/linearLayout_air_export_editView_group"
-                    android:orientation="vertical">
-                    <!-- Mawb -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textFieldMawbNum"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="@string/num_mawb"
-                            app:boxBackgroundColor="@color/gray"
-                            app:boxStrokeColor="@color/gray"
-                            app:hintTextColor="@color/grisabsolut"
-                            android:layout_marginRight="@dimen/all_margin"
-                            app:startIconDrawable="@drawable/ic_bk"
-                            tools:ignore="MissingConstraints">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textInputMawbNum"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_editable_text"
-                                android:focusable="auto"
-                                android:inputType="textCapCharacters"
-                                android:textAllCaps="true"
-                                android:textColor="@color/textColor" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/spinner_mawb"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/spinner_background"
-                            android:layout_marginRight="@dimen/padd"
-                            android:padding="@dimen/all_padding" />
-                    </LinearLayout>
-                    <!-- Hawb -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textFieldHawbNum"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="@string/num_hawb"
-                            app:boxBackgroundColor="@color/gray"
-                            app:boxStrokeColor="@color/gray"
-                            app:hintTextColor="@color/grisabsolut"
-                            android:layout_marginRight="@dimen/all_margin"
-                            app:startIconDrawable="@drawable/ic_bk"
-                            tools:ignore="MissingConstraints">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textInputHawbNum"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_editable_text"
-                                android:focusable="auto"
-                                android:inputType="textCapCharacters"
-                                android:textAllCaps="true"
-                                android:textColor="@color/textColor" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/spinner_hawb"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/spinner_background"
-                            android:layout_marginRight="@dimen/padd"
-                            android:padding="@dimen/all_padding" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Group IMPORT Tracking + Import Linear Layout -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- SEA / AIR radio button -->
-                <RadioGroup
-                    android:id="@+id/radioGroup_import_air_sea_tracking_ajout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/radioButton_sea_imp_ajout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingRight="@dimen/all_padding"
-                        android:layout_marginRight="@dimen/all_margin"
-                        android:text="@string/sea_imp"
-                        android:background="@drawable/btn_bleu_drawable_call"
-                        android:buttonTint="@color/white"
-                        android:textColor="@color/white" />
-                    <RadioButton
-                        android:id="@+id/radioButton_air_imp_ajout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingRight="@dimen/all_padding"
-                        android:text="@string/air_imp"
-                        android:textColor="@color/white"
-                        android:buttonTint="@color/white"
-                        android:background="@drawable/btn_bleu_drawable_call" />
-                </RadioGroup>
                 <!-- SEA Import  EditTextView-->
                 <LinearLayout
                     android:id="@+id/linearLayout_sea_import_editView_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <!-- BL Num ou Tc -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textField_SeaImp_Num_BL"
@@ -432,79 +471,24 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/all_margin"
                         android:layout_weight="1"
                         android:hint="@string/num_tc_officiel"
-                        android:layout_marginTop="@dimen/all_margin"
                         app:boxBackgroundColor="@color/gray"
                         app:boxStrokeColor="@color/gray"
                         app:hintTextColor="@color/grisabsolut"
                         app:startIconDrawable="@drawable/ic_tc"
                         tools:ignore="MissingConstraints">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textInput_SeaImp_numTc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_editable_text"
-                            android:inputType="textCapCharacters"
-                            android:textAllCaps="true"
-                            android:focusable="auto"
-                            android:textColor="@color/textColor" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-                <!-- AIR Import  EditTextView-->
-                <LinearLayout
-                    android:id="@+id/linearLayout_air_import_editView_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
-                    <!-- Mawb -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/num_mawb"
-                        app:boxBackgroundColor="@color/gray"
-                        app:boxStrokeColor="@color/gray"
-                        app:hintTextColor="@color/grisabsolut"
-                        android:layout_marginRight="@dimen/all_margin"
-                        app:startIconDrawable="@drawable/ic_bk"
-                        tools:ignore="MissingConstraints">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/textInput_AirImp_MawbNum"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_editable_text"
                             android:focusable="auto"
                             android:inputType="textCapCharacters"
                             android:textAllCaps="true"
                             android:textColor="@color/textColor" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <!-- Hawb -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/num_hawb"
-                        app:boxBackgroundColor="@color/gray"
-                        app:boxStrokeColor="@color/gray"
-                        app:hintTextColor="@color/grisabsolut"
-                        android:layout_marginRight="@dimen/all_margin"
-                        app:startIconDrawable="@drawable/ic_bk"
-                        tools:ignore="MissingConstraints">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/textInput_AirImp_HawbNum"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_editable_text"
-                            android:focusable="auto"
-                            android:inputType="textCapCharacters"
-                            android:textAllCaps="true"
-                            android:textColor="@color/textColor" />
-
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -514,8 +498,8 @@
                 android:id="@+id/linearLayout_road_editView_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
                 <!-- Immatriculation -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textField_Road_CamionNum"
@@ -534,9 +518,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
                         android:inputType="textCapCharacters"
                         android:textAllCaps="true"
-                        android:focusable="auto"
                         android:textColor="@color/textColor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -560,9 +544,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
                         android:inputType="textCapCharacters"
                         android:textAllCaps="true"
-                        android:focusable="auto"
                         android:textColor="@color/textColor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -570,8 +554,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/all_margin"
+                    android:layout_weight="1"
                     android:hint="@string/tc_road_desc"
                     app:boxBackgroundColor="@color/gray"
                     app:boxStrokeColor="@color/gray"
@@ -584,19 +568,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
                         android:inputType="textCapCharacters"
                         android:textAllCaps="true"
-                        android:focusable="auto"
                         android:textColor="@color/textColor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
             <!-- BUTTON -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/ajouteTcButton"

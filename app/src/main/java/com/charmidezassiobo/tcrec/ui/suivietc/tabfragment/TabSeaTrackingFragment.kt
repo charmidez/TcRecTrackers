@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
-import com.charmidezassiobo.tcrec.databinding.FragmentTabExportTrackingBinding
+import com.charmidezassiobo.tcrec.dataclass.Sea
+import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.TCAdapter
@@ -25,19 +25,20 @@ import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
 
-class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
+class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     RecyclerViewClickItemInterface {
 
-    private var _binding : FragmentTabExportTrackingBinding? = null
+    //private var _binding : FragmentTabExportTrackingBinding? = null
+    private var _binding : FragmentTabSeaTrackingBinding? = null
     private val binding get() = _binding!!
 
-    private val selectedItems = HashSet<SeaExportDataClass>()
+    private val selectedItems = HashSet<Sea>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecyclerView.Adapter<TCAdapter.TCViewHolder>
 
     var getDataFromDB = GetDataFromDB()
     var allFun = AllFunctions()
-    var itemsTc = mutableListOf<SeaExportDataClass>()
+    var itemsTc = mutableListOf<Sea>()
     val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
 
     lateinit var btnTrashTc : AppCompatImageButton
@@ -46,7 +47,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTabExportTrackingBinding.inflate(inflater, container, false)
+        _binding = FragmentTabSeaTrackingBinding.inflate(inflater, container, false)
         val root : View = binding.root
         val mContext = binding.root.context
 
@@ -65,14 +66,14 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         recyclerViewTc.setHasFixedSize(true)
 
         //input in recyclerView and get itemTc
-        itemsTc = getDataFromDB.inputItemInRecyclerView(this@TabExportTrackingFragment, chargement, recyclerViewTc)
+        //itemsTc = getDataFromDB.?inputItemInRecyclerView(this@TabSeaTrackingFragment, chargement, recyclerViewTc)
 
         //Refreshing page
         refresh.setOnRefreshListener {
             if (isConnected){
                 //Connection Internet
                 refresh.isRefreshing = false
-                getDataFromDB.inputItemInRecyclerView(this@TabExportTrackingFragment, chargement, recyclerViewTc)
+                getDataFromDB.inputItemInRecyclerView(this@TabSeaTrackingFragment, chargement, recyclerViewTc)
                 val snack = Snackbar.make(binding.root,"Page mis à jour avec succès", Snackbar.LENGTH_LONG)
                 snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
                 snack.show()
@@ -92,7 +93,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
                     return false
                 }
                 override fun onQueryTextChange(query: String): Boolean {
-                    allFun.filterListWithRecycler(this@TabExportTrackingFragment, query,itemsTc,recyclerViewTc)
+                    allFun.filterListWithRecyclerSea(this@TabSeaTrackingFragment, query,itemsTc,recyclerViewTc)
                     return false
                 }
             })
@@ -161,7 +162,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         //true
     }
 
-    private fun toggleItemSelection(item: SeaExportDataClass) {
+    private fun toggleItemSelection(item: Sea) {
         if (selectedItems.contains(item)) {
             selectedItems.remove(item)
         } else {
@@ -169,7 +170,7 @@ class TabExportTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         }
     }
 
-    private fun deleteSelectedItems(itemList : MutableList<SeaExportDataClass>) {
+    private fun deleteSelectedItems(itemList : MutableList<Sea>) {
         // Supprimer les éléments sélectionnés de votre liste de données
         // Par exemple, si votre liste de données est une MutableList<Tc> nommée itemList :
         itemList.removeAll(selectedItems)

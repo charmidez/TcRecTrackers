@@ -19,7 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.HeureStep
+import com.charmidezassiobo.tcrec.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
@@ -610,7 +610,7 @@ class SuivietcSousFragment : Fragment() {
         }
     }
 
-    fun popUpShowDate(list : List<HeureStep>,step : Int){
+    fun popUpShowDate(list : List<HeureStep>, step : Int){
 
         val v = View.inflate(binding.root.context, R.layout.popup_show_date_step, null)
         val builder = AlertDialog.Builder(binding.root.context)

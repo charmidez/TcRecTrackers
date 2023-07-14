@@ -7,23 +7,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
-import com.charmidezassiobo.tcrec.data.HeureStep
+import com.charmidezassiobo.tcrec.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
+import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.time.LocalDate
 import java.util.*
 
 class AjoutertcFragment : Fragment() {
@@ -36,6 +39,11 @@ class AjoutertcFragment : Fragment() {
     private var db = Firebase.firestore
     private var allFun = AllFunctions()
 
+    var getData = GetDataFromDB()
+
+    var itemsSea : MutableList<Sea>  = getData.getSEAdataFromdb()
+    var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,45 +55,35 @@ class AjoutertcFragment : Fragment() {
         val root: View = binding.root
         val mContext = binding.root.context
 
-        val allFun = AllFunctions()
-
         //*******All var mecanisme for Export**************//
-        val radioGrp: RadioGroup = binding.radioGroupOk
+        val radioGrp: RadioGroup = binding.radioGroupSeaAirRoad
 
-        //Import Variable
-        val radioGrp_import: RadioGroup = binding.radioGroupImportAirSeaTrackingAjout
+        //AIR Variable
+        val radioGrp_Air: RadioGroup = binding.radioGroupAirAjout
         val lnEditTextAirImport = binding.linearLayoutAirImportEditViewGroup
         val lnEditTextSeaImport = binding.linearLayoutSeaImportEditViewGroup
 
         //Export Variable
-        val radioGrp_export: RadioGroup = binding.radioGroupExportAirSeaTrackingAjout
+        val radioGrp_Sea: RadioGroup = binding.radioGroupSeaAjout
         val lnEditTextAirExport = binding.linearLayoutAirExportEditViewGroup
         val lnEditTextSeaExport = binding.linearLayoutSeaExportEditViewGroup
-
-        //Road Varaible
-        val lnEditTextRoad = binding.linearLayoutRoadEditViewGroup
         val numBookingTc: TextInputEditText = binding.textInputBookingNum
         val numTc1: TextInputEditText = binding.textInputTcNum
         val numTc2: TextInputEditText = binding.textInputTcNum2
         val numCamion: TextInputEditText = binding.textInputCamionNum
         val numChauffeur: TextInputEditText = binding.textInputPhoneChauffeur
         val descTc: TextInputEditText = binding.textInputDesc
+        val spinnerBooking = binding.spinnerBookingSeaExport
+
+        //Road Variable
+        val lnEditTextRoad = binding.linearLayoutRoadEditViewGroup
 
         val connectivityManager = mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
 
-        var ajouterdate: String
-        var step_tc: Int
-        var num_plomb: String
-        var num_plomb_2: String
-
         var typeTransact = ""
         var typeSousTransact = ""
-
-        var bookingList = mutableListOf<String>()
-        var spinner_ajout_tc = binding.spinnerAjoutTc
-        var getData = GetDataFromDB()
 
         //Prendre Les données du conteneur
         val butAjouter: Button = binding.ajouteTcButton
@@ -96,50 +94,47 @@ class AjoutertcFragment : Fragment() {
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when (selectOption) {
-
-                //When i choose Import
-                R.id.radioButton_Import_ajout -> {
-                    typeTransact = "Import"
-                    allFun.clearRadioBtnInAjoutTC(radioGrp_export)
+                //When i choose AIR
+                R.id.radioButton_air_ajout -> {
+                    typeTransact = "AIR"
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_Sea)
                     allFun.resetFragmentInAjoutTC(
                         radioGrp,
-                        radioGrp_export,
-                        radioGrp_import,
+                        radioGrp_Sea,
+                        radioGrp_Air,
                         lnEditTextAirImport,
                         lnEditTextAirExport,
                         lnEditTextSeaImport,
                         lnEditTextSeaExport,
                         lnEditTextRoad
                     )
-                    radioGrp_import.visibility = View.VISIBLE
+                    radioGrp_Air.visibility = View.VISIBLE
                 }
-
-                //When i choose Export
-                R.id.radioButton_export_ajout -> {
-                    typeTransact = "Export"
-                    allFun.clearRadioBtnInAjoutTC(radioGrp_import)
+                //When i choose SEA
+                R.id.radioButton_sea_ajout -> {
+                    typeTransact = "SEA"
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_Air)
                     allFun.resetFragmentInAjoutTC(
                         radioGrp,
-                        radioGrp_export,
-                        radioGrp_import,
+                        radioGrp_Sea,
+                        radioGrp_Air,
                         lnEditTextAirImport,
                         lnEditTextAirExport,
                         lnEditTextSeaImport,
                         lnEditTextSeaExport,
                         lnEditTextRoad
                     )
-                    radioGrp_export.visibility = View.VISIBLE
+                    radioGrp_Sea.visibility = View.VISIBLE
                 }
-
-                //When i choose Road
+                //When i choose ROAD
                 R.id.radioButton_road_ajout -> {
-                    typeTransact = "Road"
-                    allFun.clearRadioBtnInAjoutTC(radioGrp_import)
-                    allFun.clearRadioBtnInAjoutTC(radioGrp_export)
+                    typeTransact = "ROAD"
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_Air)
+                    allFun.clearRadioBtnInAjoutTC(radioGrp_Sea)
                     allFun.resetFragmentInAjoutTC(
                         radioGrp,
-                        radioGrp_export,
-                        radioGrp_import,
+                        radioGrp_Sea,
+                        radioGrp_Air,
                         lnEditTextAirImport,
                         lnEditTextAirExport,
                         lnEditTextSeaImport,
@@ -153,13 +148,13 @@ class AjoutertcFragment : Fragment() {
 
 
         /*****Export Radio Button Mecanism *******/
-        radioGrp_import.setOnCheckedChangeListener { group, i ->
+        radioGrp_Air.setOnCheckedChangeListener { group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when (selectOption) {
                 //Je choisie SEA Import
                 R.id.radioButton_sea_imp_ajout -> {
-                    typeSousTransact = "SEA Import"
+                    typeSousTransact = "IMPORT (SEA)"
                     allFun.resetAllLnInAjoutTC(
                         lnEditTextAirImport,
                         lnEditTextSeaImport,
@@ -169,30 +164,9 @@ class AjoutertcFragment : Fragment() {
                     )
                     lnEditTextSeaImport.visibility = View.VISIBLE
                 }
-
-                //Je choisie AIR Import
-                R.id.radioButton_air_imp_ajout -> {
-                    typeSousTransact = "AIR Import"
-                    allFun.resetAllLnInAjoutTC(
-                        lnEditTextAirImport,
-                        lnEditTextSeaImport,
-                        lnEditTextAirExport,
-                        lnEditTextSeaExport,
-                        lnEditTextRoad
-                    )
-                    lnEditTextAirImport.visibility = View.VISIBLE
-                }
-            }
-        }
-
-        /**** Import Radio Butto Mecanism *****/
-        radioGrp_export.setOnCheckedChangeListener { group, i ->
-            val radioBtn = group.findViewById<RadioButton>(i)
-            val selectOption = radioBtn.id
-            when (selectOption) {
                 //Je choisie SEA Export
                 R.id.radioButton_sea_exp_ajout -> {
-                    typeSousTransact = "SEA Export"
+                    typeSousTransact = "EXPORT (SEA)"
                     allFun.resetAllLnInAjoutTC(
                         lnEditTextAirImport,
                         lnEditTextSeaImport,
@@ -202,9 +176,30 @@ class AjoutertcFragment : Fragment() {
                     )
                     lnEditTextSeaExport.visibility = View.VISIBLE
                 }
+            }
+        }
+
+        /**** Import Radio Butto Mecanism *****/
+        radioGrp_Sea.setOnCheckedChangeListener { group, i ->
+            val radioBtn = group.findViewById<RadioButton>(i)
+            val selectOption = radioBtn.id
+            when (selectOption) {
+                //Je choisie AIR Import
+                R.id.radioButton_air_import_ajout -> {
+                    typeSousTransact = "IMPORT (AIR)"
+                    allFun.resetAllLnInAjoutTC(
+                        lnEditTextAirImport,
+                        lnEditTextSeaImport,
+                        lnEditTextAirExport,
+                        lnEditTextSeaExport,
+                        lnEditTextRoad
+                    )
+                    lnEditTextSeaExport.visibility = View.VISIBLE
+                    spinnerBookingList(mContext, spinnerBooking, numBookingTc)
+                }
                 //Je choisie AIR Export
                 R.id.radioButton_air_exp_ajout -> {
-                    typeSousTransact = "AIR Export"
+                    typeSousTransact = "EXPORT (AIR)"
                     allFun.resetAllLnInAjoutTC(
                         lnEditTextAirImport,
                         lnEditTextSeaImport,
@@ -216,40 +211,6 @@ class AjoutertcFragment : Fragment() {
                 }
             }
         }
-
-
-/*        //Spinner booking
-        getData.updateTc {
-            bookingList = getData.getListBooking()
-            val set: Set<String> = bookingList.toHashSet()
-            bookingList.clear()
-            bookingList.addAll(set)
-            val adapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1, bookingList)
-            spinner_ajout_tc.adapter = adapter
-        }
-        bookingList.add("")
-        spinner_ajout_tc.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedItem = bookingList[position]
-                numBookingTc.setText(selectedItem)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        })
-
-        var heureRealStartTc = AllFunctions().miseEnPlaceHeure()
-        val dateRealChiffre = AllFunctions().miseEnPlaceDate(true)
-        val dateRealDate = AllFunctions().miseEnPlaceDate(false)
-
-        val lesStepHour = listOf(
-            HeureStep(dateRealChiffre, dateRealDate, heureRealStartTc)
-        )*/
-
 
         // Enréistrement dans la base de donnée
         butAjouter.setOnClickListener {
@@ -272,118 +233,6 @@ class AjoutertcFragment : Fragment() {
                         addRoadTracking()
                     }
                 }
-
-/*                butAjouter.text = "Chargement..."
-                butAjouter.isEnabled = false
-                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
-
-                //removing all space
-                val numBookingRmvSpx = AllFunctions().removeSpaces(numBookingTc.text.toString())
-                val numTc1RmvSpx = AllFunctions().removeSpaces(numTCOff.text.toString())
-                val numTc2RmvSpx = AllFunctions().removeSpaces(numTCSecondOff.text.toString())
-                val numCamionRmvSpx = AllFunctions().removeSpaces(numCamion.text.toString())
-                val numPhoneChauffeurRmvSpx = AllFunctions().removeSpaces(phone.text.toString())
-                val descContenuRmvSpx = AllFunctions().removeSpaces(descTC.text.toString())
-
-                ajouterdate =
-                    "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
-                step_tc = 0
-                num_plomb = ""
-                num_plomb_2 = ""
-
-                val recup_numCamion = numCamion.text.toString()
-                val recup_numTc = numTCOff.text.toString()
-
-                if (typeTransat != "") {
-                    if (recup_numCamion != "" || recup_numTc != "") {
-                        val registerTc = hashMapOf(
-                            "Date" to ajouterdate,
-                            "num_Booking" to numBookingRmvSpx,
-                            "num_TC" to numTc1RmvSpx,
-                            "num_TC_Second" to numTc2RmvSpx,
-                            "num_Camion" to numCamionRmvSpx,
-                            "step_TC" to step_tc,
-                            "desc_TC" to descContenuRmvSpx,
-                            "num_plomb_TC" to num_plomb,
-                            "num_plomb_TC_2" to num_plomb_2,
-                            "phone_chauffeur_TC" to numPhoneChauffeurRmvSpx,
-                            "import_export" to typeTransat,
-                            "lesStepDateHour" to lesStepHour
-                        )
-                        db.collection(dataBasePath).document().set(registerTc)
-                            .addOnSuccessListener {
-                                val snack = Snackbar.make(
-                                    binding.root,
-                                    "Le conteneur ${numTCOff.text.toString()} a été bien enrégistré ce $ajouterdate",
-                                    Snackbar.LENGTH_LONG
-                                )
-                                snack.setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.white
-                                    )
-                                )
-                                snack.setBackgroundTint(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.blue
-                                    )
-                                )
-                                snack.show()
-                                numBookingTc.text?.clear()
-                                numTCOff.text?.clear()
-                                numCamion.text?.clear()
-                                descTC.text?.clear()
-                                phone.text?.clear()
-                                numTCSecondOff.text?.clear()
-                                butAjouter.text = getText(R.string.but_addtc)
-                                butAjouter.isEnabled = true
-                                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
-                            }
-                            .addOnFailureListener {
-                                val snack = Snackbar.make(
-                                    binding.root,
-                                    "Le conteneur ${numTCOff.text.toString()} na pas pu être enrégistré",
-                                    Snackbar.LENGTH_LONG
-                                )
-                                snack.show()
-                                butAjouter.text = getText(R.string.but_addtc)
-                                butAjouter.isEnabled = true
-                                butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
-                            }
-
-                    } else if (recup_numCamion == "" || recup_numTc == "") {
-                        val snack = Snackbar.make(
-                            binding.root,
-                            "Veuillez renseigner les informations du TC",
-                            Snackbar.LENGTH_LONG
-                        )
-                        snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        snack.setBackgroundTint(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.gray2
-                            )
-                        )
-                        snack.show()
-                        butAjouter.text = getText(R.string.but_addtc)
-                        butAjouter.isEnabled = true
-                        butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
-                    }
-                } else if (typeTransat == "") {
-                    val snack = Snackbar.make(
-                        binding.root,
-                        "Veuillez renseigner le type de transaction",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.gray2))
-                    snack.show()
-                    butAjouter.text = getText(R.string.but_addtc)
-                    butAjouter.isEnabled = true
-                    butAjouter.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
-                }
-                */
 
             } else {
                 // Pas de connexion Internet
@@ -444,7 +293,7 @@ class AjoutertcFragment : Fragment() {
                         "num_plomb_tc_2" to numPlomb2,
                         "step_tc" to step,
                         "desc_tc" to descContenuRmvSpx,
-                        "phone_chauffeur_tc" to numPhoneChauffeurRmvSpx,
+                        "num_phone_chauffeur" to numPhoneChauffeurRmvSpx,
                         "date_hour_step" to lesStepHour
                     )
 
@@ -494,6 +343,24 @@ class AjoutertcFragment : Fragment() {
     private fun addAirExport(){}
 
     private fun addRoadTracking(){}
+
+    private fun spinnerBookingList(mContext: Context, spinnerView : Spinner, numBookingTc : TextInputEditText){
+        //Spinner booking
+        getData.seaCallBack {
+            itemBookingList = allFun.removeRedundance(itemBookingList)
+            var arrayAdapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1,  itemBookingList)
+            spinnerView.adapter = arrayAdapter
+
+            spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
+                var selectedItem : String? = null
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedItem = itemBookingList[position]
+                    numBookingTc.setText(selectedItem)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            })
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

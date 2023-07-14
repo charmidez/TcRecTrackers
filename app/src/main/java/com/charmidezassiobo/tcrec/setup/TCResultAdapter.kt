@@ -9,11 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.dataclass.Sea
 
-class TCResultAdapter(var context : Context, var items : List<SeaExportDataClass>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
-
-
+class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
 
     class TCResultViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {
 
@@ -30,36 +28,25 @@ class TCResultAdapter(var context : Context, var items : List<SeaExportDataClass
         var lnTc2 : LinearLayout
 
         var txtViewStepExact : TextView
-
         var typetransact: String
-
         var bayoStepView : HorizontalStepView
-
         var theAllFunction : AllFunctions
+        var stpView : BayoStepViewFunctionsSetup
 
         init {
-
             dateCreationTc = itemView.findViewById(R.id.txtView_creation_tc)
-
             numBooking = itemView.findViewById(R.id.txtView_numBooking_result)
-
             numTc = itemView.findViewById(R.id.textViewTCNum_result)
             numTc2 = itemView.findViewById(R.id.textViewTC2Num_result)
-
             numPlomb = itemView.findViewById(R.id.num_plomb_result)
             numPlomb2 = itemView.findViewById(R.id.num_plomb2_result)
-
             txtViewStepExact = itemView.findViewById(R.id.textView_etap_exact)
-
             lnTc1 = itemView.findViewById(R.id.lineairLayoutTc1)
             lnTc2 = itemView.findViewById(R.id.lineairLayoutTc2)
-
             typetransact = ""
-
             bayoStepView = itemView.findViewById(R.id.step_view_baoya_view_result)
-
             theAllFunction = AllFunctions()
-
+            stpView = BayoStepViewFunctionsSetup()
         }
     }
 
@@ -73,17 +60,12 @@ class TCResultAdapter(var context : Context, var items : List<SeaExportDataClass
     override fun onBindViewHolder(holder: TCResultViewHolder, position: Int) {
 
         val tc = items[position]
-
         holder.numBooking.text = tc.numBooking
-
         holder.numTc.text = tc.numTc1
         holder.numPlomb.text = tc.numPlomb1
-
         holder.numTc2.text = tc.numTc2
         holder.numPlomb2.text = tc.numPlomb2
-
         holder.typetransact = tc.typeTransact
-
 
         if (holder.numTc2.text.isNullOrEmpty()){
             holder.lnTc2.visibility = View.GONE
@@ -120,9 +102,8 @@ class TCResultAdapter(var context : Context, var items : List<SeaExportDataClass
             }
         }
 
-        holder.theAllFunction.stepChange(tc.stepTc, holder.typetransact,holder.bayoStepView, context)
+        holder.stpView.stepChange(context, tc.stepTc, holder.typetransact,holder.bayoStepView)
 
         holder.dateCreationTc.text = "${tc.dateHourStep[tc.stepTc].stepDateLettre}"
-
     }
 }

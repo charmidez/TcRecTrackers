@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.charmidezassiobo.tcrec.ui.suivietc.tabfragment.TabExportTrackingFragment
+import com.charmidezassiobo.tcrec.ui.suivietc.tabfragment.TabSeaTrackingFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.tabfragment.TabImportTrackingFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.tabfragment.TabRoadTrackingFragment
 
@@ -16,7 +16,7 @@ internal class TabAdapter(var context : Context, fm : FragmentManager, var total
 
     override fun getItem(position: Int): Fragment {
         return when(position){
-            0 -> TabExportTrackingFragment()
+            0 -> TabSeaTrackingFragment()
             1 -> TabImportTrackingFragment()
             2 -> TabRoadTrackingFragment()
             else -> getItem(position)

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.data.SearchWordDatabaseHelper
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentClientHomeBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
@@ -28,7 +28,6 @@ import com.charmidezassiobo.tcrec.setup.SearchAdapter
 import com.charmidezassiobo.tcrec.ui.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
-
 
 class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
     RecyclerViewClickItemInterface {
@@ -39,14 +38,14 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
     val resultSousFragment: Fragment = ResultsearchFragment()
     lateinit var theAllFunctions: AllFunctions
 
-    lateinit var itemsListTc: MutableList<SeaExportDataClass>
+    lateinit var itemsListTc: MutableList<Sea>
     lateinit var itemSearchingFound: List<String>
     lateinit var getData: GetDataFromDB
     lateinit var adapter: SearchAdapter
     lateinit var getSearchingWord: SearchWordDatabaseHelper
     lateinit var sharedPreferences: SharedPreferences
 
-    lateinit var resultFunSearch: MutableList<SeaExportDataClass>
+    lateinit var resultFunSearch: MutableList<Sea>
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
@@ -73,7 +72,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
 
         recyclerSearcWord = binding.recyclerViewSearchItem
 
-        getData.updateTc { itemsListTc = getData.getTcAllList() }
+        getData.seaCallBack { itemsListTc = getData.getSEAdataFromdb() }
 
         binding.btnSearch.setOnClickListener {
             var inputSearchingWord = binding.editTextSearchView.text.toString()
@@ -88,7 +87,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
                 snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
                 snack.show()
             } else {
-                resultFunSearch = theAllFunctions.filterResult(inputSearchingWord, itemsListTc)
+                resultFunSearch = theAllFunctions.filterResultSea(inputSearchingWord, itemsListTc)
                 when (resultFunSearch.isEmpty()) {
                     true -> {
                         val snack = Snackbar.make(
@@ -190,7 +189,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         val inputSearchingWord = itemSearchingFound[position]
 
         Log.d("itemSearchingWord", inputSearchingWord)
-        resultFunSearch = theAllFunctions.filterResult(inputSearchingWord, itemsListTc)
+        resultFunSearch = theAllFunctions.filterResultSea(inputSearchingWord, itemsListTc)
 
         val mContext = binding.root.context
         val bundle = Bundle()

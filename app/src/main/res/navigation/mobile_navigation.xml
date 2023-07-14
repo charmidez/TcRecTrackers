@@ -48,9 +48,9 @@
         tools:layout="@layout/fragment_suivietc_booking_sous" />
     <fragment
         android:id="@+id/tabExportTrackingFragment"
-        android:name="com.charmidezassiobo.tcrec.ui.suivietc.tabfragment.TabExportTrackingFragment"
+        android:name="com.charmidezassiobo.tcrec.ui.suivietc.tabfragment.TabSeaTrackingFragment"
         android:label="fragment_tab_export_tracking"
-        tools:layout="@layout/fragment_tab_export_tracking" >
+        tools:layout="@layout/fragment_tab_sea_tracking" >
         <action
             android:id="@+id/action_tabExportTrackingFragment_to_suivietcSousFragment"
             app:destination="@id/suivietcSousFragment" />

@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.data
+package com.charmidezassiobo.tcrec.dataclass
 
 import java.io.Serializable
 import java.sql.Date

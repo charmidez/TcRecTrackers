@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcBookingSousFragment
 
-class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<SeaExportDataClass> )
+class TCBookingAdapter(var context: SuivietcBookingSousFragment, var items: List<Sea> )
     : RecyclerView.Adapter<TCBookingAdapter.TCBookingViewHolder>(){
 
     class TCBookingViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {

@@ -4,33 +4,20 @@ package com.charmidezassiobo.tcrec.ui.suivietc.subfragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.data.GetDataFromDB
-import com.charmidezassiobo.tcrec.data.HeureStep
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.TCAdapter
 import com.charmidezassiobo.tcrec.setup.TCBookingAdapter
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import java.util.Locale
 
 class SuivietcBookingSousFragment : Fragment() {
 
@@ -42,8 +29,8 @@ class SuivietcBookingSousFragment : Fragment() {
     val allFun : AllFunctions = AllFunctions()
     var getData : GetDataFromDB = GetDataFromDB()
 
-    var itemsTc : MutableList<SeaExportDataClass>  = getData.getTcAllList()
-    var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getListBookingWithTitle())
+    var itemsTc : MutableList<Sea>  = getData.getSEAdataFromdb()
+    var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -59,7 +46,7 @@ class SuivietcBookingSousFragment : Fragment() {
         var progressBar_view = binding.progressBarIdBooking
 
         //récupérer les données et bosser
-        getData.updateTc {
+        getData.seaCallBack {
             txtView_charging.isVisible  = false
             progressBar_view.setVisibility(View.GONE)
 
@@ -71,16 +58,15 @@ class SuivietcBookingSousFragment : Fragment() {
 
             spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
                 var selectedItem : String? = null
-                var filteredTcList = mutableListOf<SeaExportDataClass>()
+                var filteredTcList = mutableListOf<Sea>()
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedItem = itemBookingList[position]
                     if (selectedItem == "Tous les bookings"){
                         recyclerViewBooking.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, itemsTc)
                     } else {
-                        filteredTcList = allFun.filterResult(selectedItem, itemsTc)
+                        filteredTcList = allFun.filterResultSea(selectedItem, itemsTc)
                         recyclerViewBooking.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredTcList)
                     }
-
 
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {

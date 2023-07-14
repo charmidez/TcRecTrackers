@@ -24,14 +24,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.HeureStep
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
+import com.charmidezassiobo.tcrec.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 
-class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
+class TCAdapter(var items : List<Sea>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
 
     val dataBasePath = AllVariables().dbPath
 
@@ -164,7 +164,7 @@ class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerVie
             }
         }
 
-        fun bindTC(tc : SeaExportDataClass){
+        fun bindTC(tc : Sea){
             numtc.text = tc.numTc1
             numcamion.text = tc.numCamion
             datetc.text = tc.dateAjoutTc
@@ -173,7 +173,7 @@ class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerVie
             numtcsecond.text = tc.numTc2
             tableauSateHeureStep = tc.dateHourStep
 
-            if(phoneChauffeur.text == "null" || phoneChauffeur == null || phoneChauffeur.text == ""){
+            if(phoneChauffeur.text == "NonDisponible" || phoneChauffeur == null || phoneChauffeur.text == ""){
                 phoneChauffeur.text = "Indisponible"
                 phoneChauffeur.isEnabled = false
                 phoneChauffeur.setBackground(getDrawable(itemView.context,R.drawable.btn_drawable_not_selected))
@@ -183,7 +183,7 @@ class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerVie
             }
         }
 
-        fun clickSuivant(tc : SeaExportDataClass){
+        fun clickSuivant(tc : Sea){
 
             if (isConnected) {
                 // Connexion Internet disponible
@@ -298,7 +298,7 @@ class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerVie
 
         }
 
-        fun step_change(tc : SeaExportDataClass){
+        fun step_change(tc : Sea){
             when(tc.typeTransact){
                 "Import" -> {
                     when(etape){
@@ -445,7 +445,7 @@ class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerVie
             }
         }
 
-        private fun popUpPlomb(tc : SeaExportDataClass){
+        private fun popUpPlomb(tc : Sea){
             val v = View.inflate(itemView.context,R.layout.popup_num_bind, null)
             val  builder = AlertDialog.Builder(itemView.context)
             builder.setView(v)
@@ -488,7 +488,7 @@ class TCAdapter(var items : List<SeaExportDataClass>, val listener : RecyclerVie
             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         }
 
-        private fun popUpPlomb_second(tc : SeaExportDataClass){
+        private fun popUpPlomb_second(tc : Sea){
             val v = View.inflate(itemView.context,R.layout.popup_num_bind_second, null)
             val  builder = AlertDialog.Builder(itemView.context)
             builder.setView(v)

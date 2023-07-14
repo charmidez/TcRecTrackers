@@ -1,6 +1,5 @@
 package com.charmidezassiobo.tcrec.ui.clientloginadmin
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +10,9 @@ import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.SeaExportDataClass
 import com.charmidezassiobo.tcrec.databinding.FragmentResultsearchBinding
+import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.TCResultAdapter
-import com.charmidezassiobo.tcrec.ui.BaseActivity
 
 
 class ResultsearchFragment : Fragment(), OnBackPressedDispatcherOwner {
@@ -33,15 +31,15 @@ class ResultsearchFragment : Fragment(), OnBackPressedDispatcherOwner {
 
         var txtViewAfficheTitre = binding.txtViewNumbookingChercherResult
         var recyclerViewResult = binding.recyclerViewResult
-        var listResult : MutableList<SeaExportDataClass>
+        var listResult : MutableList<Sea>
         var adapter : TCResultAdapter
         var searchingWord : String
 
-        listResult = mutableListOf<SeaExportDataClass>()
+        listResult = mutableListOf<Sea>()
 
         val data = arguments
         searchingWord = data?.getString("inputSearchingWord").toString()
-        listResult = data!!.getSerializable("resultFunSearch") as MutableList<SeaExportDataClass>
+        listResult = data!!.getSerializable("resultFunSearch") as MutableList<Sea>
 
         txtViewAfficheTitre.text = searchingWord
 
