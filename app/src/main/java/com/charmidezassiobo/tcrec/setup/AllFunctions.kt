@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.Adapter.TCAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
@@ -347,6 +350,37 @@ class AllFunctions {
             selectedItems.add(item)
         }
         //recyclerView.adapter!!.notifyDataSetChanged()
+    }
+
+
+    fun testKeyInDbBeforeGetData(collectionName : String, keyLookingFor : String) : MutableList<String>{
+        val db = Firebase.firestore
+        val collectionRef = db.collection(collectionName)
+        val key = keyLookingFor
+        var listValueFromKey = mutableListOf<String>()
+
+        collectionRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (documentSnapshot in querySnapshot.documents) {
+                    if (documentSnapshot.contains(key)) {
+                        // La clé est disponible dans le document actuel
+                        val value = documentSnapshot.getString(key).toString()
+                        // Faites quelque chose avec la valeur récupérée
+                        listValueFromKey.add(value)
+                        // Vous pouvez également accéder à d'autres données du document avec les méthodes appropriées
+                    } else {
+                        // La clé n'existe pas dans le document actuel
+                        // Traitez ce cas en conséquence
+                        listValueFromKey.add("Aucune donnée disponible")
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Une erreur s'est produite lors de la récupération des documents
+                // Traitez cette erreur en conséquence
+            }
+
+        return listValueFromKey
     }
 
 

@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBinding
-import com.charmidezassiobo.tcrec.setup.TabAdapter
+import com.charmidezassiobo.tcrec.setup.Adapter.TabAdapter
 import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.google.android.material.tabs.TabLayout
 

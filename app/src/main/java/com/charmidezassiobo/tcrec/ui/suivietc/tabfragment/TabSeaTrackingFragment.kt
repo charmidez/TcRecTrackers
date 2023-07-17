@@ -20,7 +20,7 @@ import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.setup.TCAdapter
+import com.charmidezassiobo.tcrec.setup.Adapter.TCAdapter
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable
@@ -73,7 +73,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
             if (isConnected){
                 //Connection Internet
                 refresh.isRefreshing = false
-                getDataFromDB.inputItemInRecyclerView(this@TabSeaTrackingFragment, chargement, recyclerViewTc)
+                getDataFromDB.inputItemInSeaRecyclerView(this@TabSeaTrackingFragment, chargement, recyclerViewTc)
                 val snack = Snackbar.make(binding.root,"Page mis à jour avec succès", Snackbar.LENGTH_LONG)
                 snack.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.blue))
                 snack.show()

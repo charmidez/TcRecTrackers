@@ -32,7 +32,7 @@ class SuivietcSousFragment : Fragment() {
     private var _binding: FragmentSuivietcSousBinding? = null
     private val binding get() = _binding!!
 
-    private val dataBasePath = AllVariables().dbPath
+    private val dataBasePath = AllVariables().DBPATH
 
     var stepvoyage: Int = 0
     var typetransact: String = ""

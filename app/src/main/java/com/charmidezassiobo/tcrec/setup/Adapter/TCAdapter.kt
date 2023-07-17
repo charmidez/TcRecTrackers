@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -27,13 +27,15 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.AllFunctions
+import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TCAdapter(var items : List<Sea>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<TCAdapter.TCViewHolder>() {
 
-    val dataBasePath = AllVariables().dbPath
+    val dataBasePath = AllVariables().DBPATH
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TCViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_tc, parent, false)

@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.AllFunctions
+import com.charmidezassiobo.tcrec.setup.BayoStepViewFunctionsSetup
 
 class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
 

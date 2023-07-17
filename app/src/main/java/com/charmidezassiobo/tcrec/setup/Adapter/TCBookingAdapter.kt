@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.Adapter
 
 import android.view.LayoutInflater
 import android.view.View

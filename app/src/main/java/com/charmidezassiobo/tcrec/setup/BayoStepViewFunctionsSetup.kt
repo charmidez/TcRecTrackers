@@ -1,18 +1,10 @@
 package com.charmidezassiobo.tcrec.setup
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.util.Log
-import android.widget.Button
 import androidx.core.content.ContextCompat
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.dataclass.HeureStep
-import com.charmidezassiobo.tcrec.dataclass.Sea
-import com.charmidezassiobo.tcrec.dataclass.Air
-import com.charmidezassiobo.tcrec.dataclass.Road
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -21,10 +13,29 @@ class BayoStepViewFunctionsSetup {
     private val allFun = AllFunctions()
     private val allVal = AllVariables()
 
-    private val dataBasePath = allVal.dbPath
-    private val seaCollectionPath = allVal.seaCollection
-    private val airCollectionPath = allVal.airCollection
-    private val roadTrackingCollectionPath = allVal.roadCollection
+    private val dataBasePath = allVal.DBPATH
+    private val seaCollectionPath = allVal.SEA_COLLECTION
+    private val airCollectionPath = allVal.AIR_COLLECTION
+    private val roadTrackingCollectionPath = allVal.ROAD_COLLECTION
+
+    //Step SEA Export
+    private val seaExport0 = allVal.SEA_EXPORT_ETAPE_0
+    private val seaExport1 = allVal.SEA_EXPORT_ETAPE_1
+    private val seaExport2 = allVal.SEA_EXPORT_ETAPE_2
+    private val seaExport3 = allVal.SEA_EXPORT_ETAPE_3
+    private val seaExport4 = allVal.SEA_EXPORT_ETAPE_4
+    private val seaExport5 = allVal.SEA_EXPORT_ETAPE_5
+    //Step SEA Import
+    private val seaImport0 = allVal.SEA_IMPORT_ETAPE_0
+    private val seaImport1 = allVal.SEA_IMPORT_ETAPE_1
+    private val seaImport2 = allVal.SEA_IMPORT_ETAPE_2
+    private val seaImport3 = allVal.SEA_IMPORT_ETAPE_3
+
+    //Step ROAD
+    private val roadTracking0 = allVal.ROAD_TRACKING_ETAPE_0
+    private val roadTracking1 = allVal.ROAD_TRACKING_ETAPE_1
+    private val roadTracking2 = allVal.ROAD_TRACKING_ETAPE_2
+    private val roadTracking3 = allVal.ROAD_TRACKING_ETAPE_3
 
     private val db = Firebase.firestore
     private val voyTc = db.collection(dataBasePath)
@@ -35,97 +46,270 @@ class BayoStepViewFunctionsSetup {
 
     var stepsBeanList: MutableList<StepBean> = ArrayList()
     // Variable stepBean Export
-    lateinit var stepBean0_export: StepBean
+    lateinit var stepBean0: StepBean
+    lateinit var stepBean1: StepBean
+    lateinit var stepBean2: StepBean
+    lateinit var stepBean3: StepBean
+    lateinit var stepBean4: StepBean
+    lateinit var stepBean5: StepBean
+
+/*    lateinit var stepBean0_export: StepBean
     lateinit var stepBean1_export: StepBean
     lateinit var stepBean2_export: StepBean
     lateinit var stepBean3_export: StepBean
     lateinit var stepBean4_export: StepBean
     lateinit var stepBean5_export: StepBean
-    lateinit var stepBean6_export: StepBean
+    lateinit var stepBean6_export: StepBean*/
 
     //****//
-    lateinit var stepBean0_import: StepBean
+/*    lateinit var stepBean0_import: StepBean
     lateinit var stepBean1_import: StepBean
     lateinit var stepBean2_import: StepBean
     lateinit var stepBean3_import: StepBean
     lateinit var stepBean4_import: StepBean
 
+    lateinit var stepBean0_other : StepBean
+    lateinit var stepBean1_other : StepBean
+    lateinit var stepBean2_other : StepBean
+    lateinit var stepBean3_other : StepBean*/
 
+
+    // Initialise Setupe Step View
     fun setupStepView(
         mContext: Context,
         typetransact: String,
+        typeSousTransact : String,
         bayoStepView: HorizontalStepView
     ) {
-
         var txtSizeStep = 9
-
         when (typetransact) {
-            "Import" -> {
-                stepsBeanList.add(stepBean0_import)
-                stepsBeanList.add(stepBean1_import)
-                stepsBeanList.add(stepBean2_import)
-                stepsBeanList.add(stepBean3_import)
+            "AIR" -> {
+                when(typeSousTransact) {
+                    "EXPORT (AIR)" -> {
+                        stepsBeanList.add(stepBean0)
+                        stepsBeanList.add(stepBean1)
+                        stepsBeanList.add(stepBean2)
+                        stepsBeanList.add(stepBean3)
 
-                bayoStepView
-                    .setStepViewTexts(stepsBeanList)
-                    .setTextSize(txtSizeStep)
-                    .setStepsViewIndicatorAttentionIcon(
-                        ContextCompat.getDrawable(
-                            mContext,
-                            R.drawable.ic_cam
-                        )
-                    )
-                    .setStepsViewIndicatorDefaultIcon(
-                        ContextCompat.getDrawable(
-                            mContext,
-                            R.drawable.next_step
-                        )
-                    )
-                    .setStepsViewIndicatorUnCompletedLineColor(
-                        ContextCompat.getColor(
-                            mContext,
-                            R.color.blue
-                        )
-                    )
-                    .setStepViewUnComplectedTextColor(
-                        ContextCompat.getColor(
-                            mContext,
-                            R.color.blue
-                        )
-                    )
-                    .setStepViewComplectedTextColor(
-                        ContextCompat.getColor(
-                            mContext,
-                            R.color.blue
-                        )
-                    )
-                    .setStepsViewIndicatorCompletedLineColor(
-                        ContextCompat.getColor(
-                            mContext,
-                            R.color.blue
-                        )
-                    )
-                    .setStepsViewIndicatorCompleteIcon(
-                        ContextCompat.getDrawable(
-                            mContext,
-                            R.drawable.check
-                        )
-                    )
+                        bayoStepView
+                            .setStepViewTexts(stepsBeanList)
+                            .setTextSize(txtSizeStep)
+                            .setStepsViewIndicatorAttentionIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.ic_cam
+                                )
+                            )
+                            .setStepsViewIndicatorDefaultIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.next_step
+                                )
+                            )
+                            .setStepsViewIndicatorUnCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewUnComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompleteIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.check
+                                )
+                            )
 
+                    }
+                    "IMPORT (AIR)" -> {
+                        stepsBeanList.add(stepBean0)
+                        stepsBeanList.add(stepBean1)
+                        stepsBeanList.add(stepBean2)
+                        stepsBeanList.add(stepBean3)
+                        bayoStepView
+                            .setStepViewTexts(stepsBeanList)
+                            .setTextSize(txtSizeStep)
+                            .setStepsViewIndicatorAttentionIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.ic_cam
+                                )
+                            )
+                            .setStepsViewIndicatorDefaultIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.next_step
+                                )
+                            )
+                            .setStepsViewIndicatorUnCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewUnComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompleteIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.check
+                                )
+                            )
+
+                    }
+                }
             }
+            "SEA" -> {
+                when(typeSousTransact){
+                    "EXPORT (SEA)" -> {
+                        stepsBeanList.add(stepBean0)
+                        stepsBeanList.add(stepBean1)
+                        stepsBeanList.add(stepBean2)
+                        stepsBeanList.add(stepBean3)
+                        stepsBeanList.add(stepBean4)
+                        stepsBeanList.add(stepBean5)
+                        bayoStepView
+                            .setStepViewTexts(stepsBeanList)
+                            .setTextSize(txtSizeStep)
+                            .setStepsViewIndicatorAttentionIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.ic_cam
+                                )
+                            )
+                            .setStepsViewIndicatorDefaultIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.next_step
+                                )
+                            )
+                            .setStepsViewIndicatorUnCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewUnComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompleteIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.check
+                                )
+                            )
 
-            "Export" -> {
-                stepsBeanList.add(stepBean0_export)
-                stepsBeanList.add(stepBean1_export)
-                stepsBeanList.add(stepBean2_export)
-                stepsBeanList.add(stepBean3_export)
-                stepsBeanList.add(stepBean4_export)
-                stepsBeanList.add(stepBean5_export)
+                    }
+                    "IMPORT (AIR)" -> {
+                        stepsBeanList.add(stepBean0)
+                        stepsBeanList.add(stepBean1)
+                        stepsBeanList.add(stepBean2)
+                        stepsBeanList.add(stepBean3)
+                        bayoStepView
+                            .setStepViewTexts(stepsBeanList)
+                            .setTextSize(txtSizeStep)
+                            .setStepsViewIndicatorAttentionIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.ic_cam
+                                )
+                            )
+                            .setStepsViewIndicatorDefaultIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.next_step
+                                )
+                            )
+                            .setStepsViewIndicatorUnCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewUnComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepViewComplectedTextColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompletedLineColor(
+                                ContextCompat.getColor(
+                                    mContext,
+                                    R.color.blue
+                                )
+                            )
+                            .setStepsViewIndicatorCompleteIcon(
+                                ContextCompat.getDrawable(
+                                    mContext,
+                                    R.drawable.check
+                                )
+                            )
 
+                    }
+                }
+            }
+            "ROAD" -> {
+                stepsBeanList.add(stepBean0)
+                stepsBeanList.add(stepBean1)
+                stepsBeanList.add(stepBean2)
+                stepsBeanList.add(stepBean3)
                 bayoStepView
                     .setStepViewTexts(stepsBeanList)
                     .setTextSize(txtSizeStep)
-
                     .setStepsViewIndicatorAttentionIcon(
                         ContextCompat.getDrawable(
                             mContext,
@@ -178,139 +362,195 @@ class BayoStepViewFunctionsSetup {
         mContext: Context,
         etape: Int,
         typetransact: String,
+        typeSousTransact : String,
         bayoStepView: HorizontalStepView,
     ) {
         when (typetransact) {
-            "Import" -> {
-                when (etape) {
-                    0 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_import = StepBean("Arrivée Port", 0)
-                        stepBean1_import = StepBean("Dédouanement", -1)
-                        stepBean2_import = StepBean("Sortie", -1)
-                        stepBean3_import = StepBean("Destination Finale", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
-                    }
+            "AIR" -> {
+                when(typeSousTransact){
+                    "EXPORT (AIR)" -> {}
+                    "IMPORT (AIR)" -> {}
+                }
+            }
+            "SEA" -> {
+                when(typeSousTransact){
+                    "EXPORT (SEA)" -> {
+                        when (etape) {
+                            0 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 0)
+                                stepBean1 = StepBean(seaExport1, -1)
+                                stepBean2 = StepBean(seaExport2, -1)
+                                stepBean3 = StepBean(seaExport3, -1)
+                                stepBean4 = StepBean(seaExport4, -1)
+                                stepBean5 = StepBean(seaExport5, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                            }
 
-                    1 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_import = StepBean("Arrivée Port", 1)
-                        stepBean1_import = StepBean("Dédouanement", 0)
-                        stepBean2_import = StepBean("Sortie", -1)
-                        stepBean3_import = StepBean("Destination Finale", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
-                    }
+                            1 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 1)
+                                stepBean1 = StepBean(seaExport1, 0)
+                                stepBean2 = StepBean(seaExport2, -1)
+                                stepBean3 = StepBean(seaExport3, -1)
+                                stepBean4 = StepBean(seaExport4, -1)
+                                stepBean5 = StepBean(seaExport5, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                            }
 
-                    2 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_import = StepBean("Arrivée Port", 1)
-                        stepBean1_import = StepBean("Dédouanement", 1)
-                        stepBean2_import = StepBean("Sortie", 0)
-                        stepBean3_import = StepBean("Destination Finale", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
-                    }
+                            2 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 1)
+                                stepBean1 = StepBean(seaExport1, 1)
+                                stepBean2 = StepBean(seaExport2, 0)
+                                stepBean3 = StepBean(seaExport3, -1)
+                                stepBean4 = StepBean(seaExport4, -1)
+                                stepBean5 = StepBean(seaExport5, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
 
-                    3 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_import = StepBean("Arrivée Port", 1)
-                        stepBean1_import = StepBean("Dédouanement", 1)
-                        stepBean2_import = StepBean("Sortie", 1)
-                        stepBean3_import = StepBean("Destination Finale", 0)
-                        setupStepView(mContext, typetransact, bayoStepView )
-                    }
+                            }
 
-                    4 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_import = StepBean("Arrivée Port", 1)
-                        stepBean1_import = StepBean("Dédouanement", 1)
-                        stepBean2_import = StepBean("Sortie", 1)
-                        stepBean3_import = StepBean("Destination Finale", 1)
-                        setupStepView(mContext, typetransact, bayoStepView )
+                            3 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 1)
+                                stepBean1 = StepBean(seaExport1, 1)
+                                stepBean2 = StepBean(seaExport2, 1)
+                                stepBean3 = StepBean(seaExport3, 0)
+                                stepBean4 = StepBean(seaExport4, -1)
+                                stepBean5 = StepBean(seaExport5, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                            }
+
+                            4 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 1)
+                                stepBean1 = StepBean(seaExport1, 1)
+                                stepBean2 = StepBean(seaExport2, 1)
+                                stepBean3 = StepBean(seaExport3, 1)
+                                stepBean4 = StepBean(seaExport4, 0)
+                                stepBean5 = StepBean(seaExport5, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                            }
+
+                            5 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 1)
+                                stepBean1 = StepBean(seaExport1, 1)
+                                stepBean2 = StepBean(seaExport2, 1)
+                                stepBean3 = StepBean(seaExport3, 1)
+                                stepBean4 = StepBean(seaExport4, 1)
+                                stepBean5 = StepBean(seaExport5, 0)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                            }
+
+                            6 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaExport0, 1)
+                                stepBean1 = StepBean(seaExport1, 1)
+                                stepBean2 = StepBean(seaExport2, 1)
+                                stepBean3 = StepBean(seaExport3, 1)
+                                stepBean4 = StepBean(seaExport4, 1)
+                                stepBean5 = StepBean(seaExport5, 1)
+                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                            }
+                        }
+                    }
+                    "IMORT (SEA)" -> {
+                        when (etape) {
+                            0 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaImport0, 0)
+                                stepBean1 = StepBean(seaImport1, -1)
+                                stepBean2 = StepBean(seaImport2, -1)
+                                stepBean3 = StepBean(seaImport3, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                            }
+
+                            1 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaImport0, 1)
+                                stepBean1 = StepBean(seaImport1, 0)
+                                stepBean2 = StepBean(seaImport2, -1)
+                                stepBean3 = StepBean(seaImport3, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                            }
+
+                            2 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaImport0, 1)
+                                stepBean1 = StepBean(seaImport1, 1)
+                                stepBean2 = StepBean(seaImport2, 0)
+                                stepBean3 = StepBean(seaImport3, -1)
+                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                            }
+
+                            3 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaImport0, 1)
+                                stepBean1 = StepBean(seaImport1, 1)
+                                stepBean2 = StepBean(seaImport2, 1)
+                                stepBean3 = StepBean(seaImport3, 0)
+                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                            }
+
+                            4 -> {
+                                stepsBeanList = ArrayList()
+                                stepBean0 = StepBean(seaImport0, 1)
+                                stepBean1 = StepBean(seaImport1, 1)
+                                stepBean2 = StepBean(seaImport2, 1)
+                                stepBean3 = StepBean(seaImport3, 1)
+                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                            }
+                        }
                     }
                 }
             }
-
-            "Export" -> {
+            "ROAD" -> {
                 when (etape) {
                     0 -> {
                         stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 0)
-                        stepBean1_export = StepBean("Usine", -1)
-                        stepBean2_export = StepBean("Chargement", -1)
-                        stepBean3_export = StepBean("Douane", -1)
-                        stepBean4_export = StepBean("Sortie", -1)
-                        stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
+                        stepBean0 = StepBean(roadTracking0, 0)
+                        stepBean1 = StepBean(roadTracking1, -1)
+                        stepBean2 = StepBean(roadTracking2, -1)
+                        stepBean3 = StepBean(roadTracking3, -1)
+                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
                     }
 
                     1 -> {
                         stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 1)
-                        stepBean1_export = StepBean("Usine", 0)
-                        stepBean2_export = StepBean("Chargement", -1)
-                        stepBean3_export = StepBean("Douane", -1)
-                        stepBean4_export = StepBean("Sortie", -1)
-                        stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
-
+                        stepBean0 = StepBean(roadTracking0, 1)
+                        stepBean1 = StepBean(roadTracking1, 0)
+                        stepBean2 = StepBean(roadTracking2, -1)
+                        stepBean3 = StepBean(roadTracking3, -1)
+                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
                     }
 
                     2 -> {
                         stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 1)
-                        stepBean1_export = StepBean("Usine", 1)
-                        stepBean2_export = StepBean("Chargement", 0)
-                        stepBean3_export = StepBean("Douane", -1)
-                        stepBean4_export = StepBean("Sortie", -1)
-                        stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
+                        stepBean0 = StepBean(roadTracking0, 1)
+                        stepBean1 = StepBean(roadTracking1, 1)
+                        stepBean2 = StepBean(roadTracking2, 0)
+                        stepBean3 = StepBean(roadTracking3, -1)
+                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
 
                     }
 
                     3 -> {
                         stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 1)
-                        stepBean1_export = StepBean("Usine", 1)
-                        stepBean2_export = StepBean("Chargement", 1)
-                        stepBean3_export = StepBean("Douane", 0)
-                        stepBean4_export = StepBean("Sortie", -1)
-                        stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
-
+                        stepBean0 = StepBean(roadTracking0, 1)
+                        stepBean1 = StepBean(roadTracking1, 1)
+                        stepBean2 = StepBean(roadTracking2, 1)
+                        stepBean3 = StepBean(roadTracking3, 0)
+                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
                     }
 
                     4 -> {
                         stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 1)
-                        stepBean1_export = StepBean("Usine", 1)
-                        stepBean2_export = StepBean("Chargement", 1)
-                        stepBean3_export = StepBean("Douane", 1)
-                        stepBean4_export = StepBean("Sortie", 0)
-                        stepBean5_export = StepBean("Arrivée Port", -1)
-                        setupStepView(mContext, typetransact, bayoStepView )
-
-                    }
-
-                    5 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 1)
-                        stepBean1_export = StepBean("Usine", 1)
-                        stepBean2_export = StepBean("Chargement", 1)
-                        stepBean3_export = StepBean("Douane", 1)
-                        stepBean4_export = StepBean("Sortie", 1)
-                        stepBean5_export = StepBean("Arrivée Port", 0)
-                        setupStepView(mContext, typetransact, bayoStepView )
-                    }
-
-                    6 -> {
-                        stepsBeanList = ArrayList()
-                        stepBean0_export = StepBean("Port", 1)
-                        stepBean1_export = StepBean("Usine", 1)
-                        stepBean2_export = StepBean("Chargement", 1)
-                        stepBean3_export = StepBean("Douane", 1)
-                        stepBean4_export = StepBean("Sortie", 1)
-                        stepBean5_export = StepBean("Arrivée Port", 1)
-                        setupStepView(mContext, typetransact, bayoStepView )
+                        stepBean0 = StepBean(roadTracking0, 1)
+                        stepBean1 = StepBean(roadTracking1, 1)
+                        stepBean2 = StepBean(roadTracking2, 1)
+                        stepBean3 = StepBean(roadTracking3, 1)
+                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
                     }
                 }
             }

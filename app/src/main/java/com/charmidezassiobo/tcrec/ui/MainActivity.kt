@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -61,9 +62,7 @@ class MainActivity : AppCompatActivity() {
                 navView.visibility = View.GONE
             }
         }
-        getData.seaCallBack {
-            navView.setupWithNavController(navController)
-        }
+        navView.setupWithNavController(navController)
 
         val  keyboardVisibilityEventListener = object : KeyboardVisibilityEventListener {
             override fun onVisibilityChanged(isOpen: Boolean) {
@@ -81,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         KeyboardVisibilityEvent.setEventListener(this, keyboardVisibilityEventListener)
+
 
     }
 

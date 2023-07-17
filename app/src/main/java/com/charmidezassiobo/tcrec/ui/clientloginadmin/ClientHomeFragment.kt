@@ -24,7 +24,7 @@ import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentClientHomeBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.setup.SearchAdapter
+import com.charmidezassiobo.tcrec.setup.Adapter.SearchAdapter
 import com.charmidezassiobo.tcrec.ui.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.io.Serializable

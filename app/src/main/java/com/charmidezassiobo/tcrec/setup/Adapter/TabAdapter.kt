@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.Adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment

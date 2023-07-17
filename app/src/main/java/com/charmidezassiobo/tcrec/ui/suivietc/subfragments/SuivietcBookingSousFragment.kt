@@ -17,7 +17,7 @@ import com.charmidezassiobo.tcrec.data.GetDataFromDB
 import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.TCBookingAdapter
+import com.charmidezassiobo.tcrec.setup.Adapter.TCBookingAdapter
 
 class SuivietcBookingSousFragment : Fragment() {
 

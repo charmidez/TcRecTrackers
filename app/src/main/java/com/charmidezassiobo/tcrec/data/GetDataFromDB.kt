@@ -12,9 +12,8 @@ import com.charmidezassiobo.tcrec.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.AllVariables
-import com.charmidezassiobo.tcrec.setup.TCAdapter
+import com.charmidezassiobo.tcrec.setup.Adapter.TCAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -23,36 +22,36 @@ class GetDataFromDB {
     private val allFun = AllFunctions()
     private val allVar = AllVariables()
 
-    private val db = Firebase.firestore
+     val db = Firebase.firestore
     //private val db = FirebaseFirestore.getInstance()
 
-    private val voyTc = db.collection(allVar.dbPath)
+    private val voyTc = db.collection(allVar.DBPATH)
 
-    private val dbSea = db.collection(allVar.seaCollection)
-    private val dbAir = db.collection(allVar.airCollection)
-    private val dbRoad = db.collection(allVar.roadCollection)
+    private val dbSea = db.collection(allVar.SEA_COLLECTION)
+    private val dbAir = db.collection(allVar.AIR_COLLECTION)
+    private val dbRoad = db.collection(allVar.ROAD_COLLECTION)
 
     //*******SEA ******//
     fun seaCallBack(callback: () -> Unit) {
         var itemListSeaTransact = arrayListOf<Sea>()
         dbSea.get().addOnSuccessListener { documents ->
-            for (document in documents) {
+            for (document in documents.documents) {
                 if (document != null) {
-                    val numTc1 = document.data.get("num_tc_1").toString()
-                    val numBooking = document.data.get("num_booking").toString()
-                    val numBl = document.data!!.get("num_bl").toString()
-                    val numCamion = document.data.get("num_camion").toString()
+                    val numTc1 = document.data?.get("num_tc_1").toString()
+                    val numBooking = document.data?.get("num_booking").toString()
+                    val numBl = document.data?.get("num_bl").toString()
+                    val numCamion = document.data?.get("num_camion").toString()
                     val stepTc = document.getLong("step_tc")?.toInt()
-                    val dateAjoutTc = document.data.get("date_ajout_tc").toString()
-                    val numPlombTc1 = document.data.get("num_plomb_tc_1").toString()
-                    val numPhoneChauffeur = document.data.get("num_phone_chauffeur").toString()
-                    val numTc2 = document.data.get("num_tc_2").toString()
-                    val numPlombTc2 = document.data.get("num_plomb_tc_2").toString()
-                    val typeTransact = document.data.get("type_transact").toString()
-                    val descTc = document.data.get("desc_tc").toString()
-                    val typeSousTransact = document.data.get("type_sous_transact").toString()
+                    val dateAjoutTc = document.data?.get("date_ajout_tc").toString()
+                    val numPlombTc1 = document.data?.get("num_plomb_tc_1").toString()
+                    val numPhoneChauffeur = document.data?.get("num_phone_chauffeur").toString()
+                    val numTc2 = document.data?.get("num_tc_2").toString()
+                    val numPlombTc2 = document.data?.get("num_plomb_tc_2").toString()
+                    val typeTransact = document.data?.get("type_transact").toString()
+                    val descTc = document.data?.get("desc_tc").toString()
+                    val typeSousTransact = document.data?.get("type_sous_transact").toString()
                     val heureDeChaqueStepList =
-                        document.get("date_hour_step") as? MutableList<HashMap<String, String>>
+                        document.data?.get("date_hour_step") as? MutableList<HashMap<String, String>>
                     if (stepTc != null && heureDeChaqueStepList != null) {
                         val heureDeChaqueStep = heureDeChaqueStepList.map {
                             HeureStep(
@@ -88,27 +87,27 @@ class GetDataFromDB {
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
     }
-
+    //Get SEA Data
     fun getSEAdataFromdb() : ArrayList<Sea> {
         var itemListSeaTransact = arrayListOf<Sea>()
         dbSea.get().addOnSuccessListener { documents ->
-            for (document in documents) {
+            for (document in documents.documents) {
                 if (document != null) {
-                    val numTc1 = document.data.get("num_tc_1").toString()
-                    val numBooking = document.data.get("num_booking").toString()
-                    val numBl = document.data!!.get("num_bl").toString()
-                    val numCamion = document.data.get("num_camion").toString()
+                    val numTc1 = document.data?.get("num_tc_1").toString()
+                    val numBooking = document.data?.get("num_booking").toString()
+                    val numBl = document.data?.get("num_bl").toString()
+                    val numCamion = document.data?.get("num_camion").toString()
                     val stepTc = document.getLong("step_tc")?.toInt()
-                    val dateAjoutTc = document.data.get("date_ajout_tc").toString()
-                    val numPlombTc1 = document.data.get("num_plomb_tc_1").toString()
-                    val numPhoneChauffeur = document.data.get("num_phone_chauffeur").toString()
-                    val numTc2 = document.data.get("num_tc_2").toString()
-                    val numPlombTc2 = document.data.get("num_plomb_tc_2").toString()
-                    val typeTransact = document.data.get("type_transact").toString()
-                    val descTc = document.data.get("desc_tc").toString()
-                    val typeSousTransact = document.data.get("type_sous_transact").toString()
+                    val dateAjoutTc = document.data?.get("date_ajout_tc").toString()
+                    val numPlombTc1 = document.data?.get("num_plomb_tc_1").toString()
+                    val numPhoneChauffeur = document.data?.get("num_phone_chauffeur").toString()
+                    val numTc2 = document.data?.get("num_tc_2").toString()
+                    val numPlombTc2 = document.data?.get("num_plomb_tc_2").toString()
+                    val typeTransact = document.data?.get("type_transact").toString()
+                    val descTc = document.data?.get("desc_tc").toString()
+                    val typeSousTransact = document.data?.get("type_sous_transact").toString()
                     val heureDeChaqueStepList =
-                        document.get("date_hour_step") as? MutableList<HashMap<String, String>>
+                        document.data?.get("date_hour_step") as? MutableList<HashMap<String, String>>
                     if (stepTc != null && heureDeChaqueStepList != null) {
                         val heureDeChaqueStep = heureDeChaqueStepList.map {
                             HeureStep(
@@ -145,7 +144,7 @@ class GetDataFromDB {
             }
         return itemListSeaTransact
     }
-
+    //Get SEA Booking Number
     fun getSeaBookingdataFromdb() : ArrayList<String>{
         var listBooking = arrayListOf<String>()
         dbSea.get().addOnSuccessListener { documents ->
@@ -161,7 +160,7 @@ class GetDataFromDB {
             }
         return listBooking
     }
-
+    //Get SEA Booking With Title "Liste des numéros Booking"
     fun getSeaBookingWithTitledataFromdb() : ArrayList<String>{
         var listBooking = arrayListOf<String>()
         listBooking.add("Tous les bookings")
@@ -178,8 +177,8 @@ class GetDataFromDB {
             }
         return listBooking
     }
-
-    fun inputItemInRecyclerView(
+    //Input Data In Sea Recycler View
+    fun inputItemInSeaRecyclerView(
         listener: RecyclerViewClickItemInterface,
         chargement: View,
         recyclerViewTc: RecyclerView
@@ -190,8 +189,8 @@ class GetDataFromDB {
 
         return itemsTc
     }
-
-    fun removedItemInRecyclerView(
+    //Remove Data In Sea RecyclerView
+    fun removedItemInSeaRecyclerView(
         context: Context,
         recyclerView: RecyclerView,
         v: RecyclerView.ViewHolder
@@ -231,16 +230,11 @@ class GetDataFromDB {
 
 
 
-
     //*******AIR ******//
-    fun getAIRdataFromdb(){
-
-    }
+    fun getAIRdataFromdb(){}
 
     //*******ROAD ******//
-    fun getROADdataFromdb(){
-
-    }
+    fun getROADdataFromdb(){}
 
 
 /*    //Sea Tc

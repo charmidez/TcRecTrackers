@@ -25,21 +25,18 @@ import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class AjoutertcFragment : Fragment() {
 
-    val dataBasePath = AllVariables().dbPath
+    val dataBasePath = AllVariables().DBPATH
 
     private var _binding: FragmentAjoutertcBinding? = null
     private val binding get() = _binding!!
 
-    private var db = Firebase.firestore
     private var allFun = AllFunctions()
-
-    var getData = GetDataFromDB()
+    private var getData = GetDataFromDB()
+    private var db = getData.db
 
     var itemsSea : MutableList<Sea>  = getData.getSEAdataFromdb()
     var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
@@ -85,7 +82,6 @@ class AjoutertcFragment : Fragment() {
         var typeTransact = ""
         var typeSousTransact = ""
 
-        //Prendre Les données du conteneur
         val butAjouter: Button = binding.ajouteTcButton
 
 
@@ -148,7 +144,7 @@ class AjoutertcFragment : Fragment() {
 
 
         /*****Export Radio Button Mecanism *******/
-        radioGrp_Air.setOnCheckedChangeListener { group, i ->
+        radioGrp_Sea.setOnCheckedChangeListener { group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when (selectOption) {
@@ -180,7 +176,7 @@ class AjoutertcFragment : Fragment() {
         }
 
         /**** Import Radio Butto Mecanism *****/
-        radioGrp_Sea.setOnCheckedChangeListener { group, i ->
+        radioGrp_Air.setOnCheckedChangeListener { group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when (selectOption) {
@@ -194,8 +190,8 @@ class AjoutertcFragment : Fragment() {
                         lnEditTextSeaExport,
                         lnEditTextRoad
                     )
-                    lnEditTextSeaExport.visibility = View.VISIBLE
-                    spinnerBookingList(mContext, spinnerBooking, numBookingTc)
+                    lnEditTextAirImport.visibility = View.VISIBLE
+                    //spinnerBookingList(mContext, spinnerBooking, numBookingTc)
                 }
                 //Je choisie AIR Export
                 R.id.radioButton_air_exp_ajout -> {
@@ -214,23 +210,34 @@ class AjoutertcFragment : Fragment() {
 
         // Enréistrement dans la base de donnée
         butAjouter.setOnClickListener {
+            buttonModifier(butAjouter, "Chargement", false,R.drawable.btn_drawable_not_selected )
             if (isConnected) {
                 when(typeTransact){
-                    "Export" -> {
+                    "SEA" -> {
                         when(typeSousTransact){
-                            "SEA Export" -> addSeaExport(mContext, root, typeTransact, typeSousTransact, numBookingTc, numCamion, numTc1, numTc2, numChauffeur, descTc,butAjouter)
-                            "AIR Export" -> addAirExport()
+                            "EXPORT (SEA)" -> {
+                                addSeaExport(mContext, root, typeTransact, typeSousTransact, numBookingTc, numCamion, numTc1, numTc2, numChauffeur, descTc,butAjouter)
+                            }
+
+                            "IMPORT (SEA)" -> {
+                                //addSeaImport()
+                            }
                         }
                     }
-                    "Import" -> {
+                    "AIR" -> {
                         when(typeSousTransact){
-                            "SEA Import" -> addSeaImport()
-                            "AIR Import" -> addAirImport()
+                            "EXPORT (AIR)" -> {
+                                //addAirExport()
+                            }
+                            "IMPORT (AIR)" -> {
+                                //addAirImport()
+                            }
                         }
                     }
-                    "Road" -> {
-                        typeTransact="Road Tracking  Only"
-                        addRoadTracking()
+                    "ROAD" -> {
+                        //typeTransact="Road Tracking  Only"
+                        typeSousTransact = "Road Tracking"
+                        //addRoadTracking()
                     }
                 }
 
@@ -278,6 +285,7 @@ class AjoutertcFragment : Fragment() {
         val descContenuRmvSpx = AllFunctions().removeSpaces(descTc.text.toString())
 
         //Récupération des données saisies
+/*
         if (typeTransact.isNotBlank()){
             if (numBookingRmvSpx.isNotBlank()){
                 if (numTc1RmvSpx.isNotBlank() && numCamionRmvSpx.isNotBlank()){
@@ -296,6 +304,10 @@ class AjoutertcFragment : Fragment() {
                         "num_phone_chauffeur" to numPhoneChauffeurRmvSpx,
                         "date_hour_step" to lesStepHour
                     )
+
+                    butAdd.text = "Chargement"
+                    butAdd.isEnabled = false
+                    butAdd.setBackground(resources.getDrawable(R.drawable.btn_drawable_not_selected))
 
                     //Enregistrement de données dans la base  de données
                     db.collection(dataBasePath).document().set(registerSeaExport)
@@ -321,7 +333,8 @@ class AjoutertcFragment : Fragment() {
                             butAdd.isEnabled = true
                             butAdd.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
                         }
-                } else if (numCamionRmvSpx.isBlank() || numTc1RmvSpx.isBlank()){
+                } else {
+                    Log.d("isNullOrEmpty", "numCamion Et numTc Vide")
                     val snack = Snackbar.make(rootView, "Veuillez renseigner un Tc et un numéro camion", Snackbar.LENGTH_LONG)
                     snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                     snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
@@ -330,6 +343,57 @@ class AjoutertcFragment : Fragment() {
                     butAdd.isEnabled = true
                     butAdd.setBackground(resources.getDrawable(R.drawable.btn_drawable_red))
                 }
+            }
+        }
+*/
+
+        when(true){
+            numBookingRmvSpx.isNullOrBlank() -> {
+                snackBarShowWarning(mContext, rootView, "Veilez saisir le numéro booking")
+                buttonModifier(butAdd, getText(R.string.but_addtc).toString(), true, R.drawable.btn_drawable_red)
+            }
+            numCamionRmvSpx.isNullOrBlank() -> {
+                snackBarShowWarning(mContext, rootView, "Veilez saisir la plaque d'immatriculation du camion")
+                buttonModifier(butAdd, getText(R.string.but_addtc).toString(), true, R.drawable.btn_drawable_red)
+            }
+            numTc1RmvSpx.isNullOrBlank() && numTc2RmvSpx.isNullOrBlank()  -> {
+                snackBarShowWarning(mContext, rootView, "Veilez saisir au moins un numéro conteneur")
+                buttonModifier(butAdd, getText(R.string.but_addtc).toString(), true, R.drawable.btn_drawable_red)
+            }
+            else -> {
+                val registerSeaExport = hashMapOf(
+                    "date_ajout_tc" to getDate,
+                    "type_transact" to typeTransact,
+                    "type_sous_transact" to typeSousTransact,
+                    "num_booking" to numBookingRmvSpx,
+                    "num_camion" to numCamionRmvSpx,
+                    "num_tc_1" to numTc1RmvSpx,
+                    "num_tc_2" to numTc2RmvSpx,
+                    "num_plomb_tc_1" to numPlomb1,
+                    "num_plomb_tc_2" to numPlomb2,
+                    "step_tc" to step,
+                    "desc_tc" to descContenuRmvSpx,
+                    "num_phone_chauffeur" to numPhoneChauffeurRmvSpx,
+                    "date_hour_step" to lesStepHour
+                )
+
+                //Enregistrement de données dans la base  de données
+                db.collection(dataBasePath).document().set(registerSeaExport)
+                    .addOnSuccessListener {
+                        numBooking.text?.clear()
+                        numTc1.text?.clear()
+                        numTc2.text?.clear()
+                        numCamion.text?.clear()
+                        descTc.text?.clear()
+                        numChauffeur.text?.clear()
+                        buttonModifier(butAdd, getText(R.string.but_addtc).toString(), true, R.drawable.btn_drawable_red)
+                        snackBarShowSucces(mContext, rootView, "La transaction a bien été ajouté ce $getDate")
+                    }
+                    .addOnFailureListener {
+                        snackBarShowSucces(mContext, rootView, "La transaction n'a pu être enrégistrée")
+                        buttonModifier(butAdd, getText(R.string.but_addtc).toString(), true, R.drawable.btn_drawable_red)
+                    }
+                snackBarShowSucces(mContext, rootView, "La transaction a été ajoutée")
             }
         }
 
@@ -360,6 +424,28 @@ class AjoutertcFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             })
         }
+    }
+
+    private fun snackBarShowWarning(mContext : Context, rootView : View, message : String){
+        val snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+        snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
+        snack.show()
+    }
+
+   private fun snackBarShowSucces(mContext : Context, rootView : View, message : String){
+        val snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+        snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.blue))
+        snack.show()
+    }
+
+    private fun buttonModifier(but : Button, text : String, boolean: Boolean, id : Int ){
+        but.text = text
+        but.isEnabled = boolean
+        /*id = R.drawable.btn_drawable_red*/
+        but.setBackground(resources.getDrawable(id))
+
     }
 
     override fun onDestroyView() {
