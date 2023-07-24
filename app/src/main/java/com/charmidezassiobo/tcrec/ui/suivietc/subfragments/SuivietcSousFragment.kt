@@ -19,10 +19,11 @@ import androidx.navigation.fragment.findNavController
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
+import com.charmidezassiobo.tcrec.setup.BayoStepViewFunctionsSetup
 import com.google.firebase.firestore.FirebaseFirestore
 import java.lang.Exception
 import java.time.LocalDate
@@ -36,20 +37,8 @@ class SuivietcSousFragment : Fragment() {
 
     var stepvoyage: Int = 0
     var typetransact: String = ""
-    var stepsBeanList: MutableList<StepBean> = ArrayList()
-    lateinit var stepBean0_export: StepBean
-    lateinit var stepBean1_export: StepBean
-    lateinit var stepBean2_export: StepBean
-    lateinit var stepBean3_export: StepBean
-    lateinit var stepBean4_export: StepBean
-    lateinit var stepBean5_export: StepBean
-
-    //***//
-    lateinit var stepBean0_import: StepBean
-    lateinit var stepBean1_import: StepBean
-    lateinit var stepBean2_import: StepBean
-    lateinit var stepBean3_import: StepBean
-    //***//
+    var sousTypeTransact : String = ""
+    lateinit var bayoSetup : BayoStepViewFunctionsSetup
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -61,6 +50,7 @@ class SuivietcSousFragment : Fragment() {
         val root: View = binding.root
 
         val navController = findNavController()
+        val mContext = binding.root.context
 
         var bayoStepView: HorizontalStepView = binding.stepViewBaoyaVerticalViewItem
 
@@ -89,15 +79,20 @@ class SuivietcSousFragment : Fragment() {
 
         var btnMettreAJour: Button = binding.btnPopupMaj
 
+        bayoSetup = BayoStepViewFunctionsSetup(bayoStepView)
+
+
         binding.btnBackToPreviousFragment.setOnClickListener {
             navController.popBackStack(R.id.navigation_suivietc, false)
         }
 
         val data = arguments
         typetransact = data?.getString("inputTypeTransact").toString()
+        sousTypeTransact = data?.getString("inputSousTypeTransact").toString()
 
         try {
             stepvoyage = data?.getInt("inputPositionVoyages")!!.toInt()
+            Log.d("STEP_BAYO", stepvoyage.toString())
         } catch (e : Exception) {
             e.printStackTrace()
             Log.d("e.Exeption", e.printStackTrace().toString())
@@ -132,13 +127,13 @@ class SuivietcSousFragment : Fragment() {
         val date = data?.getString("inputDate")
         val num_TC = data?.getString("inputTc")
         val num_Camion = data?.getString("inputCamion")
-        stepChange(stepvoyage, typetransact, bayoStepView)
+        bayoSetup.stepChange(mContext, stepvoyage, typetransact, sousTypeTransact)
         dateChangement(date.toString(), dateEtapeTcSub)
         dateSaveTcSub.text = "TC enrégistré le $date"
 
         try {
             when (typetransact) {
-                "Import" -> {
+                "AIR" -> {
                     when (stepvoyage) {
                         0 -> dateEtapeTcSub.text =
                             "Tc arrivé au Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}  "
@@ -157,10 +152,10 @@ class SuivietcSousFragment : Fragment() {
                     }
                 }
 
-                "Export" -> {
+                "SEA" -> {
                     when (stepvoyage) {
                         0 -> dateEtapeTcSub.text =
-                            "Tc au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                            "Tc dans au port : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
 
                         1 -> dateEtapeTcSub.text =
                             "Tc à l'usine le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
@@ -181,6 +176,8 @@ class SuivietcSousFragment : Fragment() {
                                                 "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"*/
                     }
                 }
+
+                "ROAD" -> {}
             }
         } catch (e : Exception){
             e.printStackTrace()
@@ -238,21 +235,20 @@ class SuivietcSousFragment : Fragment() {
         btnBackToLeft.setOnClickListener {
             if(stepvoyage >0){
                 tableauSateHeureStep.removeAt(stepvoyage)
-                stepvoyage -= 1
-
-                stepChange(stepvoyage, typetransact, bayoStepView)
+                stepvoyage = stepvoyage - 1
+                bayoSetup.stepChange(mContext, stepvoyage, typetransact, sousTypeTransact)
             }
         }
 
         btnNextToRight.setOnClickListener {
             if (stepvoyage < 6){
-                stepvoyage +=1
+                stepvoyage = stepvoyage + 1
                 var allFunctions = AllFunctions()
                 var dateRealChiffre = allFunctions.miseEnPlaceDate(true)
                 var dateRealLettre = allFunctions.miseEnPlaceDate(false)
                 var heureRealChiffre = allFunctions.miseEnPlaceHeure()
                 tableauSateHeureStep.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
-                stepChange(stepvoyage, typetransact, bayoStepView)
+                bayoSetup.stepChange(mContext, stepvoyage, typetransact, sousTypeTransact)
             }
         }
 
@@ -272,8 +268,6 @@ class SuivietcSousFragment : Fragment() {
             val nouvelEtapeVoyages = stepvoyage
 
             val nouvelleHeureDateStep = tableauSateHeureStep
-
-            Log.d("btn rouge", "Appuyé $nouveauNumImmatriculation")
 
             val db = FirebaseFirestore.getInstance()
             val query = db.collection(dataBasePath)
@@ -327,7 +321,7 @@ class SuivietcSousFragment : Fragment() {
         return root
     }
 
-    fun setupStepView(typetransact: String, bayoStepView: HorizontalStepView) {
+/*    fun setupStepView(typetransact: String, bayoStepView: HorizontalStepView) {
 
         var txtSizeStep = 9
 
@@ -582,7 +576,7 @@ class SuivietcSousFragment : Fragment() {
                 }
             }
         }
-    }
+    }*/
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun dateChangement(dateParameter: String, date_etape_tc_popup: TextView) {

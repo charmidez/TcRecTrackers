@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.interfaces
+package com.charmidezassiobo.tcrec.setup.interfaces
 
 interface RecyclerViewClickItemInterface {
     fun onItemClick( position : Int)

@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
@@ -45,12 +46,14 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner{
         var viewPagerSuivieTc = binding.viewPagerSuivieTc
         var titreSuivieTc = binding.titreSuivieTc
         var imgVoirBooking = binding.imageViewVoirBooking
+        var imgVoirHawb = binding.imageViewVoirHawb
+        var imgVoirImmatriculation = binding.imageViewVoirImmatriculation
 
         val tabAdapter = TabAdapter(mContext, childFragmentManager, tabLayoutSuivieTc.tabCount)
         viewPagerSuivieTc.adapter = tabAdapter
         viewPagerSuivieTc.addOnPageChangeListener(
             TabLayout.TabLayoutOnPageChangeListener(tabLayoutSuivieTc).apply {
-                titreSuivieTc.text = getText(R.string.exp_tracking)
+                titreSuivieTc.text = getText(R.string.sea_tracking)
                 imgVoirBooking.visibility = View.VISIBLE
             }
         )
@@ -59,18 +62,24 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner{
                 viewPagerSuivieTc.currentItem = tab!!.position
                 when (viewPagerSuivieTc.currentItem) {
                     0 -> {
-                        titreSuivieTc.text = getText(R.string.exp_tracking)
+                        titreSuivieTc.text = getText(R.string.sea_tracking)
                         imgVoirBooking.visibility = View.VISIBLE
+                        imgVoirHawb.visibility = View.GONE
+                        imgVoirImmatriculation.visibility = View.GONE
                     }
 
                     1 -> {
-                        titreSuivieTc.text = getText(R.string.imp_tracking)
+                        titreSuivieTc.text = getText(R.string.air_tracking)
                         imgVoirBooking.visibility = View.GONE
+                        imgVoirHawb.visibility = View.VISIBLE
+                        imgVoirImmatriculation.visibility = View.GONE
                     }
 
                     2 -> {
-                        titreSuivieTc.text = getText(R.string.road_track)
+                        titreSuivieTc.text = getText(R.string.road_tracking)
                         imgVoirBooking.visibility = View.GONE
+                        imgVoirHawb.visibility = View.GONE
+                        imgVoirImmatriculation.visibility = View.VISIBLE
                     }
                 }
             }
@@ -95,6 +104,7 @@ class SuivietcFragment : Fragment(), OnBackPressedDispatcherOwner{
 
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

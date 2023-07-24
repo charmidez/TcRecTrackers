@@ -7,7 +7,6 @@
     android:background="@drawable/button_push"
     android:id="@+id/itemCardView_item_tc"
     android:elevation="8dp"
-
     android:layout_marginTop="@dimen/all_margin_demi"
     android:layout_marginRight="@dimen/all_margin"
     android:layout_marginLeft="@dimen/all_margin"
@@ -74,18 +73,14 @@
                     android:textColor="@color/textColor"
                     android:textSize="12dp" />
                 <TextView
-                    android:id="@+id/textView_import_export"
+                    android:id="@+id/textView_sousTypeTransact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    android:text="Export"
+                    android:text="Sea Export"
                     android:textColor="@color/blue"
                     android:paddingLeft="@dimen/padd"
-                    android:textSize="10sp"
-                    app:layout_constraintEnd_toEndOf="@+id/date_item"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/date_item"
-                    app:layout_constraintTop_toBottomOf="@+id/date_item" />
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
         <View

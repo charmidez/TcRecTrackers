@@ -2,7 +2,7 @@ package com.charmidezassiobo.tcrec.setup
 
 class AllVariables {
     open var DBPATH = "Voyagetest"
-    open var SEA_COLLECTION = "SEACollection"
+    open var SEA_COLLECTION = "SEA_COLLECTION"
     open var AIR_COLLECTION = "AIRCollection"
     open var ROAD_COLLECTION = "ROADCollection"
     open var REC_USER = "RecUsersCollection"
@@ -13,7 +13,7 @@ class AllVariables {
     open var SEA_EXPORT_ETAPE_2 = "Chargement"
     open var SEA_EXPORT_ETAPE_3 = "Douane"
     open var SEA_EXPORT_ETAPE_4 = "Sortie"
-    open var SEA_EXPORT_ETAPE_5 = "Arrivée Port"
+    open var SEA_EXPORT_ETAPE_5 = "Arrivée"
 
     //SEA Import
     open var SEA_IMPORT_ETAPE_0 = "Arrivée Port"
@@ -41,5 +41,7 @@ class AllVariables {
     open var ROAD_TRACKING_ETAPE_1 = "Départ"
     open var ROAD_TRACKING_ETAPE_2 = "En Route"
     open var ROAD_TRACKING_ETAPE_3 = "Arrivée"
+
+    open var CALL_REC_NUMBER = 92512666
 
 }

@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.data
+package com.charmidezassiobo.tcrec.setup.db
 
 import android.content.ContentValues
 import android.content.Context

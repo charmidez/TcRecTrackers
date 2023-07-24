@@ -9,4 +9,7 @@
     <dimen name="all_margin_demi">7dp</dimen>
     <dimen name="radius">10dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="title_text">16dp</dimen>
+    <dimen name="middle_text">12dp</dimen>
 </resources>

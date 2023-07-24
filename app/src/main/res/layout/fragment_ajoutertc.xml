@@ -30,13 +30,13 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_blue_background"
                     android:fontFamily="@font/source_sans_pro_bold"
-                    android:gravity="center"
                     android:padding="@dimen/all_padding"
                     android:layout_marginRight="@dimen/all_margin"
                     android:text="@string/ajout_tc"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
                 <ImageButton
+                    android:id="@+id/button_update_step"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -522,7 +522,6 @@
                     android:id="@+id/textField_Road_CamionNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:hint="@string/num_camion"
                     app:boxBackgroundColor="@color/gray"
                     app:boxStrokeColor="@color/gray"
@@ -582,6 +581,54 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInput_Road_Desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
+                        android:inputType="textCapCharacters"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- Depart Marchandise-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/all_margin"
+                    android:layout_weight="1"
+                    android:hint="@string/depart"
+                    app:boxBackgroundColor="@color/gray"
+                    app:boxStrokeColor="@color/gray"
+                    app:hintTextColor="@color/grisabsolut"
+                    app:startIconDrawable="@drawable/ic_depart"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInput_Road_Depart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_editable_text"
+                        android:focusable="auto"
+                        android:inputType="textCapCharacters"
+                        android:textAllCaps="true"
+                        android:textColor="@color/textColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- Arrivée Marchandise -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/all_margin"
+                    android:layout_weight="1"
+                    android:hint="@string/arrive"
+                    app:boxBackgroundColor="@color/gray"
+                    app:boxStrokeColor="@color/gray"
+                    app:hintTextColor="@color/grisabsolut"
+                    app:startIconDrawable="@drawable/ic_arrive"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInput_Road_Arrivee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_editable_text"

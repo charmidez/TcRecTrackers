@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.dataclass.HeureStep
-import com.charmidezassiobo.tcrec.dataclass.Sea
-import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.android.material.textfield.TextInputEditText
@@ -38,7 +38,7 @@ class TCAdapter(var items : List<Sea>, val listener : RecyclerViewClickItemInter
     val dataBasePath = AllVariables().DBPATH
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TCViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_tc, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_sea, parent, false)
         return TCViewHolder(itemView)
     }
 
@@ -86,7 +86,7 @@ class TCAdapter(var items : List<Sea>, val listener : RecyclerViewClickItemInter
          var etape : Int
          var step_tc : Int
          //var dateActuelStep : HeureStep
-         //var allFunctions = AllFunctions()
+         //var allFunctions = AllFunctionsInterface()
 
         /*var dateRealChiffre : String
         var dateRealLettre : String
@@ -114,7 +114,7 @@ class TCAdapter(var items : List<Sea>, val listener : RecyclerViewClickItemInter
             btnSuivant = itemView.findViewById(R.id.button_suivant_item)
             phoneChauffeur = itemView.findViewById(R.id.btnNumChauffeur)
             numtcsecond = itemView.findViewById(R.id.textViewSecondTCNum_item)
-            txtV_import_export = itemView.findViewById(R.id.textView_import_export)
+            txtV_import_export = itemView.findViewById(R.id.textView_sousTypeTransact)
             imgCheck = itemView.findViewById(R.id.imgCheck)
             stepvoyage = 0
             etape = 0
@@ -169,11 +169,11 @@ class TCAdapter(var items : List<Sea>, val listener : RecyclerViewClickItemInter
         fun bindTC(tc : Sea){
             numtc.text = tc.numTc1
             numcamion.text = tc.numCamion
-            datetc.text = tc.dateAjoutTc
+            datetc.text = tc.dateAjoutSea
             etape = tc.stepTc
             phoneChauffeur.text = tc.numChauffeur
             numtcsecond.text = tc.numTc2
-            tableauSateHeureStep = tc.dateHourStep
+            tableauSateHeureStep = tc.dateHourStep!!
 
             if(phoneChauffeur.text == "NonDisponible" || phoneChauffeur == null || phoneChauffeur.text == ""){
                 phoneChauffeur.text = "Indisponible"

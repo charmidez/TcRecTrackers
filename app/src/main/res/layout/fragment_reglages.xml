@@ -31,11 +31,28 @@
                     android:src="@drawable/logo_blanc_new"
                     android:background="@drawable/rounded_blue_background"
                     android:padding="@dimen/padd"/>
-                <!--TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/textMidTitle_result"
-                    android:text="Admin Rec"/-->
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textView_userType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/textMidTitle_result"
+                        android:fontFamily="@font/source_sans_pro_extra_light"
+                        android:textSize="@dimen/title_text"
+                        android:text="Admin Rec"/>
+                    <TextView
+                        android:id="@+id/textView_userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:textColor="@color/black"
+                        android:text="Assiobo Charmidez"/>
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -169,38 +186,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/all_margin"
                 android:layout_marginLeft="@dimen/all_margin"
-                android:layout_marginRight="@dimen/all_margin">
-
-                <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginRight="@dimen/all_margin"
+                android:orientation="vertical">
+                <TextView
                     android:id="@+id/buttonMaj"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/all_margin"
-                    android:layout_weight="1"
                     android:text="@string/maj"
-                    android:paddingLeft="@dimen/all_padding"
-                    android:paddingRight="@dimen/all_padding"
-                    android:background="@drawable/btn_drawable_call"
+                    android:textSize="18dp"
                     android:fontFamily="@font/source_sans_pro_bold"
-                    android:textColor="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/buttonDeconection"
+                    android:textColor="@color/black" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Déconnection"
-                    android:paddingLeft="@dimen/all_padding"
-                    android:paddingRight="@dimen/all_padding"
-                    android:background="@drawable/btn_drawable_red"
-                    android:fontFamily="@font/source_sans_pro_bold"
-                    android:textColor="@color/white" />
-
+                    android:text="Vérifier et éffectuer les dernières mise à jour" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/all_margin"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/all_margin"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonDeconection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Déconnection"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/all_margin"
+                android:paddingLeft="@dimen/all_padding"
+                android:paddingRight="@dimen/all_padding"
+                android:background="@drawable/btn_drawable_red"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"

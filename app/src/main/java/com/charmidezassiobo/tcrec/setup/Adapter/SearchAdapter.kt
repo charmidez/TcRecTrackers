@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 
 class SearchAdapter(var context : Context, var items : List<String>, val listener : RecyclerViewClickItemInterface) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 

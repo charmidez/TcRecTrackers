@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.charmidezassiobo.tcrec" />
-                  <option name="mobileSdkAppId" value="1:946097609163:android:289be9ff2f76cd9916be4e" />
-                  <option name="projectId" value="tc-rec-trackers" />
-                  <option name="projectNumber" value="946097609163" />
+                  <option name="mobileSdkAppId" value="1:449206643754:android:67a13c0d91bd7bcf752753" />
+                  <option name="projectId" value="rec-container-tracker" />
+                  <option name="projectNumber" value="449206643754" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

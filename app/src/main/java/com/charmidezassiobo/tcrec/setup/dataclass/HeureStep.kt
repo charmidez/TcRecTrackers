@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.dataclass
+package com.charmidezassiobo.tcrec.setup.dataclass
 
 import java.io.Serializable
 import java.sql.Date
@@ -7,7 +7,7 @@ import java.sql.Timestamp
 
 data class HeureStep(
     // lesStepDateHour
-    var stepDateChiffre : String,
-    var stepDateLettre : String,
-    var stepHeure : String
+    var stepDateChiffre : String = "",
+    var stepDateLettre : String = "",
+    var stepHeure : String = ""
 ) : Serializable

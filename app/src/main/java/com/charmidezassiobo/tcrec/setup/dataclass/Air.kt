@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.dataclass
+package com.charmidezassiobo.tcrec.setup.dataclass
 
 data class Air(
     var numMawb : String,

@@ -11,7 +11,7 @@ import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentResultsearchBinding
-import com.charmidezassiobo.tcrec.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.Adapter.TCResultAdapter
 
 
@@ -57,7 +57,6 @@ class ResultsearchFragment : Fragment(), OnBackPressedDispatcherOwner {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
 
         return root
     }

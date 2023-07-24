@@ -1,6 +1,7 @@
 package com.charmidezassiobo.tcrec.setup.Adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.AllFunctions
 import com.charmidezassiobo.tcrec.setup.BayoStepViewFunctionsSetup
 
 class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerView.Adapter<TCResultAdapter.TCResultViewHolder>() {
 
-    class TCResultViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {
+    inner class TCResultViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView) {
 
         //var etapeActuelDuTc : TextView
         var dateCreationTc : TextView
@@ -30,7 +31,8 @@ class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerVi
         var lnTc2 : LinearLayout
 
         var txtViewStepExact : TextView
-        var typetransact: String
+        var typeTransact: String
+        var typeSousTansact : String
         var bayoStepView : HorizontalStepView
         var theAllFunction : AllFunctions
         var stpView : BayoStepViewFunctionsSetup
@@ -45,10 +47,11 @@ class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerVi
             txtViewStepExact = itemView.findViewById(R.id.textView_etap_exact)
             lnTc1 = itemView.findViewById(R.id.lineairLayoutTc1)
             lnTc2 = itemView.findViewById(R.id.lineairLayoutTc2)
-            typetransact = ""
+            typeTransact = ""
+            typeSousTansact = ""
             bayoStepView = itemView.findViewById(R.id.step_view_baoya_view_result)
             theAllFunction = AllFunctions()
-            stpView = BayoStepViewFunctionsSetup()
+            stpView = BayoStepViewFunctionsSetup(bayoStepView)
         }
     }
 
@@ -67,7 +70,8 @@ class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerVi
         holder.numPlomb.text = tc.numPlomb1
         holder.numTc2.text = tc.numTc2
         holder.numPlomb2.text = tc.numPlomb2
-        holder.typetransact = tc.typeTransact
+        holder.typeTransact = tc.typeTransact
+        holder.typeSousTansact = tc.typeSousTransact
 
         if (holder.numTc2.text.isNullOrEmpty()){
             holder.lnTc2.visibility = View.GONE
@@ -82,30 +86,30 @@ class TCResultAdapter(var context : Context, var items : List<Sea>) : RecyclerVi
 
         when(tc.stepTc){
             0 -> {
-                holder.txtViewStepExact.text = "Conteneur au port  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur au port  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
             1 -> {
-                holder.txtViewStepExact.text = "Conteneur à l'usine  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur à l'usine  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
             2 -> {
-                holder.txtViewStepExact.text = "Conteneur en chargement  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur en chargement  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
             3 -> {
-                holder.txtViewStepExact.text = "Conteneur à la douane  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur à la douane  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
             4 -> {
-                holder.txtViewStepExact.text = "Conteneur sortie de l'entrepot  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur sortie de l'entrepot  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
             5 -> {
-                holder.txtViewStepExact.text = "Conteneur plein arrivé au port  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Conteneur plein arrivé au port  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
             6 -> {
-                holder.txtViewStepExact.text = "Transaction terminé  : ${tc.dateHourStep[tc.stepTc].stepDateLettre} à ${tc.dateHourStep[tc.stepTc].stepHeure}"
+                holder.txtViewStepExact.text = "Transaction terminé  : ${tc.dateHourStep!![tc.stepTc].stepDateLettre} à ${tc.dateHourStep!![tc.stepTc].stepHeure}"
             }
         }
 
-        holder.stpView.stepChange(context, tc.stepTc, holder.typetransact,holder.bayoStepView)
+        holder.stpView.stepChange(context, tc.stepTc, holder.typeTransact, holder.typeSousTansact)
 
-        holder.dateCreationTc.text = "${tc.dateHourStep[tc.stepTc].stepDateLettre}"
+        holder.dateCreationTc.text = "${tc.dateHourStep!![tc.stepTc].stepDateLettre}"
     }
 }

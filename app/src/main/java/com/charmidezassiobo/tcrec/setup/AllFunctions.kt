@@ -3,6 +3,7 @@ package com.charmidezassiobo.tcrec.setup
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
@@ -12,9 +13,10 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.dataclass.Sea
-import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.setup.Adapter.TCAdapter
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.interfaces.AllFunctionsInterface
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -27,17 +29,17 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.util.Locale
 
-class AllFunctions {
+class AllFunctions : AllFunctionsInterface {
 
     var stepvoyage: Int = 0
     var typetransact: String = ""
 
-    fun removeSpaces(str: String): String {
+    override fun removeSpaces(str: String): String {
         return str.replace(" ", "")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun miseEnPlaceDate(boolean: Boolean): String {
+    override fun miseEnPlaceDate(boolean: Boolean): String {
 
         var localRealDate = LocalDate.now()
 
@@ -143,7 +145,7 @@ class AllFunctions {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun miseEnPlaceHeure(): String {
+    override fun miseEnPlaceHeure(): String {
         var hh = LocalTime.now().hour
         var mm = LocalTime.now().minute
 
@@ -177,7 +179,7 @@ class AllFunctions {
         return localRealHeure
     }
 
-    fun filterResultSea(query: String?, itemList: MutableList<Sea>): MutableList<Sea> {
+    override fun filterResultSea(query: String?, itemList: MutableList<Sea>): MutableList<Sea> {
         val filteredList = ArrayList<Sea>()
         if (query != null) {
             val queryUpperCase = query.uppercase(Locale.ROOT)
@@ -196,21 +198,21 @@ class AllFunctions {
         return filteredList
     }
 
-    fun removeRedundance(oldList: ArrayList<String>): ArrayList<String> {
+    override fun removeRedundance(oldList: ArrayList<String>): ArrayList<String> {
         val set: Set<String> = oldList.toHashSet()
         oldList.clear()
         oldList.addAll(set)
         return oldList
     }
 
-    fun clearRadioBtnInAjoutTC(v: RadioGroup) {
+    override fun clearRadioBtnInAjoutTC(v: RadioGroup) {
         if (v.checkedRadioButtonId != -1) {
             val rdBtn: RadioButton? = v.findViewById(v.checkedRadioButtonId)
             rdBtn?.isChecked = false
         }
     }
 
-    fun resetFragmentInAjoutTC(
+    override fun resetFragmentInAjoutTC(
         radioBtn1: RadioGroup,
         radioBtn2: RadioGroup,
         radioBtn3: RadioGroup,
@@ -230,7 +232,7 @@ class AllFunctions {
         ln5EditTextView.visibility = View.GONE
     }
 
-    fun resetAllLnInAjoutTC(
+    override fun resetAllLnInAjoutTC(
         ln1EditTextView: View,
         ln2EditTextView: View,
         ln3EditTextView: View,
@@ -244,20 +246,28 @@ class AllFunctions {
         ln5EditTextView.visibility = View.GONE
     }
 
-    fun filterListWithRecyclerSea(
-        listener: RecyclerViewClickItemInterface,
-        query: String,
-        items_tc: MutableList<Sea>,
-        recyclerView_TC: RecyclerView
-    ) {
+    override fun filterListWithRecyclerSea(mContext : Context, listener: RecyclerViewClickItemInterface, query: String, items_tc: MutableList<Sea>, recyclerView_TC: RecyclerView) {
 
         if (query != null) {
             val filteredList = ArrayList<Sea>()
+            var query = query.uppercase()
             for (i in items_tc) {
-
-                if (i.numTc1.lowercase(Locale.ROOT)
-                        .contains(query) || i.numTc1.uppercase(Locale.ROOT).contains(query)
-                ) {
+                when(true){
+                    i.numTc1.contains(query) || i.numTc2.lowercase(Locale.ROOT).contains(query) -> {
+                        filteredList.add(i)
+                    }
+                    i.numCamion.contains(query) -> {
+                        filteredList.add(i)
+                    }
+                    i.numBooking.contains(query) -> {
+                        filteredList.add(i)
+                    }
+                    else -> {
+                        Log.d("Conteneur ","Tc ou Booking non trouvé")
+                    }
+                }
+/*
+                if (i.numTc1.lowercase(Locale.ROOT).contains(query) || i.numTc1.uppercase(Locale.ROOT).contains(query)) {
                     filteredList.add(i)
                 }
                 if (i.numTc2.lowercase(Locale.ROOT)
@@ -276,20 +286,19 @@ class AllFunctions {
                     ).contains(query)
                 ) {
                     filteredList.add(i)
-                }
+                }*/
             }
             if (filteredList.isEmpty()) {
-                recyclerView_TC.adapter = TCAdapter(filteredList, listener)
-
+                recyclerView_TC.adapter = SEAadapter(mContext, filteredList, listener)
             } else {
-                recyclerView_TC.adapter = TCAdapter(filteredList, listener)
+                recyclerView_TC.adapter = SEAadapter(mContext, filteredList, listener)
             }
         }
 
     }
 
 
-    fun showCustomAlertDialog(context: Context, title: String, message: String) {
+    override fun showCustomAlertDialog(context: Context, title: String, message: String) {
         val builder = AlertDialog.Builder(context)
         val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
         builder.setView(dialogView)
@@ -304,7 +313,7 @@ class AllFunctions {
         alertDialog.show()
     }
 
-    fun createPdf(
+    override fun createPdf(
         context: Context,
         contenuDuPdf: String,
         nomDuPdf: String,
@@ -340,7 +349,7 @@ class AllFunctions {
     }
 
 
-    fun toggleItemSelectionSea(
+    override fun toggleItemSelectionSea(
         selectedItems: HashSet<Sea>,
         item: Sea
     ) {
@@ -353,7 +362,9 @@ class AllFunctions {
     }
 
 
-    fun testKeyInDbBeforeGetData(collectionName : String, keyLookingFor : String) : MutableList<String>{
+    override fun testKeyInDbBeforeGetData(
+        collectionName : String,
+        keyLookingFor : String) : MutableList<String>{
         val db = Firebase.firestore
         val collectionRef = db.collection(collectionName)
         val key = keyLookingFor
@@ -381,6 +392,20 @@ class AllFunctions {
             }
 
         return listValueFromKey
+    }
+
+    override fun snackBarShowWarning(mContext : Context, rootView : View, message : String){
+        val snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+        snack.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
+        snack.show()
+    }
+
+    override fun snackBarShowSucces(mContext : Context, rootView : View, message : String){
+        val snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+        snack.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.blue))
+        snack.show()
     }
 
 

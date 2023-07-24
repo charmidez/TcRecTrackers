@@ -37,6 +37,7 @@
     <string name="num_tc_off_2">Conteneur 2</string>
     <string name="num_tc_item">MSDU1807661</string>
     <string name="but_addtc">Ajouter Transaction </string>
+    <string name="but_charging">Chargement...</string>
     <string name="num_camion">Immatriculation du camion</string>
     <string name="num_camion_item">TG-2642-BF</string>
     <string name="progression"></string>
@@ -57,6 +58,9 @@
     <string name="maj">Mettre à Jour</string>
     <string name="importer"> Import </string>
     <string name="exporter"> Export </string>
+
+    <string name="depart">Départ</string>
+    <string name="arrive">Arrivée</string>
 
     <string name="sea">SEA</string>
     <string name="air">AIR</string>
@@ -86,6 +90,8 @@
 
     <string name="list_tc_booking">Liste de TC Classés par Numéro booking</string>
 
+    <string name="step_update">Mis à jour des étapes</string>
+
     <string name="action_sign_in">Se connecter</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
@@ -101,7 +107,11 @@
 
     <string name="exp_tracking">Export Tracking</string>
     <string name="imp_tracking">Import Tracking</string>
-    <string name="road_tracking">Road Transport Tracking</string>
+    <!--string name="road_tracking">Road Transport Tracking</string-->
+
+    <string name="sea_tracking">SEA Tracking</string>
+    <string name="air_tracking">AIR Tracking</string>
+    <string name="road_tracking">ROAD Tracking</string>
 
     <string name="sea_exp">SEA Export</string>
     <string name="air_exp">AIR Export</string>

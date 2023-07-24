@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.data
+package com.charmidezassiobo.tcrec.setup.db
 
 import android.content.ContentValues
 import android.content.Context
@@ -7,25 +7,28 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.dataclass.HeureStep
-import com.charmidezassiobo.tcrec.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.charmidezassiobo.tcrec.setup.AllVariables
-import com.charmidezassiobo.tcrec.setup.Adapter.TCAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
-class GetDataFromDB {
+class GetDataFromDB() {
 
     private val allFun = AllFunctions()
     private val allVar = AllVariables()
 
      val db = Firebase.firestore
-    //private val db = FirebaseFirestore.getInstance()
-
-    private val voyTc = db.collection(allVar.DBPATH)
 
     private val dbSea = db.collection(allVar.SEA_COLLECTION)
     private val dbAir = db.collection(allVar.AIR_COLLECTION)
@@ -85,11 +88,13 @@ class GetDataFromDB {
         }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                //allFun.snackBarShowWarning(mContext, root, exception.toString())
             }
     }
+
     //Get SEA Data
-    fun getSEAdataFromdb() : ArrayList<Sea> {
-        var itemListSeaTransact = arrayListOf<Sea>()
+    fun getSEAdataFromdb() : MutableList<Sea> {
+        var itemListSeaTransact = mutableListOf<Sea>()
         dbSea.get().addOnSuccessListener { documents ->
             for (document in documents.documents) {
                 if (document != null) {
@@ -144,6 +149,7 @@ class GetDataFromDB {
             }
         return itemListSeaTransact
     }
+
     //Get SEA Booking Number
     fun getSeaBookingdataFromdb() : ArrayList<String>{
         var listBooking = arrayListOf<String>()
@@ -160,6 +166,7 @@ class GetDataFromDB {
             }
         return listBooking
     }
+
     //Get SEA Booking With Title "Liste des numéros Booking"
     fun getSeaBookingWithTitledataFromdb() : ArrayList<String>{
         var listBooking = arrayListOf<String>()
@@ -177,18 +184,25 @@ class GetDataFromDB {
             }
         return listBooking
     }
+
     //Input Data In Sea Recycler View
-    fun inputItemInSeaRecyclerView(
-        listener: RecyclerViewClickItemInterface,
-        chargement: View,
-        recyclerViewTc: RecyclerView
-    ): MutableList<Sea>?{
-        var itemsTc = getSEAdataFromdb()
-        recyclerViewTc.adapter = TCAdapter(itemsTc, listener)
-        chargement.visibility = View.GONE
+    fun inputItemInSeaRecyclerView(mContext : Context,
+                                   listener: RecyclerViewClickItemInterface,
+                                   chargement: View,
+                                   recyclerViewTc: RecyclerView
+    ): MutableList<Sea>{
+        var itemsTc : MutableList<Sea> = mutableListOf()
+            itemsTc = getSEAdataFromdb()
+            if (itemsTc.isNotEmpty()){
+                recyclerViewTc.adapter = SEAadapter(mContext,itemsTc, listener)
+                chargement.visibility = View.GONE
+            } else {
+                chargement.visibility = View.VISIBLE
+            }
 
         return itemsTc
     }
+
     //Remove Data In Sea RecyclerView
     fun removedItemInSeaRecyclerView(
         context: Context,
@@ -226,6 +240,57 @@ class GetDataFromDB {
             Log.w(ContentValues.TAG, "Error getting documents", e)
         }
     }
+
+
+    fun saveSea(sea : Sea) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+        dbSea.add(sea).await()
+            withContext(Dispatchers.Main){
+                Log.d("INPUT_SEA", "isOk")
+            }
+        } catch (e : Exception) {
+            withContext(Dispatchers.Main){
+                Log.d("INPUT_SEA_ERROR", e.message.toString())
+            }
+        }
+    }
+
+    fun retrieveSea() = CoroutineScope(Dispatchers.IO).launch  {
+        try {
+            val querySnapshot = dbSea.get().await()
+            val sb = StringBuilder()
+            for (document in querySnapshot.documents){
+                val sea = document.toObject<Sea>()
+                sb.append("$sea\n")
+            }
+            withContext(Dispatchers.Main){
+                Log.d("SEA_COLLECTION", sb.toString())
+            }
+        } catch (e : Exception ) {
+            withContext(Dispatchers.Main){
+                Log.d("SEA_ERROR", e.toString())
+            }
+        }
+    }
+
+    fun realTimeRetrieveSea(){
+        dbSea.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            firebaseFirestoreException?.let {
+                Log.d("EXCEPTION_SEA", it.message.toString())
+                return@addSnapshotListener
+            }
+            querySnapshot?.let{
+                val sb = StringBuilder()
+                for (document in it){
+                    val sea = document.toObject<Sea>()
+                    sb.append("$sea\n")
+                }
+                Log.d("SEA_COLLECTION", sb.toString())
+            }
+        }
+    }
+
+
 
 
 

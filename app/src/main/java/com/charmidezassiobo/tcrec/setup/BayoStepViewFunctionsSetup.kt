@@ -1,19 +1,29 @@
 package com.charmidezassiobo.tcrec.setup
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.os.Build
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
+import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class BayoStepViewFunctionsSetup {
+class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
 
     private val allFun = AllFunctions()
     private val allVal = AllVariables()
 
-    private val dataBasePath = allVal.DBPATH
+    //private val dataBasePath = allVal.DBPATH
     private val seaCollectionPath = allVal.SEA_COLLECTION
     private val airCollectionPath = allVal.AIR_COLLECTION
     private val roadTrackingCollectionPath = allVal.ROAD_COLLECTION
@@ -38,14 +48,14 @@ class BayoStepViewFunctionsSetup {
     private val roadTracking3 = allVal.ROAD_TRACKING_ETAPE_3
 
     private val db = Firebase.firestore
-    private val voyTc = db.collection(dataBasePath)
+    //private val voyTc = db.collection(seaCollectionPath)
 
     private val dbSea = db.collection(seaCollectionPath)
     private val dbAir = db.collection(airCollectionPath)
     private val dbRoad = db.collection(roadTrackingCollectionPath)
 
     var stepsBeanList: MutableList<StepBean> = ArrayList()
-    // Variable stepBean Export
+    // Variable stepBean
     lateinit var stepBean0: StepBean
     lateinit var stepBean1: StepBean
     lateinit var stepBean2: StepBean
@@ -53,35 +63,13 @@ class BayoStepViewFunctionsSetup {
     lateinit var stepBean4: StepBean
     lateinit var stepBean5: StepBean
 
-/*    lateinit var stepBean0_export: StepBean
-    lateinit var stepBean1_export: StepBean
-    lateinit var stepBean2_export: StepBean
-    lateinit var stepBean3_export: StepBean
-    lateinit var stepBean4_export: StepBean
-    lateinit var stepBean5_export: StepBean
-    lateinit var stepBean6_export: StepBean*/
-
-    //****//
-/*    lateinit var stepBean0_import: StepBean
-    lateinit var stepBean1_import: StepBean
-    lateinit var stepBean2_import: StepBean
-    lateinit var stepBean3_import: StepBean
-    lateinit var stepBean4_import: StepBean
-
-    lateinit var stepBean0_other : StepBean
-    lateinit var stepBean1_other : StepBean
-    lateinit var stepBean2_other : StepBean
-    lateinit var stepBean3_other : StepBean*/
-
-
     // Initialise Setupe Step View
     fun setupStepView(
         mContext: Context,
         typetransact: String,
         typeSousTransact : String,
-        bayoStepView: HorizontalStepView
     ) {
-        var txtSizeStep = 9
+        var txtSizeStep = 8
         when (typetransact) {
             "AIR" -> {
                 when(typeSousTransact) {
@@ -362,8 +350,7 @@ class BayoStepViewFunctionsSetup {
         mContext: Context,
         etape: Int,
         typetransact: String,
-        typeSousTransact : String,
-        bayoStepView: HorizontalStepView,
+        typeSousTransact : String
     ) {
         when (typetransact) {
             "AIR" -> {
@@ -384,7 +371,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, -1)
                                 stepBean4 = StepBean(seaExport4, -1)
                                 stepBean5 = StepBean(seaExport5, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact)
                             }
 
                             1 -> {
@@ -395,7 +382,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, -1)
                                 stepBean4 = StepBean(seaExport4, -1)
                                 stepBean5 = StepBean(seaExport5, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             2 -> {
@@ -406,7 +393,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, -1)
                                 stepBean4 = StepBean(seaExport4, -1)
                                 stepBean5 = StepBean(seaExport5, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
 
                             }
 
@@ -418,7 +405,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, 0)
                                 stepBean4 = StepBean(seaExport4, -1)
                                 stepBean5 = StepBean(seaExport5, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             4 -> {
@@ -429,7 +416,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, 1)
                                 stepBean4 = StepBean(seaExport4, 0)
                                 stepBean5 = StepBean(seaExport5, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             5 -> {
@@ -440,7 +427,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, 1)
                                 stepBean4 = StepBean(seaExport4, 1)
                                 stepBean5 = StepBean(seaExport5, 0)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact)
                             }
 
                             6 -> {
@@ -451,7 +438,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean3 = StepBean(seaExport3, 1)
                                 stepBean4 = StepBean(seaExport4, 1)
                                 stepBean5 = StepBean(seaExport5, 1)
-                                setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
                         }
                     }
@@ -463,7 +450,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean1 = StepBean(seaImport1, -1)
                                 stepBean2 = StepBean(seaImport2, -1)
                                 stepBean3 = StepBean(seaImport3, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             1 -> {
@@ -472,7 +459,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean1 = StepBean(seaImport1, 0)
                                 stepBean2 = StepBean(seaImport2, -1)
                                 stepBean3 = StepBean(seaImport3, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             2 -> {
@@ -481,7 +468,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean1 = StepBean(seaImport1, 1)
                                 stepBean2 = StepBean(seaImport2, 0)
                                 stepBean3 = StepBean(seaImport3, -1)
-                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             3 -> {
@@ -490,7 +477,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean1 = StepBean(seaImport1, 1)
                                 stepBean2 = StepBean(seaImport2, 1)
                                 stepBean3 = StepBean(seaImport3, 0)
-                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
 
                             4 -> {
@@ -499,7 +486,7 @@ class BayoStepViewFunctionsSetup {
                                 stepBean1 = StepBean(seaImport1, 1)
                                 stepBean2 = StepBean(seaImport2, 1)
                                 stepBean3 = StepBean(seaImport3, 1)
-                                setupStepView(mContext, typetransact, typeSousTransact, bayoStepView )
+                                setupStepView(mContext, typetransact, typeSousTransact )
                             }
                         }
                     }
@@ -513,7 +500,7 @@ class BayoStepViewFunctionsSetup {
                         stepBean1 = StepBean(roadTracking1, -1)
                         stepBean2 = StepBean(roadTracking2, -1)
                         stepBean3 = StepBean(roadTracking3, -1)
-                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                        setupStepView(mContext, typetransact, typeSousTransact )
                     }
 
                     1 -> {
@@ -522,7 +509,7 @@ class BayoStepViewFunctionsSetup {
                         stepBean1 = StepBean(roadTracking1, 0)
                         stepBean2 = StepBean(roadTracking2, -1)
                         stepBean3 = StepBean(roadTracking3, -1)
-                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                        setupStepView(mContext, typetransact, typeSousTransact )
                     }
 
                     2 -> {
@@ -531,7 +518,7 @@ class BayoStepViewFunctionsSetup {
                         stepBean1 = StepBean(roadTracking1, 1)
                         stepBean2 = StepBean(roadTracking2, 0)
                         stepBean3 = StepBean(roadTracking3, -1)
-                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                        setupStepView(mContext, typetransact, typeSousTransact )
 
                     }
 
@@ -541,7 +528,7 @@ class BayoStepViewFunctionsSetup {
                         stepBean1 = StepBean(roadTracking1, 1)
                         stepBean2 = StepBean(roadTracking2, 1)
                         stepBean3 = StepBean(roadTracking3, 0)
-                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                        setupStepView(mContext, typetransact, typeSousTransact )
                     }
 
                     4 -> {
@@ -550,82 +537,99 @@ class BayoStepViewFunctionsSetup {
                         stepBean1 = StepBean(roadTracking1, 1)
                         stepBean2 = StepBean(roadTracking2, 1)
                         stepBean3 = StepBean(roadTracking3, 1)
-                        setupStepView(mContext, typetransact, typeSousTransact,  bayoStepView )
+                        setupStepView(mContext, typetransact, typeSousTransact )
                     }
                 }
             }
         }
     }
 
-/*    fun clickSuivant(
-        mContext: Context,
-        typeTransact: String,
-        btnSuivant : Button,
-        bayoStep : HorizontalStepView){
+   @RequiresApi(Build.VERSION_CODES.O)
+   fun clickSuivant(
+       mContext: Context,
+       tc : Sea,
+       typeTransact: String,
+       typeSousTransact : String,
+       btnSuivant : AppCompatButton
+   ){
         val connectivityManager = mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
         var etape = 0
-        if (isConnected) {
-            // Connexion Internet disponible
-            when(typeTransact){
-                "Import" -> {
-                    var iddoc  =""
-                    btnSuivant.setOnClickListener{
-                        if (etape < 4){
-                            etape = etape + 1
-                            stepChange(mContext, etape, typeTransact, bayoStep)
-                            val db = FirebaseFirestore.getInstance()
-                            val query = db.collection(dataBasePath)
-                                .whereEqualTo("num_TC", tc.numTc1)
-                                .whereEqualTo("num_Camion", tc.numCamion)
-                            query.get().addOnSuccessListener { documents ->
-                                for (document in documents) {
-                                    var docId = document.id
-                                    iddoc = docId
-                                    val docRef = db.collection(dataBasePath).document(docId)
-                                    docRef.update("step_TC", etape)
+       var tableauSateHeureStep = tc.dateHourStep
+        when (isConnected) {
+            true -> {
+                // Connexion Internet disponible
+                when(typeTransact){
+                    "SEA" -> {
+                        when(typeSousTransact){
+                            "IMPORT (SEA)" -> {
+                                var iddoc  =""
+                                btnSuivant.setOnClickListener{
+                                    if (etape < 4){
+                                        etape = etape + 1
+                                        stepChange(mContext, etape, typeTransact, typeSousTransact)
+                                        val db = FirebaseFirestore.getInstance()
+                                        val query = db.collection(seaCollectionPath)
+                                            .whereEqualTo("num_tc_1", tc.numTc1)
+                                            .whereEqualTo("num_camion", tc.numCamion)
+                                            .whereEqualTo("num_booking", tc.numBooking)
+                                        query.get().addOnSuccessListener { documents ->
+                                            for (document in documents) {
+                                                var docId = document.id
+                                                iddoc = docId
+                                                val docRef = db.collection(seaCollectionPath).document(docId)
+                                                docRef.update("step_tc", etape)
+                                            }
+                                            Log.d("Doc Id",iddoc)
+                                        }
+                                    }
                                 }
-                                Log.d("Doc Id",iddoc)
+                            }
+                            "EXPORT (SEA)" -> {
+                                var iddoc  =""
+                                btnSuivant.setOnClickListener{
+                                    if (etape < 6){
+                                        etape = etape + 1
+                                        stepChange(mContext, etape, tc.typeTransact, tc.typeSousTransact)
+                                        val db = FirebaseFirestore.getInstance()
+                                        val query = db.collection(seaCollectionPath)
+                                            .whereEqualTo("num_tc_1", tc.numTc1)
+                                            .whereEqualTo("num_camion", tc.numCamion)
+                                            .whereEqualTo("num_booking", tc.numBooking)
+                                        query.get().addOnSuccessListener { documents ->
+                                            for (document in documents) {
+                                                var docId = document.id
+                                                iddoc = docId
+                                                val docRef = db.collection(seaCollectionPath).document(docId)
+                                                docRef.update("step_tc", etape)
+                                                //Mettre à jour la date à chaque suivant
+
+                                                var allFunctions = AllFunctions()
+                                                var dateRealChiffre = allFunctions.miseEnPlaceDate(true)
+                                                var dateRealLettre = allFunctions.miseEnPlaceDate(false)
+                                                var heureRealChiffre = allFunctions.miseEnPlaceHeure()
+
+                                                //var dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)
+                                                //tableauSateHeureStep = dbOldDateStep
+
+                                                tableauSateHeureStep!!.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
+                                                docRef.update("date_hour_step",tableauSateHeureStep )
+                                            }
+                                            Log.d("Doc Id",iddoc)
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                }
-                "Export" -> {
-                    var iddoc  =""
-                    btnSuivant.setOnClickListener{
-                        if (etape < 6){
-                            etape = etape + 1
-                            stepChange(mContext, etape, tc.typeTransact, bayoStep)
-                            val db = FirebaseFirestore.getInstance()
-                            val query = db.collection(dataBasePath)
-                                .whereEqualTo("num_TC", tc.numTc1)
-                                .whereEqualTo("num_Camion", tc.numCamion)
-                            query.get().addOnSuccessListener { documents ->
-                                for (document in documents) {
-                                    var docId = document.id
-                                    iddoc = docId
-                                    val docRef = db.collection(dataBasePath).document(docId)
-                                    docRef.update("step_TC", etape)
-                                    //Mettre à jour la date à chaque suivant
-
-                                    var allFunctions = AllFunctions()
-                                    var dateRealChiffre = allFunctions.miseEnPlaceDate(true)
-                                    var dateRealLettre = allFunctions.miseEnPlaceDate(false)
-                                    var heureRealChiffre = allFunctions.miseEnPlaceHeure()
-
-                                    //var dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)
-                                    //tableauSateHeureStep = dbOldDateStep
-
-                                    tableauSateHeureStep.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
-                                    docRef.update("lesStepDateHour",tableauSateHeureStep )
-                                }
-                                Log.d("Doc Id",iddoc)
-                            }
-                        }
-                    }
+                    "AIR" -> {}
+                    "ROAD" -> {}
                 }
             }
+            else -> {
+                //allFun.snackBarShowWarning()
+            }
         }
-    }*/
+    }
 }

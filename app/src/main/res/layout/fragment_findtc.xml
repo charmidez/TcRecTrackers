@@ -44,8 +44,9 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="@string/menu_find_tc"
-                style="@style/textMidTitle_result"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:padding="@dimen/all_padding"
+                android:textSize="18sp"
                 android:background="@drawable/rounded_blue_background"
                 android:textColor="@color/white"/>
 
@@ -68,7 +69,7 @@
 
         <!-- Grande categories -->
         <RadioGroup
-            android:id="@+id/radioGroup_imp_exp_road"
+            android:id="@+id/radioGroup_air_sea_road"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
@@ -79,31 +80,31 @@
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/radioButton_import_trucking"
+                android:id="@+id/radioButton_sea_trucking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/all_padding"
                 android:layout_marginBottom="@dimen/all_margin"
-                android:text="@string/imp_tracking"
+                android:text="@string/sea_tracking"
                 android:background="@drawable/rounded_radio"
                 android:buttonTint="@color/white"
                 android:textSize="16dp"
                 android:textColor="@color/white" />
 
             <RadioButton
-                android:id="@+id/radioButton_export_trucking"
+                android:id="@+id/radioButton_air_trucking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/all_padding"
                 android:textSize="16dp"
                 android:layout_marginBottom="@dimen/all_margin"
-                android:text="@string/exp_tracking"
+                android:text="@string/air_tracking"
                 android:textColor="@color/white"
                 android:buttonTint="@color/white"
                 android:background="@drawable/rounded_radio" />
 
             <RadioButton
-                android:id="@+id/radioButton_road_transport"
+                android:id="@+id/radioButton_road_trucking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/all_padding"
@@ -125,7 +126,7 @@
 
         <!-- group export tracking -->
         <RadioGroup
-            android:id="@+id/radioGroup_export_tracking"
+            android:id="@+id/radioGroup_sea_tracking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
@@ -145,12 +146,12 @@
                 android:buttonTint="@color/white"
                 android:textColor="@color/white" />
             <RadioButton
-                android:id="@+id/radioButton_air_exp"
+                android:id="@+id/radioButton_sea_imp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="@dimen/all_padding"
-                android:text="@string/air_exp"
+                android:text="@string/sea_imp"
                 android:textColor="@color/white"
                 android:buttonTint="@color/white"
                 android:background="@drawable/rounded_blue_corner_view" />
@@ -158,7 +159,7 @@
 
         <!-- group export tracking -->
         <RadioGroup
-            android:id="@+id/radioGroup_import_tracking"
+            android:id="@+id/radioGroup_air_tracking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/all_margin"
@@ -167,23 +168,23 @@
             android:visibility="gone"
             android:orientation="horizontal">
             <RadioButton
-                android:id="@+id/radioButton_sea_imp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="@dimen/all_padding"
-                android:layout_marginRight="@dimen/all_margin"
-                android:text="@string/sea_imp"
-                android:background="@drawable/rounded_blue_corner_view"
-                android:buttonTint="@color/white"
-                android:textColor="@color/white" />
-            <RadioButton
                 android:id="@+id/radioButton_air_imp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="@dimen/all_padding"
+                android:layout_marginRight="@dimen/all_margin"
                 android:text="@string/air_imp"
+                android:background="@drawable/rounded_blue_corner_view"
+                android:buttonTint="@color/white"
+                android:textColor="@color/white" />
+            <RadioButton
+                android:id="@+id/radioButton_air_exp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/air_exp"
                 android:textColor="@color/white"
                 android:buttonTint="@color/white"
                 android:background="@drawable/rounded_blue_corner_view" />
@@ -229,9 +230,40 @@
                 android:padding="@dimen/padd"
                 android:src="@drawable/ic_search_1"/>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/all_margin"
+            android:orientation="horizontal">
+            <!--TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:textColor="@color/red_bis"
+                android:layout_marginRight="@dimen/all_margin"
+                android:text="Je ne trouve toujours pas mon compte colis"/-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_callRec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/padd"
+                android:text="Je ne trouve toujours pas mon compte colis"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_drawable_red"
+                android:drawableLeft="@drawable/drawable_with_margin"/>
+        </LinearLayout>
+
+
 
         <!-- resultat de recherche -->
-        <androidx.recyclerview.widget.RecyclerView
+        <!--androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -240,8 +272,6 @@
             android:visibility="gone"
             android:layout_marginTop="@dimen/all_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-        <!-- les résultats -->
         <LinearLayout
             android:id="@+id/lineairLayout_result_request"
             android:background="@drawable/rounded_white_back_white"
@@ -254,12 +284,10 @@
             android:layout_marginRight="@dimen/all_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <!-- etape cardView -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <!-- nom etape du Tc -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -338,8 +366,6 @@
                         style="@style/textMidTitle_result"/>
                 </LinearLayout>
             </LinearLayout>
-
-            <!--Booking -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -363,8 +389,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
-
-            <!-- Tc 1 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -403,7 +427,7 @@
                     android:textSize="16dp" />
             </LinearLayout>
 
-        </LinearLayout>
+        </LinearLayout-->
 
     </LinearLayout>
 

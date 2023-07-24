@@ -11,4 +11,10 @@
     <style name="MaterialBtn" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
     </style>
+
+    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Customize the color of the cursor -->
+        <item name="android:textCursorDrawable">@drawable/custom_cursor_drawable</item>
+    </style>
+
 </resources>

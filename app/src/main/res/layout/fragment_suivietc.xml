@@ -28,7 +28,6 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_blue_background"
                 android:fontFamily="@font/source_sans_pro_bold"
-                android:gravity="center"
                 android:padding="@dimen/all_padding"
                 android:text="@string/list_tc"
                 android:textColor="@color/white"
@@ -40,7 +39,23 @@
                 android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="@dimen/all_margin"
-                android:src="@drawable/ic_bk"
+                android:src="@drawable/ic_sea_transport_blue"
+                android:visibility="gone" />
+            <ImageView
+                android:id="@+id/imageView_voir_hawb"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/all_margin"
+                android:src="@drawable/ic_air_transport_blue"
+                android:visibility="gone" />
+            <ImageView
+                android:id="@+id/imageView_voir_immatriculation"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/all_margin"
+                android:src="@drawable/ic_road_transport_blue"
                 android:visibility="gone" />
         </LinearLayout>
 

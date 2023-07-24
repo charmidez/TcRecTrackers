@@ -3,6 +3,7 @@ package com.charmidezassiobo.tcrec.ui.clientloginadmin
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,19 +15,20 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.data.GetDataFromDB
-import com.charmidezassiobo.tcrec.data.SearchWordDatabaseHelper
-import com.charmidezassiobo.tcrec.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.db.SearchWordDatabaseHelper
+import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentClientHomeBinding
 import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.Adapter.SearchAdapter
+import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.ui.MainActivity
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.Serializable
 
 class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
@@ -38,9 +40,11 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
     val resultSousFragment: Fragment = ResultsearchFragment()
     lateinit var theAllFunctions: AllFunctions
 
-    lateinit var itemsListTc: MutableList<Sea>
+    lateinit var itemsListSea: MutableList<Sea>
     lateinit var itemSearchingFound: List<String>
-    lateinit var getData: GetDataFromDB
+    //lateinit var getData: GetDataFromDB
+    lateinit var getSea : GetSeaData
+    lateinit var sea : Sea
     lateinit var adapter: SearchAdapter
     lateinit var getSearchingWord: SearchWordDatabaseHelper
     lateinit var sharedPreferences: SharedPreferences
@@ -59,45 +63,47 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         //var resultFunSearch : MutableList<Tc>
         var recyclerSearcWord: RecyclerView
 
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        //val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        val activeNetworkInfo = connectivityManager.activeNetwork
+        val isConnected = activeNetworkInfo != null /*&& activeNetworkInfo.isConnectedOrConnecting*/
+
         var navController = findNavController()
         theAllFunctions = AllFunctions()
-        getData = GetDataFromDB()
+        //getData = GetDataFromDB()
+        sea = Sea()
+        getSea = GetSeaData(mContext, this@ClientHomeFragment, sea, null)
 
         getSearchingWord = SearchWordDatabaseHelper(mContext)
 
         var refrshPage = binding.refreshClientSearch
+        var btnSearch = binding.btnSearch
+        var editTextSearchView = binding.editTextSearchView
+        var btnAdmin = binding.btnPersonnel
+        var btnFind = binding.btnFinder
 
-        itemsListTc = ArrayList()
+        itemsListSea = ArrayList()
         resultFunSearch = mutableListOf()
 
         recyclerSearcWord = binding.recyclerViewSearchItem
 
-        getData.seaCallBack { itemsListTc = getData.getSEAdataFromdb() }
+        //getData.seaCallBack { itemsListSea = getData.getSEAdataFromdb() }
+        CoroutineScope(Dispatchers.Main).launch{
+            itemsListSea = getSea.getItemList().await()
 
-        binding.btnSearch.setOnClickListener {
+        }
+
+        //button de recherche
+        btnSearch.setOnClickListener {
             var inputSearchingWord = binding.editTextSearchView.text.toString()
 
-            if (inputSearchingWord.length < 6) {
-                val snack = Snackbar.make(
-                    binding.root,
-                    "Veuillez saisir un numéro Conteneur ou Booking",
-                    Snackbar.LENGTH_LONG
-                )
-                snack.setTextColor(ContextCompat.getColor(mContext, R.color.white))
-                snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
-                snack.show()
+            if (inputSearchingWord.isNullOrBlank()) {
+                theAllFunctions.snackBarShowWarning(mContext, root, "Veuillez saisir un numéro Conteneur ou Booking")
             } else {
-                resultFunSearch = theAllFunctions.filterResultSea(inputSearchingWord, itemsListTc)
+                resultFunSearch = theAllFunctions.filterResultSea(inputSearchingWord, itemsListSea)
                 when (resultFunSearch.isEmpty()) {
                     true -> {
-                        val snack = Snackbar.make(
-                            binding.root,
-                            "Conteneur ou Booking introuvable",
-                            Snackbar.LENGTH_LONG
-                        )
-                        snack.setTextColor(ContextCompat.getColor(mContext, R.color.white))
-                        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
-                        snack.show()
+                        theAllFunctions.snackBarShowWarning(mContext, root, "Conteneur ou Booking introuvable")
                     }
 
                     false -> {
@@ -106,7 +112,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
                         bundle.putSerializable("resultFunSearch", resultFunSearch as Serializable)
                         inputSearchingWordInData(mContext, inputSearchingWord)
                         resultSousFragment.arguments = bundle
-                        binding.editTextSearchView.setText("")
+                        editTextSearchView.setText("")
                         navController.navigate(
                             R.id.action_clientHomeFragment_to_resultsearchFragment,
                             bundle
@@ -117,7 +123,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         }
 
         //réservez à l'administration
-        binding.btnPersonnel.setOnClickListener {
+        btnAdmin.setOnClickListener {
 
             sharedPreferences = mContext.getSharedPreferences("app_state", Context.MODE_PRIVATE)
             val isAuthenticated = sharedPreferences.getBoolean("is_authenticated", false)
@@ -130,11 +136,22 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         }
 
         // recherche approfondi
-        binding.btnFinder.setOnClickListener {
+        btnFind.setOnClickListener {
             navController.navigate(R.id.action_clientHomeFragment_to_navigation_findtc)
         }
 
         //refrshPage
+        refrshPage.setOnRefreshListener {
+            if (isConnected){
+                //Connection Internet
+                refrshPage.isRefreshing = false
+                theAllFunctions.snackBarShowSucces(mContext, root, "Page mis à jour avec succès")
+            } else {
+                // Pas de connexion Internet
+                refrshPage.isRefreshing = false
+                theAllFunctions.snackBarShowWarning(mContext, root, "Veuillez vous connecter à internet")
+            }
+        }
 
         var motChercher = getSearchingWordInData()
 
@@ -146,16 +163,18 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
             recyclerSearcWord.adapter = adapter
         }
 
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 activity?.finish()
+                activity?.finishAffinity()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
+
         return root
     }
-
 
     fun inputSearchingWordInData(context: Context, searchWord: String) {
         getSearchingWord = SearchWordDatabaseHelper(context)
@@ -189,7 +208,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         val inputSearchingWord = itemSearchingFound[position]
 
         Log.d("itemSearchingWord", inputSearchingWord)
-        resultFunSearch = theAllFunctions.filterResultSea(inputSearchingWord, itemsListTc)
+        resultFunSearch = theAllFunctions.filterResultSea(inputSearchingWord, itemsListSea)
 
         val mContext = binding.root.context
         val bundle = Bundle()

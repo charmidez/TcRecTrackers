@@ -1,7 +1,8 @@
 package com.charmidezassiobo.tcrec.ui.clientloginadmin.findtc
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,10 @@ import android.widget.RadioGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentFindtcBinding
-
+import com.charmidezassiobo.tcrec.setup.AllVariables
 
 class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
 
@@ -29,13 +29,13 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         }
     }
 
-    private fun resetFragment(radioBtn1:RadioGroup, radioBtn2:RadioGroup, radioBtn3:RadioGroup, ln1:View,  rc:View, ln2:View){
+    private fun resetFragment(radioBtn1:RadioGroup, radioBtn2:RadioGroup, radioBtn3:RadioGroup, ln1:View,  rc:View?, ln2:View?){
         radioBtn1.visibility = View.VISIBLE
         radioBtn2.visibility = View.GONE
         radioBtn3.visibility = View.GONE
         ln1.visibility = View.GONE
-        rc.visibility = View.GONE
-        ln2.visibility = View.GONE
+        rc?.visibility = View.GONE
+        ln2?.visibility = View.GONE
     }
 
     override fun onCreateView(
@@ -47,36 +47,38 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         val root : View = binding.root
         val mContext = binding.root.context
         val navController = findNavController()
+        val allVar = AllVariables()
 
         /*Début des déclarations des variables*/
         var btnInitialise = binding.imgViewBtnReset
-        var radioGroupExpImpRoad = binding.radioGroupImpExpRoad
-        var radioExpTracking = binding.radioGroupExportTracking
-        var radioImpTracking = binding.radioGroupImportTracking
+        var radioGroupSeaAirRoad = binding.radioGroupAirSeaRoad
+        var radioSeaTracking = binding.radioGroupSeaTracking
+        var radioAirTracking = binding.radioGroupAirTracking
         var lnSearch = binding.lineairLayoutSearch
         var searchBarTc = binding.editTextSearchBar
-        var recyclerResult = binding.recyclerViewResult
-        var lnCardResult = binding.lineairLayoutResultRequest
+        //var recyclerResult = binding.recyclerViewResult
+        //var lnCardResult = binding.lineairLayoutResultRequest
         var btnBack = binding.btnBackToPreviousFragment
+        var btnCallRec = binding.btnCallRec
 
 
         //Appui du premier radiogroup exp imp road btn
-        radioGroupExpImpRoad.setOnCheckedChangeListener{ group, i ->
+        radioGroupSeaAirRoad.setOnCheckedChangeListener{ group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when(selectOption){
-                R.id.radioButton_import_trucking -> {
-                    clearRadioBtn(radioExpTracking)
-                    resetFragment(radioGroupExpImpRoad,radioExpTracking, radioImpTracking,  lnSearch, recyclerResult, lnCardResult)
-                    radioImpTracking.visibility = View.VISIBLE
+                R.id.radioButton_air_trucking -> {
+                    clearRadioBtn(radioSeaTracking)
+                    resetFragment(radioGroupSeaAirRoad,radioSeaTracking, radioAirTracking,  lnSearch, null, null)
+                    radioAirTracking.visibility = View.VISIBLE
                 }
-                R.id.radioButton_export_trucking -> {
-                    clearRadioBtn(radioImpTracking)
-                    resetFragment(radioGroupExpImpRoad,radioExpTracking, radioImpTracking,  lnSearch, recyclerResult, lnCardResult)
-                    radioExpTracking.visibility = View.VISIBLE
+                R.id.radioButton_sea_trucking -> {
+                    clearRadioBtn(radioAirTracking)
+                    resetFragment(radioGroupSeaAirRoad,radioSeaTracking, radioAirTracking,  lnSearch, null, null)
+                    radioSeaTracking.visibility = View.VISIBLE
                 }
-                R.id.radioButton_road_transport -> {
-                    resetFragment(radioGroupExpImpRoad,radioExpTracking, radioImpTracking,  lnSearch, recyclerResult, lnCardResult)
+                R.id.radioButton_road_trucking -> {
+                    resetFragment(radioGroupSeaAirRoad,radioSeaTracking, radioAirTracking,  lnSearch, null, null)
                     lnSearch.visibility = View.VISIBLE
                     searchBarTc.hint = "Numéro réference..."
                 }
@@ -85,13 +87,13 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         }
 
         //Appui du groupe de button Import
-        radioImpTracking.setOnCheckedChangeListener{ group, i ->
+        radioAirTracking.setOnCheckedChangeListener{ group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when(selectOption){
-                R.id.radioButton_sea_imp -> {
+                R.id.radioButton_air_exp -> {
                     lnSearch.visibility = View.VISIBLE
-                    searchBarTc.hint = "Numéro BL ou TC..."
+                    searchBarTc.hint = "Numéro MAWB ou HAWB... "
                 }
                 R.id.radioButton_air_imp -> {
                     lnSearch.visibility = View.VISIBLE
@@ -101,7 +103,7 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         }
 
         //Appui du groupe de button Export
-        radioExpTracking.setOnCheckedChangeListener{group, i ->
+        radioSeaTracking.setOnCheckedChangeListener{ group, i ->
             val radioBtn = group.findViewById<RadioButton>(i)
             val selectOption = radioBtn.id
             when(selectOption){
@@ -109,21 +111,28 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
                     lnSearch.visibility = View.VISIBLE
                     searchBarTc.hint = "Numéro Booking ou TC..."
                 }
-                R.id.radioButton_air_exp -> {
+                R.id.radioButton_sea_imp -> {
                     lnSearch.visibility = View.VISIBLE
-                    searchBarTc.hint = "Numéro MAWB ou HAWB..."
+                    searchBarTc.hint = "Numéro BL ou TC..."
                 }
             }
         }
 
         //Reset The Search !
         btnInitialise.setOnClickListener {
-            clearRadioBtn(radioGroupExpImpRoad)
-            resetFragment(radioGroupExpImpRoad,radioExpTracking, radioImpTracking,  lnSearch, recyclerResult, lnCardResult)
+            clearRadioBtn(radioGroupSeaAirRoad)
+            resetFragment(radioGroupSeaAirRoad,radioSeaTracking, radioAirTracking,  lnSearch, null, null)
         }
 
         btnBack.setOnClickListener {
             navController.popBackStack(R.id.clientHomeFragment, false)
+        }
+
+        btnCallRec.setOnClickListener {
+            val phoneNumber = allVar.CALL_REC_NUMBER
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.data = Uri.parse("tel:$phoneNumber")
+            mContext.startActivity(intent)
         }
 
         val callback = object : OnBackPressedCallback(true){
