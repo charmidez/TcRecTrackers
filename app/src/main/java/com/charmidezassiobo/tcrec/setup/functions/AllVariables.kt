@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.functions
 
 class AllVariables {
     open var DBPATH = "Voyagetest"

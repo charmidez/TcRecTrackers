@@ -253,7 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="@dimen/padd"
-                android:text="Je ne trouve toujours pas mon compte colis"
+                android:text="Je ne trouve toujours pas mon colis"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_drawable_red"

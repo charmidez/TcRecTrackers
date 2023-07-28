@@ -23,8 +23,8 @@ import com.charmidezassiobo.tcrec.setup.db.GetDataFromDB
 import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.AllVariables
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
+import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*

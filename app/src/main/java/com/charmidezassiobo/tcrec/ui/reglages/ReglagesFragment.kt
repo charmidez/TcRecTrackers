@@ -10,10 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentReglagesBinding
-import com.charmidezassiobo.tcrec.setup.AllFunctions
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.ui.BaseActivity
 
 

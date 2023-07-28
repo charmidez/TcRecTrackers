@@ -14,8 +14,8 @@ import com.charmidezassiobo.tcrec.setup.db.GetDataFromDB
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.setup.AllFunctions
 
 class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
 
@@ -114,6 +114,10 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
     }
 
     override fun onLongClickListener(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAddNumPlomb(position: Int) {
         TODO("Not yet implemented")
     }
 

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
-import com.charmidezassiobo.tcrec.setup.AllVariables
+import com.charmidezassiobo.tcrec.setup.functions.AllVariables
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

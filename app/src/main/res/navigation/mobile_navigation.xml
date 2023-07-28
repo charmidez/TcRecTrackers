@@ -58,11 +58,18 @@
         <action
             android:id="@+id/action_tabExportTrackingFragment_to_suivietcSousFragment"
             app:destination="@id/suivietcSousFragment" />
+        <action
+            android:id="@+id/action_tabExportTrackingFragment_to_addPlombBottomSheetFragment"
+            app:destination="@id/addPlombBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateStepSubFragment"
         android:name="com.charmidezassiobo.tcrec.ui.ajoutertc.subfragments.UpdateStepSubFragment"
         android:label="fragment_update_step_sub"
         tools:layout="@layout/fragment_update_step_sub" />
+    <dialog
+        android:id="@+id/addPlombBottomSheetFragment"
+        android:name="com.charmidezassiobo.tcrec.ui.suivietc.bottomFragments.AddPlombBottomSheetFragment"
+        android:label="AddPlombBottomSheetFragment" />
 
 </navigation>

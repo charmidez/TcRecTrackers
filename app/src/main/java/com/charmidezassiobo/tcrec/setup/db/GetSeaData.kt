@@ -2,19 +2,21 @@ package com.charmidezassiobo.tcrec.setup.db
 
 import android.R
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
-import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.charmidezassiobo.tcrec.setup.Adapter.TCBookingAdapter
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.AllVariables
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
+import com.charmidezassiobo.tcrec.setup.functions.AllVariables
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcBookingSousFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -364,6 +366,77 @@ class GetSeaData(var mContext : Context?, var listener : RecyclerViewClickItemIn
         }
 
         return@async itemsListSea
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun updateSeaStep(sea : Sea, etape : Int){
+
+        val query = dbSea
+            .whereEqualTo("num_tc_1", sea.numTc1)
+            .whereEqualTo("num_camion", sea.numCamion)
+            .whereEqualTo("num_booking", sea.numBooking)
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                var docId = document.id
+                var dateRealChiffre = allFun.miseEnPlaceDate(true)
+                var dateRealLettre = allFun.miseEnPlaceDate(false)
+                var heureRealChiffre = allFun.miseEnPlaceHeure()
+                val tableauSateHeureStep : MutableList<HeureStep>? = document.data?.get("date_hour_step")  as? MutableList<HeureStep>
+
+                val docRef = dbSea.document(docId)
+                docRef.update("step_tc", etape)
+                tableauSateHeureStep!!.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
+                docRef.update("date_hour_step",tableauSateHeureStep )
+            }
+        }
+    }
+
+    fun updateRemoveSeaStep(sea : Sea, etape : Int){
+
+        val query = dbSea
+            .whereEqualTo("num_tc_1", sea.numTc1)
+            .whereEqualTo("num_camion", sea.numCamion)
+            .whereEqualTo("num_booking", sea.numBooking)
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                var docId = document.id
+                val tableauSateHeureStep : MutableList<HeureStep>? = document.data?.get("date_hour_step")  as? MutableList<HeureStep>
+
+                val docRef = dbSea.document(docId)
+                docRef.update("step_tc", etape)
+                //tableauSateHeureStep!!.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
+                //tableauSateHeureStep!!.remove(sea.dateHourStep)
+                tableauSateHeureStep!!.removeAt(sea.stepTc)
+                docRef.update("date_hour_step",tableauSateHeureStep )
+            }
+        }
+    }
+
+    fun updateSeaDB(sea : Sea, newSea : Sea){
+        val query = dbSea
+            .whereEqualTo("num_tc_1", sea.numTc1)
+            .whereEqualTo("num_camion", sea.numCamion)
+            .whereEqualTo("num_booking", sea.numBooking)
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                var docId = document.id
+
+                val docRef = dbSea.document(docId)
+                docRef.update("num_camion", newSea.numCamion)
+                docRef.update("phone_chauffeur_TC", newSea.numChauffeur)
+
+                docRef.update("num_tc_1", newSea.numTc1)
+                docRef.update("num_tc_2", newSea.numTc2)
+                docRef.update("num_plomb_TC", newSea.numPlomb1)
+                docRef.update("num_plomb_TC_2", newSea.numPlomb2)
+                docRef.update("num_Booking", newSea.numBooking)
+
+                docRef.update("step_TC", newSea.stepTc)
+
+                docRef.update("date_hour_step", newSea.dateHourStep)
+
+            }
+        }
     }
 
 

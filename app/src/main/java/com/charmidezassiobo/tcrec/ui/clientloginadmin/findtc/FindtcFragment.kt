@@ -15,7 +15,7 @@ import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentFindtcBinding
-import com.charmidezassiobo.tcrec.setup.AllVariables
+import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 
 class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
 

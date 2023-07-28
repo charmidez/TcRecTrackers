@@ -42,6 +42,15 @@
                         android:src="@drawable/logo_blanc_new"
                         android:background="@drawable/rounded_blue_background"/>
 
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_finder"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_finder_client"
+                        android:background="@drawable/rounded_blue_corner_view"
+                        android:elevation="@dimen/padd"
+                        android:layout_marginRight="@dimen/all_margin"/>
+
                     <!--admin -->
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_personnel"
@@ -80,8 +89,7 @@
                     android:orientation="horizontal">
 
                     <!-- Button réseré à l'administration -->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_finder"
+                    <!--androidx.appcompat.widget.AppCompatButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_blue_corner_view"
@@ -90,7 +98,7 @@
                         android:paddingRight="@dimen/all_padding"
                         android:text="Recherche Approfondi"
                         android:textColor="@color/white"
-                        android:textSize="14dp" />
+                        android:textSize="14dp" /-->
                 </LinearLayout>
 
                 <!-- bare de recherche et mot cherché-->

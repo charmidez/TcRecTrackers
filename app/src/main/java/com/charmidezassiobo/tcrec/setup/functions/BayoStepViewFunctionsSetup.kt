@@ -1,19 +1,17 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.functions
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
 import android.util.Log
-import android.view.View
-import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -53,6 +51,7 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
     private val dbSea = db.collection(seaCollectionPath)
     private val dbAir = db.collection(airCollectionPath)
     private val dbRoad = db.collection(roadTrackingCollectionPath)
+    private var getSeaDB = GetSeaData(null, null, null, null)
 
     var stepsBeanList: MutableList<StepBean> = ArrayList()
     // Variable stepBean
@@ -547,7 +546,7 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
    @RequiresApi(Build.VERSION_CODES.O)
    fun clickSuivant(
        mContext: Context,
-       tc : Sea,
+       sea : Sea,
        typeTransact: String,
        typeSousTransact : String,
        btnSuivant : AppCompatButton
@@ -555,13 +554,14 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
         val connectivityManager = mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-        var etape = 0
-       var tableauSateHeureStep = tc.dateHourStep
+        var etape = sea.stepTc
+       var tableauSateHeureStep = sea.dateHourStep
         when (isConnected) {
             true -> {
                 // Connexion Internet disponible
                 when(typeTransact){
                     "SEA" -> {
+                        //var sea = Sea()
                         when(typeSousTransact){
                             "IMPORT (SEA)" -> {
                                 var iddoc  =""
@@ -571,9 +571,9 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
                                         stepChange(mContext, etape, typeTransact, typeSousTransact)
                                         val db = FirebaseFirestore.getInstance()
                                         val query = db.collection(seaCollectionPath)
-                                            .whereEqualTo("num_tc_1", tc.numTc1)
-                                            .whereEqualTo("num_camion", tc.numCamion)
-                                            .whereEqualTo("num_booking", tc.numBooking)
+                                            .whereEqualTo("num_tc_1", sea.numTc1)
+                                            .whereEqualTo("num_camion", sea.numCamion)
+                                            .whereEqualTo("num_booking", sea.numBooking)
                                         query.get().addOnSuccessListener { documents ->
                                             for (document in documents) {
                                                 var docId = document.id
@@ -591,8 +591,10 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
                                 btnSuivant.setOnClickListener{
                                     if (etape < 6){
                                         etape = etape + 1
-                                        stepChange(mContext, etape, tc.typeTransact, tc.typeSousTransact)
-                                        val db = FirebaseFirestore.getInstance()
+                                        stepChange(mContext, etape, sea.typeTransact, sea.typeSousTransact)
+                                        getSeaDB.updateSeaStep(sea, etape )
+
+/*                                        val db = FirebaseFirestore.getInstance()
                                         val query = db.collection(seaCollectionPath)
                                             .whereEqualTo("num_tc_1", tc.numTc1)
                                             .whereEqualTo("num_camion", tc.numCamion)
@@ -617,7 +619,8 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
                                                 docRef.update("date_hour_step",tableauSateHeureStep )
                                             }
                                             Log.d("Doc Id",iddoc)
-                                        }
+                                        }*/
+
                                     }
                                 }
                             }

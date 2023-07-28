@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup
+package com.charmidezassiobo.tcrec.setup.functions
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.interfaces.AllFunctionsInterface
-import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -406,6 +406,31 @@ class AllFunctions : AllFunctionsInterface {
         snack.setTextColor(ContextCompat.getColor(mContext, R.color.white))
         snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.blue))
         snack.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun dateChangement(dateParameter: String, date_etape_tc_popup: TextView) {
+        val currentDate = LocalDate.now()
+        var dateCurrent = "${currentDate.dayOfMonth}/${currentDate.monthValue}/${currentDate.year}"
+        var dateCurrentHier =
+            "${currentDate.dayOfMonth - 1}/${currentDate.monthValue}/${currentDate.year}"
+        var dateCurrentAvantHier =
+            "${currentDate.dayOfMonth - 2}/${currentDate.monthValue}/${currentDate.year}"
+        var date = dateParameter
+
+        when (date) {
+            dateCurrent -> {
+                date_etape_tc_popup.text = "Aujourd'hui"
+            }
+
+            dateCurrentHier -> {
+                date_etape_tc_popup.text = "Hier"
+            }
+
+            dateCurrentAvantHier -> {
+                date_etape_tc_popup.text = "Avant Hier"
+            }
+        }
     }
 
 

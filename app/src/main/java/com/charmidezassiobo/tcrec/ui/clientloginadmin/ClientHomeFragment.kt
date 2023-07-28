@@ -21,10 +21,10 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.db.SearchWordDatabaseHelper
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentClientHomeBinding
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SearchAdapter
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -220,6 +220,9 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
     }
 
     override fun onLongClickListener(position: Int) {}
+    override fun onAddNumPlomb(position: Int) {
+        TODO("Not yet implemented")
+    }
 
     override fun getOnBackPressedDispatcher(): OnBackPressedDispatcher {
         return requireActivity().onBackPressedDispatcher

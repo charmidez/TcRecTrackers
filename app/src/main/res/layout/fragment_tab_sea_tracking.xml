@@ -16,17 +16,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <!-- select / remove / delete -->
             <LinearLayout
                 android:id="@+id/lnRemoveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:elevation="@dimen/padd"
                 android:layout_marginLeft="@dimen/all_margin"
-                android:layout_marginTop="@dimen/all_margin_demi"
+                android:layout_marginTop="@dimen/all_margin"
                 android:layout_marginRight="@dimen/all_margin"
-                android:visibility="gone"
                 android:background="@drawable/carditem_background_gray"
+                android:padding="@dimen/padd"
+                android:elevation="8dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btnBackRemoveSelected"
@@ -103,6 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView

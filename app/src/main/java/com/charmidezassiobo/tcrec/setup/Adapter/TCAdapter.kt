@@ -26,9 +26,9 @@ import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
+import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.AllVariables
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore

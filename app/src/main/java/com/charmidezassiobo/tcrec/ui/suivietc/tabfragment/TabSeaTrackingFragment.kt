@@ -10,15 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
-import com.charmidezassiobo.tcrec.setup.AllFunctions
-import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
+import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.ui.suivietc.bottomFragments.AddPlombBottomSheetFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,10 +45,9 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     private var isClick : Boolean = false
 
     //var getFromDB = GetDataFromDB()
-    var getSeaData = GetSeaData(null, null, sea, null)
+    //var getSeaData = GetSeaData(null, null, sea, null)
     var allFun = AllFunctions()
     //var itemsTc = getFromDB.getSEAdataFromdb()
-    var itemsTc = getSeaData.getItemList()
     lateinit var seaAdapter : SEAadapter
     lateinit var recyclerViewTc : RecyclerView
     val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
@@ -71,9 +73,10 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         val activeNetworkInfo = connectivityManager.activeNetwork
         val isConnected = activeNetworkInfo != null
 
-        var sea : Sea = Sea()
+        var sea  = Sea()
 
         var dataSea = GetSeaData(mContext, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
+        var itemsTc = dataSea.getItemList()
 
         //Reglage RecyclerView
         recyclerViewTc.setHasFixedSize(true)
@@ -147,67 +150,84 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     }
 
     override fun onItemClick(position: Int) {
+        var dataSea = GetSeaData(null, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
+        var itemsTc = dataSea.getItemList()
 
         CoroutineScope(Dispatchers.Main).launch{
             var itemsTc = itemsTc.await()
             seaAdapter = SEAadapter(requireContext(), itemsTc, this@TabSeaTrackingFragment )
-            when(isClickLong){
-                true -> {
-                    itemsTc[position]
-                    when(isClick){
-                        false -> {
-                            isClick = true
-                            seaAdapter.setItemBackground(position, recyclerViewTc , cardSelected)
-                        }
-                        else -> {
-                            isClick = false
-                            seaAdapter.setItemBackground(position, recyclerViewTc , cardNotSelected)
-                        }
-                    }
 
+            when(true){
+                itemsTc[position].stepTc == 2 -> {
+                    val addPlombBottomSheetFragment = AddPlombBottomSheetFragment()
+                    //addPlombBottomSheetFragment.requireParentFragment()
+                    addPlombBottomSheetFragment.show(parentFragmentManager, addPlombBottomSheetFragment.tag)
                 }
                 else -> {
-                    val inputTypeTransact = itemsTc[position].typeTransact
-                    val inputSousTypeTransact = itemsTc[position].typeSousTransact
-                    val inputPositionVoyages = itemsTc[position].stepTc
-                    val inputDate = itemsTc[position].dateAjoutSea
-                    val inputBooking = itemsTc[position].numBooking
-                    val inputCamion = itemsTc[position].numCamion
-                    val inputTc = itemsTc[position].numTc1
-                    val inputTcSecond = itemsTc[position].numTc2
-                    val inputPlomb = itemsTc[position].numPlomb1
-                    val inputPlombSecond = itemsTc[position].numPlomb2
-                    val inputTelChauffeur = itemsTc[position].numChauffeur
-                    val inputStepDate = itemsTc[position].dateHourStep
-                    val inputDesc = itemsTc[position].descTc
+                    when(isClickLong){
+                        true -> {
+                            itemsTc[position]
+                            when(isClick){
+                                false -> {
+                                    isClick = true
+                                    seaAdapter.setItemBackground(position, recyclerViewTc , cardSelected)
+                                }
+                                else -> {
+                                    isClick = false
+                                    seaAdapter.setItemBackground(position, recyclerViewTc , cardNotSelected)
+                                }
+                            }
 
-                    val bundle = Bundle()
-                    bundle.putString("inputTypeTransact", inputTypeTransact)
-                    bundle.putString("inputSousTypeTransact", inputSousTypeTransact)
-                    bundle.putInt("inputPositionVoyages",inputPositionVoyages)
-                    bundle.putString("inputDate",inputDate)
-                    bundle.putString("inputBooking", inputBooking)
-                    bundle.putString("inputCamion", inputCamion)
-                    bundle.putString("inputTc", inputTc)
-                    bundle.putString("inputTcSecond", inputTcSecond)
-                    bundle.putString("inputPlomb", inputPlomb)
-                    bundle.putString("inputPlombSecond", inputPlombSecond)
-                    bundle.putString("inputTelChauffeur", inputTelChauffeur)
-                    bundle.putString("inputDesc",inputDesc)
-                    bundle.putSerializable("inputStepDate", inputStepDate as Serializable)
+                        }
+                        else -> {
+                            val inputTypeTransact = itemsTc[position].typeTransact
+                            val inputSousTypeTransact = itemsTc[position].typeSousTransact
+                            val inputPositionVoyages = itemsTc[position].stepTc
+                            val inputDate = itemsTc[position].dateAjoutSea
+                            val inputBooking = itemsTc[position].numBooking
+                            val inputCamion = itemsTc[position].numCamion
+                            val inputTc = itemsTc[position].numTc1
+                            val inputTcSecond = itemsTc[position].numTc2
+                            val inputPlomb = itemsTc[position].numPlomb1
+                            val inputPlombSecond = itemsTc[position].numPlomb2
+                            val inputTelChauffeur = itemsTc[position].numChauffeur
+                            val inputStepDate = itemsTc[position].dateHourStep
+                            val inputDesc = itemsTc[position].descTc
 
-                    sousfragmentSuivieTc.arguments = bundle
+                            val bundle = Bundle()
+                            bundle.putString("inputTypeTransact", inputTypeTransact)
+                            bundle.putString("inputSousTypeTransact", inputSousTypeTransact)
+                            bundle.putInt("inputPositionVoyages",inputPositionVoyages)
+                            bundle.putString("inputDate",inputDate)
+                            bundle.putString("inputBooking", inputBooking)
+                            bundle.putString("inputCamion", inputCamion)
+                            bundle.putString("inputTc", inputTc)
+                            bundle.putString("inputTcSecond", inputTcSecond)
+                            bundle.putString("inputPlomb", inputPlomb)
+                            bundle.putString("inputPlombSecond", inputPlombSecond)
+                            bundle.putString("inputTelChauffeur", inputTelChauffeur)
+                            bundle.putString("inputDesc",inputDesc)
+                            bundle.putSerializable("inputStepDate", inputStepDate as Serializable)
 
-                    var navController = findNavController()
-                    navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
-                    Log.d("ItemAppuyer", "$position")
+                            sousfragmentSuivieTc.arguments = bundle
+
+                            var navController = findNavController()
+                            navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
+                            //navController.navigate(R.id.action_tabExportTrackingFragment_to_suivietcSousFragment)
+                            Log.d("ItemAppuyer", "$position")
+                        }
+                    }
                 }
             }
+
+
 
         }
     }
 
     override fun onLongClickListener(position: Int) {
+        var dataSea = GetSeaData(null, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
+        var itemsTc = dataSea.getItemList()
         CoroutineScope(Dispatchers.Main).launch{
             val itemsTc = itemsTc.await()
             seaAdapter = SEAadapter(requireContext(), itemsTc, this@TabSeaTrackingFragment )
@@ -216,13 +236,23 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
                     isClickLong = true
                     seaAdapter.setItemBackground(position, recyclerViewTc , cardSelected )
                     binding.lnRemoveBtn.visibility = View.VISIBLE
-                    binding.searchViewTc.visibility = View.GONE
+                    binding.cardViewSearchlistetc.visibility = View.GONE
                     //binding.btnTrash.visibility = View.VISIBLE
                 }
                 else -> {
                 }
             }
         }
+    }
+
+    override fun onAddNumPlomb(position: Int) {
+        var test = 0
+        val addPlombBottomSheetFragment = AddPlombBottomSheetFragment()
+        addPlombBottomSheetFragment.show(
+            parentFragmentManager, addPlombBottomSheetFragment.tag
+        )
+        test = test + 1
+        Log.d("APPUYERATE", test.toString())
     }
 
     private fun toggleItemSelection(item: Sea) {

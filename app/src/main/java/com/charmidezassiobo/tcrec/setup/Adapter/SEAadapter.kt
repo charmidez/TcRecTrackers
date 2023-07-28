@@ -25,8 +25,8 @@ import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.setup.AllVariables
-import com.charmidezassiobo.tcrec.setup.BayoStepViewFunctionsSetup
+import com.charmidezassiobo.tcrec.setup.functions.AllVariables
+import com.charmidezassiobo.tcrec.setup.functions.BayoStepViewFunctionsSetup
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,7 +47,6 @@ class SEAadapter (mContext : Context, var items : List<Sea>, val listener : Recy
         var numtc2 : TextView
         var txtV_sousTypeTransact : TextView
         var imgCheck : ImageView
-        //var bayoStepView : HorizontalStepView
 
         var stepvoyage : Int
         var stepView : HorizontalStepView
@@ -121,6 +120,16 @@ class SEAadapter (mContext : Context, var items : List<Sea>, val listener : Recy
                 listener.onLongClickListener(position)
                 true
             }
+
+            numtc1.setOnClickListener {
+                val position = adapterPosition
+                val sea = Sea()
+                listener.onAddNumPlomb(position)
+                //popUpPlomb(sea)
+                true
+            }
+
+
         }
 
         fun bindTC(sea : Sea){
@@ -252,8 +261,6 @@ class SEAadapter (mContext : Context, var items : List<Sea>, val listener : Recy
             }
         }
 
-        fun import_export_text(sousTypeTransact : String){
-            txtV_sousTypeTransact.text = sousTypeTransact }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SEAViewHolder {

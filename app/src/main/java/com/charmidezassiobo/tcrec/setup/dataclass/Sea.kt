@@ -2,7 +2,7 @@ package com.charmidezassiobo.tcrec.setup.dataclass
 
 data class Sea(
     var numBooking: String = "",
-    var numBl: String = "",
+    var numBl: String? = "",
     var numTc1: String = "",
     var numTc2: String = "",
     var numPlomb1: String = "",

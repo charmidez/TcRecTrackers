@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/all_padding">
+
+        <TextView
+            android:id="@+id/txtView_pop_up"
+            android:layout_margin="@dimen/all_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/bind_txt_tc_second"
+            android:textColor="@color/gray2_not_selected"
+            style="@style/textTitle"
+            android:textSize="16dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldBindNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/all_margin"
+            android:hint="@string/bind_num_vraie_un"
+            app:boxBackgroundColor="@color/gray"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/grisabsolut"
+            app:startIconDrawable="@drawable/ic_tc">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputBindNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_editable_text"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:textColor="@color/textColor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldBindNum_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/all_margin"
+            android:hint="@string/bind_num_vraie_second"
+            app:boxBackgroundColor="@color/gray"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/grisabsolut"
+            app:startIconDrawable="@drawable/ic_tc">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputBindNum_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_editable_text"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:textColor="@color/textColor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_recup_bind_tc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_drawable_red"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:paddingLeft="@dimen/all_padding"
+            android:paddingRight="@dimen/all_padding"
+            android:text="@string/ajout_bind_num_vraie"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+</FrameLayout>
