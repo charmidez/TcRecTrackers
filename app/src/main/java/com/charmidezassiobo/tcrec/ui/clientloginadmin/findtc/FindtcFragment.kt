@@ -56,8 +56,6 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         var radioAirTracking = binding.radioGroupAirTracking
         var lnSearch = binding.lineairLayoutSearch
         var searchBarTc = binding.editTextSearchBar
-        //var recyclerResult = binding.recyclerViewResult
-        //var lnCardResult = binding.lineairLayoutResultRequest
         var btnBack = binding.btnBackToPreviousFragment
         var btnCallRec = binding.btnCallRec
 

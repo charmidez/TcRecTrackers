@@ -124,7 +124,7 @@
             android:layout_marginRight="@dimen/all_margin"
             android:background="@color/gray2_not_selected"/>
 
-        <!-- group export tracking -->
+        <!-- group sea tracking -->
         <RadioGroup
             android:id="@+id/radioGroup_sea_tracking"
             android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                 android:background="@drawable/rounded_blue_corner_view" />
         </RadioGroup>
 
-        <!-- group export tracking -->
+        <!-- group air tracking -->
         <RadioGroup
             android:id="@+id/radioGroup_air_tracking"
             android:layout_width="match_parent"

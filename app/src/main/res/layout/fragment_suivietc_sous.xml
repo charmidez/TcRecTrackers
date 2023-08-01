@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cargaison_background_2"
     android:padding="@dimen/all_padding"
     tools:context=".ui.suivietc.subfragments.SuivietcSousFragment">
     <ScrollView
@@ -32,10 +33,9 @@
                     android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/titredetails_voyage"
+                    android:id="@+id/textView_date_enregistement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/all_margin"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_blue_background"
                     android:fontFamily="@font/source_sans_pro_bold"
@@ -45,15 +45,6 @@
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:textSize="18dp" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/imgView_date_step"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_date_icone"
-                    android:background="@drawable/rounded_blue_background"
-                    android:padding="@dimen/padd"
-                    android:layout_gravity="center"/>
             </LinearLayout>
 
 
@@ -66,8 +57,8 @@
                 android:layout_marginTop="@dimen/all_margin">
 
                 <!--Titre où y'a la date-->
-                <TextView
-                    android:id="@+id/textView_date_enregistement"
+                <!--TextView
+                    android:id="@+id/titredetails_voyage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_drawable_not_selected"
@@ -76,7 +67,7 @@
                     android:padding="@dimen/all_padding"
                     android:text="@string/titre_etape_et_date"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="16dp" /-->
             </LinearLayout>
 
             <!-- Le étapes -->
@@ -97,6 +88,8 @@
                     android:id="@+id/btn_back_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/all_margin"
                     android:text="Retour"
                     android:drawableLeft="@drawable/drawable_with_margin_ic_back"
                     android:padding="@dimen/padd"
@@ -106,7 +99,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/source_sans_pro_bold"
                     android:background="@drawable/rounded_blue_corner_view"/>
-                <TextView
+                <!--TextView
                     android:id="@+id/textView_etape_et_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,11 +113,12 @@
                     android:background="@drawable/rounded_blue_corner_view_gray"
                     android:layout_marginLeft="@dimen/all_margin"
                     android:layout_marginRight="@dimen/all_margin"
-                    android:text="Transaction"/>
+                    android:text="Transaction"/-->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_next_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Suivant"
                     android:layout_gravity="center"
                     android:drawableRight="@drawable/drawable_with_margin_ic_next_step"
@@ -134,6 +128,35 @@
                     android:textSize="12sp"
                     android:gravity="center"
                     android:background="@drawable/rounded_blue_corner_view"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/all_margin"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView_etape_et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:layout_weight="1"
+                    android:minHeight="47dp"
+                    android:padding="@dimen/padd"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:background="@drawable/rounded_blue_corner_view_gray"
+                    android:text="Transaction"/>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/imgView_date_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_date_icone"
+                    android:background="@drawable/rounded_blue_background"
+                    android:padding="@dimen/padd"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <View

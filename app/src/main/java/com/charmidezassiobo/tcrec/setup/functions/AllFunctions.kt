@@ -2,21 +2,25 @@ package com.charmidezassiobo.tcrec.setup.functions
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.interfaces.AllFunctionsInterface
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -266,27 +270,6 @@ class AllFunctions : AllFunctionsInterface {
                         Log.d("Conteneur ","Tc ou Booking non trouvé")
                     }
                 }
-/*
-                if (i.numTc1.lowercase(Locale.ROOT).contains(query) || i.numTc1.uppercase(Locale.ROOT).contains(query)) {
-                    filteredList.add(i)
-                }
-                if (i.numTc2.lowercase(Locale.ROOT)
-                        .contains(query) || i.numTc2.uppercase(Locale.ROOT).contains(query)
-                ) {
-                    filteredList.add(i)
-                }
-                if (i.numCamion.lowercase(Locale.ROOT).contains(query) || i.numCamion.uppercase(
-                        Locale.ROOT
-                    ).contains(query)
-                ) {
-                    filteredList.add(i)
-                }
-                if (i.numBooking.lowercase(Locale.ROOT).contains(query) || i.numBooking.uppercase(
-                        Locale.ROOT
-                    ).contains(query)
-                ) {
-                    filteredList.add(i)
-                }*/
             }
             if (filteredList.isEmpty()) {
                 recyclerView_TC.adapter = SEAadapter(mContext, filteredList, listener)
@@ -431,6 +414,31 @@ class AllFunctions : AllFunctionsInterface {
                 date_etape_tc_popup.text = "Avant Hier"
             }
         }
+    }
+
+
+
+    fun showConfirmationDialog(frag : Fragment, mContext : Context, titleOfDialog : String, messageOfDialog : String, functionOui : Unit ){
+
+        val builder = AlertDialog.Builder(frag.requireContext())
+
+        val dialogView = LayoutInflater.from(frag.context).inflate(R.layout.custom_alert_dialog, null)
+        builder.setView(dialogView)
+        val titleDialog = dialogView.findViewById<TextView>(R.id.txtView_titleAlertDialog)
+        val messageDialog = dialogView.findViewById<TextView>(R.id.txtView_messageAlertDialog)
+        val btnOui = dialogView.findViewById<Button>(R.id.buttonOui)
+        val btnNon = dialogView.findViewById<Button>(R.id.buttonNon)
+        titleDialog.text = "$titleOfDialog"
+        messageDialog.text = "$messageOfDialog"
+        val alertDialog  = builder.create()
+        btnOui.setOnClickListener {
+            functionOui
+        }
+        btnNon.setOnClickListener {
+            dialogView.visibility = View.GONE
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
     }
 
 

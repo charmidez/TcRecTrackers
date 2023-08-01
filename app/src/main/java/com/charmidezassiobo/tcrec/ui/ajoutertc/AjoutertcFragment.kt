@@ -13,21 +13,18 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.db.GetDataFromDB
 import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
-import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import java.util.*
 
 class AjoutertcFragment : Fragment() {
 
@@ -40,11 +37,10 @@ class AjoutertcFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var allFun = AllFunctions()
-    private var getData = GetDataFromDB()
-    private var db = getData.db
+    //private var getData = GetDataFromDB()
 
-    var itemsSea : MutableList<Sea>  = getData.getSEAdataFromdb()
-    var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
+    //var itemsSea : MutableList<Sea>  = getData.getSEAdataFromdb()
+    //var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -283,6 +279,7 @@ class AjoutertcFragment : Fragment() {
         numChauffeur : TextInputEditText,
         descTc : TextInputEditText){
 
+        var dbSea = GetSeaData(mContext, null, null, null).dbSea
         var step = 0
         var getDate = allFun.miseEnPlaceDate(true)
         var numPlomb1 = ""
@@ -304,13 +301,13 @@ class AjoutertcFragment : Fragment() {
 
         when(true){
             numBookingRmvSpx.isNullOrBlank() -> {
-                snackBarShowWarning(mContext, rootView, "Veilez saisir le numéro booking")
+                allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir le numéro booking")
             }
             numCamionRmvSpx.isNullOrBlank() -> {
-                snackBarShowWarning(mContext, rootView, "Veilez saisir la plaque d'immatriculation du camion")
+                allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir la plaque d'immatriculation du camion")
             }
             numTc1RmvSpx.isNullOrBlank() && numTc2RmvSpx.isNullOrBlank()  -> {
-                snackBarShowWarning(mContext, rootView, "Veilez saisir au moins un numéro conteneur")
+                allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir au moins un numéro conteneur")
             }
             else -> {
 
@@ -331,7 +328,7 @@ class AjoutertcFragment : Fragment() {
                 )
 
                 //Enregistrement de données dans la base  de données
-                db.collection(SEAPATH).document().set(registerSeaExport)
+                dbSea.document().set(registerSeaExport)
                     .addOnSuccessListener {
                         numBooking.text?.clear()
                         numTc1.text?.clear()
@@ -339,10 +336,10 @@ class AjoutertcFragment : Fragment() {
                         numCamion.text?.clear()
                         descTc.text?.clear()
                         numChauffeur.text?.clear()
-                        snackBarShowSucces(mContext, rootView, "La transaction a bien été ajouté ce $getDate")
+                        allFun.snackBarShowSucces(mContext, rootView, "La transaction a bien été ajouté ce $getDate")
                     }
                     .addOnFailureListener {
-                        snackBarShowSucces(mContext, rootView, "La transaction n'a pu être enrégistrée")
+                        allFun.snackBarShowSucces(mContext, rootView, "La transaction n'a pu être enrégistrée")
                     }
             }
         }
@@ -357,38 +354,6 @@ class AjoutertcFragment : Fragment() {
     private fun addAirExport(){}
 
     private fun addRoadTracking(){}
-
-    private fun spinnerBookingList(mContext: Context, spinnerView : Spinner, numBookingTc : TextInputEditText){
-        //Spinner booking
-        getData.seaCallBack() {
-            itemBookingList = allFun.removeRedundance(itemBookingList)
-            var arrayAdapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1,  itemBookingList)
-            spinnerView.adapter = arrayAdapter
-
-            spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                var selectedItem : String? = null
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    selectedItem = itemBookingList[position]
-                    numBookingTc.setText(selectedItem)
-                }
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            })
-        }
-    }
-
-    private fun snackBarShowWarning(mContext : Context, rootView : View, message : String){
-        val snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
-        snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.gray2))
-        snack.show()
-    }
-
-   private fun snackBarShowSucces(mContext : Context, rootView : View, message : String){
-        val snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
-        snack.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        snack.setBackgroundTint(ContextCompat.getColor(mContext, R.color.blue))
-        snack.show()
-    }
 
     private fun buttonModifier(but : Button, boolean: Boolean ){
 

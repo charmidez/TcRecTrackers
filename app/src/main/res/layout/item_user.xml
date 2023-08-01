@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/all_margin"
+        android:layout_marginLeft="@dimen/all_margin"
+        android:layout_marginRight="@dimen/all_margin"
+        android:orientation="horizontal">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/padd"
+            android:layout_marginRight="@dimen/all_margin"
+            android:background="@drawable/rounded_blue_corner_view"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtView_userName_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Junior Akuesso"
+                android:layout_marginBottom="@dimen/all_margin_demi"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/source_sans_pro_bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView_userType_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/textMidTitle_result"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:textSize="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="@dimen/padd"
+                    android:paddingRight="@dimen/padd"
+                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_blue_corner_view_2"
+                    android:text="Administrateur"/>
+
+                <TextView
+                    android:id="@+id/textView_userPseudo_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/textMidTitle_result"
+                    android:layout_marginLeft="@dimen/padd"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:textSize="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="@dimen/padd"
+                    android:paddingRight="@dimen/padd"
+                    android:textColor="@color/black"
+                    android:background="@drawable/rounded_blue_corner_view_gray"
+                    android:text="recAdmin01junior"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--update image -->
+        <ImageView
+            android:id="@+id/imgView_update_user"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_ok"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/all_margin"/>
+
+        <!--remove image -->
+        <ImageView
+            android:id="@+id/imgView_validate_delete_user"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_ok"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</FrameLayout>

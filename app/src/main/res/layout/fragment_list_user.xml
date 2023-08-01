@@ -3,20 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cargaison_background_2"
-    tools:context=".ui.ajoutertc.subfragments.UpdateStepSubFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.reglages.subfragments.ListUserFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/all_margin">
-        <!--Entête-->
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Titre et button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/all_margin"
             android:orientation="horizontal">
 
-            <!--Button Retour-->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btnBackToPreviousFragment"
                 android:layout_width="wrap_content"
@@ -25,40 +26,27 @@
                 android:background="@color/white"
                 android:padding="@dimen/padd"
                 android:layout_gravity="center"/>
-
-            <!-- Titre -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_blue_background"
+                android:layout_gravity="center"
+                android:text="@string/sub_menu_list_user"
                 android:fontFamily="@font/source_sans_pro_bold"
-                android:gravity="center"
                 android:padding="@dimen/all_padding"
-                android:text="@string/step_update"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
+                android:textSize="18sp"
+                android:background="@drawable/rounded_blue_background"
+                android:textColor="@color/white"/>
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <TextView
+
+        <!-- Recycler View RecUser -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_list_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Fonctionnalité en cours de construction"
-            android:background="@drawable/rounded_blue_corner_view_2"
-            android:textColor="@color/white"
-            android:padding="@dimen/all_padding"
-            android:textSize="18dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_user"/>
 
     </LinearLayout>
 

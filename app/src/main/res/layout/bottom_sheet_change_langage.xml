@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/divider_user_slide"
+            android:layout_width="64dp"
+            android:layout_height="4dp"
+            android:background="@drawable/view_tiret_slide_background"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/all_margin_demi"
+            android:layout_marginBottom="@dimen/all_margin_demi"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/all_padding"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Choix de la langue"
+                android:layout_gravity="center"
+                style="@style/textMidTitle_result"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:background="@drawable/btn_drawable_not_selected_black"
+                style="@style/textMidTitle_result"
+                android:padding="@dimen/padd"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider_user_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="@dimen/all_margin_demi"
+            android:layout_marginBottom="@dimen/all_margin_demi"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/all_padding"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/french_flag" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="France"
+                android:layout_marginLeft="@dimen/padd"
+                android:layout_gravity="center"
+                style="@style/textMidTitle_result"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@drawable/ic_check_validate" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/all_padding"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/english_flag" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="English"
+                android:layout_marginLeft="@dimen/padd"
+                android:layout_gravity="center"
+                style="@style/textMidTitle_result"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check_validate" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

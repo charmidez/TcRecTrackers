@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.db.GetDataFromDB
 import com.charmidezassiobo.tcrec.databinding.ActivityMainBinding
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
@@ -22,8 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     private val WRITE_EXTERNAL_STORAGE_PERMISSION_CODE = 1
     private val CALL_PHONE_PERMISSION_CODE = 1
-
-    private val getData = GetDataFromDB()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

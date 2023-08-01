@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout_ajout_tc"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cargaison_background_2"
     tools:context=".ui.ajoutertc.AjoutertcFragment">
 
     <ScrollView

@@ -35,7 +35,11 @@
         android:name="com.charmidezassiobo.tcrec.ui.reglages.ReglagesFragment"
         android:label="@string/menu_setting"
         android:fontFamily="@font/source_sans_pro_bold"
-        tools:layout="@layout/fragment_reglages" />
+        tools:layout="@layout/fragment_reglages" >
+        <action
+            android:id="@+id/action_navigation_reglages_to_listUserFragment"
+            app:destination="@id/listUserFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/suivietcSousFragment"
@@ -58,18 +62,16 @@
         <action
             android:id="@+id/action_tabExportTrackingFragment_to_suivietcSousFragment"
             app:destination="@id/suivietcSousFragment" />
-        <action
-            android:id="@+id/action_tabExportTrackingFragment_to_addPlombBottomSheetFragment"
-            app:destination="@id/addPlombBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateStepSubFragment"
         android:name="com.charmidezassiobo.tcrec.ui.ajoutertc.subfragments.UpdateStepSubFragment"
         android:label="fragment_update_step_sub"
         tools:layout="@layout/fragment_update_step_sub" />
-    <dialog
-        android:id="@+id/addPlombBottomSheetFragment"
-        android:name="com.charmidezassiobo.tcrec.ui.suivietc.bottomFragments.AddPlombBottomSheetFragment"
-        android:label="AddPlombBottomSheetFragment" />
+    <fragment
+        android:id="@+id/listUserFragment"
+        android:name="com.charmidezassiobo.tcrec.ui.reglages.subfragments.ListUserFragment"
+        android:label="fragment_list_user"
+        tools:layout="@layout/fragment_list_user" />
 
 </navigation>

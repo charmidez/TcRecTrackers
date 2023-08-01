@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.db.GetDataFromDB
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
@@ -25,7 +24,7 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
     //Variable Publique
     //Others class
     val allFun : AllFunctions = AllFunctions()
-    var getData : GetDataFromDB = GetDataFromDB()
+    //var getData : GetDataFromDB = GetDataFromDB()
 
     //var itemsTc : MutableList<Sea>  = getData.getSEAdataFromdb()
     //var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
@@ -114,10 +113,6 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
     }
 
     override fun onLongClickListener(position: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onAddNumPlomb(position: Int) {
         TODO("Not yet implemented")
     }
 

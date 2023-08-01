@@ -555,7 +555,7 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         val isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
         var etape = sea.stepTc
-       var tableauSateHeureStep = sea.dateHourStep
+       //var tableauSateHeureStep = sea.dateHourStep
         when (isConnected) {
             true -> {
                 // Connexion Internet disponible
@@ -587,40 +587,12 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
                                 }
                             }
                             "EXPORT (SEA)" -> {
-                                var iddoc  =""
+                                //var iddoc  =""
                                 btnSuivant.setOnClickListener{
                                     if (etape < 6){
                                         etape = etape + 1
                                         stepChange(mContext, etape, sea.typeTransact, sea.typeSousTransact)
                                         getSeaDB.updateSeaStep(sea, etape )
-
-/*                                        val db = FirebaseFirestore.getInstance()
-                                        val query = db.collection(seaCollectionPath)
-                                            .whereEqualTo("num_tc_1", tc.numTc1)
-                                            .whereEqualTo("num_camion", tc.numCamion)
-                                            .whereEqualTo("num_booking", tc.numBooking)
-                                        query.get().addOnSuccessListener { documents ->
-                                            for (document in documents) {
-                                                var docId = document.id
-                                                iddoc = docId
-                                                val docRef = db.collection(seaCollectionPath).document(docId)
-                                                docRef.update("step_tc", etape)
-                                                //Mettre à jour la date à chaque suivant
-
-                                                var allFunctions = AllFunctions()
-                                                var dateRealChiffre = allFunctions.miseEnPlaceDate(true)
-                                                var dateRealLettre = allFunctions.miseEnPlaceDate(false)
-                                                var heureRealChiffre = allFunctions.miseEnPlaceHeure()
-
-                                                //var dateActuelStep = HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre)
-                                                //tableauSateHeureStep = dbOldDateStep
-
-                                                tableauSateHeureStep!!.add(HeureStep(dateRealChiffre,dateRealLettre,heureRealChiffre))
-                                                docRef.update("date_hour_step",tableauSateHeureStep )
-                                            }
-                                            Log.d("Doc Id",iddoc)
-                                        }*/
-
                                     }
                                 }
                             }

@@ -42,6 +42,7 @@
                         android:src="@drawable/logo_blanc_new"
                         android:background="@drawable/rounded_blue_background"/>
 
+                    <!--Finder -->
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/btn_finder"
                         android:layout_width="48dp"

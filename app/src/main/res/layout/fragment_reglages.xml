@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
+
     tools:context=".ui.reglages.ReglagesFragment">
 
     <ScrollView
@@ -24,26 +25,75 @@
                 android:layout_marginTop="@dimen/all_margin"
                 android:layout_marginLeft="@dimen/all_margin"
                 android:layout_marginRight="@dimen/all_margin">
-                <ImageView
-                    android:layout_width="128dp"
-                    android:layout_height="64dp"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/all_margin"
+                    android:text="@string/menu_setting"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:padding="@dimen/all_padding"
+                    android:textSize="18sp"
+                    android:background="@drawable/rounded_blue_background"
+                    android:textColor="@color/white"/>
+
+                <!--ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
                     android:layout_marginRight="@dimen/all_margin"
                     android:src="@drawable/logo_blanc_new"
                     android:background="@drawable/rounded_blue_background"
-                    android:padding="@dimen/padd"/>
+                    android:padding="@dimen/padd"/-->
+                <!--List RecUser -->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_list_user"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:src="@drawable/ic_finder_client"
+                    android:background="@drawable/rounded_blue_corner_view"
+                    android:layout_marginRight="@dimen/all_margin"/>
+
+                <!--Add RecUser -->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_add_user_reglage"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_blue_corner_view_2"
+                    android:padding="@dimen/padd"
+                    android:src="@drawable/ic_admin_button" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:background="@color/grisabsolut" />
+
+            <!--Titre admin / moderate -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/all_margin"
+                android:layout_marginLeft="@dimen/all_margin"
+                android:layout_marginRight="@dimen/all_margin"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="58dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo_blanc_new"
+                    android:background="@drawable/rounded_blue_background"
+                    android:padding="4dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/all_margin"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/textView_userType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/textMidTitle_result"
-                        android:fontFamily="@font/source_sans_pro_extra_light"
-                        android:textSize="@dimen/title_text"
-                        android:text="Admin Rec"/>
                     <TextView
                         android:id="@+id/textView_userName"
                         android:layout_width="match_parent"
@@ -52,17 +102,30 @@
                         android:fontFamily="@font/source_sans_pro_bold"
                         android:textColor="@color/black"
                         android:text="Assiobo Charmidez"/>
+                    <TextView
+                        android:id="@+id/textView_userType_reglage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/textMidTitle_result"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:textSize="@dimen/middle_text"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="@dimen/padd"
+                        android:paddingRight="@dimen/padd"
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_blue_corner_view_2"
+                        android:text="Admin Rec"/>
                 </LinearLayout>
             </LinearLayout>
 
             <View
-                android:id="@+id/divider4"
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="@dimen/all_margin"
                 android:layout_marginRight="@dimen/all_margin"
-                android:background="@color/blueup" />
+                android:background="@color/grisabsolut" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/active_dark_mode" />
                 </LinearLayout>
-                <Switch
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_darkmode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,13 +192,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/change_language_english" />
                 </LinearLayout>
-                <Switch
-                    android:id="@+id/switch_language"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:thumbTint="@color/blue"
+                <ImageView
+                    android:id="@+id/imgView_choice_language_flags"
+                    android:layout_width="32dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:trackTint="@color/black" />
+                    android:src="@drawable/french_flag" />
             </LinearLayout>
 
             <View
@@ -146,7 +208,7 @@
                 android:layout_marginRight="@dimen/all_margin"
                 android:background="?android:attr/listDivider" />
 
-            <LinearLayout
+            <!--LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/all_margin"
@@ -172,16 +234,16 @@
                         android:text="@string/qui_sommes_nous" />
                 </LinearLayout>
 
-            </LinearLayout>
+            </LinearLayout-->
 
-            <View
+            <!--View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/all_margin"
                 android:layout_marginLeft="@dimen/all_margin"
                 android:layout_marginRight="@dimen/all_margin"
-                android:background="?android:attr/listDivider" />
+                android:background="?android:attr/listDivider" /-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -205,7 +267,6 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/all_margin"

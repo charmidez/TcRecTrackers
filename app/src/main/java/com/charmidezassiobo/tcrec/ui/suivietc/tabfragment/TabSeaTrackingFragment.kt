@@ -10,19 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
+import com.charmidezassiobo.tcrec.databinding.BottomSheetAddPlombBinding
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.ui.suivietc.bottomFragments.AddPlombBottomSheetFragment
+import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.AddPlombBottomSheetFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -77,6 +77,8 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
 
         var dataSea = GetSeaData(mContext, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
         var itemsTc = dataSea.getItemList()
+
+        refresh.isRefreshing = false
 
         //Reglage RecyclerView
         recyclerViewTc.setHasFixedSize(true)
@@ -159,9 +161,19 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
 
             when(true){
                 itemsTc[position].stepTc == 2 -> {
+
+                    val inputBooking = itemsTc[position].numBooking
+                    val inputTc = itemsTc[position].numTc1
+                    val inputTcSecond = itemsTc[position].numTc2
+
+                    val bundle = Bundle()
+                    bundle.putString("inputBooking", inputBooking)
+                    bundle.putString("inputTc", inputTc)
+                    bundle.putString("inputTcSecond", inputTcSecond)
+
                     val addPlombBottomSheetFragment = AddPlombBottomSheetFragment()
-                    //addPlombBottomSheetFragment.requireParentFragment()
-                    addPlombBottomSheetFragment.show(parentFragmentManager, addPlombBottomSheetFragment.tag)
+                    addPlombBottomSheetFragment.arguments = bundle
+                    addPlombBottomSheetFragment.show(childFragmentManager, addPlombBottomSheetFragment.tag)
                 }
                 else -> {
                     when(isClickLong){
@@ -245,7 +257,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         }
     }
 
-    override fun onAddNumPlomb(position: Int) {
+/*    override fun onAddNumPlomb(position: Int) {
         var test = 0
         val addPlombBottomSheetFragment = AddPlombBottomSheetFragment()
         addPlombBottomSheetFragment.show(
@@ -253,7 +265,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         )
         test = test + 1
         Log.d("APPUYERATE", test.toString())
-    }
+    }*/
 
     private fun toggleItemSelection(item: Sea) {
         if (selectedItems.contains(item)) {

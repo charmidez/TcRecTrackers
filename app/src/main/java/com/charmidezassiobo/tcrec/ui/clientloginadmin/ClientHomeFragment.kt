@@ -220,9 +220,6 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
     }
 
     override fun onLongClickListener(position: Int) {}
-    override fun onAddNumPlomb(position: Int) {
-        TODO("Not yet implemented")
-    }
 
     override fun getOnBackPressedDispatcher(): OnBackPressedDispatcher {
         return requireActivity().onBackPressedDispatcher

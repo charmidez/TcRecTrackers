@@ -31,20 +31,23 @@ class ResultsearchFragment : Fragment(), OnBackPressedDispatcherOwner {
 
         var txtViewAfficheTitre = binding.txtViewNumbookingChercherResult
         var recyclerViewResult = binding.recyclerViewResult
-        var listResult : MutableList<Sea>
+        var listResult : MutableList<Sea> = mutableListOf()
         var adapter : TCResultAdapter
         var searchingWord : String
 
-        listResult = mutableListOf<Sea>()
+        try {
+            val data = arguments
+            searchingWord = data?.getString("inputSearchingWord").toString()
+            listResult = data!!.getSerializable("resultFunSearch") as MutableList<Sea>
 
-        val data = arguments
-        searchingWord = data?.getString("inputSearchingWord").toString()
-        listResult = data!!.getSerializable("resultFunSearch") as MutableList<Sea>
+            txtViewAfficheTitre.text = searchingWord
 
-        txtViewAfficheTitre.text = searchingWord
+            adapter = TCResultAdapter(mContext, listResult)
+            recyclerViewResult.adapter = adapter
 
-        adapter = TCResultAdapter(mContext, listResult)
-        recyclerViewResult.adapter = adapter
+        } catch ( e : Exception) {
+
+        }
 
         binding.btnBackToPreviousFragment.setOnClickListener {
             navController.popBackStack(R.id.clientHomeFragment, false)

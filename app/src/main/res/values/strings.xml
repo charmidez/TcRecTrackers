@@ -8,6 +8,10 @@
     <string name="menu_find_tc">Finder</string>
     <string name="menu_find_tc_titre">Trouver mon colis</string>
 
+    <string name="sub_menu_list_user">Liste des utilisateurs inscris</string>
+
+    <string name="titre_date_etape">Dates et heures des étapes</string>
+
     <string name="page_de_connexion">Page de connexion</string>
 
     <string name="prompt_usernam">Nom d\'utilisateur</string>
@@ -75,6 +79,12 @@
     <string name="bind_txt_tc_second">Renseigner les numéro plomb des TC</string>
     <string name="bind_num_vraie_un">Numéro Plomb du TC 1</string>
     <string name="bind_num_vraie_second">Numéro Plomb du TC 2</string>
+
+    <!--user -->
+    <string name="add_user">Ajouter un utilisateur</string>
+    <string name="user_name">Nom et Prénom</string>
+    <string name="user_password">Mot de passe</string>
+    <string name="user_code">Code utilisateur</string>
 
     <!--pop up-->
     <string name="titre_details_voyage">Details</string>

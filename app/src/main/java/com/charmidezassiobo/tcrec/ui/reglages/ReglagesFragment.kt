@@ -10,10 +10,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentReglagesBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.ui.BaseActivity
+import com.charmidezassiobo.tcrec.ui.reglages.bottomfragments.AddUserBottomSheetFragment
+import com.charmidezassiobo.tcrec.ui.reglages.bottomfragments.ChangeLangageBottomSheetFragment
 
 
 class ReglagesFragment : Fragment() {
@@ -29,12 +33,31 @@ class ReglagesFragment : Fragment() {
         _binding = FragmentReglagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val mContext = binding.root.context
+        val navController = findNavController()
 
         var btnDeconnexion = binding.buttonDeconection
+        var btnAddUser = binding.btnAddUserReglage
+        var btnListUser = binding.btnListUser
+        var imgView = binding.imgViewChoiceLanguageFlags
+
+        btnAddUser.setOnClickListener {
+            val addUserBottomSheetFragment = AddUserBottomSheetFragment()
+            addUserBottomSheetFragment.show(childFragmentManager, addUserBottomSheetFragment.tag)
+        }
 
        btnDeconnexion.setOnClickListener {
             showLogoutConfirmation()
            //allFun.showCustomAlertDialog(mContext, "Fermeture", "Voulez-vous quitter ?")
+           //allFun.showConfirmationDialog(ReglagesFragment() , mContext, "Confirmation", "Sortir", outAndRemovePreferences())
+        }
+
+        btnListUser.setOnClickListener {
+            navController.navigate(R.id.action_navigation_reglages_to_listUserFragment)
+        }
+
+        imgView.setOnClickListener {
+            val changeLangageBottomSheetFragment = ChangeLangageBottomSheetFragment()
+            changeLangageBottomSheetFragment.show(childFragmentManager, changeLangageBottomSheetFragment.tag)
         }
 
 
@@ -88,6 +111,15 @@ class ReglagesFragment : Fragment() {
 
         //val alertDialog  = builder.create()
         alertDialog.show()
+    }
+
+    fun outAndRemovePreferences(){
+        val editor = binding.root.context.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
+        editor.remove("is_authenticated")
+        editor.apply()
+        onDestroyView()
+        val i = Intent(activity, BaseActivity::class.java)
+        startActivity(i)
     }
 
     override fun onDestroyView() {

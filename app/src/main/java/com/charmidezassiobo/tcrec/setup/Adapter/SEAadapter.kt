@@ -121,13 +121,13 @@ class SEAadapter (mContext : Context, var items : List<Sea>, val listener : Recy
                 true
             }
 
-            numtc1.setOnClickListener {
+/*            numtc1.setOnClickListener {
                 val position = adapterPosition
                 val sea = Sea()
                 listener.onAddNumPlomb(position)
                 //popUpPlomb(sea)
                 true
-            }
+            }*/
 
 
         }
@@ -154,102 +154,6 @@ class SEAadapter (mContext : Context, var items : List<Sea>, val listener : Recy
             if (numtc2.text == "null" || numtc2 == null || numtc2.text == "" ){
                 numtc2.isInvisible = true
             }
-        }
-
-        private fun popUpPlomb(tc : Sea){
-            val v = View.inflate(itemView.context,R.layout.popup_num_bind, null)
-            val  builder = AlertDialog.Builder(itemView.context)
-            builder.setView(v)
-
-            val recupEditText_bind = v.findViewById<TextInputEditText>(R.id.textInputBindNum)
-            val labelBind = v.findViewById<TextInputLayout>(R.id.textFieldBindNum)
-            val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
-            val txtView_popup = v.findViewById<TextView>(R.id.txtView_pop_up)
-
-            txtView_popup.text = "Veuiller renseigner le numéro Plomb du TC : ${tc.numTc1} "
-
-            var iddoc  =""
-            btnRecupBind.setOnClickListener {
-                val numbind_tc = recupEditText_bind.text
-                Log.d("Bind ",numbind_tc.toString())
-                numPlomb_string = numbind_tc.toString()
-                val db = FirebaseFirestore.getInstance()
-                val query = db.collection(dataBasePath)
-                    .whereEqualTo("num_TC", tc.numTc1)
-                    .whereEqualTo("num_Camion", tc.numCamion)
-                query.get().addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        var docId = document.id
-                        iddoc = docId
-                        val docRef = db.collection(dataBasePath).document(docId)
-                        docRef.update("num_plomb_TC",numPlomb_string)
-                    }
-                    Log.d("Doc Id",iddoc)
-                }
-                recupEditText_bind.text?.clear()
-                recupEditText_bind.isVisible = false
-                labelBind.isVisible = false
-                btnRecupBind.isVisible = false
-                txtView_popup.setText(R.string.poursuivre_voyage_popup)
-                txtView_popup.setTextColor(v.resources.getColor(R.color.autre_vert_sombre))
-            }
-
-            val dialog = builder.create()
-            dialog.show()
-            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
-
-        private fun popUpPlomb_second(tc : Sea){
-            val v = View.inflate(itemView.context,R.layout.popup_num_bind_second, null)
-            val  builder = AlertDialog.Builder(itemView.context)
-            builder.setView(v)
-
-            //plomb 1
-            val labelBind = v.findViewById<TextInputLayout>(R.id.textFieldBindNum)
-            val recupEditText_bind = v.findViewById<TextInputEditText>(R.id.textInputBindNum)
-            //plomb 2
-            val labelBind_second = v.findViewById<TextInputLayout>(R.id.textFieldBindNum_second)
-            val recupEditText_bind_second = v.findViewById<TextInputEditText>(R.id.textInputBindNum_second)
-
-            val txtView_popup = v.findViewById<TextView>(R.id.txtView_pop_up)
-            val btnRecupBind = v.findViewById<Button>(R.id.btn_recup_bind_tc)
-
-            txtView_popup.text = "Veuiller renseigner le numéro Plomb du TC1 : ${tc.numTc1} et TC2 : ${tc.numTc2}  "
-
-            var iddoc  =""
-            btnRecupBind.setOnClickListener {
-                val numbind_tc = recupEditText_bind.text
-                val numbind_tc_second = recupEditText_bind_second.text
-                numPlomb_string = numbind_tc.toString()
-                numPlomb_second_string = numbind_tc_second.toString()
-                val db = FirebaseFirestore.getInstance()
-                val query = db.collection(dataBasePath)
-                    .whereEqualTo("num_TC", tc.numTc1)
-                    .whereEqualTo("num_Camion", tc.numCamion)
-                query.get().addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        var docId = document.id
-                        iddoc = docId
-                        val docRef = db.collection(dataBasePath).document(docId)
-                        docRef.update("num_plomb_TC",numPlomb_string)
-                        docRef.update("num_plomb_TC_2",numPlomb_second_string)
-                    }
-                    Log.d("Doc Id",iddoc)
-                }
-                recupEditText_bind.text?.clear()
-                recupEditText_bind_second.text?.clear()
-                recupEditText_bind.isVisible = false
-                recupEditText_bind_second.isVisible = false
-                labelBind.isVisible = false
-                labelBind_second.isVisible = false
-                btnRecupBind.isVisible = false
-                txtView_popup.setText(R.string.poursuivre_voyage_popup)
-                txtView_popup.setTextColor(v.resources.getColor(R.color.autre_vert_sombre))
-            }
-
-            val dialog = builder.create()
-            dialog.show()
-            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         }
 
         fun callButton(){

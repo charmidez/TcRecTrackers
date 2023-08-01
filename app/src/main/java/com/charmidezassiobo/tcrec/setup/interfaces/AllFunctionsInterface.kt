@@ -23,4 +23,5 @@ interface AllFunctionsInterface {
     fun testKeyInDbBeforeGetData(collectionName : String, keyLookingFor : String)  : MutableList<String>
     fun snackBarShowWarning(mContext : Context, rootView : View, message : String)
     fun snackBarShowSucces(mContext : Context, rootView : View, message : String)
+    //abstract fun requireContext(): Context?
 }

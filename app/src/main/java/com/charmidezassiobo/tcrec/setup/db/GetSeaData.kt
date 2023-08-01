@@ -33,7 +33,7 @@ class GetSeaData(var mContext : Context?, var listener : RecyclerViewClickItemIn
     private val allVar = AllVariables()
     private val allFun = AllFunctions()
     val db = Firebase.firestore
-    private val dbSea = db.collection(allVar.SEA_COLLECTION)
+    val dbSea = db.collection(allVar.SEA_COLLECTION)
 
 
     fun saveSea() = CoroutineScope(Dispatchers.IO).launch {
@@ -423,18 +423,33 @@ class GetSeaData(var mContext : Context?, var listener : RecyclerViewClickItemIn
 
                 val docRef = dbSea.document(docId)
                 docRef.update("num_camion", newSea.numCamion)
-                docRef.update("phone_chauffeur_TC", newSea.numChauffeur)
+                docRef.update("num_phone_chauffeur", newSea.numChauffeur)
 
                 docRef.update("num_tc_1", newSea.numTc1)
                 docRef.update("num_tc_2", newSea.numTc2)
-                docRef.update("num_plomb_TC", newSea.numPlomb1)
-                docRef.update("num_plomb_TC_2", newSea.numPlomb2)
-                docRef.update("num_Booking", newSea.numBooking)
+                docRef.update("num_plomb_tc_1", newSea.numPlomb1)
+                docRef.update("num_plomb_tc_2", newSea.numPlomb2)
+                docRef.update("num_booking", newSea.numBooking)
 
-                docRef.update("step_TC", newSea.stepTc)
+                docRef.update("step_tc", newSea.stepTc)
 
                 docRef.update("date_hour_step", newSea.dateHourStep)
 
+            }
+        }
+    }
+
+    fun addPlombNum(numBooking : String, numTc1 : String, numTc2 : String?, newNumPlomb1 : String, newNumPlomb2 : String, ){
+        val query = dbSea
+            .whereEqualTo("num_booking", numBooking)
+            .whereEqualTo("num_tc_1", numTc1)
+            .whereEqualTo("num_tc_2", numTc2)
+        query.get().addOnSuccessListener {documents ->
+            for(document in documents){
+                var docId = document.id
+                val docRef = dbSea.document(docId)
+                docRef.update("num_plomb_tc_1", newNumPlomb1)
+                docRef.update("num_plomb_tc_2", newNumPlomb2)
             }
         }
     }

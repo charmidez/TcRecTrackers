@@ -21,12 +21,17 @@ import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.functions.BayoStepViewFunctionsSetup
 import com.charmidezassiobo.tcrec.setup.dataclass.Sea
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.ShowStepDateBottomSheetFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.io.Serializable
 import java.lang.Exception
 
 class SuivietcSousFragment : Fragment() {
 
     private var _binding: FragmentSuivietcSousBinding? = null
     private val binding get() = _binding!!
+
+    val stepBottomFragment : BottomSheetDialogFragment = ShowStepDateBottomSheetFragment()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -91,6 +96,8 @@ class SuivietcSousFragment : Fragment() {
         var contenu = data?.getString("inputDesc")!!
         var stepDateHeureReal = data?.getSerializable("inputStepDate")!! as? MutableList<HeureStep>
 
+        var listStepDescription : MutableList<String> = mutableListOf()
+
         bayoSetup.stepChange(mContext, stepvoyage, typetransact, sousTypeTransact)
         dateEtapeTcSub.text = dateEtapeTc
         numBookingSub.setText(numBooking)
@@ -123,21 +130,17 @@ class SuivietcSousFragment : Fragment() {
 
         getSeaData = GetSeaData(mContext,null, sea, null)
 
-        try {
             when (typetransact) {
                 "AIR" -> {
                     statusAirTransaction(dateEtapeTcSub, sousTypeTransact, stepvoyage, stepDateHeureReal!!)
                 }
                 "SEA" -> {
-                    statusSeaTransaction(dateEtapeTcSub, sousTypeTransact, stepvoyage, stepDateHeureReal!!)
+                    listStepDescription = statusSeaTransaction(dateEtapeTcSub, sousTypeTransact, stepvoyage, stepDateHeureReal!!)
                 }
                 "ROAD" -> {
                     statusRoadTransaction()
                 }
             }
-        } catch (e : Exception){
-            e.printStackTrace()
-        }
 
         // Checker si le phone est disponible
         if (phoneChauffeurSub.text.toString() == "null" || phoneChauffeurSub == null || phoneChauffeurSub.text.toString() == "") {
@@ -215,8 +218,14 @@ class SuivietcSousFragment : Fragment() {
 
         btnDateStep.setOnClickListener {
             if (stepvoyage != null) {
-                Log.d("stepvoyage", stepvoyage.toString())
-                //popUpShowDate(stepDateHeureReal!!, stepvoyage) bottom Sheet Fragment
+                val showStepDateBottomSheetFragment = ShowStepDateBottomSheetFragment()
+                Log.d("listStepDescription", listStepDescription.toString())
+                val inputStepDesc : ArrayList<String> = listStepDescription as ArrayList
+                val bundle = Bundle()
+                //bundle.putStringArrayList("listStepDescription", inputStepDesc)
+                bundle.putSerializable("listStepDescription", inputStepDesc as Serializable)
+                stepBottomFragment.arguments = bundle
+                showStepDateBottomSheetFragment.show(childFragmentManager, showStepDateBottomSheetFragment.tag)
             }
         }
 
@@ -224,36 +233,80 @@ class SuivietcSousFragment : Fragment() {
     }
 
 
-    fun statusSeaTransaction(dateEtapeTcSub : TextView, sousTypeTransact : String,  stepvoyage : Int,  stepDateHeureReal : MutableList<HeureStep>? ){
+    fun statusSeaTransaction(dateEtapeTcSub : TextView, sousTypeTransact : String,  stepvoyage : Int,  stepDateHeureReal : MutableList<HeureStep>? ) : MutableList<String>{
+        var statusSeaTransactionList = mutableListOf<String>()
         when(sousTypeTransact){
-            "SEA (EXPORT)" -> {
+            "EXPORT (SEA)" -> {
                 when (stepvoyage) {
-                    0 -> dateEtapeTcSub.text =
-                        "Tc dans au port : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                    0 -> {
+                        val textEtape = "Tc dans au port : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
+                        dateEtapeTcSub.text = textEtape
 
-                    1 -> dateEtapeTcSub.text =
-                        "Tc à l'usine le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        statusSeaTransactionList.add(textEtape)
+                    }
+                    1 -> {
+                        val textEtape = "Tc à l'usine le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        dateEtapeTcSub.text = textEtape
 
-                    2 -> dateEtapeTcSub.text =
-                        "Tc en chargement le: ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        statusSeaTransactionList.add("Tc dans au port : ${stepDateHeureReal!![0].stepDateChiffre} à ${stepDateHeureReal!![0].stepHeure} ")
 
-                    3 -> dateEtapeTcSub.text =
-                        "Tc à la douane le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        statusSeaTransactionList.add(textEtape)
+                    }
 
-                    4 -> dateEtapeTcSub.text =
-                        "Tc sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                    2 -> {
+                        val textEtape = "Tc en chargement le: ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        dateEtapeTcSub.text = textEtape
 
-                    5 -> dateEtapeTcSub.text =
-                        "Tc plein et arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        statusSeaTransactionList.add("Tc dans au port : ${stepDateHeureReal!![0].stepDateChiffre} à ${stepDateHeureReal!![0].stepHeure} ")
+                        statusSeaTransactionList.add("Tc à l'usine le : ${stepDateHeureReal!![1].stepDateChiffre} à ${stepDateHeureReal!![1].stepHeure}")
 
-                    /*                    6 -> dateEtapeTcSub.text =
-                                            "Transaction Terminé le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"*/
+                        statusSeaTransactionList.add(textEtape)
+                    }
+
+                    3 -> {
+                        val textEtape =  "Tc à la douane le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        dateEtapeTcSub.text = textEtape
+
+                        statusSeaTransactionList.add("Tc dans au port : ${stepDateHeureReal!![0].stepDateChiffre} à ${stepDateHeureReal!![0].stepHeure} ")
+                        statusSeaTransactionList.add("Tc à l'usine le : ${stepDateHeureReal!![1].stepDateChiffre} à ${stepDateHeureReal!![1].stepHeure}")
+                        statusSeaTransactionList.add("Tc en chargement le: ${stepDateHeureReal!![2].stepDateChiffre} à ${stepDateHeureReal!![2].stepHeure}")
+
+                        statusSeaTransactionList.add(textEtape)
+                    }
+
+                    4 -> {
+                        val textEtape = "Tc sortie de l'entrepot le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        dateEtapeTcSub.text = textEtape
+
+                        statusSeaTransactionList.add("Tc dans au port : ${stepDateHeureReal!![0].stepDateChiffre} à ${stepDateHeureReal!![0].stepHeure} ")
+                        statusSeaTransactionList.add("Tc à l'usine le : ${stepDateHeureReal!![1].stepDateChiffre} à ${stepDateHeureReal!![1].stepHeure}")
+                        statusSeaTransactionList.add("Tc en chargement le: ${stepDateHeureReal!![2].stepDateChiffre} à ${stepDateHeureReal!![2].stepHeure}")
+                        statusSeaTransactionList.add("Tc à la douane le : ${stepDateHeureReal!![3].stepDateChiffre} à ${stepDateHeureReal!![3].stepHeure}")
+
+                        statusSeaTransactionList.add(textEtape)
+                    }
+
+                    5 -> {
+                        val textEtape = "Tc plein et arrivé au port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}"
+                        dateEtapeTcSub.text = textEtape
+
+                        statusSeaTransactionList.add("Tc dans au port : ${stepDateHeureReal!![0].stepDateChiffre} à ${stepDateHeureReal!![0].stepHeure} ")
+                        statusSeaTransactionList.add("Tc à l'usine le : ${stepDateHeureReal!![1].stepDateChiffre} à ${stepDateHeureReal!![1].stepHeure}")
+                        statusSeaTransactionList.add("Tc en chargement le: ${stepDateHeureReal!![2].stepDateChiffre} à ${stepDateHeureReal!![2].stepHeure}")
+                        statusSeaTransactionList.add("Tc à la douane le : ${stepDateHeureReal!![3].stepDateChiffre} à ${stepDateHeureReal!![3].stepHeure}")
+                        statusSeaTransactionList.add("Tc sortie de l'entrepot le : ${stepDateHeureReal!![4].stepDateChiffre} à ${stepDateHeureReal!![5].stepHeure}")
+
+                        statusSeaTransactionList.add(textEtape)
+                    }
                 }
+
             }
-            "SEA (IMPORT)" -> {
+            "IMPORT (SEA)" -> {
                 when (stepvoyage) {
-                    0 -> dateEtapeTcSub.text =
-                        "Tc arrivé au Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}  "
+                    0 -> {
+                        dateEtapeTcSub.text =
+                            "Tc arrivé au Port le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure}  "
+                    }
 
                     1 -> dateEtapeTcSub.text =
                         "Tc en Dédouanement le : ${stepDateHeureReal!![stepvoyage].stepDateChiffre} à ${stepDateHeureReal!![stepvoyage].stepHeure} "
@@ -269,7 +322,7 @@ class SuivietcSousFragment : Fragment() {
                 }
             }
         }
-
+        return statusSeaTransactionList
     }
 
     fun statusAirTransaction(dateEtapeTcSub : TextView, sousTypeTransact : String,  stepvoyage : Int,  stepDateHeureReal : MutableList<HeureStep>?){
