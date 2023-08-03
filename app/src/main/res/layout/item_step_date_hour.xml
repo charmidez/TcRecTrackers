@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/imgView_validate_or_not_icone"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_ok"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/check"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/all_margin_demi"/>
 

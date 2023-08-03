@@ -14,6 +14,17 @@ class ShowStepDateBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding : BottomSheetShowStepDateBinding? = null
     private val binding get() = _binding!!
 
+    companion object{
+        private const val ARG_DATA_LIST = "dataList"
+        fun newInstance(dataList: ArrayList<String>) : ShowStepDateBottomSheetFragment{
+            val args = Bundle()
+            args.putStringArrayList(ARG_DATA_LIST, dataList)
+            val fragment = ShowStepDateBottomSheetFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,18 +34,10 @@ class ShowStepDateBottomSheetFragment : BottomSheetDialogFragment() {
         val root : View = binding.root
         val mContext = binding.root.context
 
-        //Récup list
-        val data = arguments
-        //var listStepDesc = data?.getStringArrayList("listStepDescription")
-        var listStepDesc : ArrayList<String>
-        listStepDesc = (data?.getSerializable("listStepDescription")!! as? ArrayList<String>)!!
-
-        Log.d("listStepDescRecup", listStepDesc.toString())
-        var itemTest = arrayListOf<String>("Elément un", "Elément deux", "Element trois", "Element quatre")
+        val listStepDesc = arguments?.getStringArrayList(ARG_DATA_LIST) as ArrayList<String>
 
         var recyclerViewShowStepDate = binding.recyclerViewStepDate
-        //recyclerViewShowStepDate.adapter = listStepDesc?.let { ShowStepAdapter(mContext, it) }
-        recyclerViewShowStepDate.adapter = ShowStepAdapter(mContext, listStepDesc!!)
+        recyclerViewShowStepDate.adapter = ShowStepAdapter(mContext, listStepDesc)
 
         return root
     }

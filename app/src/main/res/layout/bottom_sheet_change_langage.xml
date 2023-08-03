@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -47,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
 
-            android:background="?android:attr/listDivider"
+            android:background="@color/grisabsolut"
             android:layout_marginTop="@dimen/all_margin_demi"
             android:layout_marginBottom="@dimen/all_margin_demi"/>
 

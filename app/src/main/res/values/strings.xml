@@ -53,7 +53,7 @@
     <string name="qui_sommes_nous">Qui sommes-nous ?</string>
     <string name="score_quizz"></string>
     <string name="developper">Charmidez Assiobo</string>
-    <string name="change_language_english">Switch to english</string>
+    <string name="change_language_english">Choisir ma langue</string>
     <string name="change_language">Langue</string>
     <string name="tc_desc">Description du TC</string>
     <string name="tc_road_desc">Description du marchandise transporté</string>
@@ -112,6 +112,7 @@
     <string-array name="oktest">
         <item>Booking 1</item>
         <item>Booking 2</item>
+        <item>Booking 3</item>
     </string-array>
 
 
@@ -122,6 +123,10 @@
     <string name="sea_tracking">SEA Tracking</string>
     <string name="air_tracking">AIR Tracking</string>
     <string name="road_tracking">ROAD Tracking</string>
+
+    <string name="sea_simple">SEA</string>
+    <string name="air_simple">AIR</string>
+    <string name="road_simple">ROAD</string>
 
     <string name="sea_exp">SEA Export</string>
     <string name="air_exp">AIR Export</string>

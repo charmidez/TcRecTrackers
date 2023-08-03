@@ -5,14 +5,14 @@
     <corners android:radius="@dimen/radius" />
 
     <!-- This is the border color -->
-    <stroke android:width="2dp" android:color="@color/gray2" />
+    <stroke android:width="2dp" android:color="?attrs_gray2_mine" />
 
     <!--- This is the background color -->
-    <solid android:color="@color/gray" />
+    <solid android:color="?attrs_gray_mine" />
     <gradient
-        android:startColor="@color/white"
-        android:centerColor="@color/gray"
-        android:endColor="@color/gray"
+        android:startColor="?attrs_white_mine"
+        android:centerColor="?attrs_gray_mine"
+        android:endColor="?attrs_gray_mine"
         android:type="linear"
         android:useLevel="false" />
 </shape>

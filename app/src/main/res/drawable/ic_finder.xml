@@ -3,7 +3,8 @@
     android:width="800dp"
     android:height="800dp"
     android:viewportWidth="48"
-    android:viewportHeight="48">
+    android:viewportHeight="48"
+    android:tint="?attrs_black_mine">
   <path
       android:pathData="M0,0h48v48h-48z"
       android:fillColor="#ffffff"

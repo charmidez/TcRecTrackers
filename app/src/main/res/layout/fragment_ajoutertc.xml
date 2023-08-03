@@ -100,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/all_margin"
                 android:orientation="vertical">
-                <!-- AIR Import / Export radio button -->
                 <RadioGroup
                     android:id="@+id/radioGroup_air_ajout"
                     android:layout_width="match_parent"

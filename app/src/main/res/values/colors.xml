@@ -4,7 +4,9 @@
 
     <!--color name="blueup">#2C5DE4</color-->
     <color name="blueup">#79A384</color>
-    <color name="blue">#0081A7 </color>
+    <color name="blue">#0081A7</color>
+
+    <!--color name="blue">?attr/mine_button_color</color-->
 
     <color name="red_bis">#EA3C53</color>
 

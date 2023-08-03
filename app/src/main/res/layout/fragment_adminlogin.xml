@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cargaison_background_2"
     tools:context=".ui.adminlogin.AdminloginFragment">
 
     <ScrollView
@@ -34,13 +35,30 @@
                     android:padding="@dimen/padd"
                     android:layout_gravity="center"/>
 
-                <ImageView
-                    android:layout_width="128dp"
-                    android:layout_height="64dp"
-                    android:layout_marginRight="@dimen/all_margin"
-                    android:src="@drawable/logo_blanc_new"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rounded_blue_corner_view_2"
-                    android:padding="@dimen/padd"/>
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="128dp"
+                        android:layout_height="52dp"
+                        android:layout_marginRight="@dimen/all_margin"
+                        android:src="@drawable/logo_blanc_new"
+                        android:padding="@dimen/padd"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Page de connexion"
+                        android:fontFamily="@font/source_sans_pro_bold"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <!--image-->
@@ -73,7 +91,9 @@
                     app:boxStrokeColor="@color/gray"
                     app:hintTextColor="@color/grisabsolut"
                     app:startIconDrawable="@drawable/login_user"
-                    tools:ignore="MissingConstraints">
+                    tools:ignore="MissingConstraints"
+                    android:textColorHint="@color/gray2_not_selected"
+                    app:startIconTint="@color/gray2_not_selected">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_username"
@@ -98,7 +118,9 @@
                     app:boxStrokeColor="@color/gray"
                     app:hintTextColor="@color/grisabsolut"
                     app:startIconDrawable="@drawable/user_password"
-                    tools:ignore="MissingConstraints">
+                    tools:ignore="MissingConstraints"
+                    android:textColorHint="@color/gray2_not_selected"
+                    app:startIconTint="@color/gray2_not_selected">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_password"

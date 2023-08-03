@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/cargaison_background_2"
     tools:context=".ui.clientloginadmin.findtc.FindtcFragment">
 
     <LinearLayout
@@ -75,44 +76,45 @@
             android:layout_marginTop="@dimen/all_margin"
             android:layout_marginLeft="@dimen/all_margin"
             android:layout_marginRight="@dimen/all_margin"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radioButton_sea_trucking"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/all_padding"
-                android:layout_marginBottom="@dimen/all_margin"
-                android:text="@string/sea_tracking"
-                android:background="@drawable/rounded_radio"
+                android:layout_weight="1"
+                android:background="@drawable/btn_bleu_drawable_call"
                 android:buttonTint="@color/white"
-                android:textSize="16dp"
+                android:drawableRight="@drawable/ic_sea_transport"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/sea"
                 android:textColor="@color/white" />
 
             <RadioButton
                 android:id="@+id/radioButton_air_trucking"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/all_padding"
-                android:textSize="16dp"
-                android:layout_marginBottom="@dimen/all_margin"
-                android:text="@string/air_tracking"
-                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/padd"
+                android:layout_marginRight="@dimen/padd"
+                android:layout_weight="1"
+                android:background="@drawable/btn_drawable_call"
                 android:buttonTint="@color/white"
-                android:background="@drawable/rounded_radio" />
+                android:drawableRight="@drawable/ic_air_transport"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/air"
+                android:textColor="@color/white" />
 
             <RadioButton
                 android:id="@+id/radioButton_road_trucking"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/all_padding"
-                android:textSize="16dp"
-                android:text="@string/road_tracking"
-                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_blue_corner_view"
                 android:buttonTint="@color/white"
-                android:background="@drawable/rounded_radio" />
+                android:drawableRight="@drawable/ic_road_transport"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/road"
+                android:textColor="@color/white" />
 
         </RadioGroup>
 
@@ -138,23 +140,25 @@
                 android:id="@+id/radioButton_sea_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_export_new_ok"
                 android:layout_weight="1"
-                android:paddingRight="@dimen/all_padding"
-                android:layout_marginRight="@dimen/all_margin"
-                android:text="@string/sea_exp"
-                android:background="@drawable/rounded_blue_corner_view"
+                android:background="@drawable/btn_bleu_drawable_call"
                 android:buttonTint="@color/white"
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/sea_exp"
+                android:layout_marginRight="@dimen/all_margin"
                 android:textColor="@color/white" />
             <RadioButton
                 android:id="@+id/radioButton_sea_imp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableRight="@drawable/ic_import_new_ok"
+                android:background="@drawable/btn_bleu_drawable_call"
+                android:buttonTint="@color/white"
                 android:paddingRight="@dimen/all_padding"
                 android:text="@string/sea_imp"
-                android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:background="@drawable/rounded_blue_corner_view" />
+                android:textColor="@color/white" />
         </RadioGroup>
 
         <!-- group air tracking -->
@@ -171,23 +175,25 @@
                 android:id="@+id/radioButton_air_imp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="@dimen/all_padding"
                 android:layout_marginRight="@dimen/all_margin"
-                android:text="@string/air_imp"
-                android:background="@drawable/rounded_blue_corner_view"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/ic_import_new_ok"
+                android:background="@drawable/btn_drawable_call"
                 android:buttonTint="@color/white"
-                android:textColor="@color/white" />
+                android:paddingRight="@dimen/all_padding"
+                android:text="@string/air_imp"
+                android:textColor="@color/white"  />
             <RadioButton
                 android:id="@+id/radioButton_air_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableRight="@drawable/ic_export_new_ok"
+                android:background="@drawable/btn_drawable_call"
+                android:buttonTint="@color/white"
                 android:paddingRight="@dimen/all_padding"
                 android:text="@string/air_exp"
-                android:textColor="@color/white"
-                android:buttonTint="@color/white"
-                android:background="@drawable/rounded_blue_corner_view" />
+                android:textColor="@color/white" />
         </RadioGroup>
 
         <!-- trait à afficher -->
@@ -220,6 +226,7 @@
                 android:padding="@dimen/all_padding"
                 android:layout_gravity="center"
                 android:textSize="16dp"
+                android:textColorHint="@color/gray2_not_selected"
                 android:fontFamily="@font/source_sans_pro_semi_bold"
                 android:hint="Chercher..."/>
             <ImageButton
@@ -240,13 +247,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/all_margin"
             android:orientation="horizontal">
-            <!--TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:textColor="@color/red_bis"
-                android:layout_marginRight="@dimen/all_margin"
-                android:text="Je ne trouve toujours pas mon compte colis"/-->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_callRec"
                 android:layout_width="match_parent"
@@ -259,8 +259,6 @@
                 android:background="@drawable/btn_drawable_red"
                 android:drawableLeft="@drawable/drawable_with_margin"/>
         </LinearLayout>
-
-
 
         <!-- resultat de recherche -->
         <!--androidx.recyclerview.widget.RecyclerView

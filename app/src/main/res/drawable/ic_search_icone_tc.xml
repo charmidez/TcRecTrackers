@@ -3,6 +3,7 @@
     android:width="36dp"
     android:viewportHeight="24"
     android:viewportWidth="24"
+    android:tint="?attrs_white_mine"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#00000000" android:pathData="M14,5H20"
         android:strokeColor="#FFFFFF" android:strokeLineCap="round"

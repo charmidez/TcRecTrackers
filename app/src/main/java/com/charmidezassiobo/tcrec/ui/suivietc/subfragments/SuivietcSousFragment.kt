@@ -218,14 +218,9 @@ class SuivietcSousFragment : Fragment() {
 
         btnDateStep.setOnClickListener {
             if (stepvoyage != null) {
-                val showStepDateBottomSheetFragment = ShowStepDateBottomSheetFragment()
-                Log.d("listStepDescription", listStepDescription.toString())
-                val inputStepDesc : ArrayList<String> = listStepDescription as ArrayList
-                val bundle = Bundle()
-                //bundle.putStringArrayList("listStepDescription", inputStepDesc)
-                bundle.putSerializable("listStepDescription", inputStepDesc as Serializable)
-                stepBottomFragment.arguments = bundle
-                showStepDateBottomSheetFragment.show(childFragmentManager, showStepDateBottomSheetFragment.tag)
+                val inputListStepDesc : ArrayList<String> = listStepDescription as ArrayList
+                val showStepDateBottomSheetFragment = ShowStepDateBottomSheetFragment.newInstance(inputListStepDesc)
+                showStepDateBottomSheetFragment.show(parentFragmentManager, showStepDateBottomSheetFragment.tag)
             }
         }
 

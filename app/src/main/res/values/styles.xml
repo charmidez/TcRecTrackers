@@ -17,4 +17,43 @@
         <item name="android:textCursorDrawable">@drawable/custom_cursor_drawable</item>
     </style>
 
+
+    <style name="textTitle">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:textColor">?attrs_blue_mine</item>
+    </style>
+    <style name="textMidTitle">
+        <item name="android:fontFamily">@font/source_sans_pro_semi_bold</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">?attrs_blue_mine</item>
+    </style>
+    <style name="textGbalo">
+        <item name="android:fontFamily">@font/source_sans_pro_light</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">?attrs_blue_mine</item>
+    </style>
+    <style name="textGridview">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:textColor">?attrs_gray_mine</item>
+    </style>
+    <style name="imageRadius_corner">
+        <item name="android:radius">@dimen/radius</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+    <style name="progressBar_style">
+
+    </style>
+    <style name="switch_btn" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorAccent">?attrs_blue_mine</item>
+    </style>
+    <style name="textMidTitle_result">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">?attrs_black_mine</item>
+    </style>
+
+
+
 </resources>

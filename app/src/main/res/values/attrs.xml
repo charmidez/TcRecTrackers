@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="dark_light">
+
+        <attr name="mine_background_img" format="color"/>
+
+        <attr name="attrs_blueup_mine" format="color"/>
+        <attr name="attrs_blue_mine" format="color"/>
+        <attr name="attrs_red_bis_mine" format="color"/>
+        <attr name="attrs_yellow_mine" format="color"/>
+        <attr name="attrs_gray_mine" format="color"/>
+        <attr name="attrs_gray2_mine" format="color"/>
+        <attr name="attrs_gray2_not_selected_mine" format="color"/>
+        <attr name="attrs_textColor_mine" format="color"/>
+        <attr name="attrs_grisabsolut_mine" format="color"/>
+        <attr name="attrs_white_mine" format="color"/>
+        <attr name="attrs_black_mine" format="color"/>
+
+        <attr name="attrs_autre_vert_bleue_mine" format="color"/>
+        <attr name="attrs_autre_blanc_jaune_mine" format="color"/>
+        <attr name="attrs_autre_bleue_sombre_mine" format="color"/>
+        <attr name="attrs_autre_vert_sombre_mine" format="color"/>
+        <attr name="attrs_autre_violet_mine" format="color"/>
+        <attr name="attrs_autre_rose_mine" format="color"/>
+        <attr name="attrs_new_blue_mine" format="color"/>
+        <attr name="attrs_new_blue2_mine" format="color"/>
+        <attr name="attrs_autre_vert_btn_gris_mine" format="color"/>
+
+        <attr name="attrs_gris_cardview_mine" format="color"/>
+
+
+    </declare-styleable>
+</resources>

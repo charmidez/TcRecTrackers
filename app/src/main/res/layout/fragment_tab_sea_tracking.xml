@@ -34,9 +34,8 @@
                     android:id="@+id/btnBackRemoveSelected"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_back_button_fragment"
+                    android:src="@drawable/ic_cancel"
                     android:background="@color/white"
-                    android:padding="@dimen/padd"
                     android:layout_gravity="center"/>
                 <View
                     android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/all_margin"
                     android:padding="@dimen/padd"
-                    android:src="@drawable/ic_export_new_ok"
+                    android:src="@drawable/ic_select_all_new"
                     android:background="@drawable/btn_bleu_drawable_call" />
 
                 <!-- Select All Button  signe ALL PLUS-->
@@ -62,7 +61,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/all_margin"
                     android:padding="@dimen/padd"
-                    android:src="@drawable/ic_import_new_ok"
+                    android:src="@drawable/ic_remove_all"
                     android:background="@drawable/btn_drawable_call" />
 
                 <!-- Delete Button -->
@@ -105,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <TextView

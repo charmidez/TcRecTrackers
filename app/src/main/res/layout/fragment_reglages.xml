@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
-
+    android:background="?attr/mine_background_img"
     tools:context=".ui.reglages.ReglagesFragment">
 
     <ScrollView
@@ -50,7 +50,7 @@
                     android:id="@+id/btn_list_user"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
-                    android:src="@drawable/ic_finder_client"
+                    android:src="@drawable/ic_list_user"
                     android:background="@drawable/rounded_blue_corner_view"
                     android:layout_marginRight="@dimen/all_margin"/>
 
@@ -62,7 +62,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/rounded_blue_corner_view_2"
                     android:padding="@dimen/padd"
-                    android:src="@drawable/ic_admin_button" />
+                    android:src="@drawable/ic_add_user" />
 
             </LinearLayout>
 
@@ -149,15 +149,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/gray2_not_selected"
                         android:text="@string/active_dark_mode" />
                 </LinearLayout>
-                <androidx.appcompat.widget.SwitchCompat
+
+                <!--Switch-->
+                <Switch
                     android:id="@+id/switch_darkmode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:thumbTint="@color/blue"
+                    android:track="@drawable/bg_track"
+                    android:thumb="@drawable/ic_cercle_margin"
                     android:layout_gravity="center"
-                    android:trackTint="@color/black" />
+                    />
+
             </LinearLayout>
 
             <View
@@ -166,7 +171,7 @@
                 android:layout_marginTop="@dimen/all_margin"
                 android:layout_marginLeft="@dimen/all_margin"
                 android:layout_marginRight="@dimen/all_margin"
-                android:background="?android:attr/listDivider" />
+                android:background="@color/gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,12 +195,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/gray2_not_selected"
                         android:text="@string/change_language_english" />
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/imgView_choice_language_flags"
-                    android:layout_width="32dp"
-                    android:layout_height="24dp"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:src="@drawable/french_flag" />
             </LinearLayout>
@@ -206,7 +212,7 @@
                 android:layout_marginTop="@dimen/all_margin"
                 android:layout_marginLeft="@dimen/all_margin"
                 android:layout_marginRight="@dimen/all_margin"
-                android:background="?android:attr/listDivider" />
+                android:background="@color/grisabsolut" />
 
             <!--LinearLayout
                 android:layout_width="match_parent"
@@ -263,6 +269,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/gray2_not_selected"
                     android:text="Vérifier et éffectuer les dernières mise à jour" />
             </LinearLayout>
 
@@ -299,16 +306,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_gravity="center"
                 android:text="@string/app_name_uppercase"
                 android:textSize="18dp"
+                android:textColor="@color/gray2_not_selected"
                 android:fontFamily="@font/source_sans_pro_bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/source_sans_pro_bold"
                 android:text="from"

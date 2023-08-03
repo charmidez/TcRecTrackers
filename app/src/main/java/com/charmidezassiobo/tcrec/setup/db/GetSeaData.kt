@@ -192,7 +192,7 @@ class GetSeaData(var mContext : Context?, var listener : RecyclerViewClickItemIn
                             var filteredTcList = mutableListOf<Sea>()
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 selectedItem = listBooking[position]
-                                if (selectedItem == "ALL NUM BOOKINGS"){
+                                if (selectedItem == "ALL TC"){
                                     recyclerView!!.adapter = TCBookingAdapter( mmContext, itemsListSea)
                                 } else {
                                     filteredTcList = allFun.filterResultSea(selectedItem, itemsListSea)

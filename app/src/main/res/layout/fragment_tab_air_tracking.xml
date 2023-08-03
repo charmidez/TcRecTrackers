@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.suivietc.tabfragment.TabImportTrackingFragment">
+    android:background="@drawable/cargaison_background_2"
+    tools:context=".ui.suivietc.tabfragment.TabAirTrackingFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipp_refresh_layout_import"

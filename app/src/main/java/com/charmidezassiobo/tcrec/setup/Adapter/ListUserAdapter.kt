@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.dataclass.RecUser
@@ -40,6 +41,12 @@ class ListUserAdapter (var context : Context, var items : MutableList<RecUser>) 
             }
             else -> {
                 holder.userType.text = "Moderateur"
+                holder.userType.setBackground(
+                    AppCompatResources.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.btn_bleu_drawable_call
+                    )
+                )
             }
         }
         holder.userName.text = userPosition.nameUser

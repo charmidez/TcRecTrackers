@@ -3,7 +3,7 @@
     android:shape="rectangle"
     android:padding="10dp">
 
-    <solid android:color="@color/gris_cardview" />
+    <solid android:color="?attrs_gris_cardview_mine" />
     <corners
         android:bottomRightRadius="@dimen/radius"
         android:bottomLeftRadius="@dimen/radius"

@@ -8,10 +8,10 @@
         android:thicknessRatio="16.0"
         android:useLevel="false">
         <gradient
-            android:centerColor="@color/white"
-            android:endColor="@color/white"
-            android:startColor="@color/blue"
-            android:type="sweep"
+            android:centerColor="?attrs_white_mine"
+            android:endColor="?attrs_white_mine"
+            android:startColor="?attrs_blue_mine"
+            android:type="linear"
             android:useLevel="false" />
     </shape>
 </rotate>

@@ -2,7 +2,8 @@
     android:width="18dp"
     android:height="18dp"
     android:viewportWidth="18"
-    android:viewportHeight="18">
+    android:viewportHeight="18"
+    android:tint="?attrs_yellow_mine">
   <path
       android:pathData="M15,4.5L6.75,12.75L3,9"
       android:strokeLineJoin="round"

@@ -6,9 +6,9 @@
     <corners android:radius="@dimen/radius" />
 
     <!-- This is the border color -->
-    <stroke android:color="@color/grisabsolut" android:width="2dp" />
+    <stroke android:color="?attrs_grisabsolut_mine" android:width="2dp" />
 
     <!--- This is the background color -->
-    <solid android:color="@color/grisabsolut" />
+    <solid android:color="?attrs_grisabsolut_mine" />
 
 </shape>

@@ -81,27 +81,6 @@
                         android:src="@drawable/rec_egery" />
                 </androidx.cardview.widget.CardView>
 
-                <!-- ineair button admin plus recherche approfondi -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/all_margin"
-                    android:layout_marginRight="@dimen/all_margin"
-                    android:orientation="horizontal">
-
-                    <!-- Button réseré à l'administration -->
-                    <!--androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_blue_corner_view"
-                        android:drawableRight="@drawable/ic_right_button"
-                        android:fontFamily="@font/source_sans_pro_black"
-                        android:paddingRight="@dimen/all_padding"
-                        android:text="Recherche Approfondi"
-                        android:textColor="@color/white"
-                        android:textSize="14dp" /-->
-                </LinearLayout>
-
                 <!-- bare de recherche et mot cherché-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,6 +120,8 @@
                             android:hint="MSMY239934..."
                             android:padding="@dimen/all_padding"
                             android:textColor="@color/black"
+                            android:textColorHint="@color/gray2_not_selected"
+                            app:startIconTint="@color/gray2_not_selected"
                             android:textSize="16dp" />
 
                         <androidx.appcompat.widget.AppCompatImageButton
@@ -161,7 +142,8 @@
                         android:layout_marginRight="@dimen/all_margin"
                         android:fontFamily="@font/source_sans_pro_bold"
                         android:paddingLeft="@dimen/padd"
-                        android:text="Suivre mon colis par son numéro Contenair, Booking, Réference..."
+                        android:textColor="@color/gray2_not_selected"
+                        android:text="Suivre mon colis par son numéro Conteneur, Booking, Réference..."
                         android:textSize="8dp" />
 
                 </LinearLayout>

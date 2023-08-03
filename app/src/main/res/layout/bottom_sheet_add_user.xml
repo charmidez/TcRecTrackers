@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -75,7 +76,9 @@
                 app:boxBackgroundColor="@color/gray"
                 app:boxStrokeColor="@color/gray"
                 app:hintTextColor="@color/grisabsolut"
-                app:startIconDrawable="@drawable/login_user">
+                app:startIconDrawable="@drawable/login_user"
+                android:textColorHint="@color/gray2_not_selected"
+                app:startIconTint="@color/gray2_not_selected">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputUserName"
@@ -97,7 +100,9 @@
                 app:boxBackgroundColor="@color/gray"
                 app:boxStrokeColor="@color/gray"
                 app:hintTextColor="@color/grisabsolut"
-                app:startIconDrawable="@drawable/user_password">
+                app:startIconDrawable="@drawable/user_password"
+                android:textColorHint="@color/gray2_not_selected"
+                app:startIconTint="@color/gray2_not_selected">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputBindNum_second"
