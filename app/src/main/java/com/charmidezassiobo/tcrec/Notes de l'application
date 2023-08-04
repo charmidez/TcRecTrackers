@@ -1,0 +1,14 @@
+
+Les choses restantes à faire
+
+1- Tester la suppression de transaction
+
+2 - Dialogue pour accepter la suppression
+
+3 - Mettre en place l'ajout et la liste des utilisateurs
+    - Mécanisme de création d'utilisateur
+    - Mécanisme de création de mot de passe
+    - Vérifier la disponibilité de la personne dans la base de donnée
+    - Afficher la liste complète des utilisateurs
+
+4 -  Supprimer par swippe la liste des recherches faites

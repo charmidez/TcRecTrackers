@@ -209,9 +209,11 @@ class SuivietcSousFragment : Fragment() {
 
             btnMettreAJour.setBackground(AppCompatResources.getDrawable(mContext, gray))
             btnMettreAJour.text = "Mis à jour éffectuée"
+
             for (allView in viewList){
                 allView.isEnabled = false
             }
+            getSeaData.updateSeaDB(sea, recupSea)
             btnMettreAJour.isEnabled = false
 
         }

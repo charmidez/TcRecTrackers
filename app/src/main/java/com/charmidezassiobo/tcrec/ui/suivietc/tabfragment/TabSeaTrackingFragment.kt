@@ -1,6 +1,8 @@
 package com.charmidezassiobo.tcrec.ui.suivietc.tabfragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.navigation.fragment.findNavController
@@ -20,10 +24,12 @@ import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.AddPlombBottomSheetFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.Serializable
@@ -31,7 +37,6 @@ import java.io.Serializable
 class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     RecyclerViewClickItemInterface {
 
-    //private var _binding : FragmentTabExportTrackingBinding? = null
     private var _binding : FragmentTabSeaTrackingBinding? = null
     private val binding get() = _binding!!
 
@@ -44,10 +49,8 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     private var isClickLong : Boolean = false
     private var isClick : Boolean = false
 
-    //var getFromDB = GetDataFromDB()
-    //var getSeaData = GetSeaData(null, null, sea, null)
     var allFun = AllFunctions()
-    //var itemsTc = getFromDB.getSEAdataFromdb()
+
     lateinit var seaAdapter : SEAadapter
     lateinit var recyclerViewTc : RecyclerView
     val sousfragmentSuivieTc : Fragment = SuivietcSousFragment()
@@ -65,9 +68,11 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         recyclerViewTc = binding.recyclerViewSuivieTc
         var chargement = binding.linearLayoutEffectDesChargementSuivieTc
         var refresh = binding.swippRefreshLayoutExport
-        var btnTrashTc = binding.btnTrash
         var lnRemoveBtn = binding.lnRemoveBtn
-        var btnDeselectedAll = binding.btnBackRemoveSelected
+
+        //Remove Transaction Lineair Layout
+        var btnDeselectedAll = binding.btnBackSelectedTransact
+        var btnTrashTc = binding.btnTrashRmvTransact
 
         val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetwork
@@ -89,7 +94,6 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
             when(true){
                 isConnected -> {
                     refresh.isRefreshing = false
-                    //getFromDB.inputItemInSeaRecyclerView(mContext, this@TabSeaTrackingFragment, chargement, recyclerViewTc)
                     dataSea.retrieveSea(chargement)
                     allFun.snackBarShowSucces(mContext, root, "Page mis à jour avec succès")
                 }
@@ -98,18 +102,6 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
                     allFun.snackBarShowWarning(mContext, root, "Veuillez vous connecter à internet")
                 }
             }
-/*
-            if (isConnected){
-                //Connection Internet
-                refresh.isRefreshing = false
-                getFromDB.inputItemInSeaRecyclerView(mContext, this@TabSeaTrackingFragment, chargement, recyclerViewTc)
-                allFun.snackBarShowSucces(mContext, root, "Page mis à jour avec succès")
-            } else {
-                // Pas de connexion Internet
-                refresh.isRefreshing = false
-                allFun.snackBarShowWarning(mContext, root, "Veuillez vous connecter à internet")
-            }
-            */
         }
 
         //Search in item
@@ -129,7 +121,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
 
         //remove item
         btnTrashTc.setOnClickListener {
-
+            showRemoveConfirmation(itemsTc)
         }
 
         btnDeselectedAll.setOnClickListener {
@@ -183,6 +175,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
                                 false -> {
                                     isClick = true
                                     seaAdapter.setItemBackground(position, recyclerViewTc , cardSelected)
+                                    toggleItemSelection( sea)
                                 }
                                 else -> {
                                     isClick = false
@@ -231,9 +224,6 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
                     }
                 }
             }
-
-
-
         }
     }
 
@@ -249,23 +239,13 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
                     seaAdapter.setItemBackground(position, recyclerViewTc , cardSelected )
                     binding.lnRemoveBtn.visibility = View.VISIBLE
                     binding.cardViewSearchlistetc.visibility = View.GONE
-                    //binding.btnTrash.visibility = View.VISIBLE
                 }
                 else -> {
+
                 }
             }
         }
     }
-
-/*    override fun onAddNumPlomb(position: Int) {
-        var test = 0
-        val addPlombBottomSheetFragment = AddPlombBottomSheetFragment()
-        addPlombBottomSheetFragment.show(
-            parentFragmentManager, addPlombBottomSheetFragment.tag
-        )
-        test = test + 1
-        Log.d("APPUYERATE", test.toString())
-    }*/
 
     private fun toggleItemSelection(item: Sea) {
         if (selectedItems.contains(item)) {
@@ -281,4 +261,34 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         itemList.removeAll(selectedItems)
         selectedItems.clear()
     }
+
+
+    fun showRemoveConfirmation(itemsTc : Deferred<MutableList<Sea>>){
+
+        val mContext = binding.root.context
+        val builder = AlertDialog.Builder(requireContext())
+
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
+        builder.setView(dialogView)
+        val titleDialog = dialogView.findViewById<TextView>(R.id.txtView_titleAlertDialog)
+        val messageDialog = dialogView.findViewById<TextView>(R.id.txtView_messageAlertDialog)
+        val btnOui = dialogView.findViewById<Button>(R.id.buttonOui)
+        val btnNon = dialogView.findViewById<Button>(R.id.buttonNon)
+        titleDialog.text = "Confirmation"
+        messageDialog.text = "Voulez-vous supprimer ces élements ?"
+        val alertDialog  = builder.create()
+        btnOui.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                deleteSelectedItems(itemsTc.await())
+            }
+        }
+        btnNon.setOnClickListener {
+            dialogView.visibility = View.GONE
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+
 }

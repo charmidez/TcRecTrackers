@@ -27,7 +27,6 @@ class ReglagesFragment : Fragment() {
 
     var allFun = AllFunctions()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentReglagesBinding.inflate(inflater, container, false)
@@ -47,8 +46,6 @@ class ReglagesFragment : Fragment() {
 
        btnDeconnexion.setOnClickListener {
             showLogoutConfirmation()
-           //allFun.showCustomAlertDialog(mContext, "Fermeture", "Voulez-vous quitter ?")
-           //allFun.showConfirmationDialog(ReglagesFragment() , mContext, "Confirmation", "Sortir", outAndRemovePreferences())
         }
 
         btnListUser.setOnClickListener {
@@ -59,7 +56,6 @@ class ReglagesFragment : Fragment() {
             val changeLangageBottomSheetFragment = ChangeLangageBottomSheetFragment()
             changeLangageBottomSheetFragment.show(childFragmentManager, changeLangageBottomSheetFragment.tag)
         }
-
 
         return root
     }
@@ -79,8 +75,6 @@ class ReglagesFragment : Fragment() {
         titleDialog.text = "Confirmation"
         messageDialog.text = "Voulez-vous quitter"
         val alertDialog  = builder.create()
-        //builder.setTitle("Confirmation")
-        //builder.setMessage("Voulez-vous quitter ? ")
         btnOui.setOnClickListener {
             val editor = mContext.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
             editor.remove("is_authenticated")
@@ -94,22 +88,6 @@ class ReglagesFragment : Fragment() {
             alertDialog.dismiss()
         }
 
-/*        builder.setPositiveButton("Oui"){ dialogueInterface, i ->
-            val editor = mContext.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
-            editor.remove("is_authenticated")
-            editor.apply()
-            onDestroyView()
-            val i = Intent(activity, BaseActivity::class.java)
-            startActivity(i)
-        }
-        builder.setNegativeButton("Non"){dialogueInterface, i ->
-            dialogueInterface.dismiss()
-        }
-        builder.setNeutralButton("Annuler"){dialogueInterface, i ->
-            dialogueInterface.dismiss()
-        }*/
-
-        //val alertDialog  = builder.create()
         alertDialog.show()
     }
 

@@ -28,19 +28,10 @@ import com.google.android.material.textfield.TextInputEditText
 
 class AjoutertcFragment : Fragment() {
 
-    val dataBasePath = AllVariables().DBPATH
-    val SEAPATH = AllVariables().SEA_COLLECTION
-    val AIRPATH = AllVariables().AIR_COLLECTION
-    val ROADPATH = AllVariables().ROAD_COLLECTION
-
     private var _binding: FragmentAjoutertcBinding? = null
     private val binding get() = _binding!!
 
     private var allFun = AllFunctions()
-    //private var getData = GetDataFromDB()
-
-    //var itemsSea : MutableList<Sea>  = getData.getSEAdataFromdb()
-    //var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
