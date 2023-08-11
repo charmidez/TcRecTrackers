@@ -1,9 +1,6 @@
-package com.charmidezassiobo.tcrec.setup.dataclass
+package com.charmidezassiobo.tcrec.setup.data
 
 import java.io.Serializable
-import java.sql.Date
-import java.sql.Time
-import java.sql.Timestamp
 
 data class HeureStep(
     // lesStepDateHour

@@ -2,7 +2,7 @@ package com.charmidezassiobo.tcrec.setup.db
 
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.charmidezassiobo.tcrec.setup.dataclass.Air
+import com.charmidezassiobo.tcrec.setup.data.Air
 import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

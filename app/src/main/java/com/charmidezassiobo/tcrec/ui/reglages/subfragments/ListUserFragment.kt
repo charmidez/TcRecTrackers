@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentListUserBinding
-import com.charmidezassiobo.tcrec.setup.Adapter.ListUserAdapter
-import com.charmidezassiobo.tcrec.setup.dataclass.RecUser
+import com.charmidezassiobo.tcrec.setup.db.GetUserData
 
 class ListUserFragment : Fragment() {
 
@@ -28,19 +27,23 @@ class ListUserFragment : Fragment() {
 
         val btnBack = binding.btnBackToPreviousFragment
         val recyclerViewListUser = binding.recyclerViewListUser
+        val chargement = binding.linearLayoutEffectDesChargementUser
+        val getUserData = GetUserData(mContext)
 
 
         btnBack.setOnClickListener {
             navController.popBackStack(R.id.navigation_reglages, false)
         }
 
-        var itemRecUser = mutableListOf(
+/*        var itemRecUser = mutableListOf(
             RecUser(true, "Charmidez", "recCharmidez", "motDePasse"),
             RecUser(false, "Koffi", "recKoffi", "motDePasse"),
             RecUser(false, "Richard", "recRichard", "motDePasse"),
         )
-
         recyclerViewListUser.adapter = ListUserAdapter(mContext, itemRecUser)
+        */
+
+        getUserData.retrieveUsers(chargement, recyclerViewListUser)
 
         return root
     }

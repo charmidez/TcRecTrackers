@@ -91,7 +91,6 @@
             android:text="@string/ajout_bind_num_vraie"
             android:textColor="@color/white" />
 
-
     </LinearLayout>
 
 </FrameLayout>

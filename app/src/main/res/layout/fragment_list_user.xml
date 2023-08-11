@@ -12,6 +12,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Chargment  And Progrsse Bar -->
+        <LinearLayout
+            android:id="@+id/linearLayout_effectDesChargement_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_charging"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/source_sans_pro_light"
+                android:text="Chargement..."
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_id"
+                style="@style/CircularProgressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:minWidth="50dp"
+                android:minHeight="50dp" />
+        </LinearLayout>
+
         <!-- Titre et button -->
         <LinearLayout
             android:layout_width="match_parent"

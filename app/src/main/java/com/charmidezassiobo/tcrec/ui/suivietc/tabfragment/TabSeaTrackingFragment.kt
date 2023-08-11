@@ -2,7 +2,6 @@ package com.charmidezassiobo.tcrec.ui.suivietc.tabfragment
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -17,17 +16,14 @@ import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.databinding.BottomSheetAddPlombBinding
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
-import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.data.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SEAadapter
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
-import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.AddPlombBottomSheetFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -79,8 +75,9 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         val isConnected = activeNetworkInfo != null
 
         var sea  = Sea()
+        //RecyclerView.ViewHolder
 
-        var dataSea = GetSeaData(mContext, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
+        var dataSea = GetSeaData(mContext, this@TabSeaTrackingFragment,  sea, recyclerViewTc)
         var itemsTc = dataSea.getItemList()
 
         refresh.isRefreshing = false
@@ -88,6 +85,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         //Reglage RecyclerView
         recyclerViewTc.setHasFixedSize(true)
         dataSea.retrieveSea(chargement)
+
 
         //Refreshing page
         refresh.setOnRefreshListener {
@@ -121,7 +119,8 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
 
         //remove item
         btnTrashTc.setOnClickListener {
-            showRemoveConfirmation(itemsTc)
+            //showRemoveConfirmation(itemsTc,root,recyclerViewTc, seaViewHolder)
+
         }
 
         btnDeselectedAll.setOnClickListener {
@@ -263,10 +262,11 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     }
 
 
-    fun showRemoveConfirmation(itemsTc : Deferred<MutableList<Sea>>){
+    fun showRemoveConfirmation(itemsTc : Deferred<MutableList<Sea>>, root : View, recyclerView: RecyclerView, v: RecyclerView.ViewHolder){
 
         val mContext = binding.root.context
         val builder = AlertDialog.Builder(requireContext())
+        val getSeaData = GetSeaData(mContext, this@TabSeaTrackingFragment, null, recyclerView)
 
         val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
         builder.setView(dialogView)
@@ -280,6 +280,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         btnOui.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 deleteSelectedItems(itemsTc.await())
+                getSeaData.removeSea(mContext, root, recyclerView, v)
             }
         }
         btnNon.setOnClickListener {

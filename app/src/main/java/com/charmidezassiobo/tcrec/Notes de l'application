@@ -12,3 +12,7 @@ Les choses restantes à faire
     - Afficher la liste complète des utilisateurs
 
 4 -  Supprimer par swippe la liste des recherches faites
+
+5 - Faire l'ajout des utilisateurs
+       - Récupérer les utilisateurs
+       - Ajouter les nom correspondants (GetUserData)

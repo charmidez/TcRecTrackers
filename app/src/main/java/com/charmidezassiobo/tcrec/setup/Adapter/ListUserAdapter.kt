@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.dataclass.RecUser
+import com.charmidezassiobo.tcrec.setup.data.RecUser
 
 
 class ListUserAdapter (var context : Context, var items : MutableList<RecUser>) : RecyclerView.Adapter<ListUserAdapter.ListUserViewHolder>(){
@@ -32,7 +32,10 @@ class ListUserAdapter (var context : Context, var items : MutableList<RecUser>) 
     }
 
     override fun getItemCount() = items.size
-
+/*hrome/deb stable InRelease
+Atteint :7 https://repo.protonvpn.com/debihrome/deb stable InRelease
+Atteint :7 https://repo.protonvpn.com/debihrome/deb stable InRelease
+Atteint :7 https://repo.protonvpn.com/debi*/
     override fun onBindViewHolder(holder: ListUserViewHolder, position: Int) {
         val userPosition = items[position]
         when(userPosition.typeUser){

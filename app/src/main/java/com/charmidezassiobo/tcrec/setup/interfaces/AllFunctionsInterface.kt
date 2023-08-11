@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.RadioGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.data.Sea
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 interface AllFunctionsInterface {

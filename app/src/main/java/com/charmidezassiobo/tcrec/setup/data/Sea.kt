@@ -1,4 +1,4 @@
-package com.charmidezassiobo.tcrec.setup.dataclass
+package com.charmidezassiobo.tcrec.setup.data
 
 data class Sea(
     var numBooking: String = "",

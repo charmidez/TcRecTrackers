@@ -1,7 +1,7 @@
 package com.charmidezassiobo.tcrec.setup.functions
 
 class AllVariables {
-    open var DBPATH = "Voyagetest"
+    //open var DBPATH = "Voyagetest"
     open var SEA_COLLECTION = "SEA_COLLECTION"
     open var AIR_COLLECTION = "AIRCollection"
     open var ROAD_COLLECTION = "ROADCollection"

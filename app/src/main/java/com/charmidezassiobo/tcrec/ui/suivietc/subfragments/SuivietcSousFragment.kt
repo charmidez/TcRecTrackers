@@ -2,7 +2,6 @@ package com.charmidezassiobo.tcrec.ui.suivietc.subfragments
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +14,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.navigation.fragment.findNavController
 import com.baoyachi.stepview.HorizontalStepView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.setup.data.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.functions.BayoStepViewFunctionsSetup
-import com.charmidezassiobo.tcrec.setup.dataclass.Sea
+import com.charmidezassiobo.tcrec.setup.data.Sea
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.ShowStepDateBottomSheetFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.io.Serializable
-import java.lang.Exception
 
 class SuivietcSousFragment : Fragment() {
 

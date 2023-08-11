@@ -16,11 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.dataclass.HeureStep
+import com.charmidezassiobo.tcrec.setup.data.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
 import com.charmidezassiobo.tcrec.setup.db.GetSeaData
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
-import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 

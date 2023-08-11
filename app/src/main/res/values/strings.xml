@@ -82,7 +82,7 @@
 
     <!--user -->
     <string name="add_user">Ajouter un utilisateur</string>
-    <string name="user_name">Nom et Prénom</string>
+    <string name="user_name">Nom et prénom</string>
     <string name="user_password">Mot de passe</string>
     <string name="user_code">Code utilisateur</string>
 
