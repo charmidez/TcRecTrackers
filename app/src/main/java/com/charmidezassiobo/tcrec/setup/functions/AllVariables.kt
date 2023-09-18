@@ -1,5 +1,9 @@
 package com.charmidezassiobo.tcrec.setup.functions
 
+import android.view.View
+import com.charmidezassiobo.tcrec.R
+import com.itextpdf.text.factories.GreekAlphabetFactory.getString
+
 class AllVariables {
     //open var DBPATH = "Voyagetest"
     open var SEA_COLLECTION = "SEA_COLLECTION"
@@ -14,6 +18,8 @@ class AllVariables {
     open var SEA_EXPORT_ETAPE_3 = "Douane"
     open var SEA_EXPORT_ETAPE_4 = "Sortie"
     open var SEA_EXPORT_ETAPE_5 = "Arrivée"
+
+    open var SEA_EXPORT_ETAPE_RESULTAT_0 = getString(R.string.result_etape_1_export_sea)!!
 
     //SEA Import
     open var SEA_IMPORT_ETAPE_0 = "Arrivée Port"
@@ -43,5 +49,9 @@ class AllVariables {
     open var ROAD_TRACKING_ETAPE_3 = "Arrivée"
 
     open var CALL_REC_NUMBER = 92512666
+
+    fun getRessource(xml_int : Int){
+        var twt = ""
+    }
 
 }

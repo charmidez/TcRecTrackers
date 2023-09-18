@@ -136,5 +136,14 @@
     <string name="road_track">Road Tracking</string>
 
     <string name="adminstration">Je suis de l\'administration.</string>
+    
+    
+    <!-- les étapes des conteneurs SEA Export -->
+    <string name="result_etape_1_export_sea">Conteneur au port  : </string>
+    <string name="result_etape_2_export_sea">Conteneur à l\'usine  :  </string>
+    <string name="result_etape_3_export_sea">Conteneur à la douane  : </string>
+    <string name="result_etape_4_export_sea">Conteneur sortie de l\'entrepot  : </string>
+    <string name="result_etape_5_export_sea">Conteneur plein arrivé au port  : </string>
+    <string name="result_etape_6_export_sea">Transaction terminé  : </string>
 
 </resources>

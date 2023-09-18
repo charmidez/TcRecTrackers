@@ -64,9 +64,8 @@ class AddUserBottomSheetFragment  : BottomSheetDialogFragment() {
             pseudoUser = getPseudo(typeUserAdminOrModerate, nameUser)
 
             //mot de passe
-            passwordUser = "MotDePasse_rec"
+            passwordUser = getPassWord(nameUser)
 
-            
 
             Log.d("lnresult", "${typeUserAdminOrModerate.toString()} + $nameUser +  $pseudoUser + $passwordUser ")
         }
@@ -79,7 +78,7 @@ class AddUserBottomSheetFragment  : BottomSheetDialogFragment() {
     fun getPseudo(typeUser : Boolean, nameUser : String) : String{
         //utiliser un string builder
         var pseudo =""
-        var recupNameUser = " ${nameUser[0]}${nameUser[1]}${nameUser[2]}"
+        var recupNameUser = "${nameUser[0]}${nameUser[1]}${nameUser[2]}"
         when(typeUser){
             true -> {
                 pseudo = "rec_${recupNameUser}_admin"
@@ -89,6 +88,22 @@ class AddUserBottomSheetFragment  : BottomSheetDialogFragment() {
             }
         }
         return pseudo
+    }
+
+    fun getPassWord(nameUser: String) : String{
+
+        val randomNumber  = (0..100).random()
+        val randomLetter1 = mutableListOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','v','w','x','y','z','t','u').random()
+        val randomLetter2 = mutableListOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','v','w','x','y','z','t','u').random()
+        val randomLetter3 = mutableListOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','v','w','x','y','z','t','u').random()
+        val randomLetter4 = mutableListOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','v','w','x','y','z','t','u').random()
+        val randomLetter5 = mutableListOf('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','v','w','x','y','z','t','u').random()
+        var password : String
+
+        var recupNameUser = "${nameUser[0]}${nameUser[1]}${nameUser.lastIndex}"
+        password = recupNameUser + randomNumber + randomLetter1 + randomLetter2 + randomLetter3 + randomLetter4 + randomLetter5
+
+        return password
     }
 
 

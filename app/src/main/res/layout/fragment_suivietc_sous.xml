@@ -276,7 +276,7 @@
                     android:layout_gravity="center"
                     android:padding="@dimen/padd"
                     android:text="@string/num_plomb_vrai"
-                    android:background="@drawable/rounded_blue_corner_view_2"
+                    android:background="@drawable/rounded_blue_corner_view_gray"
                     android:textColor="@color/textColor"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -314,7 +314,7 @@
                     android:padding="@dimen/padd"
                     android:text="@string/num_plomb_vrai"
                     android:textColor="@color/textColor"
-                    android:background="@drawable/rounded_blue_corner_view_2"
+                    android:background="@drawable/rounded_blue_corner_view_gray"
                     android:textSize="14dp" />
             </LinearLayout>
 
