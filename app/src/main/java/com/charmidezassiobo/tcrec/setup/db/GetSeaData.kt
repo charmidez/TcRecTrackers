@@ -18,6 +18,7 @@ import com.charmidezassiobo.tcrec.setup.Adapter.TCBookingAdapter
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.functions.AllVariables
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import com.charmidezassiobo.tcrec.ui.donneestest.SeaDonneestest
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcBookingSousFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -28,6 +29,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Deferred
+
 
 class GetSeaData(
     var mContext: Context?,
@@ -336,11 +339,11 @@ class GetSeaData(
         }
     }
 
-    fun getItemList(): kotlinx.coroutines.Deferred<MutableList<Sea>> =
-        CoroutineScope(Dispatchers.IO).async {
-            val itemsListSea = mutableListOf<Sea>()
-            try {
-                val querySnapshot = dbSea.get().await()
+    fun getItemList(): kotlinx.coroutines.Deferred<MutableList<Sea>> = CoroutineScope(Dispatchers.IO).async {
+        var itemsListSea = mutableListOf<Sea>()
+
+        try {
+            val querySnapshot = dbSea.get().await()
                 for (document in querySnapshot.documents) {
                     if (document != null) {
                         val numTc1 = document.data?.get("num_tc_1").toString()
@@ -356,8 +359,7 @@ class GetSeaData(
                         val typeTransact = document.data?.get("type_transact").toString()
                         val descTc = document.data?.get("desc_tc").toString()
                         val typeSousTransact = document.data?.get("type_sous_transact").toString()
-                        val heureDeChaqueStepList =
-                            document.data?.get("date_hour_step") as? MutableList<HashMap<String, String>>
+                        val heureDeChaqueStepList = document.data?.get("date_hour_step") as? MutableList<HashMap<String, String>>
                         if (stepTc != null && heureDeChaqueStepList != null) {
                             val heureDeChaqueStep = heureDeChaqueStepList.map {
                                 HeureStep(
@@ -389,11 +391,17 @@ class GetSeaData(
                     }
                 }
             } catch (e: Exception) {
-                // Handle the exception here if necessary.
+                val okitemsListSea = mutableListOf(Sea(), Sea(), Sea(), Sea())
+                return@async okitemsListSea
             }
 
             return@async itemsListSea
         }
+
+
+
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun updateSeaStep(sea: Sea, etape: Int) {
