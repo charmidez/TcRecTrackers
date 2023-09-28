@@ -333,6 +333,7 @@ class GetSeaData(
                     else -> {
                         chargement.visibility = View.GONE
                         recyclerView!!.adapter = SEAadapter(mContext!!, itemsListSea, listener!!)
+                        //Test
                     }
                 }
             }
