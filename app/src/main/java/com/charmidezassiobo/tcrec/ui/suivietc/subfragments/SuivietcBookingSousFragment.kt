@@ -4,17 +4,25 @@ package com.charmidezassiobo.tcrec.ui.suivietc.subfragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.GetSeaData
 import com.charmidezassiobo.tcrec.setup.data.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcBookingSousBinding
+import com.charmidezassiobo.tcrec.setup.Adapter.TCBookingAdapter
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
 
@@ -24,10 +32,11 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
     //Variable Publique
     //Others class
     val allFun : AllFunctions = AllFunctions()
-    //var getData : GetDataFromDB = GetDataFromDB()
+    var sea = Sea()
+    var getData : GetSeaData = GetSeaData(sea)
 
-    //var itemsTc : MutableList<Sea>  = getData.getSEAdataFromdb()
-    //var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.getSeaBookingWithTitledataFromdb())
+    var itemsTc : MutableList<Sea>  = getData.retrieveSea()
+    var itemBookingList : ArrayList<String> = allFun.removeRedundance(getData.retrieveSeaBookingList())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -41,14 +50,21 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
         var spinnerView = binding.spinner
         var chargement = binding.textViewChargingBooking
 
-        var sea = Sea()
+        CoroutineScope(Dispatchers.IO).launch{
+            var dataSea = GetSeaData(sea )
+            dataSea.retrieveSeaBookingList()
 
-        var dataSea = GetSeaData(mContext, this@SuivietcBookingSousFragment, sea,   recyclerViewBooking )
-        dataSea.retrieveSeaBookingList(this@SuivietcBookingSousFragment, chargement, spinnerView)
-/*
+        }
+
+        val adapter = ArrayAdapter(mContext, android.R.layout.simple_spinner_dropdown_item, itemBookingList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerView.adapter = adapter
+
+
         spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
             var selectedItem : String? = null
             var filteredTcList = mutableListOf<Sea>()
+
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedItem = itemBookingList[position]
                 if (selectedItem == "Tous les bookings"){
@@ -60,42 +76,11 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
 
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                txtView_charging.visibility = View.VISIBLE
+                chargement.visibility = View.VISIBLE
                 recyclerViewBooking.visibility = View.INVISIBLE
             }
         })
-*/
 
-        //récupérer les données et bosser
-
-/*        getData.seaCallBack {
-            txtView_charging.isVisible  = false
-            recyclerViewBooking.visibility = View.VISIBLE
-
-*//*            itemBookingList = allFun.removeRedundance(itemBookingList)
-            var arrayAdapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1,  itemBookingList)
-            spinnerView.adapter = arrayAdapter*//*
-
-            spinnerView.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                var selectedItem : String? = null
-                var filteredTcList = mutableListOf<Sea>()
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    selectedItem = itemBookingList[position]
-                    if (selectedItem == "Tous les bookings"){
-                        recyclerViewBooking.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, itemsTc)
-                    } else {
-                        filteredTcList = allFun.filterResultSea(selectedItem, itemsTc)
-                        recyclerViewBooking.adapter = TCBookingAdapter( this@SuivietcBookingSousFragment, filteredTcList)
-                    }
-
-                }
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    txtView_charging.visibility = View.VISIBLE
-                    recyclerViewBooking.visibility = View.INVISIBLE
-                }
-            })
-
-        }*/
 
         binding.btnBackToPreviousFragment.setOnClickListener {
             navController.popBackStack(R.id.navigation_suivietc, false)
@@ -109,7 +94,7 @@ class SuivietcBookingSousFragment : Fragment(), RecyclerViewClickItemInterface {
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
+        Log.d("FATIMA","${itemBookingList.get(position)}")
     }
 
     override fun onLongClickListener(position: Int) {

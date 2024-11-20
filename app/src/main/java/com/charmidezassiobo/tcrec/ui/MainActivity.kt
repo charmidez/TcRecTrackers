@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("Call Phone","Phone Call Ok")
         }
 
+
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navController.addOnDestinationChangedListener{_,destination,_->
@@ -60,6 +61,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navView.setupWithNavController(navController)
+
+
 
         val  keyboardVisibilityEventListener = object : KeyboardVisibilityEventListener {
             override fun onVisibilityChanged(isOpen: Boolean) {

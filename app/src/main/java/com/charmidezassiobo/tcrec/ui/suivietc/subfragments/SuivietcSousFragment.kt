@@ -19,7 +19,7 @@ import com.charmidezassiobo.tcrec.databinding.FragmentSuivietcSousBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.functions.BayoStepViewFunctionsSetup
 import com.charmidezassiobo.tcrec.setup.data.Sea
-import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.GetSeaData
 import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.ShowStepDateBottomSheetFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -125,7 +125,7 @@ class SuivietcSousFragment : Fragment() {
             stepDateHeureReal!!
         )
 
-        getSeaData = GetSeaData(mContext,null, sea, null)
+        getSeaData = GetSeaData(sea)
 
             when (typetransact) {
                 "AIR" -> {

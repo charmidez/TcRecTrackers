@@ -1,6 +1,5 @@
 package com.charmidezassiobo.tcrec.ui.suivietc.tabfragment
 
-import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -13,10 +12,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.OnBackPressedDispatcherOwner
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.charmidezassiobo.tcrec.R
-import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.GetSeaData
 import com.charmidezassiobo.tcrec.setup.data.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentTabSeaTrackingBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
@@ -25,9 +27,9 @@ import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterfac
 import com.charmidezassiobo.tcrec.ui.suivietc.bottomfragments.AddPlombBottomSheetFragment
 import com.charmidezassiobo.tcrec.ui.suivietc.subfragments.SuivietcSousFragment
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.Serializable
 
 class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
@@ -77,63 +79,85 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         var sea  = Sea()
         //RecyclerView.ViewHolder
 
-        var dataSea = GetSeaData(mContext, this@TabSeaTrackingFragment,  sea, recyclerViewTc)
-        var itemsTc = dataSea.getItemList()
+            var getSeaDataSea = GetSeaData(sea)
+            val itemsTc = getSeaDataSea.retrieveSea()
 
-        refresh.isRefreshing = false
+        // Si tu as besoin de mettre à jour l'UI après cela, tu dois revenir sur le thread principal.
+        recyclerViewTc.post {
+            // Mise à jour du RecyclerView ou d'autres éléments UI ici.
+            // Par exemple : adapter.notifyDataSetChanged()
+            recyclerViewTc.setHasFixedSize(true)
+            val recup = getSeaDataSea.getItemList()
 
-        //Reglage RecyclerView
-        recyclerViewTc.setHasFixedSize(true)
-        dataSea.retrieveSea(chargement)
-
-
-        //Refreshing page
-        refresh.setOnRefreshListener {
-            when(true){
-                isConnected -> {
-                    refresh.isRefreshing = false
-                    dataSea.retrieveSea(chargement)
-                    allFun.snackBarShowSucces(mContext, root, "Page mis à jour avec succès")
-                }
-                else -> {
-                    refresh.isRefreshing = false
-                    allFun.snackBarShowWarning(mContext, root, "Veuillez vous connecter à internet")
+            CoroutineScope(Dispatchers.Main).launch {
+                if (recup.await().size > 0 ){
+                    recyclerViewTc!!.adapter = SEAadapter(mContext!!, recup.await(), this@TabSeaTrackingFragment).apply {
+                        chargement.isVisible = false
+                    }
+                } else {
+                    chargement.isVisible = true
                 }
             }
         }
 
-        //Search in item
-        searchViewTc.onFocusChangeListener.apply {
-            searchViewTc.setOnQueryTextListener(object  : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-                override fun onQueryTextChange(query: String): Boolean {
-                    CoroutineScope(Dispatchers.Main).launch{
-                        allFun.filterListWithRecyclerSea(mContext, this@TabSeaTrackingFragment, query,itemsTc.await() ,recyclerViewTc)
+
+            //Refreshing page
+            refresh.setOnRefreshListener {
+                when(true){
+                    isConnected -> {
+                        refresh.isRefreshing = false
+                        getSeaDataSea.retrieveSea()
+                        allFun.snackBarShowSucces(mContext, root, "Page mis à jour avec succès")
                     }
-                    return false
+                    else -> {
+                        refresh.isRefreshing = false
+                        allFun.snackBarShowWarning(mContext, root, "Veuillez vous connecter à internet")
+                    }
                 }
-            })
-        }
+            }
 
-        //remove item
-        btnTrashTc.setOnClickListener {
-            //showRemoveConfirmation(itemsTc,root,recyclerViewTc, seaViewHolder)
 
-        }
+            //Search in item
+            searchViewTc.onFocusChangeListener.apply {
+                searchViewTc.setOnQueryTextListener(object  : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return false
+                    }
+                    override fun onQueryTextChange(query: String): Boolean {
+
+                            allFun.filterListWithRecyclerSea(mContext, this@TabSeaTrackingFragment, query,itemsTc ,recyclerViewTc)
+
+                        return false
+                    }
+                })
+            }
+
+
+           //remove item
+           btnTrashTc.setOnClickListener {
+               CoroutineScope(Dispatchers.IO).launch {
+                   for (i in 0 .. itemsTc.size){
+                       seaAdapter.setItemBackground(i, recyclerViewTc , cardNotSelected )
+                   }
+               }
+               showRemoveConfirmation(itemsTc,getSeaDataSea)
+               binding.cardViewSearchlistetc.visibility = View.VISIBLE
+               searchViewTc.visibility = View.VISIBLE
+           }
 
         btnDeselectedAll.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch{
-                for (i in 0 .. itemsTc.await().size){
+            CoroutineScope(Dispatchers.IO).launch {
+                for (i in 0 .. itemsTc.size){
                     seaAdapter.setItemBackground(i, recyclerViewTc , cardNotSelected )
                 }
-                isClickLong = false
-                isClick = false
-                lnRemoveBtn.visibility = View.GONE
-                searchViewTc.visibility = View.VISIBLE
             }
-        }
+               isClickLong = false
+               isClick = false
+               lnRemoveBtn.visibility = View.GONE
+            binding.cardViewSearchlistetc.visibility = View.VISIBLE
+            searchViewTc.visibility = View.VISIBLE
+
+           }
 
         return root
     }
@@ -143,10 +167,10 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     }
 
     override fun onItemClick(position: Int) {
-        var dataSea = GetSeaData(null, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
+        var dataSea = GetSeaData(sea)
         var itemsTc = dataSea.getItemList()
 
-        CoroutineScope(Dispatchers.Main).launch{
+        CoroutineScope(Dispatchers.IO).launch{
             var itemsTc = itemsTc.await()
             seaAdapter = SEAadapter(requireContext(), itemsTc, this@TabSeaTrackingFragment )
 
@@ -215,10 +239,12 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
 
                             sousfragmentSuivieTc.arguments = bundle
 
-                            var navController = findNavController()
-                            navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
-                            //navController.navigate(R.id.action_tabExportTrackingFragment_to_suivietcSousFragment)
-                            Log.d("ItemAppuyer", "$position")
+                            withContext(Dispatchers.Main){
+                                var navController = findNavController()
+                                navController.navigate(R.id.action_navigation_suivietc_to_suivietcSousFragment, bundle)
+                                //navController.navigate(R.id.action_tabExportTrackingFragment_to_suivietcSousFragment)
+                                Log.d("ItemAppuyer", "$position")
+                            }
                         }
                     }
                 }
@@ -227,7 +253,7 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
     }
 
     override fun onLongClickListener(position: Int) {
-        var dataSea = GetSeaData(null, this@TabSeaTrackingFragment,  sea,recyclerViewTc)
+        var dataSea = GetSeaData(sea)
         var itemsTc = dataSea.getItemList()
         CoroutineScope(Dispatchers.Main).launch{
             val itemsTc = itemsTc.await()
@@ -254,19 +280,30 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         }
     }
 
-    private fun deleteSelectedItems(itemList : MutableList<Sea>) {
+
+
+    private fun deleteSelectedItems(itemList : MutableList<Sea>, getSeaData: GetSeaData) {
         // Supprimer les éléments sélectionnés de votre liste de données
         // Par exemple, si votre liste de données est une MutableList<Tc> nommée itemList :
-        itemList.removeAll(selectedItems)
-        selectedItems.clear()
+        //itemList.removeAll(selectedItems)
+        //selectedItems.clear()
+        CoroutineScope(Dispatchers.Main).launch {
+            val selectedPositions = selectedItems.map { itemList.indexOf(it) }
+            selectedPositions.sortedDescending().forEach { position ->
+                itemList.removeAt(position)
+                getSeaData.removeSea(recyclerViewTc, position)
+            }
+            selectedItems.clear()
+            seaAdapter.notifyDataSetChanged()
+            binding.lnRemoveBtn.visibility = View.GONE
+            binding.searchViewTc.visibility = View.VISIBLE
+        }
     }
 
+    fun showRemoveConfirmation(item: MutableList<Sea>, getSeaData: GetSeaData){
 
-    fun showRemoveConfirmation(itemsTc : Deferred<MutableList<Sea>>, root : View, recyclerView: RecyclerView, v: RecyclerView.ViewHolder){
-
-        val mContext = binding.root.context
+        //val itemsTc = item
         val builder = AlertDialog.Builder(requireContext())
-        val getSeaData = GetSeaData(mContext, this@TabSeaTrackingFragment, null, recyclerView)
 
         val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog, null)
         builder.setView(dialogView)
@@ -278,9 +315,10 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
         messageDialog.text = "Voulez-vous supprimer ces élements ?"
         val alertDialog  = builder.create()
         btnOui.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                deleteSelectedItems(itemsTc.await())
-                getSeaData.removeSea(mContext, root, recyclerView, v)
+            CoroutineScope(Dispatchers.IO).launch {
+                deleteSelectedItems(item, getSeaData)
+                //getSeaData.removeSea(getSeaData,)
+                alertDialog.dismiss()
             }
         }
         btnNon.setOnClickListener {
@@ -290,6 +328,8 @@ class TabSeaTrackingFragment : Fragment(), OnBackPressedDispatcherOwner,
 
         alertDialog.show()
     }
+
+
 
 
 }

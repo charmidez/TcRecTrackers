@@ -11,7 +11,7 @@ import com.baoyachi.stepview.HorizontalStepView
 import com.baoyachi.stepview.bean.StepBean
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.data.Sea
-import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.GetSeaData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -20,6 +20,7 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
 
     private val allFun = AllFunctions()
     private val allVal = AllVariables()
+    var sea = Sea()
 
     //private val dataBasePath = allVal.DBPATH
     private val seaCollectionPath = allVal.SEA_COLLECTION
@@ -48,10 +49,11 @@ class BayoStepViewFunctionsSetup(var bayoStepView: HorizontalStepView) {
     private val db = Firebase.firestore
     //private val voyTc = db.collection(seaCollectionPath)
 
+
     private val dbSea = db.collection(seaCollectionPath)
     private val dbAir = db.collection(airCollectionPath)
     private val dbRoad = db.collection(roadTrackingCollectionPath)
-    private var getSeaDB = GetSeaData(null, null, null, null)
+    private var getSeaDB = GetSeaData(sea)
 
     var stepsBeanList: MutableList<StepBean> = ArrayList()
     // Variable stepBean

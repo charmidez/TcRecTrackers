@@ -68,7 +68,7 @@
                 android:layout_height="128dp"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="@dimen/all_margin"
-                android:src="@drawable/cargaison"/>
+                android:src="@drawable/cargaisonnewwww"/>
 
             <!-- connexion -->
             <LinearLayout

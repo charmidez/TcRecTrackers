@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.ui.BaseActivity
 import com.charmidezassiobo.tcrec.ui.reglages.bottomfragments.AddUserBottomSheetFragment
 import com.charmidezassiobo.tcrec.ui.reglages.bottomfragments.ChangeLangageBottomSheetFragment
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ReglagesFragment : Fragment() {
@@ -38,6 +40,20 @@ class ReglagesFragment : Fragment() {
         var btnAddUser = binding.btnAddUserReglage
         var btnListUser = binding.btnListUser
         var imgView = binding.imgViewChoiceLanguageFlags
+
+
+        retrieveSingleStringFromREC(
+            documentId = "CNNzyzjHspk1RLFopI9B",
+            fieldName = "textelire",
+            onSuccess = { fieldValue ->
+                println("Field value: $fieldValue")
+                Log.d("ONSUCCES","$fieldValue")
+            },
+            onFailure = { exception ->
+                println("Error: ${exception.message}")
+            }
+        )
+
 
         btnAddUser.setOnClickListener {
             val addUserBottomSheetFragment = AddUserBottomSheetFragment()
@@ -104,4 +120,30 @@ class ReglagesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+    fun retrieveSingleStringFromREC(documentId: String, fieldName: String, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("REC").document(documentId)
+
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val fieldValue = document.getString(fieldName)
+                    if (fieldValue != null) {
+                        onSuccess(fieldValue)
+                    } else {
+                        onFailure(Exception("Field $fieldName does not exist in document $documentId"))
+                    }
+                } else {
+                    onFailure(Exception("Document $documentId does not exist in REC collection"))
+                }
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+
+
+
 }

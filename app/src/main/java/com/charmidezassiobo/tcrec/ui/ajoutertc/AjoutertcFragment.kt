@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +19,17 @@ import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.setup.data.HeureStep
 import com.charmidezassiobo.tcrec.databinding.FragmentAjoutertcBinding
-import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.AddSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.GetSeaData
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.coroutineContext
+import kotlin.coroutines.suspendCoroutine
 
 class AjoutertcFragment : Fragment() {
 
@@ -203,49 +211,53 @@ class AjoutertcFragment : Fragment() {
 
         // Enréistrement dans la base de donnée
         butAjouter.setOnClickListener {
-            buttonModifier(butAjouter, false)
-            if (isConnected) {
-                when(typeTransact){
-                    "SEA" -> {
-                        when(typeSousTransact){
-                            "EXPORT (SEA)" -> {
-                                addSeaExport(mContext, root, typeTransact, typeSousTransact, numBookingTc, numCamion, numTc1, numTc2, numChauffeur, descTc)
-                                buttonModifier(butAjouter, true)
-                            }
+                buttonModifier(butAjouter, false)
+                if (isConnected) {
+                    when(typeTransact){
+                        "SEA" -> {
+                            when(typeSousTransact){
+                                "EXPORT (SEA)" -> {
+                                    Log.d("APPUIE","APPUYER")
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        addSeaExport(mContext, root, typeTransact, typeSousTransact, numBookingTc, numCamion, numTc1, numTc2, numChauffeur, descTc)
+                                    }
+                                    buttonModifier(butAjouter, true)
+                                }
 
-                            "IMPORT (SEA)" -> {
-                                addSeaImport()
-                                buttonModifier(butAjouter, true)
+                                "IMPORT (SEA)" -> {
+                                    addSeaImport()
+                                    buttonModifier(butAjouter, true)
+                                }
                             }
                         }
-                    }
-                    "AIR" -> {
-                        when(typeSousTransact){
-                            "EXPORT (AIR)" -> {
-                                addAirExport()
-                                buttonModifier(butAjouter, true)
-                            }
-                            "IMPORT (AIR)" -> {
-                                addAirImport()
-                                buttonModifier(butAjouter, true)
+                        "AIR" -> {
+                            when(typeSousTransact){
+                                "EXPORT (AIR)" -> {
+                                    addAirExport()
+                                    buttonModifier(butAjouter, true)
+                                }
+                                "IMPORT (AIR)" -> {
+                                    addAirImport()
+                                    buttonModifier(butAjouter, true)
+                                }
                             }
                         }
+                        "ROAD" -> {
+                            //typeTransact="Road Tracking  Only"
+                            typeSousTransact = "Road Tracking"
+                            addRoadTracking()
+                            buttonModifier(butAjouter, true)
+                        }
                     }
-                    "ROAD" -> {
-                        //typeTransact="Road Tracking  Only"
-                        typeSousTransact = "Road Tracking"
-                        addRoadTracking()
-                        buttonModifier(butAjouter, true)
-                    }
+
+                } else {
+                    // Pas de connexion Internet
+                    val snack = Snackbar.make(binding.frameLayoutAjoutTc, "Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
+                    snack.setBackgroundTint(ContextCompat.getColor(root.context, R.color.gray2))
+                    snack.show()
+                    buttonModifier(butAjouter, true)
                 }
 
-            } else {
-                // Pas de connexion Internet
-                val snack = Snackbar.make(binding.frameLayoutAjoutTc, "Veuillez vous connecter à internet", Snackbar.LENGTH_LONG)
-                snack.setBackgroundTint(ContextCompat.getColor(root.context, R.color.gray2))
-                snack.show()
-                buttonModifier(butAjouter, true)
-            }
         }
 
         butUpdateStep.setOnClickListener {
@@ -255,7 +267,7 @@ class AjoutertcFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun addSeaExport(
+    private suspend fun addSeaExport(
         mContext: Context,
         rootView : View,
         typeTransact : String,
@@ -267,7 +279,7 @@ class AjoutertcFragment : Fragment() {
         numChauffeur : TextInputEditText,
         descTc : TextInputEditText){
 
-        var dbSea = GetSeaData(mContext, null, null, null).dbSea
+        var dbSea = AddSeaData().dbSea
         var step = 0
         var getDate = allFun.miseEnPlaceDate(true)
         var numPlomb1 = ""
@@ -279,59 +291,68 @@ class AjoutertcFragment : Fragment() {
             HeureStep(dateRealChiffre, dateRealDate, heureRealStartTc)
         )
 
-        //removing all space
-        val numBookingRmvSpx = AllFunctions().removeSpaces(numBooking.text.toString())
-        val numTc1RmvSpx = AllFunctions().removeSpaces(numTc1.text.toString())
-        val numTc2RmvSpx = AllFunctions().removeSpaces(numTc2.text.toString())
-        val numCamionRmvSpx = AllFunctions().removeSpaces(numCamion.text.toString())
-        val numPhoneChauffeurRmvSpx = AllFunctions().removeSpaces(numChauffeur.text.toString())
-        val descContenuRmvSpx = AllFunctions().removeSpaces(descTc.text.toString())
+        withContext(Dispatchers.Main){
 
-        when(true){
-            numBookingRmvSpx.isNullOrBlank() -> {
-                allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir le numéro booking")
-            }
-            numCamionRmvSpx.isNullOrBlank() -> {
-                allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir la plaque d'immatriculation du camion")
-            }
-            numTc1RmvSpx.isNullOrBlank() && numTc2RmvSpx.isNullOrBlank()  -> {
-                allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir au moins un numéro conteneur")
-            }
-            else -> {
+            //removing all space
+            val numBookingRmvSpx = AllFunctions().removeSpaces(numBooking.text.toString())
+            val numTc1RmvSpx = AllFunctions().removeSpaces(numTc1.text.toString())
+            val numTc2RmvSpx = AllFunctions().removeSpaces(numTc2.text.toString())
+            val numCamionRmvSpx = AllFunctions().removeSpaces(numCamion.text.toString())
+            val numPhoneChauffeurRmvSpx = AllFunctions().removeSpaces(numChauffeur.text.toString())
+            val descContenuRmvSpx = AllFunctions().removeSpaces(descTc.text.toString())
 
-                val registerSeaExport = hashMapOf(
-                    "date_ajout_tc" to getDate,
-                    "type_transact" to typeTransact,
-                    "type_sous_transact" to typeSousTransact,
-                    "num_booking" to numBookingRmvSpx,
-                    "num_camion" to numCamionRmvSpx,
-                    "num_tc_1" to numTc1RmvSpx,
-                    "num_tc_2" to numTc2RmvSpx,
-                    "num_plomb_tc_1" to numPlomb1,
-                    "num_plomb_tc_2" to numPlomb2,
-                    "step_tc" to step,
-                    "desc_tc" to descContenuRmvSpx,
-                    "num_phone_chauffeur" to numPhoneChauffeurRmvSpx,
-                    "date_hour_step" to lesStepHour
-                )
+            when(true){
+                numBookingRmvSpx.isNullOrBlank() -> {
+                    allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir le numéro booking")
+                }
+                numCamionRmvSpx.isNullOrBlank() -> {
+                    allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir la plaque d'immatriculation du camion")
+                }
+                numTc1RmvSpx.isNullOrBlank() && numTc2RmvSpx.isNullOrBlank()  -> {
+                    allFun.snackBarShowWarning(mContext, rootView, "Veilez saisir au moins un numéro conteneur")
+                }
+                else -> {
 
-                //Enregistrement de données dans la base  de données
-                dbSea.document().set(registerSeaExport)
-                    .addOnSuccessListener {
-                        numBooking.text?.clear()
-                        numTc1.text?.clear()
-                        numTc2.text?.clear()
-                        numCamion.text?.clear()
-                        descTc.text?.clear()
-                        numChauffeur.text?.clear()
-                        allFun.snackBarShowSucces(mContext, rootView, "La transaction a bien été ajouté ce $getDate")
+                    withContext(Dispatchers.IO){
+                        val registerSeaExport = hashMapOf(
+                            "date_ajout_tc" to getDate,
+                            "type_transact" to typeTransact,
+                            "type_sous_transact" to typeSousTransact,
+                            "num_booking" to numBookingRmvSpx,
+                            "num_camion" to numCamionRmvSpx,
+                            "num_tc_1" to numTc1RmvSpx,
+                            "num_tc_2" to numTc2RmvSpx,
+                            "num_plomb_tc_1" to numPlomb1,
+                            "num_plomb_tc_2" to numPlomb2,
+                            "step_tc" to step,
+                            "desc_tc" to descContenuRmvSpx,
+                            "num_phone_chauffeur" to numPhoneChauffeurRmvSpx,
+                            "date_hour_step" to lesStepHour
+                        )
+                        try {
+                            //Enregistrement de données dans la base  de données
+                            dbSea.document().set(registerSeaExport)
+                                .addOnSuccessListener {
+                                    numBooking.text?.clear()
+                                    numTc1.text?.clear()
+                                    numTc2.text?.clear()
+                                    numCamion.text?.clear()
+                                    descTc.text?.clear()
+                                    numChauffeur.text?.clear()
+                                    allFun.snackBarShowSucces(mContext, rootView, "La transaction a bien été ajouté ce $getDate")
+                                }
+                                .addOnFailureListener {
+                                    allFun.snackBarShowSucces(mContext, rootView, "La transaction n'a pu être enrégistrée")
+                                }
+                        } catch (e : Exception) {
+                            Log.e("FirebaseUploadError", "Erreur lors de l'upload : ${e.message}")
+                        }
                     }
-                    .addOnFailureListener {
-                        allFun.snackBarShowSucces(mContext, rootView, "La transaction n'a pu être enrégistrée")
-                    }
+                }
             }
+
+
         }
-
 
     }
 

@@ -23,13 +23,14 @@ import com.charmidezassiobo.tcrec.setup.data.Sea
 import com.charmidezassiobo.tcrec.databinding.FragmentClientHomeBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllFunctions
 import com.charmidezassiobo.tcrec.setup.Adapter.SearchAdapter
-import com.charmidezassiobo.tcrec.setup.db.GetSeaData
+import com.charmidezassiobo.tcrec.setup.db.seadata.GetSeaData
 import com.charmidezassiobo.tcrec.setup.interfaces.RecyclerViewClickItemInterface
 import com.charmidezassiobo.tcrec.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.Serializable
+import kotlin.concurrent.thread
 
 class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
     RecyclerViewClickItemInterface {
@@ -59,6 +60,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         _binding = FragmentClientHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val mContext = binding.root.context
+        //Thread.sleep(1000)
 
         //var resultFunSearch : MutableList<Tc>
         var recyclerSearcWord: RecyclerView
@@ -72,7 +74,7 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         theAllFunctions = AllFunctions()
         //getData = GetDataFromDB()
         sea = Sea()
-        getSea = GetSeaData(mContext, this@ClientHomeFragment, sea, null)
+        //getSea = GetSeaData(mContext, this@ClientHomeFragment, sea, null)
 
         getSearchingWord = SearchWordDatabaseHelper(mContext)
 
@@ -88,9 +90,11 @@ class ClientHomeFragment : Fragment(), OnBackPressedDispatcherOwner,
         recyclerSearcWord = binding.recyclerViewSearchItem
 
         //getData.seaCallBack { itemsListSea = getData.getSEAdataFromdb() }
-        CoroutineScope(Dispatchers.Main).launch{
-            itemsListSea = getSea.getItemList().await()
-
+        thread {
+            getSea = GetSeaData(sea)
+            CoroutineScope(Dispatchers.Main).launch{
+                itemsListSea = getSea.getItemList().await()
+            }
         }
 
         //button de recherche

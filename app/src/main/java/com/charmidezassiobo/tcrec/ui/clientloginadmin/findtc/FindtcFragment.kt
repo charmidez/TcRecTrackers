@@ -16,11 +16,16 @@ import androidx.navigation.fragment.findNavController
 import com.charmidezassiobo.tcrec.R
 import com.charmidezassiobo.tcrec.databinding.FragmentFindtcBinding
 import com.charmidezassiobo.tcrec.setup.functions.AllVariables
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
 
     private var _binding : FragmentFindtcBinding? = null
     private val binding get() = _binding!!
+
+    val allVar = AllVariables()
 
     private fun clearRadioBtn(v : RadioGroup){
         if(v.checkedRadioButtonId != -1){
@@ -38,6 +43,7 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         ln2?.visibility = View.GONE
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +53,8 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         val root : View = binding.root
         val mContext = binding.root.context
         val navController = findNavController()
-        val allVar = AllVariables()
+
+
 
         /*Début des déclarations des variables*/
         var btnInitialise = binding.imgViewBtnReset
@@ -58,6 +65,7 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         var searchBarTc = binding.editTextSearchBar
         var btnBack = binding.btnBackToPreviousFragment
         var btnCallRec = binding.btnCallRec
+
 
 
         //Appui du premier radiogroup exp imp road btn
@@ -127,11 +135,13 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
         }
 
         btnCallRec.setOnClickListener {
-            val phoneNumber = allVar.CALL_REC_NUMBER
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.data = Uri.parse("tel:$phoneNumber")
-            mContext.startActivity(intent)
+                    val phoneNumber = allVar.CALL_REC_NUMBER
+                    val intent = Intent(Intent.ACTION_CALL)
+                    intent.data = Uri.parse("tel:$phoneNumber")
+                    mContext.startActivity(intent)
         }
+
+
 
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
@@ -140,6 +150,7 @@ class FindtcFragment : Fragment() , OnBackPressedDispatcherOwner {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
         return root
     }
