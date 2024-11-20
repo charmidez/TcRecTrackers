@@ -19,3 +19,37 @@ Les choses restantes à faire
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--activity
+            android:name=".ui.LoginActivity"
+            android:exported="true"
+            android:label="Connect"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" /-->
+
+
+
+
+
+
+                    <!--activity
+                        android:name=".ui.clientloginadmin.ClientActivity"
+                        android:exported="false" /-->
+
+
